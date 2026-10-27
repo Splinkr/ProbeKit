@@ -1,0 +1,47 @@
+{
+  "reproduce_command": ".\\.venv\\Scripts\\python.exe -m pytest --cache-clear -q --junitxml=reports/xss-tests.xml",
+  "python": "3.13.9",
+  "pytest": "8.4.2",
+  "platform": "Windows 11",
+  "counts": {
+    "tests": 286,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "junit_duration_seconds": 56.004,
+  "pytest_reported_duration_seconds": 56.09,
+  "suite_timestamps": [
+    "2026-10-27T16:12:43.655061-03:00"
+  ],
+  "tests_by_module": {
+    "tests.test_cli_process_contract": 16,
+    "tests.test_discovery_cli": 13,
+    "tests.test_discovery_contract": 28,
+    "tests.test_evidence_contract": 8,
+    "tests.test_general_sqli": 32,
+    "tests.test_scan_pipeline": 42,
+    "tests.test_scope_contract": 40,
+    "tests.test_sqli_decision_contract": 21,
+    "tests.test_sqlite_evaluation_contract": 16,
+    "tests.test_transport_contract": 22,
+    "tests.test_xss_contract": 48
+  },
+  "junit_file": "tests.xml",
+  "junit_sha256": "dfda938281b6ab0e0a7b61f78d24b65ab34921e13374414471f210ea96ab5431",
+  "test_source_sha256": {
+    "tests/conftest.py": "e42d46603173df19262cba69016c9b4e41a4afb11be4bea8d20831da1faa3977",
+    "tests/test_cli_process_contract.py": "88b753b988b08398472863b6bfcf4835342695bdf317b711562babeed9dacaf7",
+    "tests/test_discovery_cli.py": "8462b818b4b5f0ca1c4aa56db612f4821c9d9dac8f62750d00bfdb1dc2c1c824",
+    "tests/test_discovery_contract.py": "d071bdfdc7073b45b5b4a7d1f1ca592442bce95734e70c31cc0daf93d8c3227f",
+    "tests/test_evidence_contract.py": "8666728ee391cdca6cee10249fddea2656a6bc58098aadf72b4e1917bced58fd",
+    "tests/test_general_sqli.py": "febbb53311fc950f98c3b552d616be2ea80af0cc890c56a8b00b7b28b0866990",
+    "tests/test_scan_pipeline.py": "cf51fb911c46a08b9c79ba50462782bdcd0e65bf52c93ebd2abd893731ba4229",
+    "tests/test_scope_contract.py": "d37f75f864236c915dce61b5128e0e6b9e427b4e5bcd52a411aac89473f047b1",
+    "tests/test_sqli_decision_contract.py": "6d8769f93012f2fd00c771c59c2db202bad0a67a2f28775bc09ea20d8a19aaa2",
+    "tests/test_sqlite_evaluation_contract.py": "df88e44abcf37831b7c6db307c2dc6080e243e79ac55f380d93c054277755ae3",
+    "tests/test_transport_contract.py": "d0fc53d975ed387e2d8d08213be7f4697a8ae12c6cc2a45cab368de5b7025cc8",
+    "tests/test_xss_contract.py": "5508e4ae3befa7307283b49e3bebf5e945c69890394b4eda5630ff79792bb74d"
+  },
+  "pip_check": "No broken requirements found."
+}

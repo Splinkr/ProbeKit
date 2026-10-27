@@ -1,0 +1,388 @@
+{
+  "schema_version": "1.3",
+  "mode": "xss",
+  "target": "http://127.0.0.1:8004/xss/html/escaped?q=demo",
+  "target_source": "manual",
+  "started_at": "2026-10-27T19:06:48.457447+00:00",
+  "finished_at": "2026-10-27T19:06:50.263310+00:00",
+  "settings": {
+    "samples": 2,
+    "max_requests": 10,
+    "parameters": [
+      "q"
+    ],
+    "timeout_seconds": 5.0,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "planned_requests": 10,
+    "scope": "loopback_only",
+    "browser_requested": true,
+    "follow_redirects": false
+  },
+  "summary": {
+    "reachable": true,
+    "status": "completed",
+    "requests_attempted": 10,
+    "responses_received": 10,
+    "errors": 0,
+    "findings": 0
+  },
+  "responses": [
+    {
+      "request_id": 1,
+      "url": "http://127.0.0.1:8004/xss/html/escaped?q=demo",
+      "collected_at": "2026-10-27T19:06:48.457739+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 97,
+      "body_sha256": "bd873b853761fa7bc266619eaac498ef6e651f1b33b3df2e2f777f1714e3ad13",
+      "elapsed_ms": 3.783,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 2,
+      "url": "http://127.0.0.1:8004/xss/html/escaped?q=demo",
+      "collected_at": "2026-10-27T19:06:48.657926+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 97,
+      "body_sha256": "bd873b853761fa7bc266619eaac498ef6e651f1b33b3df2e2f777f1714e3ad13",
+      "elapsed_ms": 20.617,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 3,
+      "url": "http://127.0.0.1:8004/xss/html/escaped?q=WVX314b478ed4906cc85bc609a9A",
+      "collected_at": "2026-10-27T19:06:48.858356+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 121,
+      "body_sha256": "241b1d0b275e6b6738455e5a8306371afbcfae8904d03bbcc44fa0d5a7a3954c",
+      "elapsed_ms": 25.18,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 4,
+      "url": "http://127.0.0.1:8004/xss/html/escaped?q=WVX314b478ed4906cc85bc609a9B",
+      "collected_at": "2026-10-27T19:06:49.058588+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 121,
+      "body_sha256": "e10f975e116f2107eb5899e60ba70610466d77919be0d9a04e497ddbcce4ff07",
+      "elapsed_ms": 2.998,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 5,
+      "url": "http://127.0.0.1:8004/xss/html/escaped?q=WVX314b478ed4906cc85bc609a9E%3C%3E%26%22%27WVX314b478ed4906cc85bc609a9EEND",
+      "collected_at": "2026-10-27T19:06:49.259012+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 177,
+      "body_sha256": "be5326885c15721574a6fd5533dc01b6644a16ca10af01c53ed564ff57c970a8",
+      "elapsed_ms": 12.945,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 6,
+      "url": "http://127.0.0.1:8004/xss/html/escaped?q=WVX314b478ed4906cc85bc609a9H%3C%2Fscript%3E%3Cscript%3EglobalThis.wvxss_314b478ed4906cc85bc609a9%28%22WVX314b478ed4906cc85bc609a9H%22%29%3C%2Fscript%3E",
+      "collected_at": "2026-10-27T19:06:49.459213+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 248,
+      "body_sha256": "69fd0857582a8d5cc3561c236eb6d10c9aa817f9566f4adcfa393271153f5a5c",
+      "elapsed_ms": 13.594,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 7,
+      "url": "http://127.0.0.1:8004/xss/html/escaped?q=WVX314b478ed4906cc85bc609a9D%22%27%3E%3Cscript%3EglobalThis.wvxss_314b478ed4906cc85bc609a9%28%22WVX314b478ed4906cc85bc609a9D%22%29%3C%2Fscript%3E%3Cspan+data-wv%3D%22",
+      "collected_at": "2026-10-27T19:06:49.659459+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 272,
+      "body_sha256": "91011b04fd9cc7c12cb6bc2388c532835693353260f2aee19d0cfaddab8465a0",
+      "elapsed_ms": 2.888,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 8,
+      "url": "http://127.0.0.1:8004/xss/html/escaped?q=WVX314b478ed4906cc85bc609a9S%27%3BglobalThis.wvxss_314b478ed4906cc85bc609a9%28%22WVX314b478ed4906cc85bc609a9S%22%29%3B%2F%2F",
+      "collected_at": "2026-10-27T19:06:49.859828+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 214,
+      "body_sha256": "4818967f07a77da6ab108ae41cc35d3ec2377570e9904544a38c36e2aaaa8f22",
+      "elapsed_ms": 2.816,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 9,
+      "url": "http://127.0.0.1:8004/xss/html/escaped?q=WVX314b478ed4906cc85bc609a9Q%22%3BglobalThis.wvxss_314b478ed4906cc85bc609a9%28%22WVX314b478ed4906cc85bc609a9Q%22%29%3B%2F%2F",
+      "collected_at": "2026-10-27T19:06:50.060090+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 214,
+      "body_sha256": "520821d05cf67329a3703552dfb21e414a1258a663156568fb94d72b13be9200",
+      "elapsed_ms": 22.024,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 10,
+      "url": "http://127.0.0.1:8004/xss/html/escaped?q=demo",
+      "collected_at": "2026-10-27T19:06:50.260257+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 97,
+      "body_sha256": "bd873b853761fa7bc266619eaac498ef6e651f1b33b3df2e2f777f1714e3ad13",
+      "elapsed_ms": 2.834,
+      "method": "GET",
+      "security_headers": {}
+    }
+  ],
+  "errors": [],
+  "comparisons": [],
+  "findings": [],
+  "probes": [
+    {
+      "request_id": 1,
+      "role": "baseline_1",
+      "parameter": "q",
+      "input_value": "demo",
+      "marker": null,
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 2,
+      "role": "baseline_2",
+      "parameter": "q",
+      "input_value": "demo",
+      "marker": null,
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 3,
+      "role": "marker_1",
+      "parameter": "q",
+      "input_value": "WVX314b478ed4906cc85bc609a9A",
+      "marker": "WVX314b478ed4906cc85bc609a9A",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 4,
+      "role": "marker_2",
+      "parameter": "q",
+      "input_value": "WVX314b478ed4906cc85bc609a9B",
+      "marker": "WVX314b478ed4906cc85bc609a9B",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 5,
+      "role": "escape",
+      "parameter": "q",
+      "input_value": "WVX314b478ed4906cc85bc609a9E<>&\"'WVX314b478ed4906cc85bc609a9EEND",
+      "marker": "WVX314b478ed4906cc85bc609a9E",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        },
+        {
+          "context": "html_text"
+        }
+      ],
+      "escaping": {
+        "<": "html_entity",
+        ">": "html_entity",
+        "&": "html_entity",
+        "\"": "html_entity",
+        "'": "html_entity"
+      },
+      "active_script_marker": false
+    },
+    {
+      "request_id": 6,
+      "role": "attack_html",
+      "parameter": "q",
+      "input_value": "WVX314b478ed4906cc85bc609a9H</script><script>globalThis.wvxss_314b478ed4906cc85bc609a9(\"WVX314b478ed4906cc85bc609a9H\")</script>",
+      "marker": "WVX314b478ed4906cc85bc609a9H",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        },
+        {
+          "context": "html_text"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 7,
+      "role": "attack_attribute",
+      "parameter": "q",
+      "input_value": "WVX314b478ed4906cc85bc609a9D\"'><script>globalThis.wvxss_314b478ed4906cc85bc609a9(\"WVX314b478ed4906cc85bc609a9D\")</script><span data-wv=\"",
+      "marker": "WVX314b478ed4906cc85bc609a9D",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        },
+        {
+          "context": "html_text"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 8,
+      "role": "attack_single",
+      "parameter": "q",
+      "input_value": "WVX314b478ed4906cc85bc609a9S';globalThis.wvxss_314b478ed4906cc85bc609a9(\"WVX314b478ed4906cc85bc609a9S\");//",
+      "marker": "WVX314b478ed4906cc85bc609a9S",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        },
+        {
+          "context": "html_text"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 9,
+      "role": "attack_double",
+      "parameter": "q",
+      "input_value": "WVX314b478ed4906cc85bc609a9Q\";globalThis.wvxss_314b478ed4906cc85bc609a9(\"WVX314b478ed4906cc85bc609a9Q\");//",
+      "marker": "WVX314b478ed4906cc85bc609a9Q",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        },
+        {
+          "context": "html_text"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 10,
+      "role": "recovery",
+      "parameter": "q",
+      "input_value": "demo",
+      "marker": null,
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [],
+      "escaping": {},
+      "active_script_marker": false
+    }
+  ],
+  "assessment": {
+    "outcome": "reflected_safe",
+    "checks": {
+      "all_requests_completed": true,
+      "exclusive_markers_and_recovery": true,
+      "two_marker_reflections": true,
+      "potentially_executable_context": false,
+      "browser_execution_observed": false
+    },
+    "rationale": "Reflexão observada em contexto inerte ou com escape nas sondas executadas; não é garantia geral de segurança.",
+    "limitations": [
+      "Somente XSS refletido GET; não cobre XSS armazenado, DOM XSS, eventos que exigem interação ou todos os contextos de template/JavaScript.",
+      "Sem prova de execução em navegador nesta coleta: not_needed"
+    ],
+    "parameter": "q",
+    "context": "reflected_xss",
+    "browser_evidence": {
+      "status": "not_needed",
+      "confirmed": false,
+      "reason": "Sem candidato HTML executável com controles completos."
+    }
+  },
+  "parameter_results": [
+    {
+      "parameter": "q",
+      "context": "reflected_xss",
+      "assessment": {
+        "outcome": "reflected_safe",
+        "checks": {
+          "all_requests_completed": true,
+          "exclusive_markers_and_recovery": true,
+          "two_marker_reflections": true,
+          "potentially_executable_context": false,
+          "browser_execution_observed": false
+        },
+        "rationale": "Reflexão observada em contexto inerte ou com escape nas sondas executadas; não é garantia geral de segurança.",
+        "limitations": [
+          "Somente XSS refletido GET; não cobre XSS armazenado, DOM XSS, eventos que exigem interação ou todos os contextos de template/JavaScript.",
+          "Sem prova de execução em navegador nesta coleta: not_needed"
+        ],
+        "parameter": "q",
+        "context": "reflected_xss",
+        "browser_evidence": {
+          "status": "not_needed",
+          "confirmed": false,
+          "reason": "Sem candidato HTML executável com controles completos."
+        }
+      },
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  ]
+}

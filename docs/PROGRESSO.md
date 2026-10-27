@@ -120,3 +120,25 @@ Com orçamento 25, uso exato de 25 e seis parâmetros ignorados por saldo.
 Com profundidade zero, uma requisição e nenhuma sonda. Base fictícia inalterada.
 Sem novas dependências, Docker, XSS ou acesso externo.
 Roteiro e evidências: [SCAN_INTEGRADO.md](SCAN_INTEGRADO.md).
+
+## Etapa 7 — XSS refletido
+
+- [x] Inspecionar a arquitetura e executar os 238 testes anteriores antes de editar.
+- [x] Criar módulo XSS independente sem alterar os arquivos do módulo SQLi.
+- [x] Analisar marcadores exclusivos, contexto e escape com controles/referências.
+- [x] Separar reflexão inerte, suspeita e execução confirmada.
+- [x] Oferecer confirmação opcional por callback real em replay isolado com CSP.
+- [x] Bloquear tráfego de página e usar perfil temporário sem dados do usuário.
+- [x] Adicionar `--module xss` e `scan --modules sqli xss` com orçamento único.
+- [x] Registrar evidências e limitações em relatórios individuais e consolidados.
+- [x] Criar laboratório de HTML, atributos, script, JSON, texto e controles CSP.
+- [x] Executar oito demonstrações reais, incluindo Juice Shop e limite 25.
+- [x] Executar 286 testes, seis casos com navegador real, e verificar dependências.
+
+Rodada XSS: 89/100 GETs, três confirmed, quatro reflected_safe e um suspected
+por CSP. Fluxo misto: 75/100 GETs; SQLi e XSS confirmados em seus respectivos
+controles vulneráveis. Oito relatórios, 239 GETs, oito sessões e 40 replays;
+base fictícia inalterada. HTML/atributos escapados e JSON não foram confirmados.
+O controle adicional de string JavaScript escapada permaneceu suspected sem
+execução: falso positivo de suspeita documentado, sem ajuste artificial.
+Roteiro, comandos e evidências: [XSS_REFLETIDO.md](XSS_REFLETIDO.md).

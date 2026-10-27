@@ -1,8 +1,9 @@
 # Suíte automatizada reconstruída
 
-Estado atual após a etapa 6: **238 testes aprovados** (196 anteriores e 42 novos),
-sem falhas, erros ou ignorados. Resultado real: 22,79 segundos; dependências
-consistentes. Roteiro e evidências em [SCAN_INTEGRADO.md](SCAN_INTEGRADO.md).
+Estado atual após a etapa 7: **286 testes aprovados** (238 anteriores e 48 novos),
+sem falhas, erros ou ignorados. Resultado real: 56,09 segundos; dependências
+consistentes. Roteiro e evidências em [XSS_REFLETIDO.md](XSS_REFLETIDO.md).
+A etapa 6 passou com 238 testes, conforme [SCAN_INTEGRADO.md](SCAN_INTEGRADO.md).
 A etapa 5 passou com 196 testes, conforme [SQLI_GENERALIZADO.md](SQLI_GENERALIZADO.md).
 A etapa de descoberta passou com 164 testes, conforme [DESCOBERTA.md](DESCOBERTA.md).
 O registro abaixo documenta a reconstrução anterior.
@@ -10,9 +11,19 @@ O registro abaixo documenta a reconstrução anterior.
 Para reproduzir a suíte atual:
 
 ```powershell
-.\.venv\Scripts\python.exe -m pytest --cache-clear -q --junitxml=reports/scan-tests.xml
+.\.venv\Scripts\python.exe -m pytest --cache-clear -q --junitxml=reports/xss-tests.xml
 .\.venv\Scripts\python.exe -m pip check
 ```
+
+Os 48 casos novos de `tests/test_xss_contract.py` incluem reflexão, contexto,
+escape, controles, seis casos com navegador real, bloqueio de rede, CSP,
+limites compartilhados SQLi/XSS e interrupção. O controle JavaScript escapado
+não executou, mas permaneceu suspeito; esse falso positivo de suspeita é
+documentado. Não houve confirmação falsa dos controles seguros.
+O teste antigo de rejeição de `--module xss` foi atualizado para um módulo
+desconhecido (`unsupported`), pois XSS agora é um comando válido.
+Os onze módulos e suas quantidades constam no
+[resumo JUnit da etapa 7](evidencias/xss-2026-10-27/tests-summary.json).
 
 Os 42 casos de `tests/test_scan_pipeline.py` verificam o fluxo real HTML/SQLite,
 orçamento compartilhado, deduplicação, redirecionamentos, falhas HTTP,
@@ -82,4 +93,4 @@ experimentos manuais no Juice Shop nem a avaliação empírica repetida descrita
 em [CONTROLE_NEGATIVO.md](CONTROLE_NEGATIVO.md). Os números anteriores de 57,
 81 e 101 testes são registros históricos das suítes substituídas; o total
 da reconstrução é 123; com descoberta foram 164; a etapa 5 elevou o total a 196,
-e a etapa 6 a 238.
+e a etapa 6 a 238; a etapa 7 chegou a 286.

@@ -1,0 +1,404 @@
+{
+  "schema_version": "1.3",
+  "mode": "xss",
+  "target": "http://127.0.0.1:8004/xss/html/raw?q=demo",
+  "target_source": "manual",
+  "started_at": "2026-10-27T19:06:46.327688+00:00",
+  "finished_at": "2026-10-27T19:06:48.133917+00:00",
+  "settings": {
+    "samples": 2,
+    "max_requests": 10,
+    "parameters": [
+      "q"
+    ],
+    "timeout_seconds": 5.0,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "planned_requests": 10,
+    "scope": "loopback_only",
+    "browser_requested": false,
+    "follow_redirects": false
+  },
+  "summary": {
+    "reachable": true,
+    "status": "completed",
+    "requests_attempted": 10,
+    "responses_received": 10,
+    "errors": 0,
+    "findings": 1
+  },
+  "responses": [
+    {
+      "request_id": 1,
+      "url": "http://127.0.0.1:8004/xss/html/raw?q=demo",
+      "collected_at": "2026-10-27T19:06:46.327971+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 97,
+      "body_sha256": "bd873b853761fa7bc266619eaac498ef6e651f1b33b3df2e2f777f1714e3ad13",
+      "elapsed_ms": 4.165,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 2,
+      "url": "http://127.0.0.1:8004/xss/html/raw?q=demo",
+      "collected_at": "2026-10-27T19:06:46.528371+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 97,
+      "body_sha256": "bd873b853761fa7bc266619eaac498ef6e651f1b33b3df2e2f777f1714e3ad13",
+      "elapsed_ms": 3.0,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 3,
+      "url": "http://127.0.0.1:8004/xss/html/raw?q=WVXa62d23874e1b635c22571750A",
+      "collected_at": "2026-10-27T19:06:46.728811+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 121,
+      "body_sha256": "3f4d5f79341e09369d081acf5ed8cad6c6ab67bc224b23af74a4d5662a8c2170",
+      "elapsed_ms": 24.852,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 4,
+      "url": "http://127.0.0.1:8004/xss/html/raw?q=WVXa62d23874e1b635c22571750B",
+      "collected_at": "2026-10-27T19:06:46.929189+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 121,
+      "body_sha256": "d6ce90f40a9d98b50736dd7fa5055d99bed38d985727f271eef0638abb5a0549",
+      "elapsed_ms": 25.994,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 5,
+      "url": "http://127.0.0.1:8004/xss/html/raw?q=WVXa62d23874e1b635c22571750E%3C%3E%26%22%27WVXa62d23874e1b635c22571750EEND",
+      "collected_at": "2026-10-27T19:06:47.129707+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 157,
+      "body_sha256": "d5751047b95e1b58b855ff3b43df119c6ff6bc2dfe4665f742500d9373ebe1d0",
+      "elapsed_ms": 13.351,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 6,
+      "url": "http://127.0.0.1:8004/xss/html/raw?q=WVXa62d23874e1b635c22571750H%3C%2Fscript%3E%3Cscript%3EglobalThis.wvxss_a62d23874e1b635c22571750%28%22WVXa62d23874e1b635c22571750H%22%29%3C%2Fscript%3E",
+      "collected_at": "2026-10-27T19:06:47.330279+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 220,
+      "body_sha256": "f72aff695b644e675c5a8910f91a9725ffb35e1dcd6d5e0ad66c6f126ce3b423",
+      "elapsed_ms": 14.772,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 7,
+      "url": "http://127.0.0.1:8004/xss/html/raw?q=WVXa62d23874e1b635c22571750D%22%27%3E%3Cscript%3EglobalThis.wvxss_a62d23874e1b635c22571750%28%22WVXa62d23874e1b635c22571750D%22%29%3C%2Fscript%3E%3Cspan+data-wv%3D%22",
+      "collected_at": "2026-10-27T19:06:47.530446+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 229,
+      "body_sha256": "3649bf7410f28a8841f109c9ae62da0666c6aa77c4555049107c9ce7f7feeb8d",
+      "elapsed_ms": 3.261,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 8,
+      "url": "http://127.0.0.1:8004/xss/html/raw?q=WVXa62d23874e1b635c22571750S%27%3BglobalThis.wvxss_a62d23874e1b635c22571750%28%22WVXa62d23874e1b635c22571750S%22%29%3B%2F%2F",
+      "collected_at": "2026-10-27T19:06:47.730521+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 199,
+      "body_sha256": "b4966a1deab1d8a02cb978168e7dcc9c5f2ab77fa6b2fd05869abd7e269c6c9a",
+      "elapsed_ms": 18.769,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 9,
+      "url": "http://127.0.0.1:8004/xss/html/raw?q=WVXa62d23874e1b635c22571750Q%22%3BglobalThis.wvxss_a62d23874e1b635c22571750%28%22WVXa62d23874e1b635c22571750Q%22%29%3B%2F%2F",
+      "collected_at": "2026-10-27T19:06:47.930790+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 199,
+      "body_sha256": "b6f509cbfff0c54d2397a00987ce342bcdde2bce376b01c6177cda120d6d2dc7",
+      "elapsed_ms": 4.196,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 10,
+      "url": "http://127.0.0.1:8004/xss/html/raw?q=demo",
+      "collected_at": "2026-10-27T19:06:48.131036+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 97,
+      "body_sha256": "bd873b853761fa7bc266619eaac498ef6e651f1b33b3df2e2f777f1714e3ad13",
+      "elapsed_ms": 2.652,
+      "method": "GET",
+      "security_headers": {}
+    }
+  ],
+  "errors": [],
+  "comparisons": [],
+  "findings": [
+    {
+      "endpoint": "http://127.0.0.1:8004/xss/html/raw?q=demo",
+      "category": "xss",
+      "title": "Possível XSS refletido em q",
+      "confidence": "low",
+      "status": "suspected",
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "rationale": "Reflexão em contexto potencialmente executável ou quebra estrutural de HTML; falta confirmação suficiente de execução.",
+      "potential_impact": "Execução de JavaScript no contexto da página. Nenhum dado privado foi acessado.",
+      "recommended_mitigation": "Aplicar escape conforme o contexto; evitar interpolar entrada em HTML/JavaScript e usar CSP como defesa adicional.",
+      "parameter": "q"
+    }
+  ],
+  "probes": [
+    {
+      "request_id": 1,
+      "role": "baseline_1",
+      "parameter": "q",
+      "input_value": "demo",
+      "marker": null,
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 2,
+      "role": "baseline_2",
+      "parameter": "q",
+      "input_value": "demo",
+      "marker": null,
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 3,
+      "role": "marker_1",
+      "parameter": "q",
+      "input_value": "WVXa62d23874e1b635c22571750A",
+      "marker": "WVXa62d23874e1b635c22571750A",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 4,
+      "role": "marker_2",
+      "parameter": "q",
+      "input_value": "WVXa62d23874e1b635c22571750B",
+      "marker": "WVXa62d23874e1b635c22571750B",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 5,
+      "role": "escape",
+      "parameter": "q",
+      "input_value": "WVXa62d23874e1b635c22571750E<>&\"'WVXa62d23874e1b635c22571750EEND",
+      "marker": "WVXa62d23874e1b635c22571750E",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        },
+        {
+          "context": "html_text"
+        }
+      ],
+      "escaping": {
+        "<": "literal",
+        ">": "literal",
+        "&": "literal",
+        "\"": "literal",
+        "'": "literal"
+      },
+      "active_script_marker": false
+    },
+    {
+      "request_id": 6,
+      "role": "attack_html",
+      "parameter": "q",
+      "input_value": "WVXa62d23874e1b635c22571750H</script><script>globalThis.wvxss_a62d23874e1b635c22571750(\"WVXa62d23874e1b635c22571750H\")</script>",
+      "marker": "WVXa62d23874e1b635c22571750H",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        },
+        {
+          "context": "script"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": true
+    },
+    {
+      "request_id": 7,
+      "role": "attack_attribute",
+      "parameter": "q",
+      "input_value": "WVXa62d23874e1b635c22571750D\"'><script>globalThis.wvxss_a62d23874e1b635c22571750(\"WVXa62d23874e1b635c22571750D\")</script><span data-wv=\"",
+      "marker": "WVXa62d23874e1b635c22571750D",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        },
+        {
+          "context": "script"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": true
+    },
+    {
+      "request_id": 8,
+      "role": "attack_single",
+      "parameter": "q",
+      "input_value": "WVXa62d23874e1b635c22571750S';globalThis.wvxss_a62d23874e1b635c22571750(\"WVXa62d23874e1b635c22571750S\");//",
+      "marker": "WVXa62d23874e1b635c22571750S",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 9,
+      "role": "attack_double",
+      "parameter": "q",
+      "input_value": "WVXa62d23874e1b635c22571750Q\";globalThis.wvxss_a62d23874e1b635c22571750(\"WVXa62d23874e1b635c22571750Q\");//",
+      "marker": "WVXa62d23874e1b635c22571750Q",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "html_text"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 10,
+      "role": "recovery",
+      "parameter": "q",
+      "input_value": "demo",
+      "marker": null,
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [],
+      "escaping": {},
+      "active_script_marker": false
+    }
+  ],
+  "assessment": {
+    "outcome": "suspected",
+    "checks": {
+      "all_requests_completed": true,
+      "exclusive_markers_and_recovery": true,
+      "two_marker_reflections": true,
+      "potentially_executable_context": true,
+      "browser_execution_observed": false
+    },
+    "rationale": "Reflexão em contexto potencialmente executável ou quebra estrutural de HTML; falta confirmação suficiente de execução.",
+    "limitations": [
+      "Somente XSS refletido GET; não cobre XSS armazenado, DOM XSS, eventos que exigem interação ou todos os contextos de template/JavaScript.",
+      "Sem prova de execução em navegador nesta coleta: not_requested"
+    ],
+    "parameter": "q",
+    "context": "reflected_xss",
+    "browser_evidence": {
+      "status": "not_requested",
+      "confirmed": false
+    }
+  },
+  "parameter_results": [
+    {
+      "parameter": "q",
+      "context": "reflected_xss",
+      "assessment": {
+        "outcome": "suspected",
+        "checks": {
+          "all_requests_completed": true,
+          "exclusive_markers_and_recovery": true,
+          "two_marker_reflections": true,
+          "potentially_executable_context": true,
+          "browser_execution_observed": false
+        },
+        "rationale": "Reflexão em contexto potencialmente executável ou quebra estrutural de HTML; falta confirmação suficiente de execução.",
+        "limitations": [
+          "Somente XSS refletido GET; não cobre XSS armazenado, DOM XSS, eventos que exigem interação ou todos os contextos de template/JavaScript.",
+          "Sem prova de execução em navegador nesta coleta: not_requested"
+        ],
+        "parameter": "q",
+        "context": "reflected_xss",
+        "browser_evidence": {
+          "status": "not_requested",
+          "confirmed": false
+        }
+      },
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  ]
+}

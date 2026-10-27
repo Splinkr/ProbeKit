@@ -6,8 +6,9 @@ e [urllib.parse](https://docs.python.org/3.13/library/urllib.parse.html), sem no
 dependências, Docker ou navegador automatizado. Não invoca detectores nem gera
 payloads de ataque. Na etapa de descoberta, a lógica de confirmação SQLi não
 foi alterada. A generalização posterior está documentada na
-[etapa 5](SQLI_GENERALIZADO.md). O fluxo integrado e o total atual de 238 testes
-estão na [etapa 6](SCAN_INTEGRADO.md); este roteiro continua válido.
+[etapa 5](SQLI_GENERALIZADO.md). O fluxo integrado está na
+[etapa 6](SCAN_INTEGRADO.md); a [etapa 7](XSS_REFLETIDO.md) acrescentou XSS e
+elevou o total atual a 286 testes. Este roteiro continua válido.
 
 ## Demonstração no Windows 11
 

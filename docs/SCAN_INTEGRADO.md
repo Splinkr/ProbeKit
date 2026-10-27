@@ -2,8 +2,9 @@
 
 `main.py scan URL` usa uma URL inicial para descobrir links HTML, selecionar
 parâmetros GET e executar o detector SQLi existente. A CLI anterior, o comando
-`discover` e os critérios de confirmação continuam disponíveis. Não há novas
-dependências, Docker ou XSS.
+`discover` e os critérios de confirmação continuam disponíveis. Este documento
+registra a etapa 6, que não incluía XSS. A [etapa 7](XSS_REFLETIDO.md) acrescentou
+`--modules sqli xss` e confirmação XSS opcional, preservando este fluxo padrão.
 
 ## Fluxo e orçamento
 

@@ -1,0 +1,334 @@
+{
+  "experiment": "reflected_xss_and_combined_scan",
+  "origin": "http://127.0.0.1:8004",
+  "runs": [
+    {
+      "case": "raw-without-browser",
+      "report": "raw-without-browser.json",
+      "mode": "xss",
+      "started_at": "2026-10-27T19:06:46.327688+00:00",
+      "finished_at": "2026-10-27T19:06:48.133917+00:00",
+      "requests_used": 10,
+      "summary": {
+        "reachable": true,
+        "status": "completed",
+        "requests_attempted": 10,
+        "responses_received": 10,
+        "errors": 0,
+        "findings": 1
+      },
+      "results": [
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "suspected"
+        }
+      ]
+    },
+    {
+      "case": "raw-confirmed",
+      "report": "raw-confirmed.json",
+      "mode": "xss",
+      "started_at": "2026-10-27T19:12:43.542857+00:00",
+      "finished_at": "2026-10-27T19:12:49.760904+00:00",
+      "requests_used": 10,
+      "summary": {
+        "reachable": true,
+        "status": "completed",
+        "requests_attempted": 10,
+        "responses_received": 10,
+        "errors": 0,
+        "findings": 1
+      },
+      "results": [
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "confirmed"
+        }
+      ]
+    },
+    {
+      "case": "escaped-direct",
+      "report": "escaped-direct.json",
+      "mode": "xss",
+      "started_at": "2026-10-27T19:06:48.457447+00:00",
+      "finished_at": "2026-10-27T19:06:50.263310+00:00",
+      "requests_used": 10,
+      "summary": {
+        "reachable": true,
+        "status": "completed",
+        "requests_attempted": 10,
+        "responses_received": 10,
+        "errors": 0,
+        "findings": 0
+      },
+      "results": [
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/html/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "reflected_safe"
+        }
+      ]
+    },
+    {
+      "case": "xss-scan",
+      "report": "xss-scan.json",
+      "mode": "scan",
+      "started_at": "2026-10-27T19:06:50.615187+00:00",
+      "finished_at": "2026-10-27T19:07:23.095465+00:00",
+      "requests_used": 89,
+      "summary": {
+        "status": "completed",
+        "requests_used": 89,
+        "discovery_requests": 9,
+        "analysis_requests": 80,
+        "requests_remaining": 11,
+        "endpoints_discovered": 9,
+        "parameters_analyzed": 8,
+        "targets_ignored": 1,
+        "unique_parameters_analyzed": 8,
+        "findings": 4
+      },
+      "results": [
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/html/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "reflected_safe"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/attribute/raw?q=demo",
+          "parameter": "q",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/attribute/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "reflected_safe"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/json?q=demo",
+          "parameter": "q",
+          "outcome": "reflected_safe"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/script/raw?q=demo",
+          "parameter": "q",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/csp?q=demo",
+          "parameter": "q",
+          "outcome": "suspected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/text?q=demo",
+          "parameter": "q",
+          "outcome": "reflected_safe"
+        }
+      ]
+    },
+    {
+      "case": "combined",
+      "report": "combined.json",
+      "mode": "scan",
+      "started_at": "2026-10-27T19:07:23.513483+00:00",
+      "finished_at": "2026-10-27T19:07:43.053959+00:00",
+      "requests_used": 75,
+      "summary": {
+        "status": "completed",
+        "requests_used": 75,
+        "discovery_requests": 5,
+        "analysis_requests": 70,
+        "requests_remaining": 25,
+        "endpoints_discovered": 5,
+        "parameters_analyzed": 8,
+        "targets_ignored": 1,
+        "unique_parameters_analyzed": 4,
+        "findings": 2
+      },
+      "results": [
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8004/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8004/xss/html/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/html/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "reflected_safe"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8004/general/json/vulnerable?term=apple",
+          "parameter": "term",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/general/json/vulnerable?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8004/general/json/safe?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/general/json/safe?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        }
+      ]
+    },
+    {
+      "case": "budget-25",
+      "report": "budget-25.json",
+      "mode": "scan",
+      "started_at": "2026-10-27T19:07:44.317036+00:00",
+      "finished_at": "2026-10-27T19:07:53.022242+00:00",
+      "requests_used": 25,
+      "summary": {
+        "status": "limited",
+        "requests_used": 25,
+        "discovery_requests": 5,
+        "analysis_requests": 20,
+        "requests_remaining": 0,
+        "endpoints_discovered": 5,
+        "parameters_analyzed": 2,
+        "targets_ignored": 7,
+        "unique_parameters_analyzed": 1,
+        "findings": 1
+      },
+      "results": [
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8004/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "confirmed"
+        }
+      ]
+    },
+    {
+      "case": "juice-shop-regression",
+      "report": "juice-shop-regression.json",
+      "mode": "sqli",
+      "started_at": "2026-10-27T19:07:53.388590+00:00",
+      "finished_at": "2026-10-27T19:07:55.213522+00:00",
+      "requests_used": 10,
+      "summary": {
+        "reachable": true,
+        "status": "completed",
+        "requests_attempted": 10,
+        "responses_received": 10,
+        "errors": 0,
+        "findings": 1
+      },
+      "results": [
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:3000/rest/products/search?q=apple",
+          "parameter": "q",
+          "outcome": "confirmed"
+        }
+      ]
+    },
+    {
+      "case": "script-escaped",
+      "report": "script-escaped.json",
+      "mode": "xss",
+      "started_at": "2026-10-27T19:12:50.125559+00:00",
+      "finished_at": "2026-10-27T19:12:56.071210+00:00",
+      "requests_used": 10,
+      "summary": {
+        "reachable": true,
+        "status": "completed",
+        "requests_attempted": 10,
+        "responses_received": 10,
+        "errors": 0,
+        "findings": 1
+      },
+      "results": [
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8004/xss/script/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "suspected"
+        }
+      ]
+    }
+  ],
+  "requests_total": 239,
+  "dataset_before": {
+    "status": "ok",
+    "application": "webvuln-sqlite-control",
+    "sqlite_version": "3.50.4",
+    "records": 5,
+    "dataset_sha256": "5a7f6cbde94c6fb8d193dc14c708adb2d425546f2ddd294c9793ff3d5864ce0a"
+  },
+  "dataset_after": {
+    "status": "ok",
+    "application": "webvuln-sqlite-control",
+    "sqlite_version": "3.50.4",
+    "records": 5,
+    "dataset_sha256": "5a7f6cbde94c6fb8d193dc14c708adb2d425546f2ddd294c9793ff3d5864ce0a"
+  },
+  "dataset_unchanged": true,
+  "browser": {
+    "versions": [
+      "Edg/156.0.4314.42"
+    ],
+    "sessions_completed": 8,
+    "target_network_requests": 0,
+    "control_replays": 8,
+    "replays_total": 40,
+    "node_version": "v24.19.0"
+  },
+  "limitations": [
+    "Confirma??o por callbacks reais em replay isolado, com CSP preservada e rede bloqueada; sem sess?o autenticada ou recursos externos.",
+    "reflected_safe ? limitado ?s sondas/contextos observados; n?o comprova seguran?a universal.",
+    "O controle script-escaped n?o executou callbacks, mas permaneceu suspected pela an?lise est?tica conservadora: falso positivo no n?vel de suspeita.",
+    "Tr?s consultas health de integridade foram externas aos oito or?amentos; dataset_before e dataset_after preservam a primeira e a ?ltima."
+  ],
+  "health_requests": 3,
+  "total_requests_including_health": 242
+}

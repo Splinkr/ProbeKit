@@ -1,8 +1,8 @@
 # WebVuln Scanner
 
 Ferramenta CLI em Python para o trabalho de SIN 451 — Segurança da Informação
-(UFV). Inclui referências HTTP, descoberta HTML e detecção SQLi controlada por
-parâmetro GET em JSON, HTML e texto, com validação no SQLite e Juice Shop locais.
+(UFV). Inclui referências HTTP, descoberta HTML, SQLi e XSS refletido por
+parâmetro GET, com validação em laboratórios locais e Juice Shop.
 
 ## Ambiente
 
@@ -46,6 +46,19 @@ O [roteiro integrado](docs/SCAN_INTEGRADO.md) mostra como iniciar o SQLite na
 porta 8003, reproduzir a demonstração e interromper preservando resultados.
 Descoberta e análise compartilham o orçamento; o JSON reúne inventário,
 resultados por parâmetro, evidências e alvos ignorados com seus motivos.
+
+Para XSS, com o laboratório da porta 8004 iniciado:
+
+```powershell
+.\.venv\Scripts\python.exe main.py "http://localhost:8004/xss/html/raw?q=demo" --module xss --xss-browser --output reports/xss-demo/raw-confirmed.json
+.\.venv\Scripts\python.exe main.py scan http://localhost:8004/combined-lab --modules sqli xss --xss-browser --max-requests 100 --output reports/xss-demo/combined.json
+```
+
+O [roteiro XSS](docs/XSS_REFLETIDO.md) inclui inicialização, controles negativos,
+contextos e evidências reais. Sem `--xss-browser`, reflexão potencialmente
+executável permanece suspeita. A confirmação opcional usa Edge/Chrome e Node
+locais já instalados, com perfil temporário, replay e rede bloqueada. Não há
+novas dependências Python/npm. O padrão de `scan` permanece somente SQLi.
 
 Para partir de uma URL inicial e inventariar links e formulários GET:
 
@@ -113,8 +126,9 @@ Códigos de saída:
 | Código | Significado |
 | --- | --- |
 | 0 | Referências recebidas e relatório gravado |
-| 1 | Falha de transporte, limite de resposta, gravação ou SQLi inconclusiva |
+| 1 | Falha de transporte, limite de resposta, gravação ou análise inconclusiva |
 | 2 | Argumentos inválidos ou destino bloqueado antes da rede |
+| 130 | Interrupção do scan, com preservação parcial quando possível |
 
 Uma resposta 4xx/5xx comprova conectividade HTTP e é preservada como evidência.
 Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
@@ -141,8 +155,12 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
   entre aspas em LIKE ou igualdade, com confirmação booleana auxiliada por erro;
   não cobre SQLi numérica, temporal ou UNION e não tem garantia universal.
   A descoberta HTML é um comando separado e fica na mesma origem loopback.
-  Não há autenticação, XSS ou exposição de arquivos.
+  Não há autenticação ou exposição de arquivos.
   Não há opção para liberar destinos externos.
+- XSS refletido distingue reflexão inerte, suspeita e execução confirmada no
+  replay isolado. Não cobre XSS armazenado, DOM XSS ou todos os eventos/contextos.
+  JSON refletido não é prova de execução. Um navegador indisponível não produz
+  confirmação; as limitações ficam no relatório.
 
 ## Arquitetura e verificação
 
@@ -162,7 +180,12 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 | `scanner/sqli_plans.py` | Seleção, preservação da query, sondas e orçamento global |
 | `scanner/sqli_features.py` | Características de JSON, HTML e texto e assinaturas SQL |
 | `scanner/sqli_classification.py` | Critérios diferenciais, justificativa e limitações |
+| `scanner/modules/xss.py` | Marcadores, controles e execução XSS independente |
+| `scanner/query.py` | Manipulação GET genérica para XSS |
+| `scanner/xss_analysis.py` | Contexto de reflexão, escape e classificação XSS |
+| `scanner/xss_browser.py` e `scripts/confirm-xss.mjs` | Replay isolado e callbacks reais com rede bloqueada |
 | `experiments/sqlite_control.py` | Controles SQLite e página `/scan-lab` para o fluxo completo |
+| `experiments/xss_lab.py` | Exemplos de reflexão, escape, atributo, script, JSON e CSP |
 | `experiments/run_control.py` | Repetições e métricas do experimento |
 | `experiments/run_general_sqli.py` | Matriz por nome de parâmetro, formato e contexto |
 | `experiments/html_discovery.py` | Aplicação HTML local para demonstrar descoberta |
@@ -172,9 +195,9 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-A suíte atual passou em **238 testes**, incluindo fluxo integrado, orçamento,
-interrupção, descoberta HTML, HTTP, escopo local, SQLi por parâmetro/formato,
-SQLite real e CLI em subprocessos.
+A suíte passou em **286 testes** e inclui fluxo integrado, orçamento, interrupção, descoberta HTML, HTTP,
+escopo local, SQLi, XSS e confirmações reais em navegador isolado.
+O resultado atual e a contagem estão em [docs/TESTES.md](docs/TESTES.md).
 Ela não depende de sites públicos ou do Juice Shop. Organização, comandos e
 resultado desta execução estão em [docs/TESTES.md](docs/TESTES.md). A validação
 histórica das etapas iniciais permanece em [docs/VALIDACAO.md](docs/VALIDACAO.md).

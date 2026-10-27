@@ -1,0 +1,529 @@
+{
+  "schema_version": "1.3",
+  "mode": "xss",
+  "target": "http://127.0.0.1:8004/xss/script/escaped?q=demo",
+  "target_source": "manual",
+  "started_at": "2026-10-27T19:12:50.125559+00:00",
+  "finished_at": "2026-10-27T19:12:56.071210+00:00",
+  "settings": {
+    "samples": 2,
+    "max_requests": 10,
+    "parameters": [
+      "q"
+    ],
+    "timeout_seconds": 5.0,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "planned_requests": 10,
+    "scope": "loopback_only",
+    "browser_requested": true,
+    "follow_redirects": false
+  },
+  "summary": {
+    "reachable": true,
+    "status": "completed",
+    "requests_attempted": 10,
+    "responses_received": 10,
+    "errors": 0,
+    "findings": 1
+  },
+  "responses": [
+    {
+      "request_id": 1,
+      "url": "http://127.0.0.1:8004/xss/script/escaped?q=demo",
+      "collected_at": "2026-10-27T19:12:50.125855+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 141,
+      "body_sha256": "23a9bfcb4b561dc38cf45415b4f096adb69b40c9f30dd68de5d1594b2d0491d9",
+      "elapsed_ms": 4.032,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 2,
+      "url": "http://127.0.0.1:8004/xss/script/escaped?q=demo",
+      "collected_at": "2026-10-27T19:12:50.325941+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 141,
+      "body_sha256": "23a9bfcb4b561dc38cf45415b4f096adb69b40c9f30dd68de5d1594b2d0491d9",
+      "elapsed_ms": 22.116,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 3,
+      "url": "http://127.0.0.1:8004/xss/script/escaped?q=WVX1a579b955f479889050ea717A",
+      "collected_at": "2026-10-27T19:12:50.526259+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 165,
+      "body_sha256": "ad41f6be0c95cfd2e3ae96c92ad929eaea0b39dcd898b54ca8c3b9ce2e234fde",
+      "elapsed_ms": 25.271,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 4,
+      "url": "http://127.0.0.1:8004/xss/script/escaped?q=WVX1a579b955f479889050ea717B",
+      "collected_at": "2026-10-27T19:12:50.726597+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 165,
+      "body_sha256": "a1fa2cdf1dea795fac721c419017365979b99f491b8c8247d63e91694d73ad6e",
+      "elapsed_ms": 2.91,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 5,
+      "url": "http://127.0.0.1:8004/xss/script/escaped?q=WVX1a579b955f479889050ea717E%3C%3E%26%22%27WVX1a579b955f479889050ea717EEND",
+      "collected_at": "2026-10-27T19:12:50.927075+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 217,
+      "body_sha256": "f814430db511cf976761b16abc30dbc6bef7eb69652c92e891361a6b37ed4681",
+      "elapsed_ms": 18.355,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 6,
+      "url": "http://127.0.0.1:8004/xss/script/escaped?q=WVX1a579b955f479889050ea717H%3C%2Fscript%3E%3Cscript%3EglobalThis.wvxss_1a579b955f479889050ea717%28%22WVX1a579b955f479889050ea717H%22%29%3C%2Fscript%3E",
+      "collected_at": "2026-10-27T19:12:51.127177+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 296,
+      "body_sha256": "55f127b2413aba52e187fd574d0251080d46c3f831f5c7c97c441baa9b40b9d0",
+      "elapsed_ms": 7.68,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 7,
+      "url": "http://127.0.0.1:8004/xss/script/escaped?q=WVX1a579b955f479889050ea717D%22%27%3E%3Cscript%3EglobalThis.wvxss_1a579b955f479889050ea717%28%22WVX1a579b955f479889050ea717D%22%29%3C%2Fscript%3E%3Cspan+data-wv%3D%22",
+      "collected_at": "2026-10-27T19:12:51.327724+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 307,
+      "body_sha256": "60dc6a8f45c29f2edc4b610d03bc1c399073cd70425b2966a4e53547683a8c32",
+      "elapsed_ms": 2.73,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 8,
+      "url": "http://127.0.0.1:8004/xss/script/escaped?q=WVX1a579b955f479889050ea717S%27%3BglobalThis.wvxss_1a579b955f479889050ea717%28%22WVX1a579b955f479889050ea717S%22%29%3B%2F%2F",
+      "collected_at": "2026-10-27T19:12:51.528448+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 245,
+      "body_sha256": "f41b21e10cdc369a7488b1dc6c07783c7c90bf81bce32639dfed3e688a21b94c",
+      "elapsed_ms": 2.986,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 9,
+      "url": "http://127.0.0.1:8004/xss/script/escaped?q=WVX1a579b955f479889050ea717Q%22%3BglobalThis.wvxss_1a579b955f479889050ea717%28%22WVX1a579b955f479889050ea717Q%22%29%3B%2F%2F",
+      "collected_at": "2026-10-27T19:12:51.728739+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 246,
+      "body_sha256": "bf74b500338ed3f18a844c346e1f303a9e1a9f1f17e07bfc10b16014cfabc56b",
+      "elapsed_ms": 2.948,
+      "method": "GET",
+      "security_headers": {}
+    },
+    {
+      "request_id": 10,
+      "url": "http://127.0.0.1:8004/xss/script/escaped?q=demo",
+      "collected_at": "2026-10-27T19:12:51.928825+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 141,
+      "body_sha256": "23a9bfcb4b561dc38cf45415b4f096adb69b40c9f30dd68de5d1594b2d0491d9",
+      "elapsed_ms": 2.958,
+      "method": "GET",
+      "security_headers": {}
+    }
+  ],
+  "errors": [],
+  "comparisons": [],
+  "findings": [
+    {
+      "endpoint": "http://127.0.0.1:8004/xss/script/escaped?q=demo",
+      "category": "xss",
+      "title": "Possível XSS refletido em q",
+      "confidence": "low",
+      "status": "suspected",
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "rationale": "Reflexão em contexto potencialmente executável ou quebra estrutural de HTML; falta confirmação suficiente de execução.",
+      "potential_impact": "Execução de JavaScript no contexto da página. Nenhum dado privado foi acessado.",
+      "recommended_mitigation": "Aplicar escape conforme o contexto; evitar interpolar entrada em HTML/JavaScript e usar CSP como defesa adicional.",
+      "parameter": "q"
+    }
+  ],
+  "probes": [
+    {
+      "request_id": 1,
+      "role": "baseline_1",
+      "parameter": "q",
+      "input_value": "demo",
+      "marker": null,
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 2,
+      "role": "baseline_2",
+      "parameter": "q",
+      "input_value": "demo",
+      "marker": null,
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 3,
+      "role": "marker_1",
+      "parameter": "q",
+      "input_value": "WVX1a579b955f479889050ea717A",
+      "marker": "WVX1a579b955f479889050ea717A",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "script"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 4,
+      "role": "marker_2",
+      "parameter": "q",
+      "input_value": "WVX1a579b955f479889050ea717B",
+      "marker": "WVX1a579b955f479889050ea717B",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "script"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": false
+    },
+    {
+      "request_id": 5,
+      "role": "escape",
+      "parameter": "q",
+      "input_value": "WVX1a579b955f479889050ea717E<>&\"'WVX1a579b955f479889050ea717EEND",
+      "marker": "WVX1a579b955f479889050ea717E",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "script"
+        }
+      ],
+      "escaping": {
+        "<": "removed_or_encoded",
+        ">": "removed_or_encoded",
+        "&": "removed_or_encoded",
+        "\"": "literal",
+        "'": "literal"
+      },
+      "active_script_marker": false
+    },
+    {
+      "request_id": 6,
+      "role": "attack_html",
+      "parameter": "q",
+      "input_value": "WVX1a579b955f479889050ea717H</script><script>globalThis.wvxss_1a579b955f479889050ea717(\"WVX1a579b955f479889050ea717H\")</script>",
+      "marker": "WVX1a579b955f479889050ea717H",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "script"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": true
+    },
+    {
+      "request_id": 7,
+      "role": "attack_attribute",
+      "parameter": "q",
+      "input_value": "WVX1a579b955f479889050ea717D\"'><script>globalThis.wvxss_1a579b955f479889050ea717(\"WVX1a579b955f479889050ea717D\")</script><span data-wv=\"",
+      "marker": "WVX1a579b955f479889050ea717D",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "script"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": true
+    },
+    {
+      "request_id": 8,
+      "role": "attack_single",
+      "parameter": "q",
+      "input_value": "WVX1a579b955f479889050ea717S';globalThis.wvxss_1a579b955f479889050ea717(\"WVX1a579b955f479889050ea717S\");//",
+      "marker": "WVX1a579b955f479889050ea717S",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "script"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": true
+    },
+    {
+      "request_id": 9,
+      "role": "attack_double",
+      "parameter": "q",
+      "input_value": "WVX1a579b955f479889050ea717Q\";globalThis.wvxss_1a579b955f479889050ea717(\"WVX1a579b955f479889050ea717Q\");//",
+      "marker": "WVX1a579b955f479889050ea717Q",
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [
+        {
+          "context": "script"
+        }
+      ],
+      "escaping": {},
+      "active_script_marker": true
+    },
+    {
+      "request_id": 10,
+      "role": "recovery",
+      "parameter": "q",
+      "input_value": "demo",
+      "marker": null,
+      "response_received": true,
+      "content_format": "text/html",
+      "reflections": [],
+      "escaping": {},
+      "active_script_marker": false
+    }
+  ],
+  "assessment": {
+    "outcome": "suspected",
+    "checks": {
+      "all_requests_completed": true,
+      "exclusive_markers_and_recovery": true,
+      "two_marker_reflections": true,
+      "potentially_executable_context": true,
+      "browser_execution_observed": false
+    },
+    "rationale": "Reflexão em contexto potencialmente executável ou quebra estrutural de HTML; falta confirmação suficiente de execução.",
+    "limitations": [
+      "Somente XSS refletido GET; não cobre XSS armazenado, DOM XSS, eventos que exigem interação ou todos os contextos de template/JavaScript.",
+      "Navegador usa replay isolado das respostas HTTP com CSP preservada e rede bloqueada; não reproduz sessão autenticada ou recursos externos."
+    ],
+    "parameter": "q",
+    "context": "reflected_xss",
+    "browser_evidence": {
+      "status": "completed",
+      "confirmed": false,
+      "target_network_requests": 0,
+      "cases": [
+        {
+          "role": "marker_1",
+          "request_id": 3,
+          "marker": "WVX1a579b955f479889050ea717A",
+          "body_sha256": "ad41f6be0c95cfd2e3ae96c92ad929eaea0b39dcd898b54ca8c3b9ce2e234fde",
+          "replayed": true,
+          "executed": false,
+          "main_frame": false,
+          "execution_context_id": null,
+          "blocked_resource_requests": 0,
+          "csp_preserved": true
+        },
+        {
+          "role": "attack_html",
+          "request_id": 6,
+          "marker": "WVX1a579b955f479889050ea717H",
+          "body_sha256": "55f127b2413aba52e187fd574d0251080d46c3f831f5c7c97c441baa9b40b9d0",
+          "replayed": true,
+          "executed": false,
+          "main_frame": false,
+          "execution_context_id": null,
+          "blocked_resource_requests": 0,
+          "csp_preserved": true
+        },
+        {
+          "role": "attack_attribute",
+          "request_id": 7,
+          "marker": "WVX1a579b955f479889050ea717D",
+          "body_sha256": "60dc6a8f45c29f2edc4b610d03bc1c399073cd70425b2966a4e53547683a8c32",
+          "replayed": true,
+          "executed": false,
+          "main_frame": false,
+          "execution_context_id": null,
+          "blocked_resource_requests": 0,
+          "csp_preserved": true
+        },
+        {
+          "role": "attack_single",
+          "request_id": 8,
+          "marker": "WVX1a579b955f479889050ea717S",
+          "body_sha256": "f41b21e10cdc369a7488b1dc6c07783c7c90bf81bce32639dfed3e688a21b94c",
+          "replayed": true,
+          "executed": false,
+          "main_frame": false,
+          "execution_context_id": null,
+          "blocked_resource_requests": 0,
+          "csp_preserved": true
+        },
+        {
+          "role": "attack_double",
+          "request_id": 9,
+          "marker": "WVX1a579b955f479889050ea717Q",
+          "body_sha256": "bf74b500338ed3f18a844c346e1f303a9e1a9f1f17e07bfc10b16014cfabc56b",
+          "replayed": true,
+          "executed": false,
+          "main_frame": false,
+          "execution_context_id": null,
+          "blocked_resource_requests": 0,
+          "csp_preserved": true
+        }
+      ],
+      "network_policy": "Fetch fulfillment/abort only; proxy drops all connections; no forwarding",
+      "browser_version": "Edg/156.0.4314.42",
+      "blocked_proxy_connections": 0,
+      "mode": "isolated_browser_response_replay"
+    }
+  },
+  "parameter_results": [
+    {
+      "parameter": "q",
+      "context": "reflected_xss",
+      "assessment": {
+        "outcome": "suspected",
+        "checks": {
+          "all_requests_completed": true,
+          "exclusive_markers_and_recovery": true,
+          "two_marker_reflections": true,
+          "potentially_executable_context": true,
+          "browser_execution_observed": false
+        },
+        "rationale": "Reflexão em contexto potencialmente executável ou quebra estrutural de HTML; falta confirmação suficiente de execução.",
+        "limitations": [
+          "Somente XSS refletido GET; não cobre XSS armazenado, DOM XSS, eventos que exigem interação ou todos os contextos de template/JavaScript.",
+          "Navegador usa replay isolado das respostas HTTP com CSP preservada e rede bloqueada; não reproduz sessão autenticada ou recursos externos."
+        ],
+        "parameter": "q",
+        "context": "reflected_xss",
+        "browser_evidence": {
+          "status": "completed",
+          "confirmed": false,
+          "target_network_requests": 0,
+          "cases": [
+            {
+              "role": "marker_1",
+              "request_id": 3,
+              "marker": "WVX1a579b955f479889050ea717A",
+              "body_sha256": "ad41f6be0c95cfd2e3ae96c92ad929eaea0b39dcd898b54ca8c3b9ce2e234fde",
+              "replayed": true,
+              "executed": false,
+              "main_frame": false,
+              "execution_context_id": null,
+              "blocked_resource_requests": 0,
+              "csp_preserved": true
+            },
+            {
+              "role": "attack_html",
+              "request_id": 6,
+              "marker": "WVX1a579b955f479889050ea717H",
+              "body_sha256": "55f127b2413aba52e187fd574d0251080d46c3f831f5c7c97c441baa9b40b9d0",
+              "replayed": true,
+              "executed": false,
+              "main_frame": false,
+              "execution_context_id": null,
+              "blocked_resource_requests": 0,
+              "csp_preserved": true
+            },
+            {
+              "role": "attack_attribute",
+              "request_id": 7,
+              "marker": "WVX1a579b955f479889050ea717D",
+              "body_sha256": "60dc6a8f45c29f2edc4b610d03bc1c399073cd70425b2966a4e53547683a8c32",
+              "replayed": true,
+              "executed": false,
+              "main_frame": false,
+              "execution_context_id": null,
+              "blocked_resource_requests": 0,
+              "csp_preserved": true
+            },
+            {
+              "role": "attack_single",
+              "request_id": 8,
+              "marker": "WVX1a579b955f479889050ea717S",
+              "body_sha256": "f41b21e10cdc369a7488b1dc6c07783c7c90bf81bce32639dfed3e688a21b94c",
+              "replayed": true,
+              "executed": false,
+              "main_frame": false,
+              "execution_context_id": null,
+              "blocked_resource_requests": 0,
+              "csp_preserved": true
+            },
+            {
+              "role": "attack_double",
+              "request_id": 9,
+              "marker": "WVX1a579b955f479889050ea717Q",
+              "body_sha256": "bf74b500338ed3f18a844c346e1f303a9e1a9f1f17e07bfc10b16014cfabc56b",
+              "replayed": true,
+              "executed": false,
+              "main_frame": false,
+              "execution_context_id": null,
+              "blocked_resource_requests": 0,
+              "csp_preserved": true
+            }
+          ],
+          "network_policy": "Fetch fulfillment/abort only; proxy drops all connections; no forwarding",
+          "browser_version": "Edg/156.0.4314.42",
+          "blocked_proxy_connections": 0,
+          "mode": "isolated_browser_response_replay"
+        }
+      },
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  ]
+}
