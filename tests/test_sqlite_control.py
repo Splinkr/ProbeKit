@@ -49,6 +49,12 @@ def test_sql_error_is_real_and_parameterized_query_treats_quote_as_data(control_
     assert json.loads(safe.body) == {"status": "success", "data": []}
 
 
+def test_occupied_port_preserves_normal_bind_error(control_server):
+    server, _ = control_server
+    with pytest.raises(OSError):
+        ControlServer(server.server_port)
+
+
 def test_actual_app_scans_positive_and_negative_controls_without_changing_data(control_server):
     server, base = control_server
     before = server.database.manifest()

@@ -4,6 +4,7 @@ import argparse
 import hashlib
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+import socket
 import sqlite3
 import threading
 from urllib.parse import parse_qsl, urlsplit
@@ -61,6 +62,12 @@ class ProductDatabase:
 
 class ControlServer(ThreadingHTTPServer):
     daemon_threads = False
+    allow_reuse_address = not hasattr(socket, "SO_EXCLUSIVEADDRUSE")
+
+    def server_bind(self) -> None:
+        if hasattr(socket, "SO_EXCLUSIVEADDRUSE"):
+            self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
+        super().server_bind()
 
     def __init__(self, port: int = 8001):
         super().__init__(("127.0.0.1", port), ControlHandler)
@@ -70,7 +77,9 @@ class ControlServer(ThreadingHTTPServer):
 
     def server_close(self) -> None:
         super().server_close()
-        self.database.close()
+        database = getattr(self, "database", None)
+        if database is not None:
+            database.close()
 
 
 class ControlHandler(BaseHTTPRequestHandler):
