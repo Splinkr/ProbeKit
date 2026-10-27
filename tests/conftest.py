@@ -1,65 +1,79 @@
+"""Infraestrutura nova: HTTP efêmero e aplicação SQLite real."""
+
+from dataclasses import dataclass, field
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import threading
 import time
+from types import SimpleNamespace
+from urllib.parse import parse_qs, urlsplit
 
 import pytest
 
+from experiments.sqlite_control import ControlServer
+
+
+@dataclass
+class Reply:
+    body: bytes = b"ready"
+    status: int = 200
+    headers: dict = field(default_factory=dict)
+    wait_headers: float = 0
+    wait_body: float = 0
+
 
 @pytest.fixture
-def local_server():
-    state = {"requests": [], "cookies": []}
+def http_lab():
+    resources = []
 
-    class Handler(BaseHTTPRequestHandler):
-        def do_GET(self):
-            state["requests"].append(self.path)
-            state["cookies"].append(self.headers.get("Cookie"))
-            body = b"reference body"
-            status = 200
-            content_type = "text/plain; charset=utf-8"
-            if self.path == "/redirect":
-                self.send_response(302)
-                self.send_header("Location", "http://example.invalid/never-follow")
-                self.end_headers()
-                return
-            if self.path == "/slow":
-                time.sleep(0.25)
-            if self.path == "/slow-body":
-                self.send_response(200)
-                self.send_header("Content-Length", "2")
-                self.end_headers()
-                self.wfile.flush()
-                time.sleep(0.25)
+    def start(respond):
+        calls = []
+
+        class Handler(BaseHTTPRequestHandler):
+            def do_GET(self):
+                parsed = urlsplit(self.path)
+                request = SimpleNamespace(
+                    path=parsed.path, query=parse_qs(parsed.query, keep_blank_values=True),
+                    headers=dict(self.headers), arrived=time.monotonic(), number=len(calls) + 1,
+                )
+                calls.append(request)
+                reply = respond(request)
+                time.sleep(reply.wait_headers)
                 try:
-                    self.wfile.write(b"ok")
-                except OSError:
+                    self.send_response(reply.status)
+                    for key, value in {"Content-Type": "text/plain", **reply.headers}.items():
+                        self.send_header(key, value)
+                    self.send_header("Content-Length", str(len(reply.body)))
+                    self.end_headers()
+                    self.wfile.flush()
+                    time.sleep(reply.wait_body)
+                    self.wfile.write(reply.body)
+                except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError):
                     pass
-                return
-            if self.path == "/large":
-                body = b"X" * 20_000
-            if self.path == "/changing":
-                body = f"request {len(state['requests'])}".encode()
-            if self.path == "/error":
-                status = 500
-            if self.path == "/json":
-                content_type = "application/json"
-                body = b'{"ok": true}'
-            self.send_response(status)
-            self.send_header("Content-Type", content_type)
-            self.send_header("Content-Length", str(len(body)))
-            self.send_header("Set-Cookie", "session=do-not-persist")
-            self.end_headers()
-            try:
-                self.wfile.write(body)
-            except OSError:
+
+            def log_message(self, *_args):
                 pass
 
-        def log_message(self, *_args):
-            pass
+        server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        thread = threading.Thread(target=server.serve_forever, kwargs={"poll_interval": 0.02}, daemon=True)
+        thread.start()
+        resources.append((server, thread))
+        return SimpleNamespace(url=f"http://127.0.0.1:{server.server_port}", calls=calls)
 
-    server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    yield SimpleNamespace(start=start, reply=Reply)
+    for server, thread in reversed(resources):
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=5)
+        assert not thread.is_alive()
+
+
+@pytest.fixture
+def sqlite_app():
+    server = ControlServer(0)
+    thread = threading.Thread(target=server.serve_forever, kwargs={"poll_interval": 0.02}, daemon=True)
     thread.start()
-    yield f"http://127.0.0.1:{server.server_port}", state
+    yield SimpleNamespace(server=server, url=f"http://127.0.0.1:{server.server_port}")
     server.shutdown()
     server.server_close()
-    thread.join()
+    thread.join(timeout=5)
+    assert not thread.is_alive()
