@@ -11,12 +11,12 @@
 
 ## Etapa 2 — Núcleo do scanner
 
-- [ ] Criar CLI com argparse.
-- [ ] Implementar cliente HTTP com requests, timeout e erros tratados.
-- [ ] Implementar comparação de respostas HTTP.
-- [ ] Criar modelos de achados e evidências.
-- [ ] Restringir alvos a loopback por padrão.
-- [ ] Executar referências e gerar relatório JSON.
+- [x] Criar CLI com argparse.
+- [x] Implementar cliente HTTP com requests, timeout e erros tratados.
+- [x] Implementar comparação de respostas HTTP.
+- [x] Criar modelos de achados e evidências.
+- [x] Restringir alvos a loopback por padrão.
+- [x] Executar referências e gerar relatório JSON.
 
 Os módulos SQLi, XSS e exposição de arquivos pertencem às próximas etapas.
 Diferenças entre respostas não confirmam vulnerabilidades.

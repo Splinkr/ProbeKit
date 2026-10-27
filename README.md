@@ -19,3 +19,91 @@ python -m venv .venv
 
 O executável do ambiente pode ser chamado diretamente, sem ativação e sem
 alterar a política de execução do PowerShell. Para npm, use `npm.cmd`.
+
+Se Python não estiver instalado, o script abaixo baixa uv 0.9.7 e Python 3.13.9
+em `.tools/`, cria `.venv/` e instala as dependências. Ele também aceita
+`-PythonExe C:\caminho\python.exe` para usar uma instalação existente.
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/setup-python.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/setup-juice-shop.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-juice-shop.ps1
+```
+
+O parâmetro de política vale apenas para o processo chamado. O laboratório
+fica em `lab/` e escuta em `127.0.0.1:3000`. Consulte
+[as instruções do laboratório](lab/README.md) para execução em segundo plano.
+
+## Executar
+
+Em outro terminal, com o Juice Shop iniciado:
+
+```powershell
+.\.venv\Scripts\python.exe main.py http://localhost:3000 --samples 3 --output reports/juice-shop-baseline.json
+.\.venv\Scripts\python.exe main.py "http://localhost:3000/rest/products/search?q=apple" --output reports/search-baseline.json
+.\.venv\Scripts\python.exe main.py --help
+```
+
+Cada execução faz GETs de referência no mesmo endpoint. A primeira resposta
+é a base das comparações seguintes. O relatório inclui horário UTC, método,
+URL, status HTTP, tipo de conteúdo, bytes descomprimidos, SHA-256 do corpo,
+tempo de resposta, diferenças e erros. `findings` fica vazio nesta etapa.
+
+Por padrão são duas referências, timeout de conexão/leitura de 5 segundos,
+intervalo mínimo de 0,2 segundo entre inícios, orçamento de 10 requisições e
+limite de 1 MiB descomprimido por resposta. Use `--samples`, `--timeout`,
+`--interval`, `--max-requests` e `--max-body-bytes` para ajustar. A quantidade
+de referências deve caber no orçamento. Não há retries automáticos; a primeira
+falha interrompe a coleta e ainda gera JSON com os dados já obtidos.
+
+Códigos de saída:
+
+| Código | Significado |
+| --- | --- |
+| 0 | Referências recebidas e relatório gravado |
+| 1 | Falha de transporte, limite de resposta ou gravação |
+| 2 | Argumentos inválidos ou destino bloqueado antes da rede |
+
+Uma resposta 4xx/5xx comprova conectividade HTTP e é preservada como evidência.
+Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
+
+## Escopo e limites atuais
+
+- Apenas `localhost` e IPs loopback são aceitos; IPs de LAN também são bloqueados.
+  `localhost` é convertido para `127.0.0.1`, evitando resolução DNS variável.
+  IPv6 literal `[::1]` é aceito pelo scanner; o laboratório fornecido usa IPv4.
+- Redirecionamentos são registrados como respostas 3xx e nunca seguidos.
+  Proxies e credenciais do ambiente são desativados, certificados TLS são
+  verificados e cookies não são reutilizados entre referências.
+- Corpos HTTP, cookies e cabeçalhos de autenticação não são gravados no JSON.
+  A URL completa, incluindo parâmetros, é registrada para reprodução; não
+  forneça segredos nos parâmetros da URL.
+- O hash e o tamanho cobrem o corpo completo recebido. A similaridade usa
+  somente os primeiros 16 KiB e não deve ser interpretada como detector.
+- Timeout limita conexão e inatividade da leitura, não o tempo total de uma
+  resposta enviada lentamente. Respostas acima do limite são descartadas e
+  registradas como erro, sem comparar conteúdo parcial.
+- Não há descoberta automática, autenticação ou módulos SQLi, XSS e exposição
+  de arquivos nesta entrega. Não há opção para liberar destinos externos.
+
+## Arquitetura e verificação
+
+| Arquivo | Responsabilidade |
+| --- | --- |
+| `main.py` | CLI, validação de argumentos e saída no terminal |
+| `scanner/targets.py` | Validação e normalização de destinos locais |
+| `scanner/http_client.py` | GETs, isolamento de sessão, limites e erros |
+| `scanner/models.py` | Evidências, comparações, achados e relatório |
+| `scanner/analyzer.py` | Comparação observacional de respostas |
+| `scanner/core.py` | Orquestração das referências |
+| `scanner/reporter.py` | Serialização JSON sem corpos HTTP |
+| `scanner/modules/` | Destino dos futuros detectores |
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m pip check
+```
+
+Os testes usam servidores HTTP efêmeros no loopback e falhas simuladas; não
+dependem de sites públicos nem do Juice Shop. Resultados reais e limitações
+estão em [docs/VALIDACAO.md](docs/VALIDACAO.md).
