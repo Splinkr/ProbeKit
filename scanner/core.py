@@ -1,4 +1,4 @@
-"""Orquestra referências repetidas no mesmo endpoint, sem payloads de ataque."""
+"""Orquestra referências HTTP e a análise SQLi controlada de buscas locais."""
 
 from scanner.analyzer import compare_responses
 from scanner.http_client import HttpClient, HttpClientError

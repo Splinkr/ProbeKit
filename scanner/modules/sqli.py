@@ -1,4 +1,4 @@
-"""MVP SQLi para a busca de produtos do Juice Shop, apenas com GETs de leitura."""
+"""SQLi para buscas de produtos do Juice Shop e do controle SQLite local."""
 
 from dataclasses import replace
 import hashlib
@@ -17,14 +17,17 @@ from scanner.targets import validate_target
 PAIRS = (17, 23)
 EXTRA_REQUESTS = 8  # Aspa, escape, literal, dois pares booleanos e recuperação.
 SIGNATURES = ("SQLITE_ERROR", "SQLITE_MISUSE", "SequelizeDatabaseError")
+SUPPORTED_PATHS = {
+    "/rest/products/search", "/control/vulnerable/search", "/control/safe/search",
+}
 
 
 def build_probe_plan(url: str, samples: int, max_requests: int) -> list[ProbeEvidence]:
     target = validate_target(url)
     parts = urlsplit(target)
     values = [value for key, value in parse_qsl(parts.query, keep_blank_values=True) if key == "q"]
-    if parts.path != "/rest/products/search" or len(values) != 1:
-        raise ValueError("O MVP SQLi requer /rest/products/search com um único parâmetro q.")
+    if parts.path not in SUPPORTED_PATHS or len(values) != 1:
+        raise ValueError("SQLi requer um caminho de busca suportado (Juice Shop ou /control/{vulnerable,safe}/search) e um único q.")
     term = values[0]
     if not re.fullmatch(r"[\w -]{1,80}", term) or not term.strip():
         raise ValueError("Use em q um termo de referência simples, de 1 a 80 caracteres (ex.: apple).")

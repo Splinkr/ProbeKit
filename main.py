@@ -36,7 +36,7 @@ def interval_float(value: str) -> float:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Referências HTTP locais e detecção SQLi controlada na busca do Juice Shop."
+        description="Referências HTTP locais e detecção SQLi controlada em buscas de produtos."
     )
     parser.add_argument("url", help="URL http(s) em localhost ou IP loopback")
     parser.add_argument("--module", choices=("baseline", "sqli"), default="baseline", help="Modo de execução (padrão: baseline)")
@@ -46,7 +46,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-requests", type=positive_int, default=10, help="Orçamento máximo de requisições (padrão: 10)")
     parser.add_argument("--interval", type=interval_float, default=0.2, help="Intervalo mínimo entre inícios de requisições (padrão: 0.2)")
     parser.add_argument("--max-body-bytes", type=positive_int, default=1_048_576, help="Limite de bytes descomprimidos por resposta")
-    parser.add_argument("--output", type=Path, help="Destino JSON (padrão: reports/baseline-<UTC>.json)")
+    parser.add_argument("--output", type=Path, help="Destino JSON (padrão: reports/<modo>-<UTC>.json)")
     return parser
 
 
