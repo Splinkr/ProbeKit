@@ -2,28 +2,44 @@
 
 from scanner.analyzer import compare_responses
 from scanner.http_client import HttpClient, HttpClientError
-from scanner.models import Confidence, Finding, FindingStatus, ParameterResult, ScanReport
+from scanner.models import Confidence, Finding, FindingStatus, ParameterResult, RequestFailure, ScanReport
 from scanner.sqli_classification import assess
 from scanner.sqli_features import SIGNATURES, observe
 from scanner.sqli_plans import EXTRA_REQUESTS, PAIRS, build_probe_plan, probe_url, select_parameters
 
 
 def run_detection(client: HttpClient, report: ScanReport, plan) -> None:
-    parameter, context = plan[0].parameter, plan[0].context
+    try:
+        _execute_plan(client, report, plan)
+    finally:
+        _finish_detection(report, plan[0].parameter, plan[0].context)
+
+
+def _execute_plan(client: HttpClient, report: ScanReport, plan) -> None:
+    parameter = plan[0].parameter
     first_response = None
     for planned in plan:
         report.probes.append(planned)
+        before = client.request_count
+        request_url = probe_url(report.target, planned.input_value, parameter)
         try:
-            response = client.get(probe_url(report.target, planned.input_value, parameter))
+            response = client.get(request_url)
         except HttpClientError as error:
             report.errors.append(error.failure)
             break
+        except KeyboardInterrupt:
+            if client.request_count > before:
+                report.errors.append(RequestFailure(client.request_count, request_url, "interrupted", "Análise interrompida pelo usuário."))
+            raise
         report.probes[-1] = observe(planned, response)
         if first_response is not None:
             report.comparisons.append(compare_responses(first_response, response))
         else:
             first_response = response
         report.responses.append(response)
+
+
+def _finish_detection(report: ScanReport, parameter: str, context: str) -> None:
     assessment = assess(report, report.settings['samples'], parameter=parameter, context=context)
     evidence_ids = [probe.request_id for probe in report.probes if probe.parameter == parameter]
     report.parameter_results.append(ParameterResult(parameter, context, assessment, evidence_ids))

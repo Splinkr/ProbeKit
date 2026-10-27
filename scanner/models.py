@@ -139,6 +139,7 @@ class ScanReport:
     probes: list[ProbeEvidence] = field(default_factory=list)
     assessment: SqliAssessment | None = None
     parameter_results: list[ParameterResult] = field(default_factory=list)
+    target_source: str = "manual"
 
     @property
     def reachable(self) -> bool:
@@ -149,7 +150,7 @@ class ScanReport:
             "schema_version": self.schema_version,
             "mode": self.mode,
             "target": self.target,
-            "target_source": "manual",
+            "target_source": self.target_source,
             "started_at": self.started_at,
             "finished_at": self.finished_at,
             "settings": self.settings,
@@ -214,6 +215,8 @@ class DiscoveryReport:
     requests_attempted: int = 0
     queued_remaining: int = 0
     finished_at: str | None = None
+    candidates: list[dict[str, Any]] = field(default_factory=list)
+    ignored_targets: list[dict[str, Any]] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -229,4 +232,46 @@ class DiscoveryReport:
             "stop_reasons": self.stop_reasons, "skipped": self.skipped,
             "endpoints": [endpoint.to_dict() for endpoint in self.endpoints],
             "pages": self.pages, "errors": [asdict(error) for error in self.errors],
+            "candidates": self.candidates, "ignored_targets": self.ignored_targets,
+        }
+
+
+@dataclass
+class IntegratedScanReport:
+    target: str
+    started_at: str
+    settings: dict[str, Any]
+    discovery: DiscoveryReport
+    analyses: list[ScanReport] = field(default_factory=list)
+    targets: list[dict[str, Any]] = field(default_factory=list)
+    ignored_targets: list[dict[str, Any]] = field(default_factory=list)
+    requests: list[dict[str, Any]] = field(default_factory=list)
+    stop_reasons: list[str] = field(default_factory=list)
+    limitations: list[str] = field(default_factory=list)
+    status: str = "running"
+    finished_at: str | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        results = [
+            {"url": analysis.target, **asdict(result)}
+            for analysis in self.analyses for result in analysis.parameter_results
+        ]
+        return {
+            "schema_version": "1.0", "mode": "scan", "initial_url": self.target,
+            "started_at": self.started_at, "finished_at": self.finished_at,
+            "settings": self.settings,
+            "summary": {
+                "status": self.status, "requests_used": len(self.requests),
+                "discovery_requests": sum(item["phase"] == "discovery" for item in self.requests),
+                "analysis_requests": sum(item["phase"] == "analysis" for item in self.requests),
+                "requests_remaining": self.settings["max_requests"] - len(self.requests),
+                "endpoints_discovered": len(self.discovery.endpoints),
+                "parameters_analyzed": len(results), "targets_ignored": len(self.ignored_targets),
+                "findings": sum(len(analysis.findings) for analysis in self.analyses),
+            },
+            "discovery": self.discovery.to_dict(), "targets": self.targets,
+            "parameter_results": results,
+            "analyses": [analysis.to_dict() for analysis in self.analyses],
+            "requests": self.requests, "ignored_targets": self.ignored_targets,
+            "stop_reasons": self.stop_reasons, "limitations": self.limitations,
         }

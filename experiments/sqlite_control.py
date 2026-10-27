@@ -21,6 +21,19 @@ RECORDS = (
     (5, "Apple Archived Demo", "Fictional archived product", "2020-01-01"),
 )
 
+SCAN_LAB_HTML = """<!doctype html><html lang="pt-BR"><meta charset="utf-8">
+<title>WebVuln — descoberta e SQLi</title><h1>Laboratório SQLite local</h1>
+<p>Dados fictícios; buscas por concatenação e por bindings na mesma base.</p>
+<a href="/general/json/vulnerable?term=apple&amp;lang=en">JSON vulnerável</a>
+<a href="/general/json/safe?term=apple&amp;lang=en">JSON parametrizado</a>
+<a href="/general/html/vulnerable?search=apple&amp;lang=en">HTML vulnerável</a>
+<a href="/general/html/safe?search=apple&amp;lang=en">HTML parametrizado</a>
+<a href="/general/./json/vulnerable?lang=en&amp;term=apple#duplicate">Link duplicado</a>
+<form action="/control/safe/search" method="get"><input name="q"><button>Busca manual</button></form>
+<a href="http://example.invalid/blocked?term=apple">Referência externa bloqueada</a>
+<script>/* API apenas em JavaScript, fora da descoberta estática */
+fetch('/general/text/safe?keyword=apple');</script></html>"""
+
 
 @dataclass(frozen=True)
 class SearchRoute:
@@ -120,6 +133,9 @@ class ControlHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         parts = urlsplit(self.path)
+        if parts.path == "/scan-lab":
+            self.send_body(200, "text/html", SCAN_LAB_HTML)
+            return
         if parts.path == "/health":
             self.send_json(200, {"status": "ok", **self.server.database.manifest()})
             return
@@ -208,6 +224,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Laboratório SQLite em http://127.0.0.1:{args.port} (Ctrl+C para encerrar)", flush=True)
         print(f"Endpoints: {VULNERABLE_PATH}?q=apple e {SAFE_PATH}?q=apple", flush=True)
         print("Perfis adicionais: /general/{json,html,text,quoted}/{vulnerable,safe}, /general/html/{unstable,error}", flush=True)
+        print("Fluxo integrado HTML: /scan-lab", flush=True)
         try:
             server.serve_forever()
         except KeyboardInterrupt:

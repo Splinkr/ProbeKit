@@ -9,8 +9,9 @@ import sys
 from scanner import __version__
 from scanner.core import run_baseline, run_sqli
 from scanner.discovery import discover
+from scanner.pipeline import run_scan
 from scanner.sqli_plans import CONTEXTS, prepare_parameters
-from scanner.reporter import write_json
+from scanner.reporter import write_json, write_json_atomic
 from scanner.targets import TargetError, validate_target
 
 
@@ -79,10 +80,50 @@ def discover_main(argv: list[str]) -> int:
     return 1 if report.errors else 0
 
 
+def scan_main(argv: list[str]) -> int:
+    parser = argparse.ArgumentParser(prog="main.py scan", description="Descobre parâmetros GET e executa SQLi na mesma origem loopback.")
+    parser.add_argument("url", help="URL inicial local autorizada")
+    parser.add_argument("--max-depth", type=nonnegative_int, default=2)
+    parser.add_argument("--max-pages", type=positive_int, default=20)
+    parser.add_argument("--max-requests", type=positive_int, default=100, help="Orçamento global: descoberta + SQLi")
+    parser.add_argument("--timeout", type=positive_float, default=5.0)
+    parser.add_argument("--interval", type=interval_float, default=0.2)
+    parser.add_argument("--max-body-bytes", type=positive_int, default=1_048_576)
+    parser.add_argument("--samples", type=positive_int, default=2)
+    parser.add_argument("--sqli-context", choices=CONTEXTS, default="like")
+    parser.add_argument("--output", type=Path)
+    args = parser.parse_args(argv)
+    destination = args.output or Path("reports") / (
+        "scan-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ") + ".json"
+    )
+    try:
+        report = run_scan(
+            args.url, max_depth=args.max_depth, max_pages=args.max_pages, max_requests=args.max_requests,
+            timeout=args.timeout, interval=args.interval, max_body_bytes=args.max_body_bytes,
+            samples=args.samples, context=args.sqli_context,
+            checkpoint=lambda current: write_json_atomic(current, destination),
+        )
+    except ValueError as error:
+        parser.error(str(error))
+    except OSError as error:
+        print(f"Erro ao gravar relatório consolidado: {error}", file=sys.stderr)
+        return 1
+    for analysis in report.analyses:
+        result = analysis.assessment
+        label = f"{result.parameter}: {result.outcome}" if result else "interrompida antes da classificação"
+        print(f"{analysis.target} | {label}")
+    summary = report.to_dict()["summary"]
+    print(f"Estado: {report.status}; endpoints: {summary['endpoints_discovered']}; parâmetros analisados: {summary['parameters_analyzed']}")
+    print(f"Requisições: {summary['requests_used']}/{args.max_requests} (descoberta={summary['discovery_requests']}, SQLi={summary['analysis_requests']})")
+    print(f"Alvos ignorados: {summary['targets_ignored']}; limites: {', '.join(report.stop_reasons) or 'nenhum'}")
+    print(f"Relatório consolidado JSON: {destination}")
+    return 130 if report.status == "interrupted" else 1 if report.status == "incomplete" else 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Referências HTTP locais e detecção SQLi controlada por parâmetro GET.",
-        epilog="Descoberta HTML: main.py discover URL --help",
+        epilog="Descoberta HTML: main.py discover URL --help. Fluxo completo: main.py scan URL --help",
     )
     parser.add_argument("url", help="URL http(s) em localhost ou IP loopback")
     parser.add_argument("--module", choices=("baseline", "sqli"), default="baseline", help="Modo de execução (padrão: baseline)")
@@ -104,6 +145,8 @@ def main(argv: list[str] | None = None) -> int:
     arguments = list(sys.argv[1:] if argv is None else argv)
     if arguments and arguments[0] == "discover":
         return discover_main(arguments[1:])
+    if arguments and arguments[0] == "scan":
+        return scan_main(arguments[1:])
     parser = build_parser()
     args = parser.parse_args(arguments)
     try:
