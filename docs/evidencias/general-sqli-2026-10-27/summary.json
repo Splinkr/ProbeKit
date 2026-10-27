@@ -1,0 +1,266 @@
+{
+  "experiment": "general_sqli",
+  "started_at": "2026-10-27T18:15:57.289302+00:00",
+  "dataset_before": {
+    "status": "ok",
+    "application": "webvuln-sqlite-control",
+    "sqlite_version": "3.50.4",
+    "records": 5,
+    "dataset_sha256": "5a7f6cbde94c6fb8d193dc14c708adb2d425546f2ddd294c9793ff3d5864ce0a"
+  },
+  "runs": [
+    {
+      "case": "legacy-vulnerable",
+      "target": "http://127.0.0.1:8001/control/vulnerable/search?q=apple",
+      "context": "like",
+      "outcomes": {
+        "q": "confirmed"
+      },
+      "expected_outcomes": {
+        "q": "confirmed"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 1,
+      "report": "legacy-vulnerable.json"
+    },
+    {
+      "case": "legacy-safe",
+      "target": "http://127.0.0.1:8001/control/safe/search?q=apple",
+      "context": "like",
+      "outcomes": {
+        "q": "not_detected"
+      },
+      "expected_outcomes": {
+        "q": "not_detected"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 0,
+      "report": "legacy-safe.json"
+    },
+    {
+      "case": "json-vulnerable",
+      "target": "http://127.0.0.1:8001/general/json/vulnerable?term=apple&lang=en",
+      "context": "like",
+      "outcomes": {
+        "term": "confirmed"
+      },
+      "expected_outcomes": {
+        "term": "confirmed"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 1,
+      "report": "json-vulnerable.json"
+    },
+    {
+      "case": "json-safe",
+      "target": "http://127.0.0.1:8001/general/json/safe?term=apple&lang=en",
+      "context": "like",
+      "outcomes": {
+        "term": "not_detected"
+      },
+      "expected_outcomes": {
+        "term": "not_detected"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 0,
+      "report": "json-safe.json"
+    },
+    {
+      "case": "html-vulnerable",
+      "target": "http://127.0.0.1:8001/general/html/vulnerable?search=apple&lang=en",
+      "context": "like",
+      "outcomes": {
+        "search": "confirmed"
+      },
+      "expected_outcomes": {
+        "search": "confirmed"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 1,
+      "report": "html-vulnerable.json"
+    },
+    {
+      "case": "html-safe",
+      "target": "http://127.0.0.1:8001/general/html/safe?search=apple&lang=en",
+      "context": "like",
+      "outcomes": {
+        "search": "not_detected"
+      },
+      "expected_outcomes": {
+        "search": "not_detected"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 0,
+      "report": "html-safe.json"
+    },
+    {
+      "case": "text-vulnerable",
+      "target": "http://127.0.0.1:8001/general/text/vulnerable?keyword=apple&lang=en",
+      "context": "like",
+      "outcomes": {
+        "keyword": "confirmed"
+      },
+      "expected_outcomes": {
+        "keyword": "confirmed"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 1,
+      "report": "text-vulnerable.json"
+    },
+    {
+      "case": "text-safe",
+      "target": "http://127.0.0.1:8001/general/text/safe?keyword=apple&lang=en",
+      "context": "like",
+      "outcomes": {
+        "keyword": "not_detected"
+      },
+      "expected_outcomes": {
+        "keyword": "not_detected"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 0,
+      "report": "text-safe.json"
+    },
+    {
+      "case": "quoted-vulnerable",
+      "target": "http://127.0.0.1:8001/general/quoted/vulnerable?item=Apple+Demo",
+      "context": "quoted",
+      "outcomes": {
+        "item": "confirmed"
+      },
+      "expected_outcomes": {
+        "item": "confirmed"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 1,
+      "report": "quoted-vulnerable.json"
+    },
+    {
+      "case": "quoted-safe",
+      "target": "http://127.0.0.1:8001/general/quoted/safe?item=Apple+Demo",
+      "context": "quoted",
+      "outcomes": {
+        "item": "not_detected"
+      },
+      "expected_outcomes": {
+        "item": "not_detected"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 0,
+      "report": "quoted-safe.json"
+    },
+    {
+      "case": "multiple-parameters",
+      "target": "http://127.0.0.1:8001/general/html/vulnerable?search=apple&lang=en",
+      "context": "like",
+      "outcomes": {
+        "search": "confirmed",
+        "lang": "not_detected"
+      },
+      "expected_outcomes": {
+        "search": "confirmed",
+        "lang": "not_detected"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 20,
+      "findings": 1,
+      "report": "multiple-parameters.json"
+    },
+    {
+      "case": "unstable",
+      "target": "http://127.0.0.1:8001/general/html/unstable?search=apple",
+      "context": "like",
+      "outcomes": {
+        "search": "inconclusive"
+      },
+      "expected_outcomes": {
+        "search": "inconclusive"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 0,
+      "report": "unstable.json"
+    },
+    {
+      "case": "error-page",
+      "target": "http://127.0.0.1:8001/general/html/error?search=apple",
+      "context": "like",
+      "outcomes": {
+        "search": "inconclusive"
+      },
+      "expected_outcomes": {
+        "search": "inconclusive"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 0,
+      "report": "error-page.json"
+    },
+    {
+      "case": "wrong-context",
+      "target": "http://127.0.0.1:8001/general/json/vulnerable?term=apple",
+      "context": "quoted",
+      "outcomes": {
+        "term": "suspected"
+      },
+      "expected_outcomes": {
+        "term": "suspected"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 1,
+      "report": "wrong-context.json"
+    },
+    {
+      "case": "juice-shop",
+      "target": "http://127.0.0.1:3000/rest/products/search?q=apple",
+      "context": "like",
+      "outcomes": {
+        "q": "confirmed"
+      },
+      "expected_outcomes": {
+        "q": "confirmed"
+      },
+      "expectation_matched": true,
+      "transport_errors": 0,
+      "requests_attempted": 10,
+      "findings": 1,
+      "report": "juice-shop.json"
+    }
+  ],
+  "dataset_after": {
+    "status": "ok",
+    "application": "webvuln-sqlite-control",
+    "sqlite_version": "3.50.4",
+    "records": 5,
+    "dataset_sha256": "5a7f6cbde94c6fb8d193dc14c708adb2d425546f2ddd294c9793ff3d5864ce0a"
+  },
+  "dataset_unchanged": true,
+  "expectations_matched": true,
+  "status": "completed",
+  "finished_at": "2026-10-27T18:16:26.538156+00:00"
+}

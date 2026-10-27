@@ -1,8 +1,10 @@
 # Demonstração do MVP SQLi — Windows 11
 
 O controle positivo e negativo SQLite está em [CONTROLE_NEGATIVO.md](CONTROLE_NEGATIVO.md).
-Ele usa o mesmo plano e classificador, acrescentando dois caminhos locais
-suportados; o procedimento do Juice Shop abaixo permanece válido.
+Ele usa o mesmo detector. A [etapa 5](SQLI_GENERALIZADO.md) acrescentou seleção
+de parâmetros e formatos, e reconfirmou o Juice Shop com 196 testes aprovados.
+Este documento preserva as evidências e o perfil do MVP original; o procedimento
+do Juice Shop abaixo permanece válido.
 
 Escopo: somente o Juice Shop local autorizado, sem Docker. O scanner mantém
 o cliente HTTP, os limites de loopback e a CLI das etapas anteriores. Nenhuma
@@ -176,7 +178,8 @@ do parâmetro e respostas de erro sem detalhes internos do banco.
 ```
 
 Na validação inicial, **81 testes passaram**. A suíte foi substituída pela
-[reconstrução atual](TESTES.md), com **123 testes aprovados**. Os cenários incluem
+[reconstrução](TESTES.md), que passou com 123 casos; após descoberta e
+generalização SQLi, são **196 testes aprovados**. Os cenários incluem
 SQLite real em memória com consulta vulnerável
 e parametrizada, SQL error isolado, erro HTTP genérico, referências instáveis,
 IDs diferentes, referências vazias, HTML genérico, JSON inválido, falha de coleta,

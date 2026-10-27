@@ -1,8 +1,23 @@
 # Suíte automatizada reconstruída
 
-Estado atual após a etapa de descoberta: **164 testes aprovados** (123 anteriores
-e 41 novos), sem falhas ou ignorados. Resultado e roteiro em
-[DESCOBERTA.md](DESCOBERTA.md). O registro abaixo documenta a reconstrução anterior.
+Estado atual após a etapa 5: **196 testes aprovados** (164 anteriores e 32 novos),
+sem falhas, erros ou ignorados. Resultado real: 15,71 segundos; dependências
+consistentes. Roteiro e evidências em [SQLI_GENERALIZADO.md](SQLI_GENERALIZADO.md).
+A etapa de descoberta passou com 164 testes, conforme [DESCOBERTA.md](DESCOBERTA.md).
+O registro abaixo documenta a reconstrução anterior.
+
+Para reproduzir a suíte atual:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest --cache-clear -q --junitxml=reports/general-sqli-tests.xml
+.\.venv\Scripts\python.exe -m pip check
+```
+
+Os 32 casos de `tests/test_general_sqli.py` verificam múltiplos parâmetros,
+JSON/HTML/texto, LIKE/igualdade, controles parametrizados reais, respostas
+instáveis, páginas de erro, limites, CLI e resultados empíricos sem forçar
+expectativas. Os nove módulos e suas quantidades constam no
+[resumo JUnit versionado](evidencias/general-sqli-2026-10-27/tests-summary.json).
 
 Em 27/10/2026, a suíte anterior foi removida e substituída por testes organizados
 pelos contratos públicos do projeto. O arquivo `conftest.py` também foi refeito.
@@ -59,4 +74,4 @@ cobertura percentual nem precisão geral do detector. Ela não substitui os
 experimentos manuais no Juice Shop nem a avaliação empírica repetida descrita
 em [CONTROLE_NEGATIVO.md](CONTROLE_NEGATIVO.md). Os números anteriores de 57,
 81 e 101 testes são registros históricos das suítes substituídas; o total
-da reconstrução é 123; com os testes de descoberta, o total atual é 164.
+da reconstrução é 123; com descoberta foram 164; a etapa 5 elevou o total a 196.

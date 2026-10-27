@@ -1,0 +1,538 @@
+{
+  "schema_version": "1.2",
+  "mode": "sqli",
+  "target": "http://127.0.0.1:8001/general/quoted/vulnerable?item=Apple+Demo",
+  "target_source": "manual",
+  "started_at": "2026-10-27T18:16:11.823421+00:00",
+  "finished_at": "2026-10-27T18:16:13.630389+00:00",
+  "settings": {
+    "samples": 2,
+    "timeout_seconds": 5.0,
+    "max_requests": 10,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "follow_redirects": false,
+    "scope": "loopback_only",
+    "parameter": "item",
+    "parameters": [
+      "item"
+    ],
+    "context": "quoted",
+    "available_parameters": [
+      "item"
+    ],
+    "planned_requests": 10,
+    "confirmation_scope": "controlled_boolean_read_condition"
+  },
+  "summary": {
+    "reachable": true,
+    "status": "completed",
+    "requests_attempted": 10,
+    "responses_received": 10,
+    "errors": 0,
+    "findings": 1
+  },
+  "responses": [
+    {
+      "request_id": 1,
+      "url": "http://127.0.0.1:8001/general/quoted/vulnerable?item=Apple+Demo",
+      "collected_at": "2026-10-27T18:16:11.823656+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 36,
+      "body_sha256": "fec3e826d10276d392b4d592357662efa3f8d5bdd290cc6b5afe8223dbe71dec",
+      "elapsed_ms": 3.129,
+      "method": "GET"
+    },
+    {
+      "request_id": 2,
+      "url": "http://127.0.0.1:8001/general/quoted/vulnerable?item=Apple+Demo",
+      "collected_at": "2026-10-27T18:16:12.023803+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 36,
+      "body_sha256": "fec3e826d10276d392b4d592357662efa3f8d5bdd290cc6b5afe8223dbe71dec",
+      "elapsed_ms": 15.111,
+      "method": "GET"
+    },
+    {
+      "request_id": 3,
+      "url": "http://127.0.0.1:8001/general/quoted/vulnerable?item=Apple+Demo%27",
+      "collected_at": "2026-10-27T18:16:12.224077+00:00",
+      "status_code": 500,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 142,
+      "body_sha256": "bf36f8a128579f7eba339f33eca0007751be8365194cbbbe6e1991cf9042cb84",
+      "elapsed_ms": 2.722,
+      "method": "GET"
+    },
+    {
+      "request_id": 4,
+      "url": "http://127.0.0.1:8001/general/quoted/vulnerable?item=Apple+Demo%27%27",
+      "collected_at": "2026-10-27T18:16:12.424601+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "elapsed_ms": 2.733,
+      "method": "GET"
+    },
+    {
+      "request_id": 5,
+      "url": "http://127.0.0.1:8001/general/quoted/vulnerable?item=Apple+Demo+AND+17%3D17",
+      "collected_at": "2026-10-27T18:16:12.625143+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "elapsed_ms": 4.453,
+      "method": "GET"
+    },
+    {
+      "request_id": 6,
+      "url": "http://127.0.0.1:8001/general/quoted/vulnerable?item=Apple+Demo%27+AND+%2817%3D17%29+AND+%27x%27%3D%27x",
+      "collected_at": "2026-10-27T18:16:12.825430+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 36,
+      "body_sha256": "fec3e826d10276d392b4d592357662efa3f8d5bdd290cc6b5afe8223dbe71dec",
+      "elapsed_ms": 25.038,
+      "method": "GET"
+    },
+    {
+      "request_id": 7,
+      "url": "http://127.0.0.1:8001/general/quoted/vulnerable?item=Apple+Demo%27+AND+%2817%3D18%29+AND+%27x%27%3D%27x",
+      "collected_at": "2026-10-27T18:16:13.025766+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "elapsed_ms": 4.427,
+      "method": "GET"
+    },
+    {
+      "request_id": 8,
+      "url": "http://127.0.0.1:8001/general/quoted/vulnerable?item=Apple+Demo%27+AND+%2823%3D23%29+AND+%27x%27%3D%27x",
+      "collected_at": "2026-10-27T18:16:13.226104+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 36,
+      "body_sha256": "fec3e826d10276d392b4d592357662efa3f8d5bdd290cc6b5afe8223dbe71dec",
+      "elapsed_ms": 12.103,
+      "method": "GET"
+    },
+    {
+      "request_id": 9,
+      "url": "http://127.0.0.1:8001/general/quoted/vulnerable?item=Apple+Demo%27+AND+%2823%3D24%29+AND+%27x%27%3D%27x",
+      "collected_at": "2026-10-27T18:16:13.426540+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "elapsed_ms": 3.099,
+      "method": "GET"
+    },
+    {
+      "request_id": 10,
+      "url": "http://127.0.0.1:8001/general/quoted/vulnerable?item=Apple+Demo",
+      "collected_at": "2026-10-27T18:16:13.626952+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 36,
+      "body_sha256": "fec3e826d10276d392b4d592357662efa3f8d5bdd290cc6b5afe8223dbe71dec",
+      "elapsed_ms": 3.164,
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "comparisons": [
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 2,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 36,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 3,
+      "status_changed": true,
+      "content_type_changed": false,
+      "size_delta_bytes": 106,
+      "body_changed": true,
+      "sample_similarity": 0.314607,
+      "compared_sample_bytes": 142,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 4,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -34,
+      "body_changed": true,
+      "sample_similarity": 0.105263,
+      "compared_sample_bytes": 36,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 5,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -34,
+      "body_changed": true,
+      "sample_similarity": 0.105263,
+      "compared_sample_bytes": 36,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 6,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 36,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 7,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -34,
+      "body_changed": true,
+      "sample_similarity": 0.105263,
+      "compared_sample_bytes": 36,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 8,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 36,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 9,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -34,
+      "body_changed": true,
+      "sample_similarity": 0.105263,
+      "compared_sample_bytes": 36,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 10,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 36,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    }
+  ],
+  "findings": [
+    {
+      "endpoint": "http://127.0.0.1:8001/general/quoted/vulnerable?item=Apple+Demo",
+      "category": "sqli",
+      "title": "SQL Injection booleana no parâmetro item",
+      "confidence": "high",
+      "status": "confirmed",
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "rationale": "SQLi booleana confirmada no parâmetro testado: dois pares preservam a referência nas condições verdadeiras e coincidem com controles negativos nas falsas; referências e recuperação estáveis, respostas negativas repetíveis e erro SQL diferencial.",
+      "potential_impact": "Alteração da lógica de uma consulta de leitura. Usuários, credenciais e escrita no banco não foram testados.",
+      "recommended_mitigation": "Usar consultas parametrizadas/bindings e não expor detalhes internos de erros SQL.",
+      "parameter": "item"
+    }
+  ],
+  "probes": [
+    {
+      "request_id": 1,
+      "role": "baseline_1",
+      "parameter": "item",
+      "input_value": "Apple Demo",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "sql_error_signatures": [],
+      "context": "quoted",
+      "features": {
+        "format": "json",
+        "strategy": "collection_ids:code",
+        "fingerprint": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22",
+        "result_count": 1,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 2,
+      "role": "baseline_2",
+      "parameter": "item",
+      "input_value": "Apple Demo",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "sql_error_signatures": [],
+      "context": "quoted",
+      "features": {
+        "format": "json",
+        "strategy": "collection_ids:code",
+        "fingerprint": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22",
+        "result_count": 1,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 3,
+      "role": "quote",
+      "parameter": "item",
+      "input_value": "Apple Demo'",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "sql_error_signatures": [
+        "SQLITE_ERROR"
+      ],
+      "context": "quoted",
+      "features": {
+        "format": "json",
+        "strategy": "canonical_json",
+        "fingerprint": "68288fc61bf0321846d4cf5e7f75882ea6557a3d22f2c1a2e08cd108afe3f3ed",
+        "result_count": null,
+        "nonempty": true,
+        "valid": false,
+        "error_like": true
+      }
+    },
+    {
+      "request_id": 4,
+      "role": "escaped_quote",
+      "parameter": "item",
+      "input_value": "Apple Demo''",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "sql_error_signatures": [],
+      "context": "quoted",
+      "features": {
+        "format": "json",
+        "strategy": "collection_values",
+        "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "result_count": 0,
+        "nonempty": false,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 5,
+      "role": "literal_control",
+      "parameter": "item",
+      "input_value": "Apple Demo AND 17=17",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "sql_error_signatures": [],
+      "context": "quoted",
+      "features": {
+        "format": "json",
+        "strategy": "collection_values",
+        "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "result_count": 0,
+        "nonempty": false,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 6,
+      "role": "true_17",
+      "parameter": "item",
+      "input_value": "Apple Demo' AND (17=17) AND 'x'='x",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "sql_error_signatures": [],
+      "context": "quoted",
+      "features": {
+        "format": "json",
+        "strategy": "collection_ids:code",
+        "fingerprint": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22",
+        "result_count": 1,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 7,
+      "role": "false_17",
+      "parameter": "item",
+      "input_value": "Apple Demo' AND (17=18) AND 'x'='x",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "sql_error_signatures": [],
+      "context": "quoted",
+      "features": {
+        "format": "json",
+        "strategy": "collection_values",
+        "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "result_count": 0,
+        "nonempty": false,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 8,
+      "role": "true_23",
+      "parameter": "item",
+      "input_value": "Apple Demo' AND (23=23) AND 'x'='x",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "sql_error_signatures": [],
+      "context": "quoted",
+      "features": {
+        "format": "json",
+        "strategy": "collection_ids:code",
+        "fingerprint": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22",
+        "result_count": 1,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 9,
+      "role": "false_23",
+      "parameter": "item",
+      "input_value": "Apple Demo' AND (23=24) AND 'x'='x",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "sql_error_signatures": [],
+      "context": "quoted",
+      "features": {
+        "format": "json",
+        "strategy": "collection_values",
+        "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "result_count": 0,
+        "nonempty": false,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 10,
+      "role": "recovery",
+      "parameter": "item",
+      "input_value": "Apple Demo",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "sql_error_signatures": [],
+      "context": "quoted",
+      "features": {
+        "format": "json",
+        "strategy": "collection_ids:code",
+        "fingerprint": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22",
+        "result_count": 1,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    }
+  ],
+  "assessment": {
+    "outcome": "confirmed",
+    "checks": {
+      "all_requests_completed": true,
+      "baseline_nonempty": true,
+      "baseline_stable": true,
+      "recovery_matches": true,
+      "escaped_quote_control_empty": true,
+      "literal_control_empty": true,
+      "new_sql_error": true,
+      "false_responses_stable": true,
+      "boolean_pair_17": true,
+      "boolean_pair_23": true
+    },
+    "rationale": "SQLi booleana confirmada no parâmetro testado: dois pares preservam a referência nas condições verdadeiras e coincidem com controles negativos nas falsas; referências e recuperação estáveis, respostas negativas repetíveis e erro SQL diferencial.",
+    "limitations": [
+      "Perfil quoted: somente contexto textual entre aspas simples; não testa SQLi numérica, temporal, UNION ou escrita."
+    ],
+    "parameter": "item",
+    "context": "quoted"
+  },
+  "parameter_results": [
+    {
+      "parameter": "item",
+      "context": "quoted",
+      "assessment": {
+        "outcome": "confirmed",
+        "checks": {
+          "all_requests_completed": true,
+          "baseline_nonempty": true,
+          "baseline_stable": true,
+          "recovery_matches": true,
+          "escaped_quote_control_empty": true,
+          "literal_control_empty": true,
+          "new_sql_error": true,
+          "false_responses_stable": true,
+          "boolean_pair_17": true,
+          "boolean_pair_23": true
+        },
+        "rationale": "SQLi booleana confirmada no parâmetro testado: dois pares preservam a referência nas condições verdadeiras e coincidem com controles negativos nas falsas; referências e recuperação estáveis, respostas negativas repetíveis e erro SQL diferencial.",
+        "limitations": [
+          "Perfil quoted: somente contexto textual entre aspas simples; não testa SQLi numérica, temporal, UNION ou escrita."
+        ],
+        "parameter": "item",
+        "context": "quoted"
+      },
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  ]
+}

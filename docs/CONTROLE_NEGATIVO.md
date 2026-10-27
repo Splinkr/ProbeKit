@@ -5,6 +5,10 @@ mesma tabela SQLite em memória**. Usa apenas Python e sua biblioteca padrão,
 sem Docker ou novas dependências. O servidor escuta exclusivamente em
 `127.0.0.1:8001`, separado do Juice Shop na porta 3000.
 
+Este documento preserva o experimento original. A [etapa 5](SQLI_GENERALIZADO.md)
+generalizou os parâmetros e formatos, preservou estes endpoints e reconfirmou
+seus resultados com o classificador reorganizado.
+
 ## Desenho experimental
 
 | Endpoint | Implementação | Hipótese registrada |
@@ -26,9 +30,10 @@ Exceções do SQLite retornam HTTP 500 com o nome real do erro, obtido de
 A consulta segura vincula o termo aos placeholders conforme o mecanismo de
 [binding do sqlite3](https://docs.python.org/3.13/library/sqlite3.html#how-to-use-placeholders-to-bind-values-in-sql-queries).
 
-No scanner, a mudança funcional se limita a aceitar os dois caminhos locais
-adicionais. **Payloads, critérios, confiança e classificação são os mesmos do
-Juice Shop.** A função `assess()` não foi alterada. Cada execução usa as dez
+Na implementação original deste experimento, a mudança funcional se limitou a
+aceitar os dois caminhos locais adicionais. Payloads, critérios, confiança e
+classificação eram os mesmos do Juice Shop; `assess()` não foi alterada naquela
+etapa. A generalização posterior está documentada na etapa 5. Cada execução usa as dez
 requisições do [roteiro SQLi](DEMONSTRACAO_SQLI.md): duas referências, aspa,
 escape, controle textual, dois pares booleanos e recuperação.
 

@@ -4,7 +4,9 @@ O comando `discover` recebe uma URL inicial e faz navegação HTML em largura.
 Usa o cliente HTTP existente, [HTMLParser](https://docs.python.org/3.13/library/html.parser.html)
 e [urllib.parse](https://docs.python.org/3.13/library/urllib.parse.html), sem novas
 dependências, Docker ou navegador automatizado. Não invoca detectores nem gera
-payloads de ataque. A lógica de confirmação SQLi não foi alterada.
+payloads de ataque. Na etapa de descoberta, a lógica de confirmação SQLi não
+foi alterada. A generalização posterior e o total atual de 196 testes estão
+documentados na [etapa 5](SQLI_GENERALIZADO.md); este roteiro continua válido.
 
 ## Demonstração no Windows 11
 

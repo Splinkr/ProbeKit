@@ -1,8 +1,8 @@
 # WebVuln Scanner
 
 Ferramenta CLI em Python para o trabalho de SIN 451 — Segurança da Informação
-(UFV). Inclui o núcleo de referências HTTP e um MVP SQLi controlado para a
-busca de produtos do Juice Shop local.
+(UFV). Inclui referências HTTP, descoberta HTML e detecção SQLi controlada por
+parâmetro GET em JSON, HTML e texto, com validação no SQLite e Juice Shop locais.
 
 ## Ambiente
 
@@ -65,10 +65,22 @@ fica vazio. Para o detector SQLi:
 ```
 
 O detector executa dez GETs com referências, controles, dois pares booleanos
-e recuperação. Registra payloads, contagens, hashes dos conjuntos de produtos,
+e recuperação por parâmetro. Registra payloads, características, hashes,
 assinaturas SQL e a classificação `confirmed`, `suspected`, `not_detected` ou
-`inconclusive`. O [roteiro da demonstração](docs/DEMONSTRACAO_SQLI.md) contém
-os comandos completos, a validação manual e a evidência real.
+`inconclusive`. O [roteiro original](docs/DEMONSTRACAO_SQLI.md) contém
+a validação manual do Juice Shop. A [etapa 5](docs/SQLI_GENERALIZADO.md) documenta
+os critérios atuais, formatos, seleção de parâmetros e resultados reais.
+
+Com o laboratório SQLite iniciado (`python -m experiments.sqlite_control`):
+
+```powershell
+.\.venv\Scripts\python.exe main.py "http://localhost:8001/general/html/vulnerable?search=apple&lang=en" --module sqli --all-parameters --max-requests 20 --output reports/general-multiple.json
+.\.venv\Scripts\python.exe main.py "http://localhost:8001/general/html/safe?search=apple&lang=en" --module sqli --parameter search --output reports/general-safe.json
+```
+
+`--parameter` escolhe um campo; `--all-parameters` avalia cada campo de forma
+independente e preserva os demais. `--sqli-context like` é o padrão;
+`--sqli-context quoted` cobre igualdade textual entre aspas simples.
 
 Para avaliar falsos positivos, há uma aplicação SQLite local com buscas por
 concatenação e por bindings sobre a mesma base fictícia. O experimento executa
@@ -81,7 +93,9 @@ intervalo mínimo de 0,2 segundo entre inícios, orçamento de 10 requisições 
 limite de 1 MiB descomprimido por resposta. Use `--samples`, `--timeout`,
 `--interval`, `--max-requests` e `--max-body-bytes` para ajustar. A quantidade
 de referências deve caber no orçamento. Não há retries automáticos; a primeira
-falha interrompe a coleta e ainda gera JSON com os dados já obtidos.
+falha interrompe a coleta do parâmetro atual e ainda gera JSON com os dados
+já obtidos. No modo SQLi com vários parâmetros, os próximos podem ser avaliados
+dentro do mesmo orçamento global.
 
 Códigos de saída:
 
@@ -110,9 +124,11 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 - Timeout limita conexão e inatividade da leitura, não o tempo total de uma
   resposta enviada lentamente. Respostas acima do limite são descartadas e
   registradas como erro, sem comparar conteúdo parcial.
-- O módulo SQLi aceita `/rest/products/search`, `/control/vulnerable/search` e
-  `/control/safe/search`, com um único `q` de referência simples. Exige pelo menos
-  duas referências e orçamento `samples + 8`.
+- O módulo SQLi aceita caminhos GET locais com parâmetros de referência simples,
+  selecionados individualmente. Exige pelo menos duas referências e orçamento
+  global `quantidade_de_parâmetros * (samples + 8)`. Cobre condições textuais
+  entre aspas em LIKE ou igualdade, com confirmação booleana auxiliada por erro;
+  não cobre SQLi numérica, temporal ou UNION e não tem garantia universal.
   A descoberta HTML é um comando separado e fica na mesma origem loopback.
   Não há autenticação, XSS ou exposição de arquivos.
   Não há opção para liberar destinos externos.
@@ -130,9 +146,13 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 | `scanner/reporter.py` | Serialização JSON sem corpos HTTP |
 | `scanner/discovery.py` | Crawler HTML, normalização e inventário com origem |
 | `scanner/modules/` | Módulos específicos de detecção |
-| `scanner/modules/sqli.py` | Plano SQLi, interpretação semântica e classificação |
+| `scanner/modules/sqli.py` | Execução do plano SQLi e associação das evidências ao parâmetro |
+| `scanner/sqli_plans.py` | Seleção, preservação da query, sondas e orçamento global |
+| `scanner/sqli_features.py` | Características de JSON, HTML e texto e assinaturas SQL |
+| `scanner/sqli_classification.py` | Critérios diferenciais, justificativa e limitações |
 | `experiments/sqlite_control.py` | Servidor dos controles SQLite locais |
 | `experiments/run_control.py` | Repetições e métricas do experimento |
+| `experiments/run_general_sqli.py` | Matriz por nome de parâmetro, formato e contexto |
 | `experiments/html_discovery.py` | Aplicação HTML local para demonstrar descoberta |
 
 ```powershell
@@ -140,8 +160,8 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-A suíte atual passou em **164 testes**, incluindo descoberta HTML, HTTP,
-escopo local, evidências, classificação SQLi, SQLite real e CLI em subprocessos.
+A suíte atual passou em **196 testes**, incluindo descoberta HTML, HTTP,
+escopo local, evidências, SQLi por parâmetro/formato, SQLite real e CLI em subprocessos.
 Ela não depende de sites públicos ou do Juice Shop. Organização, comandos e
 resultado desta execução estão em [docs/TESTES.md](docs/TESTES.md). A validação
 histórica das etapas iniciais permanece em [docs/VALIDACAO.md](docs/VALIDACAO.md).

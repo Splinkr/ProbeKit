@@ -80,3 +80,22 @@ Detalhes: [TESTES.md](TESTES.md).
 
 Roteiro e evidências reais: [DESCOBERTA.md](DESCOBERTA.md).
 APIs internas do Juice Shop não são presumidas como descobertas pelo HTML.
+
+## Etapa 5 — Generalização SQLi
+
+- [x] Inspecionar a arquitetura, CLI, testes, relatórios e experimentos existentes.
+- [x] Separar planos, execução HTTP, características de resposta e classificação.
+- [x] Selecionar parâmetros GET individuais ou todos, preservando os demais.
+- [x] Suportar características de JSON, HTML e texto com controles conservadores.
+- [x] Oferecer perfis textuais LIKE e igualdade entre aspas, documentando limites.
+- [x] Registrar critérios, parâmetro, contexto, justificativa e limitações em JSON.
+- [x] Manter orçamento global, escopo loopback e comandos anteriores.
+- [x] Ampliar o SQLite com nomes, formatos, instabilidade e página de erro.
+- [x] Executar 15 análises reais e preservar 15 relatórios e o resumo da rodada.
+- [x] Reconfirmar o Juice Shop e executar integralmente os 196 testes.
+
+Resultado da rodada: 16 avaliações de parâmetros; sete confirmed, seis
+not_detected, duas inconclusive e uma suspected. São 160 requisições do
+detector; a base SQLite permaneceu igual. Os controles seguros não foram
+classificados como vulneráveis. Sem novas dependências, Docker ou XSS.
+Roteiro, contextos suportados e evidências: [SQLI_GENERALIZADO.md](SQLI_GENERALIZADO.md).
