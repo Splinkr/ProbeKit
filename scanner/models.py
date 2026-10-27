@@ -80,6 +80,26 @@ class Finding:
     recommended_mitigation: str
 
 
+@dataclass(frozen=True)
+class ProbeEvidence:
+    request_id: int
+    role: str
+    parameter: str
+    input_value: str
+    response_received: bool = False
+    product_count: int | None = None
+    product_ids_sha256: str | None = None
+    sql_error_signatures: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class SqliAssessment:
+    outcome: str
+    checks: dict[str, bool]
+    rationale: str
+    limitations: list[str]
+
+
 @dataclass
 class ScanReport:
     target: str
@@ -92,6 +112,8 @@ class ScanReport:
     finished_at: str | None = None
     schema_version: str = "1.0"
     mode: str = "baseline"
+    probes: list[ProbeEvidence] = field(default_factory=list)
+    assessment: SqliAssessment | None = None
 
     @property
     def reachable(self) -> bool:
@@ -117,4 +139,6 @@ class ScanReport:
             "errors": [asdict(error) for error in self.errors],
             "comparisons": [asdict(comparison) for comparison in self.comparisons],
             "findings": [asdict(finding) for finding in self.findings],
+            "probes": [asdict(probe) for probe in self.probes],
+            "assessment": asdict(self.assessment) if self.assessment else None,
         }
