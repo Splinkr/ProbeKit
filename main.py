@@ -16,6 +16,7 @@ from scanner.exposure_profiles import PROFILES
 from scanner.sqli_plans import CONTEXTS, prepare_parameters
 from scanner.reporter import write_json, write_json_atomic
 from scanner.targets import TargetError, validate_target
+from scanner.terminal import format_scan_results
 
 
 def positive_int(value: str) -> int:
@@ -129,6 +130,7 @@ def scan_main(argv: list[str]) -> int:
     analysis_label = "SQLi" if args.modules == ["sqli"] else "análise"
     print(f"Requisições: {summary['requests_used']}/{args.max_requests} (descoberta={summary['discovery_requests']}, {analysis_label}={summary['analysis_requests']})")
     print(f"Alvos ignorados: {summary['targets_ignored']}; limites: {', '.join(report.stop_reasons) or 'nenhum'}")
+    print(format_scan_results(report))
     print(f"Relatório consolidado JSON: {destination}")
     return 130 if report.status == "interrupted" else 1 if report.status == "incomplete" else 0
 

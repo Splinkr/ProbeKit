@@ -1,3 +1,3 @@
-"""WebVuln Scanner: análise controlada de aplicações web locais."""
+"""ProbeKit: análise controlada de aplicações web locais."""
 
 __version__ = "0.1.0"
