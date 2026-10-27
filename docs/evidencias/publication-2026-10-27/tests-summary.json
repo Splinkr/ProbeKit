@@ -1,0 +1,59 @@
+{
+  "command": ".\\.venv\\Scripts\\python.exe -m pytest -q --junitxml=reports/publication-tests.xml",
+  "tested_commit": "78076e37b71eaccaa05a42fcc4bf325431ca7c08",
+  "source": "git archive; fresh venv; path includes spaces",
+  "python": "3.13.9",
+  "platform": "Windows 11",
+  "counts": {
+    "tests": 354,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "junit_duration_seconds": 72.601,
+  "pytest_reported_duration_seconds": 72.75,
+  "suite_timestamps": [
+    "2026-10-27T16:50:56.911662-03:00"
+  ],
+  "tests_by_module": {
+    "tests.test_checkpoint_contract": 4,
+    "tests.test_cli_process_contract": 16,
+    "tests.test_discovery_cli": 13,
+    "tests.test_discovery_contract": 28,
+    "tests.test_evidence_contract": 8,
+    "tests.test_exposure_contract": 54,
+    "tests.test_general_sqli": 32,
+    "tests.test_scan_pipeline": 42,
+    "tests.test_scope_contract": 40,
+    "tests.test_sqli_decision_contract": 21,
+    "tests.test_sqlite_evaluation_contract": 16,
+    "tests.test_terminal_contract": 10,
+    "tests.test_transport_contract": 22,
+    "tests.test_xss_contract": 48
+  },
+  "test_source_sha256": {
+    "tests/conftest.py": "e42d46603173df19262cba69016c9b4e41a4afb11be4bea8d20831da1faa3977",
+    "tests/test_checkpoint_contract.py": "524d9ec7e842e9df12b3b29c68b9a4d9d9f48aec89f1cc08f76c0ca58bb581b8",
+    "tests/test_cli_process_contract.py": "88b753b988b08398472863b6bfcf4835342695bdf317b711562babeed9dacaf7",
+    "tests/test_discovery_cli.py": "8462b818b4b5f0ca1c4aa56db612f4821c9d9dac8f62750d00bfdb1dc2c1c824",
+    "tests/test_discovery_contract.py": "d071bdfdc7073b45b5b4a7d1f1ca592442bce95734e70c31cc0daf93d8c3227f",
+    "tests/test_evidence_contract.py": "8666728ee391cdca6cee10249fddea2656a6bc58098aadf72b4e1917bced58fd",
+    "tests/test_exposure_contract.py": "333005ac9f8006a3ae496d82b0b4c8e6012d1f87d9d0b6143d8305a8e9450f51",
+    "tests/test_general_sqli.py": "febbb53311fc950f98c3b552d616be2ea80af0cc890c56a8b00b7b28b0866990",
+    "tests/test_scan_pipeline.py": "cf51fb911c46a08b9c79ba50462782bdcd0e65bf52c93ebd2abd893731ba4229",
+    "tests/test_scope_contract.py": "d37f75f864236c915dce61b5128e0e6b9e427b4e5bcd52a411aac89473f047b1",
+    "tests/test_sqli_decision_contract.py": "6d8769f93012f2fd00c771c59c2db202bad0a67a2f28775bc09ea20d8a19aaa2",
+    "tests/test_sqlite_evaluation_contract.py": "df88e44abcf37831b7c6db307c2dc6080e243e79ac55f380d93c054277755ae3",
+    "tests/test_terminal_contract.py": "86fe76b1375e228aff26e4fab924cebdcd5f9e5f6d6b8dc18183305a36f714f3",
+    "tests/test_transport_contract.py": "d0fc53d975ed387e2d8d08213be7f4697a8ae12c6cc2a45cab368de5b7025cc8",
+    "tests/test_xss_contract.py": "5508e4ae3befa7307283b49e3bebf5e945c69890394b4eda5630ff79792bb74d"
+  },
+  "junit_file": "tests.xml",
+  "junit_sha256": "2cf4063927a139d10eb53f8773bfa71c18cd66e6ef192a6d2290cac493fbfdc0",
+  "original_junit_sha256": "6430dba7307f58bd7806cc9cd70a8f35da2e83c642f7bf3585734543fb06ad71",
+  "metadata_redactions": {
+    "hostname_attributes_removed": 1,
+    "results_and_times_unchanged": true
+  },
+  "pip_check": "No broken requirements found."
+}

@@ -1,0 +1,29 @@
+http://127.0.0.1:8005/xss/html/raw?q=demo | sqli: q: not_detected
+http://127.0.0.1:8005/xss/html/raw?q=demo | xss: q: suspected
+http://127.0.0.1:8005/xss/html/escaped?q=demo | sqli: q: not_detected
+http://127.0.0.1:8005/xss/html/escaped?q=demo | xss: q: reflected_safe
+http://127.0.0.1:8005/general/json/vulnerable?term=apple | sqli: term: confirmed
+http://127.0.0.1:8005/general/json/vulnerable?term=apple | xss: term: not_detected
+http://127.0.0.1:8005/general/json/safe?term=apple | sqli: term: not_detected
+http://127.0.0.1:8005/general/json/safe?term=apple | xss: term: not_detected
+http://127.0.0.1:8005/.env | exposure: arquivo: confirmed
+http://127.0.0.1:8005/config.ini | exposure: arquivo: not_detected
+http://127.0.0.1:8005/backup.sql | exposure: arquivo: confirmed
+http://127.0.0.1:8005/config.ini.bak | exposure: arquivo: not_detected
+Estado: completed; endpoints: 6; parâmetros analisados: 8
+Arquivos analisados: 4
+Requisições: 92/100 (descoberta=6, análise=86)
+Alvos ignorados: 2; limites: nenhum
+
+Resumo do scan — ProbeKit
+Módulo      confirmed  suspected  inconclusive  not_detected  reflected_safe
+----------------------------------------------------------------------------
+sqli        1          0          0             3             0
+xss         0          1          0             2             1
+exposure    2          0          0             2             0
+TOTAL       3          1          0             7             1
+Avaliações classificadas: 12 (por parâmetro/módulo ou arquivo).
+Alvos planejados não concluídos: 0; análises sem classificação: 0.
+suspected indica suspeita; inconclusive indica falta de conclusão.
+not_detected e reflected_safe não garantem ausência de vulnerabilidades.
+Relatório consolidado JSON: reports\demo\without-browser.json

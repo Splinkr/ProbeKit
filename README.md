@@ -63,8 +63,9 @@ $env:PYTHONUTF8 = '1'
 O servidor deve permanecer aberto; use Ctrl+C nele quando terminar. Se a porta
 8005 estiver ocupada, escolha outra no servidor e em todas as URLs. O
 [roteiro curto](docs/DEMONSTRACAO.md) inclui comparação dos controles e leitura
-do JSON. O resultado real da etapa 8 foi 92/100 GETs e quatro avaliações
-confirmadas: uma SQLi, uma XSS e dois arquivos fictícios. Isso é uma referência
+do JSON. O resultado real, reproduzido na instalação limpa da etapa 9, foi
+92/100 GETs e quatro avaliações confirmadas: uma SQLi, uma XSS e dois arquivos
+fictícios. Isso é uma referência
 do laboratório, não uma classificação imposta pelo roteiro.
 
 Ao final de `scan`, o terminal mostra resultados individuais, consumo e uma
@@ -212,7 +213,8 @@ arquivos já rastreados nem substitui essa revisão.
 Os testes usam servidores loopback efêmeros e SQLite, sem depender do Juice
 Shop ou de sites públicos. Sete casos usam navegador real e podem ser
 ignorados se Node/navegador não estiverem disponíveis. A contagem e o resultado
-atual estão em [docs/TESTES.md](docs/TESTES.md). Os relatórios históricos em
+atual estão em [docs/TESTES.md](docs/TESTES.md): 354 testes aprovados nesta etapa,
+sem falhas ou ignorados. Os relatórios históricos em
 `docs/evidencias/` usam somente os laboratórios e foram preservados, inclusive
 tentativas parciais identificadas; novos relatórios locais ficam em `reports/`.
 

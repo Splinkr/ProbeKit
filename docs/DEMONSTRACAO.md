@@ -27,7 +27,8 @@ $env:PYTHONUTF8 = '1'
 .\.venv\Scripts\python.exe main.py scan http://127.0.0.1:8005/probekit-lab --modules sqli xss exposure --exposure-profiles config backup --xss-browser --max-requests 100 --output reports/demo/three-modules.json
 ```
 
-No laboratório fornecido, a execução real anterior produziu **92 GETs** e:
+No laboratório fornecido, a execução real na instalação limpa da etapa 9
+produziu **92 GETs** e:
 
 | Módulo | confirmed | suspected | inconclusive | not_detected | reflected_safe |
 | --- | --- | --- | --- | --- | --- |
@@ -83,5 +84,5 @@ Explique os limites: descoberta HTML estática; SQLi textual em perfis
 LIKE/igualdade entre aspas; XSS confirmado somente com navegador isolado;
 catálogo de cinco caminhos exposure. Resultados negativos não garantem
 segurança universal, e exposição estrutural não comprova que existam segredos
-válidos. Os resultados desta etapa de preparação serão registrados em
+válidos. Os resultados desta etapa de preparação estão registrados em
 [PUBLICACAO.md](PUBLICACAO.md).

@@ -1,8 +1,10 @@
 # Suíte automatizada reconstruída
 
-Estado atual após a etapa 8: **344 testes aprovados** (286 anteriores e 58 novos),
-sem falhas, erros ou ignorados. Resultado real: 58,26 segundos; dependências
-consistentes. Roteiro e evidências em [EXPOSICAO_ARQUIVOS.md](EXPOSICAO_ARQUIVOS.md).
+Estado atual após a etapa 9: **354 testes aprovados** (344 anteriores e dez novos),
+sem falhas, erros ou ignorados. Resultado real: 72,75 segundos em uma instalação
+limpa extraída por `git archive`, com venv nova em caminho com espaços.
+Dependências consistentes. Procedimento e evidências em [PUBLICACAO.md](PUBLICACAO.md).
+A etapa 8 passou com 344 testes em 58,26 segundos, conforme [EXPOSICAO_ARQUIVOS.md](EXPOSICAO_ARQUIVOS.md).
 A etapa 7 passou com 286 testes em 56,09 segundos, conforme [XSS_REFLETIDO.md](XSS_REFLETIDO.md).
 A etapa 6 passou com 238 testes, conforme [SCAN_INTEGRADO.md](SCAN_INTEGRADO.md).
 A etapa 5 passou com 196 testes, conforme [SQLI_GENERALIZADO.md](SQLI_GENERALIZADO.md).
@@ -12,11 +14,20 @@ O registro abaixo documenta a reconstrução anterior.
 Para reproduzir a suíte atual:
 
 ```powershell
-.\.venv\Scripts\python.exe -m pytest -q --junitxml=reports/exposure-tests.xml
+.\.venv\Scripts\python.exe -m pytest -q --junitxml=reports/publication-tests.xml
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-Os 54 casos de `tests/test_exposure_contract.py` incluem configuração, INI,
+Os dez casos de `tests/test_terminal_contract.py` verificam as cinco
+classificações, contagens por módulo/arquivo, JSON sem alterações, códigos de
+saída, ausência de classificação, alvos ignorados e interrupção. Incluem fluxo
+real com três módulos e página de erro inconclusiva. As fixtures de apresentação
+não são resultados empíricos fabricados do detector. Os 344 testes anteriores
+foram preservados. Os quatorze módulos e quantidades estão no
+[resumo JUnit da etapa 9](evidencias/publication-2026-10-27/tests-summary.json).
+Sete casos executaram navegador real nesta máquina; nenhum foi ignorado.
+
+Os 54 casos da etapa 8 em `tests/test_exposure_contract.py` incluem configuração, INI,
 backup SQL e referência Git fictícios; páginas 200 genéricas, erro personalizado,
 bloqueio, documento público, MIME enganoso, instabilidade, redirecionamentos,
 sigilo de valores/chaves/cabeçalhos, orçamento compartilhado, interrupção e CLI.
@@ -105,4 +116,4 @@ experimentos manuais no Juice Shop nem a avaliação empírica repetida descrita
 em [CONTROLE_NEGATIVO.md](CONTROLE_NEGATIVO.md). Os números anteriores de 57,
 81 e 101 testes são registros históricos das suítes substituídas; o total
 da reconstrução é 123; com descoberta foram 164; a etapa 5 elevou o total a 196,
-e a etapa 6 a 238; a etapa 7 chegou a 286; a etapa 8, a 344.
+e a etapa 6 a 238; a etapa 7 chegou a 286; a etapa 8, a 344; a etapa 9, a 354.

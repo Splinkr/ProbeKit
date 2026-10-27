@@ -90,6 +90,55 @@ for identificado, ignorá-lo não o remove do histórico; a correção exige uma
 ação específica. Esta revisão não detectou credenciais reais nos padrões
 verificados e não é uma auditoria completa de histórico ou dependências.
 
+## Resultado efetivamente observado em 27/10/2026
+
+A cópia avaliada veio do commit `78076e3`, com **138 arquivos versionados**,
+sem a venv, caches, distribuição do Juice Shop ou relatórios locais da árvore
+de trabalho. A instalação usou uma venv nova em `source copy` (com espaço),
+Python 3.13.9 e onze wheels preparados pelos requisitos. Requests e pytest
+foram importados dessa nova venv, com user site desativado. As três ajudas da
+CLI e `--version` funcionaram; `pip check` retornou `No broken requirements found.`
+
+**354 testes passaram em 72,75 segundos**, sem falhas, erros ou ignorados.
+Foram preservados os 344 casos anteriores e acrescentados dez para a saída
+no terminal. Sete casos usaram navegador real. O tempo interno JUnit foi
+72,601 segundos; a diferença inclui processamento adicional do pytest.
+O [resumo JUnit](evidencias/publication-2026-10-27/tests-summary.json) registra
+as contagens por módulo e hashes dos testes.
+
+O [registro da instalação e demonstrações](evidencias/publication-2026-10-27/summary.json)
+inclui versões dos pacotes, hashes dos wheels/arquivo Git, consumo e integridade
+SQLite. Os JSONs e saídas reais do terminal foram preservados separadamente:
+
+| Execução na cópia limpa | Resultado | Requisições |
+| --- | --- | --- |
+| Três módulos com navegador | 4 confirmed, 7 not_detected e 1 reflected_safe, em 12 avaliações | 92/100 |
+| Três módulos sem navegador | 3 confirmed, 1 suspected, 7 not_detected e 1 reflected_safe | 92/100 |
+| Três módulos com limite 84 | 3 confirmed, 6 not_detected, 1 reflected_safe; dois arquivos não concluídos, sem convertê-los em negativos | 84/84 |
+| Exposure em fallback HTML 200 | Quatro not_detected, nenhum achado | 16/16 |
+
+As três tabelas de scan coincidiram com os resultados individuais do JSON.
+O caminho HTTP de erro inconclusivo e as cinco classificações também foram
+verificados pelos dez testes novos. A execução com navegador foi a do
+[roteiro curto](DEMONSTRACAO.md), com confirmação XSS por callback real.
+As quatro rodadas somaram 284 GETs; duas consultas `/health` elevaram a rodada
+manual a 286 GETs. Os cinco registros SQLite e seu hash permaneceram iguais.
+Nenhum valor dos artefatos fictícios apareceu nos JSONs ou saídas registrados.
+
+A [revisão dos arquivos](evidencias/publication-2026-10-27/audit.json) não
+encontrou ambientes, caches, temporários ou chaves privadas nos caminhos
+versionados, nem tokens nos padrões examinados. Vinte exemplos de caminhos
+locais foram ignorados corretamente, e cinco exemplos permitidos foram
+preservados. Os 21 arquivos de núcleo/detectores comparados com a etapa 8
+mantiveram seu conteúdo, considerando normalização de finais de linha do Git.
+Nenhuma evidência anterior foi apagada ou alterada.
+
+Na nova cópia JUnit compartilhada, removeu-se somente o atributo `hostname`
+para evitar divulgar o identificador da máquina. Contagens, casos e tempos
+permanecem reais e inalterados; os hashes do XML original e do compartilhado
+estão no resumo. O original permanece em `reports/` na cópia limpa local.
+Os XMLs históricos anteriores continuam preservados como documentado acima.
+
 ## Pendências e limites da entrega
 
 - O responsável ainda precisa escolher uma licença: não existe `LICENSE` no repositório. Nenhum termo de reutilização foi inventado nesta etapa.

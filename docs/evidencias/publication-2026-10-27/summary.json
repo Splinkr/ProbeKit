@@ -1,0 +1,234 @@
+{
+  "experiment": "publication_preparation_clean_install_and_terminal_summary",
+  "tested_commit": "78076e37b71eaccaa05a42fcc4bf325431ca7c08",
+  "installation": {
+    "source_kind": "git archive",
+    "source_archive_sha256": "abc69397fe6885104c1587696a052e90821d981587525e27da80544c2d638248",
+    "archive_files": 138,
+    "fresh_venv": true,
+    "path_includes_spaces": true,
+    "dependencies_loaded_from_new_venv": true,
+    "user_site_disabled": true,
+    "pip_install": "pip --isolated --disable-pip-version-check install --no-index --find-links <wheelhouse> -r requirements-dev.txt",
+    "wheelhouse_prepared_with": "pip download -r requirements-dev.txt --dest <wheelhouse>",
+    "python": "3.13.9",
+    "installed_packages": {
+      "certifi": "2026.10.23",
+      "charset-normalizer": "3.5.2",
+      "colorama": "0.4.6",
+      "idna": "3.20",
+      "iniconfig": "2.3.1",
+      "packaging": "26.3",
+      "pluggy": "1.7.0",
+      "pygments": "2.21.0",
+      "pytest": "8.4.2",
+      "requests": "2.32.5",
+      "urllib3": "2.8.0"
+    },
+    "wheel_sha256": {
+      "certifi-2026.10.23-py3-none-any.whl": "e9b54de76e530bb6cf0ccd036787103acb58fd42ba930ea8bf948ddbaa2f61d1",
+      "charset_normalizer-3.5.2-cp313-cp313-win_amd64.whl": "78456a747de8dc58360ffa581f30a002baf5aa28cb262536545e91f113ed7639",
+      "colorama-0.4.6-py2.py3-none-any.whl": "4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6",
+      "idna-3.20-py3-none-any.whl": "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c",
+      "iniconfig-2.3.1-py3-none-any.whl": "9121e2c1fdb355232495be3194c8dfe87ccc2d5dee45947b78e68f499790d7a7",
+      "packaging-26.3-py3-none-any.whl": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+      "pluggy-1.7.0-py3-none-any.whl": "7dd7b0d8832ba3cb632c306926ded123429211b83641b35dc5c41ad2d34f9bec",
+      "pygments-2.21.0-py3-none-any.whl": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9",
+      "pytest-8.4.2-py3-none-any.whl": "872f880de3fc3a5bdc88a11b39c9710c3497a547cfa9320bc3c5e62fbf272e79",
+      "requests-2.32.5-py3-none-any.whl": "2462f94637a34fd532264295e186976db0f5d453d1cdd31473c85a6a161affb6",
+      "urllib3-2.8.0-py3-none-any.whl": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3"
+    },
+    "help_commands_passed": [
+      "main.py --help",
+      "main.py discover --help",
+      "main.py scan --help",
+      "main.py --version"
+    ],
+    "version": "0.1.0",
+    "pip_check": "No broken requirements found."
+  },
+  "runs": [
+    {
+      "report": "three-modules.json",
+      "stdout": "three-modules.stdout.txt",
+      "cli_exit_code": 0,
+      "summary": {
+        "status": "completed",
+        "requests_used": 92,
+        "discovery_requests": 6,
+        "analysis_requests": 86,
+        "requests_remaining": 8,
+        "endpoints_discovered": 6,
+        "parameters_analyzed": 8,
+        "targets_ignored": 2,
+        "unique_parameters_analyzed": 4,
+        "files_analyzed": 4,
+        "findings": 4
+      },
+      "started_at": "2026-10-27T19:51:35.720429+00:00",
+      "finished_at": "2026-10-27T19:52:03.359619+00:00",
+      "results_by_module": {
+        "sqli": {
+          "not_detected": 3,
+          "confirmed": 1
+        },
+        "xss": {
+          "confirmed": 1,
+          "reflected_safe": 1,
+          "not_detected": 2
+        },
+        "exposure": {
+          "confirmed": 2,
+          "not_detected": 2
+        }
+      },
+      "terminal_counts_match_json": true,
+      "file_values_absent": true
+    },
+    {
+      "report": "without-browser.json",
+      "stdout": "without-browser.stdout.txt",
+      "cli_exit_code": 0,
+      "summary": {
+        "status": "completed",
+        "requests_used": 92,
+        "discovery_requests": 6,
+        "analysis_requests": 86,
+        "requests_remaining": 8,
+        "endpoints_discovered": 6,
+        "parameters_analyzed": 8,
+        "targets_ignored": 2,
+        "unique_parameters_analyzed": 4,
+        "files_analyzed": 4,
+        "findings": 4
+      },
+      "started_at": "2026-10-27T19:52:05.205242+00:00",
+      "finished_at": "2026-10-27T19:52:23.462558+00:00",
+      "results_by_module": {
+        "sqli": {
+          "not_detected": 3,
+          "confirmed": 1
+        },
+        "xss": {
+          "suspected": 1,
+          "reflected_safe": 1,
+          "not_detected": 2
+        },
+        "exposure": {
+          "confirmed": 2,
+          "not_detected": 2
+        }
+      },
+      "terminal_counts_match_json": true,
+      "file_values_absent": true
+    },
+    {
+      "report": "budget-84.json",
+      "stdout": "budget-84.stdout.txt",
+      "cli_exit_code": 0,
+      "summary": {
+        "status": "limited",
+        "requests_used": 84,
+        "discovery_requests": 6,
+        "analysis_requests": 78,
+        "requests_remaining": 0,
+        "endpoints_discovered": 6,
+        "parameters_analyzed": 8,
+        "targets_ignored": 4,
+        "unique_parameters_analyzed": 4,
+        "files_analyzed": 2,
+        "findings": 3
+      },
+      "started_at": "2026-10-27T19:52:24.136453+00:00",
+      "finished_at": "2026-10-27T19:52:44.504162+00:00",
+      "results_by_module": {
+        "sqli": {
+          "not_detected": 3,
+          "confirmed": 1
+        },
+        "xss": {
+          "confirmed": 1,
+          "reflected_safe": 1,
+          "not_detected": 2
+        },
+        "exposure": {
+          "confirmed": 1,
+          "not_detected": 1
+        }
+      },
+      "terminal_counts_match_json": true,
+      "file_values_absent": true
+    },
+    {
+      "report": "fallback.json",
+      "stdout": "fallback.stdout.txt",
+      "cli_exit_code": 0,
+      "summary": {
+        "reachable": true,
+        "status": "completed",
+        "requests_attempted": 16,
+        "responses_received": 16,
+        "errors": 0,
+        "files_analyzed": 4,
+        "findings": 0
+      },
+      "started_at": "2026-10-27T19:52:45.164658+00:00",
+      "finished_at": "2026-10-27T19:52:48.171608+00:00",
+      "results_by_module": {
+        "exposure": {
+          "not_detected": 4
+        }
+      },
+      "terminal_counts_match_json": null,
+      "file_values_absent": true
+    }
+  ],
+  "manual_target_gets": {
+    "scanner_runs": 284,
+    "health_checks": 2,
+    "total": 286,
+    "automated_tests_counted_separately": true
+  },
+  "sqlite_integrity": {
+    "unchanged": true,
+    "before": {
+      "status": "ok",
+      "application": "webvuln-sqlite-control",
+      "sqlite_version": "3.50.4",
+      "records": 5,
+      "dataset_sha256": "5a7f6cbde94c6fb8d193dc14c708adb2d425546f2ddd294c9793ff3d5864ce0a"
+    },
+    "after": {
+      "status": "ok",
+      "application": "webvuln-sqlite-control",
+      "sqlite_version": "3.50.4",
+      "records": 5,
+      "dataset_sha256": "5a7f6cbde94c6fb8d193dc14c708adb2d425546f2ddd294c9793ff3d5864ce0a"
+    }
+  },
+  "tests": {
+    "tests": 354,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "detector_criteria_and_json_contract_unchanged": true,
+  "pending": [
+    "Repository owner has not selected a license.",
+    "Transitive dependencies are not fully locked.",
+    "Validation is limited to Windows 11/Python 3.13/Node 24 and authorized local fixtures."
+  ],
+  "artifact_sha256": {
+    "audit.json": "e6dfe4cf4d69ff7d79a589885ce2a9722c1ccf8c7c205cb00905ef6939f7bdd9",
+    "budget-84.json": "3bba12a04719e9abc0249310487fd3779fed5d8ca88e946d917d2376aa11b182",
+    "budget-84.stdout.txt": "aeee85ac73601afc4b8f330ff816c9deef7b5de6f4d1c39079c6e8e12c211f48",
+    "fallback.json": "f43d513c8f00597ffb639e2ef058304cb346f187615443eee648b9ff3442fe40",
+    "fallback.stdout.txt": "1022e435d62128d2767ca345eb0f6ba4417ef884e72f9efa0c8434ecebb801c8",
+    "tests-summary.json": "f1b5532cc8c0a3c9bd9c974fbbd341d155382f7ab6b417c9da751214910faf55",
+    "tests.xml": "2cf4063927a139d10eb53f8773bfa71c18cd66e6ef192a6d2290cac493fbfdc0",
+    "three-modules.json": "9f831c46232ae45293c89d50927813a97050a812f0b68dfc587dd938a99369bd",
+    "three-modules.stdout.txt": "7c176dfd75bf602802afe214e9cbca8007cf50dba7c38f00b9aad85b382341ad",
+    "without-browser.json": "b4319a81ff866d99a3db2cf46135de062077aed95b57442a35fa40de4756a080",
+    "without-browser.stdout.txt": "008d5c844727d5edd0a2a43c06565d7849f70c85a3fc4f38ccb3a51c856331dc"
+  }
+}

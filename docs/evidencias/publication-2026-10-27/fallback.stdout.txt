@@ -1,0 +1,29 @@
+Alvo: http://127.0.0.1:8005/exposure-lab/fallback/
+Conectividade HTTP: OK
+  Referência #1: HTTP 200, 128 bytes, 4.1 ms
+  Referência #2: HTTP 200, 85 bytes, 18.4 ms
+  Referência #3: HTTP 200, 85 bytes, 22.3 ms
+  Referência #4: HTTP 200, 128 bytes, 2.5 ms
+  Referência #5: HTTP 200, 134 bytes, 26.9 ms
+  Referência #6: HTTP 200, 91 bytes, 12.8 ms
+  Referência #7: HTTP 200, 91 bytes, 2.7 ms
+  Referência #8: HTTP 200, 134 bytes, 2.8 ms
+  Referência #9: HTTP 200, 134 bytes, 15.1 ms
+  Referência #10: HTTP 200, 91 bytes, 3.6 ms
+  Referência #11: HTTP 200, 91 bytes, 18.7 ms
+  Referência #12: HTTP 200, 134 bytes, 3.1 ms
+  Referência #13: HTTP 200, 138 bytes, 2.9 ms
+  Referência #14: HTTP 200, 95 bytes, 2.8 ms
+  Referência #15: HTTP 200, 95 bytes, 2.7 ms
+  Referência #16: HTTP 200, 138 bytes, 2.9 ms
+Exposure: not_detected
+Resumo; consulte exposure_results para cada arquivo.
+  Arquivo http://127.0.0.1:8005/exposure-lab/fallback/.env: not_detected
+  Arquivo http://127.0.0.1:8005/exposure-lab/fallback/config.ini: not_detected
+  Arquivo http://127.0.0.1:8005/exposure-lab/fallback/backup.sql: not_detected
+  Arquivo http://127.0.0.1:8005/exposure-lab/fallback/config.ini.bak: not_detected
+  http://127.0.0.1:8005/exposure-lab/fallback/.env: not_detected
+  http://127.0.0.1:8005/exposure-lab/fallback/config.ini: not_detected
+  http://127.0.0.1:8005/exposure-lab/fallback/backup.sql: not_detected
+  http://127.0.0.1:8005/exposure-lab/fallback/config.ini.bak: not_detected
+Relatório JSON: reports\demo\fallback.json

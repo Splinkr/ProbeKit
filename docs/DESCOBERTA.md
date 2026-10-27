@@ -9,7 +9,7 @@ foi alterada. A generalização posterior está documentada na
 [etapa 5](SQLI_GENERALIZADO.md). O fluxo integrado está na
 [etapa 6](SCAN_INTEGRADO.md); a [etapa 7](XSS_REFLETIDO.md) acrescentou XSS e
 a [etapa 8](EXPOSICAO_ARQUIVOS.md), exposição de arquivos. A suíte atual tem
-344 testes. Este roteiro continua válido.
+354 testes após a [etapa 9](PUBLICACAO.md). Este roteiro continua válido.
 
 ## Demonstração no Windows 11
 

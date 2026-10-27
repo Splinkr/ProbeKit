@@ -167,3 +167,25 @@ controle positivo adicional. Dados SQLite inalterados e nenhum valor de
 arquivo registrado nos JSONs. Limitações de cobertura e política de privacidade
 documentadas; sem mudança dos critérios SQLi/XSS, Docker ou acesso externo.
 Roteiro e evidências reais: [EXPOSICAO_ARQUIVOS.md](EXPOSICAO_ARQUIVOS.md).
+
+## Etapa 9 — Preparação para publicação e demonstração
+
+- [x] Revisar os arquivos rastreados, a arquitetura, os scripts e as evidências históricas.
+- [x] Reorganizar o README com o nome ProbeKit, instalação, comandos, opções e interpretação.
+- [x] Documentar arquitetura, limites reais e roteiro curto dos três módulos no Windows 11.
+- [x] Adicionar tabela final do scan com as cinco classificações, separando alvos não concluídos.
+- [x] Preservar os critérios dos detectores, contratos JSON, evidências e checkpoints existentes.
+- [x] Ampliar o gitignore e conferir 20 exemplos ignorados e cinco permitidos.
+- [x] Reproduzir instalação a partir dos 138 arquivos de um git archive, em venv nova e caminho com espaços.
+- [x] Executar 354 testes nessa cópia limpa, sem falhas ou ignorados, incluindo sete casos com navegador real.
+- [x] Demonstrar scan com navegador, sem navegador, orçamento 84 e fallback HTML, comparando terminal e JSON.
+- [x] Registrar auditoria de caminhos/padrões de tokens, dependências e hashes, sem novas dependências.
+- [ ] Definir licença com o responsável pelo repositório antes da publicação com termos de reutilização.
+
+Resultado real: 354 testes em 72,75 segundos e pip check aprovado. Com navegador,
+92/100 GETs e quatro confirmed; sem navegador, três confirmed e um suspected,
+preservando reflected_safe. Com limite 84, consumo 84 e dois arquivos não
+executados. Fallback: quatro not_detected. Base SQLite e valores privados dos
+artefatos preservados. Sem novas funcionalidades de detecção, dependências
+ou alteração dos critérios. Instalação/roteiro: [PUBLICACAO.md](PUBLICACAO.md) e
+[DEMONSTRACAO.md](DEMONSTRACAO.md).
