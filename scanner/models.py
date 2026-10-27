@@ -78,6 +78,18 @@ class Finding:
     rationale: str
     potential_impact: str
     recommended_mitigation: str
+    parameter: str | None = None
+
+
+@dataclass(frozen=True)
+class ResponseFeatures:
+    format: str
+    strategy: str
+    fingerprint: str | None
+    result_count: int | None
+    nonempty: bool
+    valid: bool
+    error_like: bool = False
 
 
 @dataclass(frozen=True)
@@ -90,6 +102,8 @@ class ProbeEvidence:
     product_count: int | None = None
     product_ids_sha256: str | None = None
     sql_error_signatures: list[str] = field(default_factory=list)
+    context: str = "like"
+    features: ResponseFeatures | None = None
 
 
 @dataclass(frozen=True)
@@ -98,6 +112,16 @@ class SqliAssessment:
     checks: dict[str, bool]
     rationale: str
     limitations: list[str]
+    parameter: str | None = None
+    context: str = "like"
+
+
+@dataclass(frozen=True)
+class ParameterResult:
+    parameter: str
+    context: str
+    assessment: SqliAssessment
+    evidence_request_ids: list[int]
 
 
 @dataclass
@@ -114,6 +138,7 @@ class ScanReport:
     mode: str = "baseline"
     probes: list[ProbeEvidence] = field(default_factory=list)
     assessment: SqliAssessment | None = None
+    parameter_results: list[ParameterResult] = field(default_factory=list)
 
     @property
     def reachable(self) -> bool:
@@ -142,6 +167,7 @@ class ScanReport:
             "findings": [asdict(finding) for finding in self.findings],
             "probes": [asdict(probe) for probe in self.probes],
             "assessment": asdict(self.assessment) if self.assessment else None,
+            "parameter_results": [asdict(result) for result in self.parameter_results],
         }
 
 

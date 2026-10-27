@@ -9,7 +9,7 @@ import sys
 from scanner import __version__
 from scanner.core import run_baseline, run_sqli
 from scanner.discovery import discover
-from scanner.modules.sqli import build_probe_plan
+from scanner.sqli_plans import CONTEXTS, prepare_parameters
 from scanner.reporter import write_json
 from scanner.targets import TargetError, validate_target
 
@@ -81,11 +81,15 @@ def discover_main(argv: list[str]) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Referências HTTP locais e detecção SQLi controlada em buscas de produtos.",
+        description="Referências HTTP locais e detecção SQLi controlada por parâmetro GET.",
         epilog="Descoberta HTML: main.py discover URL --help",
     )
     parser.add_argument("url", help="URL http(s) em localhost ou IP loopback")
     parser.add_argument("--module", choices=("baseline", "sqli"), default="baseline", help="Modo de execução (padrão: baseline)")
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--parameter", help="Parâmetro GET único a testar")
+    selection.add_argument("--all-parameters", action="store_true", help="Testar cada parâmetro GET individualmente")
+    parser.add_argument("--sqli-context", choices=CONTEXTS, default="like", help="Contexto de aspas simples: LIKE ou igualdade (padrão: like)")
     parser.add_argument("--version", action="version", version=__version__)
     parser.add_argument("--samples", type=positive_int, default=2, help="Número de referências (padrão: 2)")
     parser.add_argument("--timeout", type=positive_float, default=5.0, help="Timeout de conexão/leitura, em segundos (padrão: 5)")
@@ -107,14 +111,18 @@ def main(argv: list[str] | None = None) -> int:
         if args.samples > args.max_requests:
             raise ValueError("--samples não pode exceder --max-requests.")
         if args.module == "sqli":
-            build_probe_plan(target, args.samples, args.max_requests)
+            prepare_parameters(target, args.samples, args.max_requests, args.parameter, args.all_parameters, args.sqli_context)
+        elif args.parameter is not None or args.all_parameters or args.sqli_context != "like":
+            raise ValueError("Seleção de parâmetros e contexto requer --module sqli.")
     except (TargetError, ValueError) as error:
         parser.error(str(error))
     runner = run_sqli if args.module == "sqli" else run_baseline
+    extra = {"parameter": args.parameter, "all_parameters": args.all_parameters, "context": args.sqli_context} if args.module == "sqli" else {}
     report = runner(
         target, samples=args.samples, timeout=args.timeout,
         max_requests=args.max_requests, interval=args.interval,
         max_body_bytes=args.max_body_bytes,
+        **extra,
     )
     destination = args.output or Path("reports") / (
         args.module + "-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ") + ".json"
@@ -129,7 +137,8 @@ def main(argv: list[str] | None = None) -> int:
     probes = {probe.request_id: probe for probe in report.probes}
     for response in report.responses:
         probe = probes.get(response.request_id)
-        label = f"{probe.role} (produtos={probe.product_count})" if probe else "Referência"
+        label = (f"{probe.parameter}/{probe.role} (formato={probe.features.format if probe.features else 'indefinido'})"
+                 if probe else "Referência")
         print(f"  {label} #{response.request_id}: HTTP {response.status_code}, {response.size_bytes} bytes, {response.elapsed_ms:.1f} ms")
         if probe and probe.sql_error_signatures:
             print(f"    Sinais SQL: {', '.join(probe.sql_error_signatures)}")
@@ -146,6 +155,8 @@ def main(argv: list[str] | None = None) -> int:
     if report.assessment:
         print(f"SQLi: {report.assessment.outcome}")
         print(report.assessment.rationale)
+        for result in report.parameter_results:
+            print(f"  Parâmetro {result.parameter}: {result.assessment.outcome} ({result.context})")
         for finding in report.findings:
             print(f"  Achado: {finding.status.value}, confiança {finding.confidence.value}; evidências {finding.evidence_request_ids}")
         for limitation in report.assessment.limitations:
@@ -153,7 +164,9 @@ def main(argv: list[str] | None = None) -> int:
     else:
         print("Modo referência: diferenças não confirmam vulnerabilidades; nenhum detector foi executado.")
     print(f"Relatório JSON: {output}")
-    return 1 if report.errors or (report.assessment and report.assessment.outcome == "inconclusive") else 0
+    return 1 if report.errors or (report.assessment and report.assessment.outcome == "inconclusive") or any(
+        result.assessment.outcome == "inconclusive" for result in report.parameter_results
+    ) else 0
 
 
 if __name__ == "__main__":
