@@ -157,6 +157,32 @@ perfis configurados. São gravados checkpoints no início, após a descoberta,
 após análises e ao finalizar/interromper quando possível. O resumo de terminal
 não substitui as evidências nem altera o JSON.
 
+Cada gravação pela CLI também gera `findings.json` no mesmo diretório do
+relatório técnico, sem novas requisições ou alteração das classificações.
+Por exemplo, `--output reports/demo/full.json` produz `full.json` completo e
+`reports/demo/findings.json` resumido. O terminal informa os dois caminhos.
+O resumo contém somente `confirmed` e `suspected`, com módulo, tipo, URL,
+parâmetro, confiança disponível, explicação da evidência, IDs das requisições,
+impacto potencial e mitigação já fornecidos pelo detector. `summary` conta
+achados deduplicados por módulo/URL/parâmetro/status; repetições unem os IDs.
+Sem achados, `findings` é `[]` e as contagens são zero.
+
+O campo `source_report` identifica o JSON técnico ao qual os IDs se referem;
+`scan_status` distingue execução completa, limitada, incompleta ou interrompida.
+Os checkpoints atualizam também o resumo: uma lista vazia em execução parcial
+não comprova segurança. O resumo não copia corpos, cookies, cabeçalhos, payloads
+ou conteúdo dos arquivos expostos. Credenciais na URL e fragmentos são removidos;
+valores de parâmetros com nomes sensíveis (como `password`, `token` e `api_key`)
+são mascarados, com `url_redacted: true`. Outros valores da URL são preservados;
+não coloque segredos em caminhos ou parâmetros com nomes genéricos.
+
+`findings.json` representa a última gravação naquele diretório. Para preservar
+resumos de várias execuções, use diretórios diferentes em `--output`. Se o próprio
+relatório técnico se chamar `findings.json`, o resumo se chamará
+`findings-summary.json`, preservando o destino solicitado e a compatibilidade da CLI.
+As funções de baixo nível `write_json`/`write_json_atomic` continuam gravando um
+único JSON; `write_reports` faz a gravação dos dois arquivos usada pela CLI.
+
 | Código de saída | Significado |
 | --- | --- |
 | 0 | Execução concluída ou limitada sem erro; consulte resultados e alvos ignorados |

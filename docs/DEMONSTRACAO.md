@@ -49,6 +49,13 @@ essa execução como XSS confirmado.
 
 ## 3. Consultar evidências e orçamento
 
+Abra primeiro `reports/demo/findings.json`, gerado automaticamente ao lado de
+`three-modules.json`. Ele mostra somente confirmações e suspeitas, com impacto,
+mitigação e IDs de evidência. Na referência acima são quatro confirmações:
+uma SQLi, uma XSS e dois arquivos. Sem navegador, a XSS permanece suspeita.
+Para aprofundar a análise, consulte os IDs no relatório técnico indicado por
+`source_report`; o resumo não substitui as evidências completas.
+
 ```powershell
 $demoReport = Get-Content -Raw -Encoding UTF8 reports/demo/three-modules.json | ConvertFrom-Json
 $demoReport.summary | Format-List

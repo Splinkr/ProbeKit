@@ -6,9 +6,36 @@ import tempfile
 import time
 from typing import Any, Protocol
 
+from scanner.findings_report import build_findings_report
+
 
 class JsonReport(Protocol):
     def to_dict(self) -> dict[str, Any]: ...
+
+
+def findings_path(destination: str | Path) -> Path:
+    output = Path(destination)
+    # --output findings.json continua válido e nunca é sobrescrito pelo resumo.
+    name = "findings-summary.json" if output.name.casefold() == "findings.json" else "findings.json"
+    return output.with_name(name)
+
+
+class _Snapshot:
+    def __init__(self, data: dict[str, Any]):
+        self.data = data
+
+    def to_dict(self) -> dict[str, Any]:
+        return self.data
+
+
+def write_reports(report: JsonReport, destination: str | Path, *, atomic: bool = False) -> Path:
+    """Grava o relatório completo intacto e o resumo derivado do mesmo snapshot."""
+    data = report.to_dict()
+    writer = write_json_atomic if atomic else write_json
+    output = writer(_Snapshot(data), destination)
+    summary = build_findings_report(data, output.name)
+    write_json_atomic(_Snapshot(summary), findings_path(output))
+    return output
 
 
 def write_json(report: JsonReport, destination: str | Path) -> Path:

@@ -14,7 +14,7 @@ from scanner.modules.xss import prepare_parameters as prepare_xss_parameters, ru
 from scanner.modules import exposure
 from scanner.exposure_profiles import PROFILES
 from scanner.sqli_plans import CONTEXTS, prepare_parameters
-from scanner.reporter import write_json, write_json_atomic
+from scanner.reporter import findings_path, write_reports
 from scanner.targets import TargetError, validate_target
 from scanner.terminal import format_scan_results
 
@@ -69,7 +69,7 @@ def discover_main(argv: list[str]) -> int:
         "discover-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ") + ".json"
     )
     try:
-        output = write_json(report, destination)
+        output = write_reports(report, destination)
     except OSError as error:
         print(f"Erro ao gravar inventário: {error}", file=sys.stderr)
         return 1
@@ -81,6 +81,7 @@ def discover_main(argv: list[str]) -> int:
     if report.stop_reasons:
         print(f"Limites atingidos: {', '.join(report.stop_reasons)}")
     print(f"Inventário JSON: {output}")
+    print(f"Achados JSON: {findings_path(output)}")
     return 1 if report.errors else 0
 
 
@@ -112,7 +113,7 @@ def scan_main(argv: list[str]) -> int:
             modules=tuple(args.modules), xss_browser=args.xss_browser,
             exposure_profiles=tuple(args.exposure_profiles) if args.exposure_profiles is not None else None,
             exposure_base_path=args.exposure_base_path,
-            checkpoint=lambda current: write_json_atomic(current, destination),
+            checkpoint=lambda current: write_reports(current, destination, atomic=True),
         )
     except ValueError as error:
         parser.error(str(error))
@@ -132,6 +133,7 @@ def scan_main(argv: list[str]) -> int:
     print(f"Alvos ignorados: {summary['targets_ignored']}; limites: {', '.join(report.stop_reasons) or 'nenhum'}")
     print(format_scan_results(report))
     print(f"Relatório consolidado JSON: {destination}")
+    print(f"Achados JSON: {findings_path(destination)}")
     return 130 if report.status == "interrupted" else 1 if report.status == "incomplete" else 0
 
 
@@ -203,7 +205,7 @@ def main(argv: list[str] | None = None) -> int:
         args.module + "-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ") + ".json"
     )
     try:
-        output = write_json(report, destination)
+        output = write_reports(report, destination)
     except OSError as error:
         print(f"Erro ao gravar relatório: {error}", file=sys.stderr)
         return 1
@@ -242,6 +244,7 @@ def main(argv: list[str] | None = None) -> int:
     else:
         print("Modo referência: diferenças não confirmam vulnerabilidades; nenhum detector foi executado.")
     print(f"Relatório JSON: {output}")
+    print(f"Achados JSON: {findings_path(output)}")
     return 1 if report.errors or (report.assessment and report.assessment.outcome == "inconclusive") or any(
         result.assessment.outcome == "inconclusive" for result in report.parameter_results
     ) or any(
