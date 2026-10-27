@@ -1,0 +1,11 @@
+.venv/
+.tools/
+lab/*
+!lab/README.md
+__pycache__/
+*.py[cod]
+.pytest_cache/
+reports/*
+!reports/.gitkeep
+juice-shop-release.json
+*.log
