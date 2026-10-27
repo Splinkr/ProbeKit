@@ -147,8 +147,10 @@ satisfeitos e SQLi `confirmed`, sem erros de transporte. Evidência:
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-**101 testes passaram**, com dependências consistentes. Os novos testes usam
-essa aplicação real em porta efêmera e verificam:
+Na validação original, **101 testes passaram**. Essa suíte foi posteriormente
+substituída integralmente: a [suíte reconstruída](TESTES.md) passou em **123 testes**,
+com dependências consistentes. Os testes usam essa aplicação real em porta efêmera
+e verificam:
 
 - Igualdade das respostas normais e filtro do registro arquivado.
 - Erro SQLite real na concatenação e aspa tratada como dado no binding.
@@ -157,7 +159,7 @@ essa aplicação real em porta efêmera e verificam:
 - Inversão das implementações entre os caminhos: o resultado acompanha o SQL
   executado, e o resumo registra resultados contrários às hipóteses como falso
   positivo/falso negativo. O nome do caminho não determina a classificação.
-- Preservação dos testes anteriores e bloqueio de alvos externos.
+- Reavaliação dos contratos anteriores e bloqueio de alvos externos.
 
 O teste de porta ocupada também passou. No Windows, o laboratório configura
 `SO_EXCLUSIVEADDRUSE` antes do bind para impedir duas instâncias na mesma porta,

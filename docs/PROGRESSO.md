@@ -54,3 +54,14 @@ Resultado: 3 positivos confirmados, 3 negativos sem achados e zero falsos
 positivos/negativos ou inconclusivos nesta rodada. São duas implementações
 controladas; a conclusão não deve ser generalizada a qualquer aplicação.
 Roteiro: [CONTROLE_NEGATIVO.md](CONTROLE_NEGATIVO.md).
+
+## Reconstrução da suíte automatizada
+
+- [x] Remover os testes anteriores e refazer as fixtures.
+- [x] Recriar testes de escopo, HTTP, evidências, classificação e avaliação SQLite.
+- [x] Executar a CLI em subprocessos e conferir os JSONs gerados.
+- [x] Executar integralmente a nova suíte, com cache de coleta limpo.
+- [x] Registrar o resultado real e manter os relatórios empíricos históricos.
+
+Resultado: 123 aprovados, zero falhas, erros ou ignorados; produção preservada.
+Detalhes: [TESTES.md](TESTES.md).

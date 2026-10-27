@@ -175,7 +175,9 @@ do parâmetro e respostas de erro sem detalhes internos do banco.
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-**81 testes passaram**, incluindo SQLite real em memória com consulta vulnerável
+Na validação inicial, **81 testes passaram**. A suíte foi substituída pela
+[reconstrução atual](TESTES.md), com **123 testes aprovados**. Os cenários incluem
+SQLite real em memória com consulta vulnerável
 e parametrizada, SQL error isolado, erro HTTP genérico, referências instáveis,
 IDs diferentes, referências vazias, HTML genérico, JSON inválido, falha de coleta,
 recuperação ausente, orçamento, validação de URL e compatibilidade da CLI anterior.

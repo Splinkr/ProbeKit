@@ -1,0 +1,31 @@
+{
+  "kind": "automated_test_run",
+  "command": ".\\.venv\\Scripts\\python.exe -m pytest --cache-clear -q --junitxml=reports/rebuilt-tests.xml",
+  "timestamp": "2026-10-27T14:05:06.004144-03:00",
+  "python_version": "3.13.9",
+  "pytest_version": "8.4.2",
+  "tests": 123,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "junit_time_seconds": 8.105,
+  "by_module": {
+    "tests.test_cli_process_contract": 16,
+    "tests.test_evidence_contract": 8,
+    "tests.test_scope_contract": 40,
+    "tests.test_sqli_decision_contract": 21,
+    "tests.test_sqlite_evaluation_contract": 16,
+    "tests.test_transport_contract": 22
+  },
+  "test_sources_sha256": {
+    "tests/conftest.py": "e42d46603173df19262cba69016c9b4e41a4afb11be4bea8d20831da1faa3977",
+    "tests/test_cli_process_contract.py": "02a8faa22ee250a1e71b4e8360c1be147e733b3e8631c0940fd515c2f6204e8b",
+    "tests/test_evidence_contract.py": "8666728ee391cdca6cee10249fddea2656a6bc58098aadf72b4e1917bced58fd",
+    "tests/test_scope_contract.py": "d37f75f864236c915dce61b5128e0e6b9e427b4e5bcd52a411aac89473f047b1",
+    "tests/test_sqli_decision_contract.py": "6d8769f93012f2fd00c771c59c2db202bad0a67a2f28775bc09ea20d8a19aaa2",
+    "tests/test_sqlite_evaluation_contract.py": "df88e44abcf37831b7c6db307c2dc6080e243e79ac55f380d93c054277755ae3",
+    "tests/test_transport_contract.py": "d0fc53d975ed387e2d8d08213be7f4697a8ae12c6cc2a45cab368de5b7025cc8"
+  },
+  "scope": "loopback HTTP, real SQLite application, CLI subprocesses, synthetic decision evidence",
+  "production_code_changed": false
+}

@@ -127,6 +127,8 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-Os testes usam servidores HTTP efêmeros no loopback e falhas simuladas; não
-dependem de sites públicos nem do Juice Shop. Resultados reais e limitações
-estão em [docs/VALIDACAO.md](docs/VALIDACAO.md).
+A suíte automatizada foi reconstruída: **123 testes passaram**, cobrindo HTTP,
+escopo local, evidências, classificação SQLi, SQLite real e CLI em subprocessos.
+Ela não depende de sites públicos ou do Juice Shop. Organização, comandos e
+resultado desta execução estão em [docs/TESTES.md](docs/TESTES.md). A validação
+histórica das etapas iniciais permanece em [docs/VALIDACAO.md](docs/VALIDACAO.md).
