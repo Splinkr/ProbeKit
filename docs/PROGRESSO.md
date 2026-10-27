@@ -2,12 +2,12 @@
 
 ## Etapa 1 — Preparação
 
-- [ ] Verificar Python, Node.js, npm e Git.
-- [ ] Preparar ambiente virtual Python.
+- [x] Verificar Python, Node.js, npm e Git.
+- [x] Preparar ambiente virtual Python.
 - [x] Criar repositório e estrutura inicial.
-- [ ] Instalar dependências Python.
-- [ ] Instalar e executar OWASP Juice Shop com Node.js, sem Docker.
-- [ ] Confirmar acesso em localhost:3000.
+- [x] Instalar dependências Python.
+- [x] Instalar e executar OWASP Juice Shop com Node.js, sem Docker.
+- [x] Confirmar acesso em localhost:3000 (HTTP 200).
 
 ## Etapa 2 — Núcleo do scanner
 
