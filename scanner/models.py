@@ -124,6 +124,7 @@ class ScanReport:
             "schema_version": self.schema_version,
             "mode": self.mode,
             "target": self.target,
+            "target_source": "manual",
             "started_at": self.started_at,
             "finished_at": self.finished_at,
             "settings": self.settings,
@@ -141,4 +142,65 @@ class ScanReport:
             "findings": [asdict(finding) for finding in self.findings],
             "probes": [asdict(probe) for probe in self.probes],
             "assessment": asdict(self.assessment) if self.assessment else None,
+        }
+
+
+@dataclass(frozen=True)
+class EndpointParameter:
+    name: str
+    location: str
+    field_type: str | None = None
+
+
+@dataclass(frozen=True)
+class DiscoverySource:
+    kind: str
+    page_url: str | None
+    depth: int
+
+
+@dataclass
+class DiscoveredEndpoint:
+    endpoint: str
+    method: str = "GET"
+    parameters: list[EndpointParameter] = field(default_factory=list)
+    observed_urls: list[str] = field(default_factory=list)
+    sources: list[DiscoverySource] = field(default_factory=list)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            **asdict(self),
+            "provided_manually": any(source.kind == "manual" for source in self.sources),
+            "discovered_automatically": any(source.kind != "manual" for source in self.sources),
+        }
+
+
+@dataclass
+class DiscoveryReport:
+    target: str
+    started_at: str
+    settings: dict[str, Any]
+    endpoints: list[DiscoveredEndpoint] = field(default_factory=list)
+    pages: list[dict[str, Any]] = field(default_factory=list)
+    errors: list[RequestFailure] = field(default_factory=list)
+    skipped: dict[str, int] = field(default_factory=dict)
+    stop_reasons: list[str] = field(default_factory=list)
+    requests_attempted: int = 0
+    queued_remaining: int = 0
+    finished_at: str | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": "1.0", "mode": "discover", "target": self.target,
+            "target_source": "manual", "started_at": self.started_at, "finished_at": self.finished_at,
+            "settings": self.settings,
+            "summary": {
+                "status": "incomplete" if self.errors else "limited" if self.stop_reasons else "completed",
+                "reachable": bool(self.pages), "endpoints": len(self.endpoints),
+                "pages_fetched": len(self.pages), "requests_attempted": self.requests_attempted,
+                "errors": len(self.errors), "queued_remaining": self.queued_remaining,
+            },
+            "stop_reasons": self.stop_reasons, "skipped": self.skipped,
+            "endpoints": [endpoint.to_dict() for endpoint in self.endpoints],
+            "pages": self.pages, "errors": [asdict(error) for error in self.errors],
         }

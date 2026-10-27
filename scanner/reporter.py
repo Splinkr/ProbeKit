@@ -2,11 +2,14 @@
 
 import json
 from pathlib import Path
+from typing import Any, Protocol
 
-from scanner.models import ScanReport
+
+class JsonReport(Protocol):
+    def to_dict(self) -> dict[str, Any]: ...
 
 
-def write_json(report: ScanReport, destination: str | Path) -> Path:
+def write_json(report: JsonReport, destination: str | Path) -> Path:
     output = Path(destination)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(

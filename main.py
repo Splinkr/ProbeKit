@@ -8,6 +8,7 @@ import sys
 
 from scanner import __version__
 from scanner.core import run_baseline, run_sqli
+from scanner.discovery import discover
 from scanner.modules.sqli import build_probe_plan
 from scanner.reporter import write_json
 from scanner.targets import TargetError, validate_target
@@ -34,9 +35,54 @@ def interval_float(value: str) -> float:
     return result
 
 
+def nonnegative_int(value: str) -> int:
+    result = int(value)
+    if result < 0:
+        raise argparse.ArgumentTypeError("Informe um inteiro não negativo.")
+    return result
+
+
+def discover_main(argv: list[str]) -> int:
+    parser = argparse.ArgumentParser(prog="main.py discover", description="Inventaria links HTML e formulários GET na mesma origem local.")
+    parser.add_argument("url", help="URL inicial local")
+    parser.add_argument("--max-depth", type=nonnegative_int, default=2)
+    parser.add_argument("--max-pages", type=positive_int, default=20)
+    parser.add_argument("--max-requests", type=positive_int, default=20)
+    parser.add_argument("--timeout", type=positive_float, default=5.0)
+    parser.add_argument("--interval", type=interval_float, default=0.2)
+    parser.add_argument("--max-body-bytes", type=positive_int, default=1_048_576)
+    parser.add_argument("--output", type=Path)
+    args = parser.parse_args(argv)
+    try:
+        report = discover(
+            args.url, max_depth=args.max_depth, max_pages=args.max_pages, max_requests=args.max_requests,
+            timeout=args.timeout, interval=args.interval, max_body_bytes=args.max_body_bytes,
+        )
+    except ValueError as error:
+        parser.error(str(error))
+    destination = args.output or Path("reports") / (
+        "discover-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ") + ".json"
+    )
+    try:
+        output = write_json(report, destination)
+    except OSError as error:
+        print(f"Erro ao gravar inventário: {error}", file=sys.stderr)
+        return 1
+    for endpoint in report.endpoints:
+        sources = ", ".join(dict.fromkeys(source.kind for source in endpoint.sources))
+        parameters = ", ".join(dict.fromkeys(parameter.name for parameter in endpoint.parameters)) or "nenhum"
+        print(f"{endpoint.method} {endpoint.endpoint} | parâmetros: {parameters} | origem: {sources}")
+    print(f"Páginas: {len(report.pages)}; requisições: {report.requests_attempted}; erros: {len(report.errors)}")
+    if report.stop_reasons:
+        print(f"Limites atingidos: {', '.join(report.stop_reasons)}")
+    print(f"Inventário JSON: {output}")
+    return 1 if report.errors else 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Referências HTTP locais e detecção SQLi controlada em buscas de produtos."
+        description="Referências HTTP locais e detecção SQLi controlada em buscas de produtos.",
+        epilog="Descoberta HTML: main.py discover URL --help",
     )
     parser.add_argument("url", help="URL http(s) em localhost ou IP loopback")
     parser.add_argument("--module", choices=("baseline", "sqli"), default="baseline", help="Modo de execução (padrão: baseline)")
@@ -51,8 +97,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    arguments = list(sys.argv[1:] if argv is None else argv)
+    if arguments and arguments[0] == "discover":
+        return discover_main(arguments[1:])
     parser = build_parser()
-    args = parser.parse_args(argv)
+    args = parser.parse_args(arguments)
     try:
         target = validate_target(args.url)
         if args.samples > args.max_requests:
