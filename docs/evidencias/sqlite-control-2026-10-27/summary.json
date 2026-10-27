@@ -1,0 +1,113 @@
+{
+  "experiment": "sqlite_positive_negative_control",
+  "started_at": "2026-10-27T14:52:26.598543+00:00",
+  "scanner_version": "0.1.0",
+  "python_version": "3.13.9",
+  "repetitions_per_endpoint": 3,
+  "positive_definition": "confirmed ou suspected; inconclusive é abstenção, nunca negativo",
+  "dataset_before": {
+    "status": "ok",
+    "application": "webvuln-sqlite-control",
+    "sqlite_version": "3.50.4",
+    "records": 5,
+    "dataset_sha256": "5a7f6cbde94c6fb8d193dc14c708adb2d425546f2ddd294c9793ff3d5864ce0a"
+  },
+  "runs": [
+    {
+      "repetition": 1,
+      "endpoint": "vulnerable",
+      "target": "http://127.0.0.1:8001/control/vulnerable/search?q=apple",
+      "expected_positive": true,
+      "outcome": "confirmed",
+      "metric": "true_positive",
+      "findings": 1,
+      "requests_attempted": 10,
+      "baseline_product_count": 3,
+      "baseline_product_ids_sha256": "a615eeaee21de5179de080de8c3052c8da901138406ba71c38c032845f7d54f4",
+      "report": "vulnerable-01.json"
+    },
+    {
+      "repetition": 1,
+      "endpoint": "safe",
+      "target": "http://127.0.0.1:8001/control/safe/search?q=apple",
+      "expected_positive": false,
+      "outcome": "not_detected",
+      "metric": "true_negative",
+      "findings": 0,
+      "requests_attempted": 10,
+      "baseline_product_count": 3,
+      "baseline_product_ids_sha256": "a615eeaee21de5179de080de8c3052c8da901138406ba71c38c032845f7d54f4",
+      "report": "safe-01.json"
+    },
+    {
+      "repetition": 2,
+      "endpoint": "vulnerable",
+      "target": "http://127.0.0.1:8001/control/vulnerable/search?q=apple",
+      "expected_positive": true,
+      "outcome": "confirmed",
+      "metric": "true_positive",
+      "findings": 1,
+      "requests_attempted": 10,
+      "baseline_product_count": 3,
+      "baseline_product_ids_sha256": "a615eeaee21de5179de080de8c3052c8da901138406ba71c38c032845f7d54f4",
+      "report": "vulnerable-02.json"
+    },
+    {
+      "repetition": 2,
+      "endpoint": "safe",
+      "target": "http://127.0.0.1:8001/control/safe/search?q=apple",
+      "expected_positive": false,
+      "outcome": "not_detected",
+      "metric": "true_negative",
+      "findings": 0,
+      "requests_attempted": 10,
+      "baseline_product_count": 3,
+      "baseline_product_ids_sha256": "a615eeaee21de5179de080de8c3052c8da901138406ba71c38c032845f7d54f4",
+      "report": "safe-02.json"
+    },
+    {
+      "repetition": 3,
+      "endpoint": "vulnerable",
+      "target": "http://127.0.0.1:8001/control/vulnerable/search?q=apple",
+      "expected_positive": true,
+      "outcome": "confirmed",
+      "metric": "true_positive",
+      "findings": 1,
+      "requests_attempted": 10,
+      "baseline_product_count": 3,
+      "baseline_product_ids_sha256": "a615eeaee21de5179de080de8c3052c8da901138406ba71c38c032845f7d54f4",
+      "report": "vulnerable-03.json"
+    },
+    {
+      "repetition": 3,
+      "endpoint": "safe",
+      "target": "http://127.0.0.1:8001/control/safe/search?q=apple",
+      "expected_positive": false,
+      "outcome": "not_detected",
+      "metric": "true_negative",
+      "findings": 0,
+      "requests_attempted": 10,
+      "baseline_product_count": 3,
+      "baseline_product_ids_sha256": "a615eeaee21de5179de080de8c3052c8da901138406ba71c38c032845f7d54f4",
+      "report": "safe-03.json"
+    }
+  ],
+  "dataset_after": {
+    "status": "ok",
+    "application": "webvuln-sqlite-control",
+    "sqlite_version": "3.50.4",
+    "records": 5,
+    "dataset_sha256": "5a7f6cbde94c6fb8d193dc14c708adb2d425546f2ddd294c9793ff3d5864ce0a"
+  },
+  "dataset_unchanged": true,
+  "same_baseline_products": true,
+  "metrics": {
+    "true_positive": 3,
+    "true_negative": 3,
+    "false_positive": 0,
+    "false_negative": 0,
+    "inconclusive": 0
+  },
+  "status": "completed",
+  "finished_at": "2026-10-27T14:52:37.479803+00:00"
+}

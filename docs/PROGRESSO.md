@@ -38,3 +38,19 @@
 
 Roteiro: [DEMONSTRACAO_SQLI.md](DEMONSTRACAO_SQLI.md).
 XSS, exposição de arquivos e descoberta automática permanecem fora desta etapa.
+
+## Avaliação empírica — controle negativo
+
+- [x] Criar servidor SQLite local com dados fictícios compartilhados.
+- [x] Expor consultas equivalentes por concatenação e parametrização.
+- [x] Usar o mesmo detector, sem modificar seus critérios ou payloads.
+- [x] Executar três repetições por endpoint e preservar seis relatórios JSON.
+- [x] Verificar equivalência das referências e integridade da base antes/depois.
+- [x] Testar classificação pela implementação SQL, independente do nome da rota.
+- [x] Revalidar o Juice Shop e os testes existentes.
+- [x] Documentar resultados reais, métricas e limitações da amostra.
+
+Resultado: 3 positivos confirmados, 3 negativos sem achados e zero falsos
+positivos/negativos ou inconclusivos nesta rodada. São duas implementações
+controladas; a conclusão não deve ser generalizada a qualquer aplicação.
+Roteiro: [CONTROLE_NEGATIVO.md](CONTROLE_NEGATIVO.md).

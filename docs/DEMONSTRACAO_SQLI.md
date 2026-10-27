@@ -1,5 +1,9 @@
 # Demonstração do MVP SQLi — Windows 11
 
+O controle positivo e negativo SQLite está em [CONTROLE_NEGATIVO.md](CONTROLE_NEGATIVO.md).
+Ele usa o mesmo plano e classificador, acrescentando dois caminhos locais
+suportados; o procedimento do Juice Shop abaixo permanece válido.
+
 Escopo: somente o Juice Shop local autorizado, sem Docker. O scanner mantém
 o cliente HTTP, os limites de loopback e a CLI das etapas anteriores. Nenhuma
 dependência foi acrescentada. XSS e exposição de arquivos não estão implementados.
@@ -157,7 +161,7 @@ concluído; a conclusão de segurança fica em `assessment.outcome`.
 Acesso a usuários/credenciais, autenticação, extração de outros dados e escrita
 no banco **não foram testados**. O desafio de extração por UNION do placar do
 Juice Shop não é o objetivo; a demonstração não depende de resolvê-lo.
-O MVP aceita exclusivamente esse caminho e um único `q` de referência simples;
+No Juice Shop, o perfil cobre esse caminho e um único `q` de referência simples;
 não faz descoberta automática nem afirma detectar todos os tipos de SQLi.
 As limitações de timeout e tamanho das etapas anteriores continuam válidas.
 

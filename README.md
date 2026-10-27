@@ -60,6 +60,12 @@ assinaturas SQL e a classificação `confirmed`, `suspected`, `not_detected` ou
 `inconclusive`. O [roteiro da demonstração](docs/DEMONSTRACAO_SQLI.md) contém
 os comandos completos, a validação manual e a evidência real.
 
+Para avaliar falsos positivos, há uma aplicação SQLite local com buscas por
+concatenação e por bindings sobre a mesma base fictícia. O experimento executa
+o mesmo detector nos dois endpoints e gera JSON separado por repetição.
+Consulte [o controle positivo e negativo](docs/CONTROLE_NEGATIVO.md) para iniciar
+o servidor e reproduzir a avaliação, sem Docker ou dependências adicionais.
+
 Por padrão são duas referências, timeout de conexão/leitura de 5 segundos,
 intervalo mínimo de 0,2 segundo entre inícios, orçamento de 10 requisições e
 limite de 1 MiB descomprimido por resposta. Use `--samples`, `--timeout`,
@@ -94,8 +100,9 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 - Timeout limita conexão e inatividade da leitura, não o tempo total de uma
   resposta enviada lentamente. Respostas acima do limite são descartadas e
   registradas como erro, sem comparar conteúdo parcial.
-- O módulo SQLi cobre apenas `/rest/products/search` com um único `q` de
-  referência simples. Exige pelo menos duas referências e orçamento `samples + 8`.
+- O módulo SQLi aceita `/rest/products/search`, `/control/vulnerable/search` e
+  `/control/safe/search`, com um único `q` de referência simples. Exige pelo menos
+  duas referências e orçamento `samples + 8`.
   Não há descoberta automática, autenticação, XSS ou exposição de arquivos.
   Não há opção para liberar destinos externos.
 
@@ -112,6 +119,8 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 | `scanner/reporter.py` | Serialização JSON sem corpos HTTP |
 | `scanner/modules/` | Módulos específicos de detecção |
 | `scanner/modules/sqli.py` | Plano SQLi, interpretação semântica e classificação |
+| `experiments/sqlite_control.py` | Servidor dos controles SQLite locais |
+| `experiments/run_control.py` | Repetições e métricas do experimento |
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q

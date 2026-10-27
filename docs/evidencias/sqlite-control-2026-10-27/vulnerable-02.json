@@ -1,0 +1,385 @@
+{
+  "schema_version": "1.1",
+  "mode": "sqli",
+  "target": "http://127.0.0.1:8001/control/vulnerable/search?q=apple",
+  "started_at": "2026-10-27T14:52:30.232010+00:00",
+  "finished_at": "2026-10-27T14:52:32.037319+00:00",
+  "settings": {
+    "samples": 2,
+    "timeout_seconds": 5.0,
+    "max_requests": 10,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "follow_redirects": false,
+    "scope": "loopback_only",
+    "parameter": "q",
+    "planned_requests": 10,
+    "confirmation_scope": "boolean_condition_in_product_search"
+  },
+  "summary": {
+    "reachable": true,
+    "status": "completed",
+    "requests_attempted": 10,
+    "responses_received": 10,
+    "errors": 0,
+    "findings": 1
+  },
+  "responses": [
+    {
+      "request_id": 1,
+      "url": "http://127.0.0.1:8001/control/vulnerable/search?q=apple",
+      "collected_at": "2026-10-27T14:52:30.232114+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 303,
+      "body_sha256": "0f721c53668a64789d3fb0bfcad29854d29b325752e3c5cefadf8848d6e5cddd",
+      "elapsed_ms": 13.76,
+      "method": "GET"
+    },
+    {
+      "request_id": 2,
+      "url": "http://127.0.0.1:8001/control/vulnerable/search?q=apple",
+      "collected_at": "2026-10-27T14:52:30.432675+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 303,
+      "body_sha256": "0f721c53668a64789d3fb0bfcad29854d29b325752e3c5cefadf8848d6e5cddd",
+      "elapsed_ms": 2.541,
+      "method": "GET"
+    },
+    {
+      "request_id": 3,
+      "url": "http://127.0.0.1:8001/control/vulnerable/search?q=apple%27",
+      "collected_at": "2026-10-27T14:52:30.632763+00:00",
+      "status_code": 500,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 95,
+      "body_sha256": "e75bd6808ebe64a8b3e02aa768fb5fc834694a4c4e793e7fa59d4b443e2088d2",
+      "elapsed_ms": 20.632,
+      "method": "GET"
+    },
+    {
+      "request_id": 4,
+      "url": "http://127.0.0.1:8001/control/vulnerable/search?q=apple%27%27",
+      "collected_at": "2026-10-27T14:52:30.832988+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 33,
+      "body_sha256": "a92f0e683e070bf39a20bb83a6d6b492b70e3a40d00a13159f450486bcee74be",
+      "elapsed_ms": 22.586,
+      "method": "GET"
+    },
+    {
+      "request_id": 5,
+      "url": "http://127.0.0.1:8001/control/vulnerable/search?q=apple+AND+17%3D17",
+      "collected_at": "2026-10-27T14:52:31.033070+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 33,
+      "body_sha256": "a92f0e683e070bf39a20bb83a6d6b492b70e3a40d00a13159f450486bcee74be",
+      "elapsed_ms": 25.09,
+      "method": "GET"
+    },
+    {
+      "request_id": 6,
+      "url": "http://127.0.0.1:8001/control/vulnerable/search?q=apple%25%27+AND+%2817%3D17%29+AND+%27%25%27+LIKE+%27%25",
+      "collected_at": "2026-10-27T14:52:31.233492+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 303,
+      "body_sha256": "0f721c53668a64789d3fb0bfcad29854d29b325752e3c5cefadf8848d6e5cddd",
+      "elapsed_ms": 2.476,
+      "method": "GET"
+    },
+    {
+      "request_id": 7,
+      "url": "http://127.0.0.1:8001/control/vulnerable/search?q=apple%25%27+AND+%2817%3D18%29+AND+%27%25%27+LIKE+%27%25",
+      "collected_at": "2026-10-27T14:52:31.433853+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 33,
+      "body_sha256": "a92f0e683e070bf39a20bb83a6d6b492b70e3a40d00a13159f450486bcee74be",
+      "elapsed_ms": 2.806,
+      "method": "GET"
+    },
+    {
+      "request_id": 8,
+      "url": "http://127.0.0.1:8001/control/vulnerable/search?q=apple%25%27+AND+%2823%3D23%29+AND+%27%25%27+LIKE+%27%25",
+      "collected_at": "2026-10-27T14:52:31.634027+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 303,
+      "body_sha256": "0f721c53668a64789d3fb0bfcad29854d29b325752e3c5cefadf8848d6e5cddd",
+      "elapsed_ms": 2.63,
+      "method": "GET"
+    },
+    {
+      "request_id": 9,
+      "url": "http://127.0.0.1:8001/control/vulnerable/search?q=apple%25%27+AND+%2823%3D24%29+AND+%27%25%27+LIKE+%27%25",
+      "collected_at": "2026-10-27T14:52:31.834360+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 33,
+      "body_sha256": "a92f0e683e070bf39a20bb83a6d6b492b70e3a40d00a13159f450486bcee74be",
+      "elapsed_ms": 2.487,
+      "method": "GET"
+    },
+    {
+      "request_id": 10,
+      "url": "http://127.0.0.1:8001/control/vulnerable/search?q=apple",
+      "collected_at": "2026-10-27T14:52:32.034543+00:00",
+      "status_code": 200,
+      "content_type": "application/json; charset=utf-8",
+      "size_bytes": 303,
+      "body_sha256": "0f721c53668a64789d3fb0bfcad29854d29b325752e3c5cefadf8848d6e5cddd",
+      "elapsed_ms": 2.413,
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "comparisons": [
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 2,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 303,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 3,
+      "status_changed": true,
+      "content_type_changed": false,
+      "size_delta_bytes": -208,
+      "body_changed": true,
+      "sample_similarity": 0.291457,
+      "compared_sample_bytes": 303,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 4,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -270,
+      "body_changed": true,
+      "sample_similarity": 0.196429,
+      "compared_sample_bytes": 303,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 5,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -270,
+      "body_changed": true,
+      "sample_similarity": 0.196429,
+      "compared_sample_bytes": 303,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 6,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 303,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 7,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -270,
+      "body_changed": true,
+      "sample_similarity": 0.196429,
+      "compared_sample_bytes": 303,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 8,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 303,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 9,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -270,
+      "body_changed": true,
+      "sample_similarity": 0.196429,
+      "compared_sample_bytes": 303,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 10,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 303,
+      "interpretation": "Observação de respostas; não confirma vulnerabilidade."
+    }
+  ],
+  "findings": [
+    {
+      "endpoint": "http://127.0.0.1:8001/control/vulnerable/search?q=apple",
+      "category": "sqli",
+      "title": "SQL Injection booleana no parâmetro q",
+      "confidence": "high",
+      "status": "confirmed",
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "rationale": "SQLi booleana confirmada neste endpoint: dois pares independentes preservaram os produtos da referência nas condições verdadeiras e retornaram zero nas falsas; referências e recuperação estáveis, controles válidos e erro SQL diferencial.",
+      "potential_impact": "Alteração da lógica da consulta de produtos. Acesso a usuários, credenciais e escrita no banco não foram testados.",
+      "recommended_mitigation": "Substituir concatenação de q por consultas parametrizadas/bindings; não expor detalhes de erros SQL nas respostas HTTP."
+    }
+  ],
+  "probes": [
+    {
+      "request_id": 1,
+      "role": "baseline_1",
+      "parameter": "q",
+      "input_value": "apple",
+      "response_received": true,
+      "product_count": 3,
+      "product_ids_sha256": "a615eeaee21de5179de080de8c3052c8da901138406ba71c38c032845f7d54f4",
+      "sql_error_signatures": []
+    },
+    {
+      "request_id": 2,
+      "role": "baseline_2",
+      "parameter": "q",
+      "input_value": "apple",
+      "response_received": true,
+      "product_count": 3,
+      "product_ids_sha256": "a615eeaee21de5179de080de8c3052c8da901138406ba71c38c032845f7d54f4",
+      "sql_error_signatures": []
+    },
+    {
+      "request_id": 3,
+      "role": "quote",
+      "parameter": "q",
+      "input_value": "apple'",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "sql_error_signatures": [
+        "SQLITE_ERROR"
+      ]
+    },
+    {
+      "request_id": 4,
+      "role": "escaped_quote",
+      "parameter": "q",
+      "input_value": "apple''",
+      "response_received": true,
+      "product_count": 0,
+      "product_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "sql_error_signatures": []
+    },
+    {
+      "request_id": 5,
+      "role": "literal_control",
+      "parameter": "q",
+      "input_value": "apple AND 17=17",
+      "response_received": true,
+      "product_count": 0,
+      "product_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "sql_error_signatures": []
+    },
+    {
+      "request_id": 6,
+      "role": "true_17",
+      "parameter": "q",
+      "input_value": "apple%' AND (17=17) AND '%' LIKE '%",
+      "response_received": true,
+      "product_count": 3,
+      "product_ids_sha256": "a615eeaee21de5179de080de8c3052c8da901138406ba71c38c032845f7d54f4",
+      "sql_error_signatures": []
+    },
+    {
+      "request_id": 7,
+      "role": "false_17",
+      "parameter": "q",
+      "input_value": "apple%' AND (17=18) AND '%' LIKE '%",
+      "response_received": true,
+      "product_count": 0,
+      "product_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "sql_error_signatures": []
+    },
+    {
+      "request_id": 8,
+      "role": "true_23",
+      "parameter": "q",
+      "input_value": "apple%' AND (23=23) AND '%' LIKE '%",
+      "response_received": true,
+      "product_count": 3,
+      "product_ids_sha256": "a615eeaee21de5179de080de8c3052c8da901138406ba71c38c032845f7d54f4",
+      "sql_error_signatures": []
+    },
+    {
+      "request_id": 9,
+      "role": "false_23",
+      "parameter": "q",
+      "input_value": "apple%' AND (23=24) AND '%' LIKE '%",
+      "response_received": true,
+      "product_count": 0,
+      "product_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "sql_error_signatures": []
+    },
+    {
+      "request_id": 10,
+      "role": "recovery",
+      "parameter": "q",
+      "input_value": "apple",
+      "response_received": true,
+      "product_count": 3,
+      "product_ids_sha256": "a615eeaee21de5179de080de8c3052c8da901138406ba71c38c032845f7d54f4",
+      "sql_error_signatures": []
+    }
+  ],
+  "assessment": {
+    "outcome": "confirmed",
+    "checks": {
+      "all_requests_completed": true,
+      "baseline_nonempty": true,
+      "baseline_stable": true,
+      "recovery_matches": true,
+      "escaped_quote_control_empty": true,
+      "literal_control_empty": true,
+      "new_sql_error": true,
+      "boolean_pair_17": true,
+      "boolean_pair_23": true
+    },
+    "rationale": "SQLi booleana confirmada neste endpoint: dois pares independentes preservaram os produtos da referência nas condições verdadeiras e retornaram zero nas falsas; referências e recuperação estáveis, controles válidos e erro SQL diferencial.",
+    "limitations": []
+  }
+}
