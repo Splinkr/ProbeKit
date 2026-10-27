@@ -1,0 +1,19 @@
+{
+  "command": ".\\.venv\\Scripts\\python.exe -m pytest -q --junitxml=reports/discovery-tests.xml",
+  "timestamp": "2026-10-27T14:54:59.403984-03:00",
+  "tests": 164,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "junit_time_seconds": 13.455,
+  "by_module": {
+    "tests.test_cli_process_contract": 16,
+    "tests.test_discovery_cli": 13,
+    "tests.test_discovery_contract": 28,
+    "tests.test_evidence_contract": 8,
+    "tests.test_scope_contract": 40,
+    "tests.test_sqli_decision_contract": 21,
+    "tests.test_sqlite_evaluation_contract": 16,
+    "tests.test_transport_contract": 22
+  }
+}

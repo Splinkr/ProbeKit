@@ -1,0 +1,189 @@
+{
+  "schema_version": "1.0",
+  "mode": "discover",
+  "target": "http://127.0.0.1:8002/",
+  "target_source": "manual",
+  "started_at": "2026-10-27T17:55:00.733167+00:00",
+  "finished_at": "2026-10-27T17:55:00.936805+00:00",
+  "settings": {
+    "max_depth": 1,
+    "max_pages": 2,
+    "max_requests": 2,
+    "timeout_seconds": 5.0,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "scope": "same_origin_loopback",
+    "follow_redirects": false,
+    "submit_forms": false
+  },
+  "summary": {
+    "status": "limited",
+    "reachable": true,
+    "endpoints": 5,
+    "pages_fetched": 2,
+    "requests_attempted": 2,
+    "errors": 0,
+    "queued_remaining": 1
+  },
+  "stop_reasons": [
+    "max_depth",
+    "max_pages",
+    "max_requests"
+  ],
+  "skipped": {
+    "invalid_or_non_loopback_url": 1,
+    "different_origin": 1
+  },
+  "endpoints": [
+    {
+      "endpoint": "http://127.0.0.1:8002/",
+      "method": "GET",
+      "parameters": [],
+      "observed_urls": [
+        "http://127.0.0.1:8002/"
+      ],
+      "sources": [
+        {
+          "kind": "manual",
+          "page_url": null,
+          "depth": 0
+        },
+        {
+          "kind": "html_link",
+          "page_url": "http://127.0.0.1:8002/catalog?page=1&sort=name",
+          "depth": 2
+        }
+      ],
+      "provided_manually": true,
+      "discovered_automatically": true
+    },
+    {
+      "endpoint": "http://127.0.0.1:8002/catalog",
+      "method": "GET",
+      "parameters": [
+        {
+          "name": "page",
+          "location": "query",
+          "field_type": null
+        },
+        {
+          "name": "sort",
+          "location": "query",
+          "field_type": null
+        }
+      ],
+      "observed_urls": [
+        "http://127.0.0.1:8002/catalog?page=1&sort=name"
+      ],
+      "sources": [
+        {
+          "kind": "html_link",
+          "page_url": "http://127.0.0.1:8002/",
+          "depth": 1
+        }
+      ],
+      "provided_manually": false,
+      "discovered_automatically": true
+    },
+    {
+      "endpoint": "http://127.0.0.1:8002/about",
+      "method": "GET",
+      "parameters": [],
+      "observed_urls": [
+        "http://127.0.0.1:8002/about"
+      ],
+      "sources": [
+        {
+          "kind": "html_link",
+          "page_url": "http://127.0.0.1:8002/",
+          "depth": 1
+        }
+      ],
+      "provided_manually": false,
+      "discovered_automatically": true
+    },
+    {
+      "endpoint": "http://127.0.0.1:8002/search",
+      "method": "GET",
+      "parameters": [
+        {
+          "name": "q",
+          "location": "form",
+          "field_type": "text"
+        },
+        {
+          "name": "sort",
+          "location": "form",
+          "field_type": "select"
+        },
+        {
+          "name": "category",
+          "location": "form",
+          "field_type": "hidden"
+        }
+      ],
+      "observed_urls": [
+        "http://127.0.0.1:8002/search"
+      ],
+      "sources": [
+        {
+          "kind": "get_form",
+          "page_url": "http://127.0.0.1:8002/",
+          "depth": 1
+        }
+      ],
+      "provided_manually": false,
+      "discovered_automatically": true
+    },
+    {
+      "endpoint": "http://127.0.0.1:8002/details",
+      "method": "GET",
+      "parameters": [
+        {
+          "name": "id",
+          "location": "query",
+          "field_type": null
+        }
+      ],
+      "observed_urls": [
+        "http://127.0.0.1:8002/details?id=1"
+      ],
+      "sources": [
+        {
+          "kind": "html_link",
+          "page_url": "http://127.0.0.1:8002/catalog?page=1&sort=name",
+          "depth": 2
+        }
+      ],
+      "provided_manually": false,
+      "discovered_automatically": true
+    }
+  ],
+  "pages": [
+    {
+      "request_id": 1,
+      "url": "http://127.0.0.1:8002/",
+      "collected_at": "2026-10-27T17:55:00.733459+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 666,
+      "body_sha256": "00f454c1a097e503c7a19d59c77553f5ad238031203e920076676ef6aa72567e",
+      "elapsed_ms": 4.389,
+      "method": "GET",
+      "depth": 0
+    },
+    {
+      "request_id": 2,
+      "url": "http://127.0.0.1:8002/catalog?page=1&sort=name",
+      "collected_at": "2026-10-27T17:55:00.933596+00:00",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "size_bytes": 71,
+      "body_sha256": "5961bf1e240992476076c225f7833a244555fdf60929a8a877def42000b7bd72",
+      "elapsed_ms": 2.738,
+      "method": "GET",
+      "depth": 1
+    }
+  ],
+  "errors": []
+}

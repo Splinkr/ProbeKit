@@ -65,3 +65,18 @@ Roteiro: [CONTROLE_NEGATIVO.md](CONTROLE_NEGATIVO.md).
 
 Resultado: 123 aprovados, zero falhas, erros ou ignorados; produção preservada.
 Detalhes: [TESTES.md](TESTES.md).
+
+## Etapa 4 — Descoberta de endpoints
+
+- [x] Inspecionar arquitetura e confirmar os testes existentes antes de modificar.
+- [x] Implementar crawler HTML em largura na mesma origem loopback.
+- [x] Extrair links, query strings, formulários GET e campos nomeados.
+- [x] Normalizar URLs e deduplicar endpoints e navegação.
+- [x] Registrar método, parâmetros e origem manual/automática no inventário JSON.
+- [x] Aplicar limites configuráveis de profundidade, respostas e requisições.
+- [x] Bloquear outros hosts/portas e manter todos os redirects desativados.
+- [x] Adicionar `discover` preservando a CLI anterior e a confirmação SQLi.
+- [x] Demonstrar em aplicação HTML local e executar os 164 testes.
+
+Roteiro e evidências reais: [DESCOBERTA.md](DESCOBERTA.md).
+APIs internas do Juice Shop não são presumidas como descobertas pelo HTML.

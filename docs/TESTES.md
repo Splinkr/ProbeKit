@@ -1,5 +1,9 @@
 # Suíte automatizada reconstruída
 
+Estado atual após a etapa de descoberta: **164 testes aprovados** (123 anteriores
+e 41 novos), sem falhas ou ignorados. Resultado e roteiro em
+[DESCOBERTA.md](DESCOBERTA.md). O registro abaixo documenta a reconstrução anterior.
+
 Em 27/10/2026, a suíte anterior foi removida e substituída por testes organizados
 pelos contratos públicos do projeto. O arquivo `conftest.py` também foi refeito.
 O código de produção e os relatórios empíricos históricos foram preservados.
@@ -55,4 +59,4 @@ cobertura percentual nem precisão geral do detector. Ela não substitui os
 experimentos manuais no Juice Shop nem a avaliação empírica repetida descrita
 em [CONTROLE_NEGATIVO.md](CONTROLE_NEGATIVO.md). Os números anteriores de 57,
 81 e 101 testes são registros históricos das suítes substituídas; o total
-atual é 123.
+da reconstrução é 123; com os testes de descoberta, o total atual é 164.

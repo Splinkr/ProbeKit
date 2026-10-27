@@ -36,6 +36,16 @@ fica em `lab/` e escuta em `127.0.0.1:3000`. Consulte
 
 ## Executar
 
+Para partir de uma URL inicial e inventariar links e formulários GET:
+
+```powershell
+.\.venv\Scripts\python.exe main.py discover http://localhost:8002 --max-depth 3 --max-pages 10 --max-requests 10 --output reports/discover-html.json
+```
+
+O [roteiro da descoberta](docs/DESCOBERTA.md) mostra como iniciar o laboratório
+HTML local, interpretar as origens e demonstrar os limites. A descoberta não
+executa payloads nem presume encontrar APIs internas do Juice Shop.
+
 Em outro terminal, com o Juice Shop iniciado:
 
 ```powershell
@@ -103,7 +113,8 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 - O módulo SQLi aceita `/rest/products/search`, `/control/vulnerable/search` e
   `/control/safe/search`, com um único `q` de referência simples. Exige pelo menos
   duas referências e orçamento `samples + 8`.
-  Não há descoberta automática, autenticação, XSS ou exposição de arquivos.
+  A descoberta HTML é um comando separado e fica na mesma origem loopback.
+  Não há autenticação, XSS ou exposição de arquivos.
   Não há opção para liberar destinos externos.
 
 ## Arquitetura e verificação
@@ -117,17 +128,19 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 | `scanner/analyzer.py` | Comparação observacional de respostas |
 | `scanner/core.py` | Orquestração das referências |
 | `scanner/reporter.py` | Serialização JSON sem corpos HTTP |
+| `scanner/discovery.py` | Crawler HTML, normalização e inventário com origem |
 | `scanner/modules/` | Módulos específicos de detecção |
 | `scanner/modules/sqli.py` | Plano SQLi, interpretação semântica e classificação |
 | `experiments/sqlite_control.py` | Servidor dos controles SQLite locais |
 | `experiments/run_control.py` | Repetições e métricas do experimento |
+| `experiments/html_discovery.py` | Aplicação HTML local para demonstrar descoberta |
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-A suíte automatizada foi reconstruída: **123 testes passaram**, cobrindo HTTP,
+A suíte atual passou em **164 testes**, incluindo descoberta HTML, HTTP,
 escopo local, evidências, classificação SQLi, SQLite real e CLI em subprocessos.
 Ela não depende de sites públicos ou do Juice Shop. Organização, comandos e
 resultado desta execução estão em [docs/TESTES.md](docs/TESTES.md). A validação
