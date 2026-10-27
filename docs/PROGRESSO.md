@@ -18,5 +18,23 @@
 - [x] Restringir alvos a loopback por padrão.
 - [x] Executar referências e gerar relatório JSON.
 
-Os módulos SQLi, XSS e exposição de arquivos pertencem às próximas etapas.
-Diferenças entre respostas não confirmam vulnerabilidades.
+## Etapa 3 — Primeiro módulo funcional
+
+- [x] Selecionar `/rest/products/search?q=apple` no Juice Shop local.
+- [x] Registrar referências e controles de sintaxe e texto.
+- [x] Implementar dois pares booleanos somente de leitura.
+- [x] Comparar HTTP e conjuntos de produtos para reduzir falsos positivos.
+- [x] Classificar confirmado, suspeito, não detectado ou inconclusivo.
+- [x] Validar manualmente o comportamento no alvo local.
+- [x] Testar cenários vulneráveis e parametrizados com SQLite real.
+
+## Etapas 4 e 5 — Relatório e demonstração do MVP
+
+- [x] Registrar payloads, contagens, hashes, erros SQL e critérios no JSON.
+- [x] Vincular achado às evidências e descrever impacto e mitigação.
+- [x] Criar roteiro Windows 11 e script reproduzível de demonstração.
+- [x] Preservar evidência real sem corpos HTTP ou segredos.
+- [x] Diferenciar confirmação booleana de erro SQL isolado e coleta inconclusiva.
+
+Roteiro: [DEMONSTRACAO_SQLI.md](DEMONSTRACAO_SQLI.md).
+XSS, exposição de arquivos e descoberta automática permanecem fora desta etapa.

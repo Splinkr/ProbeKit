@@ -1,8 +1,8 @@
 # WebVuln Scanner
 
 Ferramenta CLI em Python para o trabalho de SIN 451 — Segurança da Informação
-(UFV). O desenvolvimento inicial cobre preparação e núcleo de requisições de
-referência. Os módulos de detecção serão desenvolvidos posteriormente.
+(UFV). Inclui o núcleo de referências HTTP e um MVP SQLi controlado para a
+busca de produtos do Juice Shop local.
 
 ## Ambiente
 
@@ -47,7 +47,18 @@ Em outro terminal, com o Juice Shop iniciado:
 Cada execução faz GETs de referência no mesmo endpoint. A primeira resposta
 é a base das comparações seguintes. O relatório inclui horário UTC, método,
 URL, status HTTP, tipo de conteúdo, bytes descomprimidos, SHA-256 do corpo,
-tempo de resposta, diferenças e erros. `findings` fica vazio nesta etapa.
+tempo de resposta, diferenças e erros. No modo padrão `baseline`, `findings`
+fica vazio. Para o detector SQLi:
+
+```powershell
+.\.venv\Scripts\python.exe main.py "http://localhost:3000/rest/products/search?q=apple" --module sqli --output reports/demo-sqli.json
+```
+
+O detector executa dez GETs com referências, controles, dois pares booleanos
+e recuperação. Registra payloads, contagens, hashes dos conjuntos de produtos,
+assinaturas SQL e a classificação `confirmed`, `suspected`, `not_detected` ou
+`inconclusive`. O [roteiro da demonstração](docs/DEMONSTRACAO_SQLI.md) contém
+os comandos completos, a validação manual e a evidência real.
 
 Por padrão são duas referências, timeout de conexão/leitura de 5 segundos,
 intervalo mínimo de 0,2 segundo entre inícios, orçamento de 10 requisições e
@@ -61,7 +72,7 @@ Códigos de saída:
 | Código | Significado |
 | --- | --- |
 | 0 | Referências recebidas e relatório gravado |
-| 1 | Falha de transporte, limite de resposta ou gravação |
+| 1 | Falha de transporte, limite de resposta, gravação ou SQLi inconclusiva |
 | 2 | Argumentos inválidos ou destino bloqueado antes da rede |
 
 Uma resposta 4xx/5xx comprova conectividade HTTP e é preservada como evidência.
@@ -83,8 +94,10 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 - Timeout limita conexão e inatividade da leitura, não o tempo total de uma
   resposta enviada lentamente. Respostas acima do limite são descartadas e
   registradas como erro, sem comparar conteúdo parcial.
-- Não há descoberta automática, autenticação ou módulos SQLi, XSS e exposição
-  de arquivos nesta entrega. Não há opção para liberar destinos externos.
+- O módulo SQLi cobre apenas `/rest/products/search` com um único `q` de
+  referência simples. Exige pelo menos duas referências e orçamento `samples + 8`.
+  Não há descoberta automática, autenticação, XSS ou exposição de arquivos.
+  Não há opção para liberar destinos externos.
 
 ## Arquitetura e verificação
 
@@ -97,7 +110,8 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 | `scanner/analyzer.py` | Comparação observacional de respostas |
 | `scanner/core.py` | Orquestração das referências |
 | `scanner/reporter.py` | Serialização JSON sem corpos HTTP |
-| `scanner/modules/` | Destino dos futuros detectores |
+| `scanner/modules/` | Módulos específicos de detecção |
+| `scanner/modules/sqli.py` | Plano SQLi, interpretação semântica e classificação |
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q
