@@ -10,6 +10,7 @@ from scanner import __version__
 from scanner.core import run_baseline, run_sqli
 from scanner.discovery import discover
 from scanner.pipeline import run_scan
+from scanner.modules.xss import prepare_parameters as prepare_xss_parameters, run_xss
 from scanner.sqli_plans import CONTEXTS, prepare_parameters
 from scanner.reporter import write_json, write_json_atomic
 from scanner.targets import TargetError, validate_target
@@ -81,16 +82,18 @@ def discover_main(argv: list[str]) -> int:
 
 
 def scan_main(argv: list[str]) -> int:
-    parser = argparse.ArgumentParser(prog="main.py scan", description="Descobre parâmetros GET e executa SQLi na mesma origem loopback.")
+    parser = argparse.ArgumentParser(prog="main.py scan", description="Descobre parâmetros GET e executa SQLi/XSS na mesma origem loopback.")
     parser.add_argument("url", help="URL inicial local autorizada")
     parser.add_argument("--max-depth", type=nonnegative_int, default=2)
     parser.add_argument("--max-pages", type=positive_int, default=20)
-    parser.add_argument("--max-requests", type=positive_int, default=100, help="Orçamento global: descoberta + SQLi")
+    parser.add_argument("--max-requests", type=positive_int, default=100, help="Orçamento global: descoberta + módulos selecionados")
     parser.add_argument("--timeout", type=positive_float, default=5.0)
     parser.add_argument("--interval", type=interval_float, default=0.2)
     parser.add_argument("--max-body-bytes", type=positive_int, default=1_048_576)
     parser.add_argument("--samples", type=positive_int, default=2)
     parser.add_argument("--sqli-context", choices=CONTEXTS, default="like")
+    parser.add_argument("--modules", "--module", nargs="+", choices=("sqli", "xss"), default=["sqli"])
+    parser.add_argument("--xss-browser", action="store_true", help="Confirmar XSS por replay em navegador local isolado")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args(argv)
     destination = args.output or Path("reports") / (
@@ -101,6 +104,7 @@ def scan_main(argv: list[str]) -> int:
             args.url, max_depth=args.max_depth, max_pages=args.max_pages, max_requests=args.max_requests,
             timeout=args.timeout, interval=args.interval, max_body_bytes=args.max_body_bytes,
             samples=args.samples, context=args.sqli_context,
+            modules=tuple(args.modules), xss_browser=args.xss_browser,
             checkpoint=lambda current: write_json_atomic(current, destination),
         )
     except ValueError as error:
@@ -111,10 +115,11 @@ def scan_main(argv: list[str]) -> int:
     for analysis in report.analyses:
         result = analysis.assessment
         label = f"{result.parameter}: {result.outcome}" if result else "interrompida antes da classificação"
-        print(f"{analysis.target} | {label}")
+        print(f"{analysis.target} | {analysis.mode}: {label}")
     summary = report.to_dict()["summary"]
     print(f"Estado: {report.status}; endpoints: {summary['endpoints_discovered']}; parâmetros analisados: {summary['parameters_analyzed']}")
-    print(f"Requisições: {summary['requests_used']}/{args.max_requests} (descoberta={summary['discovery_requests']}, SQLi={summary['analysis_requests']})")
+    analysis_label = "SQLi" if args.modules == ["sqli"] else "análise"
+    print(f"Requisições: {summary['requests_used']}/{args.max_requests} (descoberta={summary['discovery_requests']}, {analysis_label}={summary['analysis_requests']})")
     print(f"Alvos ignorados: {summary['targets_ignored']}; limites: {', '.join(report.stop_reasons) or 'nenhum'}")
     print(f"Relatório consolidado JSON: {destination}")
     return 130 if report.status == "interrupted" else 1 if report.status == "incomplete" else 0
@@ -122,11 +127,12 @@ def scan_main(argv: list[str]) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Referências HTTP locais e detecção SQLi controlada por parâmetro GET.",
+        description="Referências HTTP locais e detecção SQLi/XSS controlada por parâmetro GET.",
         epilog="Descoberta HTML: main.py discover URL --help. Fluxo completo: main.py scan URL --help",
     )
     parser.add_argument("url", help="URL http(s) em localhost ou IP loopback")
-    parser.add_argument("--module", choices=("baseline", "sqli"), default="baseline", help="Modo de execução (padrão: baseline)")
+    parser.add_argument("--module", choices=("baseline", "sqli", "xss"), default="baseline", help="Modo de execução (padrão: baseline)")
+    parser.add_argument("--xss-browser", action="store_true", help="Confirmar XSS por replay em navegador local isolado")
     selection = parser.add_mutually_exclusive_group()
     selection.add_argument("--parameter", help="Parâmetro GET único a testar")
     selection.add_argument("--all-parameters", action="store_true", help="Testar cada parâmetro GET individualmente")
@@ -155,12 +161,19 @@ def main(argv: list[str] | None = None) -> int:
             raise ValueError("--samples não pode exceder --max-requests.")
         if args.module == "sqli":
             prepare_parameters(target, args.samples, args.max_requests, args.parameter, args.all_parameters, args.sqli_context)
+        elif args.module == "xss":
+            prepare_xss_parameters(target, args.samples, args.max_requests, args.parameter, args.all_parameters)
         elif args.parameter is not None or args.all_parameters or args.sqli_context != "like":
-            raise ValueError("Seleção de parâmetros e contexto requer --module sqli.")
+            raise ValueError("Seleção de parâmetros requer --module sqli ou xss.")
+        if args.xss_browser and args.module != "xss":
+            raise ValueError("--xss-browser requer --module xss.")
+        if args.module == "xss" and args.sqli_context != "like":
+            raise ValueError("--sqli-context não se aplica ao módulo XSS.")
     except (TargetError, ValueError) as error:
         parser.error(str(error))
-    runner = run_sqli if args.module == "sqli" else run_baseline
-    extra = {"parameter": args.parameter, "all_parameters": args.all_parameters, "context": args.sqli_context} if args.module == "sqli" else {}
+    runner = run_sqli if args.module == "sqli" else run_xss if args.module == "xss" else run_baseline
+    extra = {"parameter": args.parameter, "all_parameters": args.all_parameters, "context": args.sqli_context} if args.module == "sqli" else {
+        "parameter": args.parameter, "all_parameters": args.all_parameters, "browser": args.xss_browser} if args.module == "xss" else {}
     report = runner(
         target, samples=args.samples, timeout=args.timeout,
         max_requests=args.max_requests, interval=args.interval,
@@ -180,10 +193,11 @@ def main(argv: list[str] | None = None) -> int:
     probes = {probe.request_id: probe for probe in report.probes}
     for response in report.responses:
         probe = probes.get(response.request_id)
-        label = (f"{probe.parameter}/{probe.role} (formato={probe.features.format if probe.features else 'indefinido'})"
+        features = getattr(probe, "features", None)
+        label = (f"{probe.parameter}/{probe.role} (formato={features.format if features else getattr(probe, 'content_format', 'indefinido')})"
                  if probe else "Referência")
         print(f"  {label} #{response.request_id}: HTTP {response.status_code}, {response.size_bytes} bytes, {response.elapsed_ms:.1f} ms")
-        if probe and probe.sql_error_signatures:
+        if probe and getattr(probe, "sql_error_signatures", []):
             print(f"    Sinais SQL: {', '.join(probe.sql_error_signatures)}")
     for comparison in report.comparisons:
         print(
@@ -196,7 +210,7 @@ def main(argv: list[str] | None = None) -> int:
     for error in report.errors:
         print(f"  Erro [{error.kind}]: {error.message}", file=sys.stderr)
     if report.assessment:
-        print(f"SQLi: {report.assessment.outcome}")
+        print(f"{'XSS' if args.module == 'xss' else 'SQLi'}: {report.assessment.outcome}")
         print(report.assessment.rationale)
         for result in report.parameter_results:
             print(f"  Parâmetro {result.parameter}: {result.assessment.outcome} ({result.context})")

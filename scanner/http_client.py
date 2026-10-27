@@ -79,6 +79,10 @@ class HttpClient:
                     body_sha256=hashlib.sha256(content).hexdigest(),
                     elapsed_ms=round((time.monotonic() - started) * 1000, 3),
                     body=content,
+                    security_headers={name: response.headers[name] for name in (
+                        "Content-Security-Policy", "Content-Security-Policy-Report-Only",
+                        "X-Content-Type-Options", "Content-Disposition",
+                    ) if name in response.headers},
                 )
         except requests.Timeout as error:
             raise HttpClientError(RequestFailure(

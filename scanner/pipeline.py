@@ -1,4 +1,4 @@
-"""Descoberta e SQLi na mesma origem, sessão, sequência de IDs e orçamento."""
+"""Descoberta e detectores HTTP na mesma origem, sequência de IDs e orçamento."""
 
 from collections.abc import Callable
 from urllib.parse import urlsplit
@@ -7,6 +7,7 @@ from scanner.discovery import crawl, new_discovery_report, normalize_url, origin
 from scanner.http_client import HttpClient, HttpClientError
 from scanner.models import IntegratedScanReport, ScanReport, utc_now
 from scanner.modules.sqli import run_detection
+from scanner.modules import xss
 from scanner.sqli_plans import CONTEXTS, EXTRA_REQUESTS, available_parameters, build_probe_plan
 from scanner.targets import TargetError, validate_target
 
@@ -24,6 +25,8 @@ class ScopedHttpClient(HttpClient):
             raise TargetError("Destino fora da origem autorizada para scan.")
         before = self.request_count
         entry = {"phase": self.phase, "url": target, "method": "GET"}
+        if self.phase == "analysis":
+            entry["module"] = getattr(self, "module", "sqli")
         try:
             response = super().get(target)
         except HttpClientError as error:
@@ -47,6 +50,7 @@ def collect_targets(report: IntegratedScanReport) -> None:
     responses = {normalize_url(page["url"]): page for page in discovery.pages}
     failures = {normalize_url(error.url) for error in discovery.errors}
     context = report.settings["sqli_context"]
+    modules = report.settings.get("modules", ["sqli"])
 
     def ignore(candidate, reason, parameter=None, detail=None):
         report.ignored_targets.append({"url": candidate["url"], "parameter": parameter,
@@ -81,43 +85,54 @@ def collect_targets(report: IntegratedScanReport) -> None:
             ignore(candidate, "no_query_parameters")
             continue
         for name in names:
-            key = (url, name, context)
-            if key in known:
-                if source not in known[key]["sources"]:
-                    known[key]["sources"].append(source)
-                ignore(candidate, "duplicate_target", name)
-                continue
-            try:
-                build_probe_plan(url, report.settings["samples"], report.settings["samples"] + EXTRA_REQUESTS,
-                                 parameter=name, context=context)
-            except ValueError as error:
-                ignore(candidate, "unsupported_parameter_reference", name, str(error))
-                continue
-            target = {"url": url, "endpoint": urlsplit(url)._replace(query="").geturl(),
-                      "parameter": name, "context": context, "sources": [source], "status": "pending"}
-            known[key] = target
-            report.targets.append(target)
+            for module in modules:
+                selected_context = context if module == "sqli" else "reflected_xss"
+                key = (url, name, module, selected_context)
+                if key in known:
+                    if source not in known[key]["sources"]:
+                        known[key]["sources"].append(source)
+                    ignore(candidate, "duplicate_target", name, module)
+                    continue
+                try:
+                    if module == "sqli":
+                        build_probe_plan(url, report.settings["samples"], report.settings["samples"] + EXTRA_REQUESTS,
+                                         parameter=name, context=context)
+                    else:
+                        xss.select_parameters(url, name)
+                except ValueError as error:
+                    ignore(candidate, "unsupported_parameter_reference", name, str(error))
+                    continue
+                target = {"url": url, "endpoint": urlsplit(url)._replace(query="").geturl(), "module": module,
+                          "parameter": name, "context": selected_context, "sources": [source], "status": "pending"}
+                known[key] = target
+                report.targets.append(target)
 
 
 def run_scan(
     url: str, *, max_depth: int = 2, max_pages: int = 20, max_requests: int = 100,
     timeout: float = 5.0, interval: float = 0.2, max_body_bytes: int = 1_048_576,
     samples: int = 2, context: str = "like",
+    modules: tuple[str, ...] = ("sqli",), xss_browser: bool = False,
     checkpoint: Callable[[IntegratedScanReport], None] | None = None,
 ) -> IntegratedScanReport:
     discovery = new_discovery_report(url, max_depth=max_depth, max_pages=max_pages, max_requests=max_requests,
                                       timeout=timeout, interval=interval, max_body_bytes=max_body_bytes)
     if samples < 2 or context not in CONTEXTS:
         raise ValueError("scan requer samples >= 2 e contexto like ou quoted.")
+    modules = tuple(dict.fromkeys(modules))
+    if not modules or any(module not in {"sqli", "xss"} for module in modules) or (xss_browser and "xss" not in modules):
+        raise ValueError("Selecione módulos sqli/xss; --xss-browser requer xss.")
     report = IntegratedScanReport(discovery.target, utc_now(), {
         **discovery.settings, "samples": samples, "sqli_context": context,
         "submit_forms": False, "global_request_budget": True,
+        "modules": list(modules), "xss_browser": xss_browser,
     }, discovery, limitations=[
         "Descoberta estática HTML; não executa JavaScript nem presume encontrar APIs internas.",
         "Valores de formulários não são coletados; campos sem referência concreta são ignorados.",
         "Deduplicação por URL canônica, parâmetro e contexto; valores distintos são alvos distintos.",
         "max-pages limita respostas da descoberta; sondas SQLi usam o orçamento global restante.",
         "Perfis textuais LIKE/igualdade entre aspas; sem SQLi numérica, temporal, UNION ou escrita.",
+        "XSS distingue reflexão de execução; confirmação opcional por replay isolado, com CSP preservada e rede bloqueada.",
         "not_detected não prova segurança; instabilidade ou erros podem tornar a análise inconclusiva.",
         "Ctrl+C preserva o que foi coletado quando possível; encerramento forçado pode perder o último parâmetro.",
     ])
@@ -136,7 +151,9 @@ def run_scan(
             save()
             client.phase = "analysis"
             for target in report.targets:
-                required = samples + EXTRA_REQUESTS
+                module = target["module"]
+                client.module = module
+                required = samples + (EXTRA_REQUESTS if module == "sqli" else xss.EXTRA_REQUESTS)
                 if client.max_requests - client.request_count < required:
                     target["status"] = "skipped"
                     report.ignored_targets.append({**target, "reason": "insufficient_global_budget",
@@ -146,17 +163,22 @@ def run_scan(
                         report.stop_reasons.append("max_requests")
                     continue
                 analysis = ScanReport(target["url"], utc_now(), {
-                    "samples": samples, "parameter": target["parameter"], "context": context,
+                    "samples": samples, "parameter": target["parameter"], "context": target["context"],
+                    "browser_requested": xss_browser if module == "xss" else False,
                     "scope": "same_origin_loopback", "planned_requests": required,
                     "max_requests": max_requests, "shared_global_budget": True,
-                }, mode="sqli", schema_version="1.2",
+                }, mode=module, schema_version="1.2" if module == "sqli" else "1.3",
                     target_source="automatic" if any(source["kind"] != "manual" for source in target["sources"]) else "manual")
                 report.analyses.append(analysis)
                 target["status"] = "running"
-                plan = build_probe_plan(target["url"], samples, required, parameter=target["parameter"],
-                                        context=context, start_id=client.request_count + 1)
                 try:
-                    run_detection(client, analysis, plan)
+                    if module == "sqli":
+                        plan = build_probe_plan(target["url"], samples, required, parameter=target["parameter"],
+                                                context=context, start_id=client.request_count + 1)
+                        run_detection(client, analysis, plan)
+                    else:
+                        plan, callback = xss.build_plan(target["url"], target["parameter"], samples, client.request_count + 1)
+                        xss.run_detection(client, analysis, plan, callback, browser=xss_browser)
                 finally:
                     analysis.finished_at = utc_now()
                 target["status"] = "completed"

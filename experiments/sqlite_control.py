@@ -11,6 +11,8 @@ import sqlite3
 import threading
 from urllib.parse import parse_qsl, urlsplit
 
+from experiments import xss_lab
+
 VULNERABLE_PATH = "/control/vulnerable/search"
 SAFE_PATH = "/control/safe/search"
 RECORDS = (
@@ -133,6 +135,13 @@ class ControlHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         parts = urlsplit(self.path)
+        if parts.path in {"/xss-lab", "/combined-lab"}:
+            self.send_body(200, "text/html", xss_lab.landing(parts.path == "/combined-lab"))
+            return
+        if parts.path in xss_lab.PATHS:
+            status, content_type, body, headers = xss_lab.response(parts.path, parts.query)
+            self.send_body(status, content_type, body, headers)
+            return
         if parts.path == "/scan-lab":
             self.send_body(200, "text/html", SCAN_LAB_HTML)
             return
@@ -190,11 +199,13 @@ class ControlHandler(BaseHTTPRequestHandler):
             items = "\n".join(f"{row['id']}: {row['name']}" for row in rows)
             self.send_body(200, "text/plain", f"Catalog {language}\n{items}")
 
-    def send_body(self, status: int, content_type: str, text: str) -> None:
+    def send_body(self, status: int, content_type: str, text: str, headers=None) -> None:
         body = text.encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", content_type + "; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
+        for name, value in (headers or {}).items():
+            self.send_header(name, value)
         self.end_headers()
         self.wfile.write(body)
 
@@ -225,6 +236,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Endpoints: {VULNERABLE_PATH}?q=apple e {SAFE_PATH}?q=apple", flush=True)
         print("Perfis adicionais: /general/{json,html,text,quoted}/{vulnerable,safe}, /general/html/{unstable,error}", flush=True)
         print("Fluxo integrado HTML: /scan-lab", flush=True)
+        print("XSS: /xss-lab; SQLi + XSS: /combined-lab", flush=True)
         try:
             server.serve_forever()
         except KeyboardInterrupt:

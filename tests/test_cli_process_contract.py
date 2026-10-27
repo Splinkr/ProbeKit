@@ -55,7 +55,7 @@ def test_sqli_terminal_output_agrees_with_saved_json(sqlite_app, tmp_path, path,
 
 @pytest.mark.parametrize("arguments", [
     ["--samples", "0"], ["--timeout", "nan"], ["--timeout", "inf"],
-    ["--interval", "-1"], ["--max-body-bytes", "0"], ["--module", "xss"],
+    ["--interval", "-1"], ["--max-body-bytes", "0"], ["--module", "unsupported"],
     ["--samples", "3", "--max-requests", "2"],
     ["--module", "sqli", "--samples", "1"],
     ["--module", "sqli", "--max-requests", "9"],

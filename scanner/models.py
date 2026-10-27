@@ -33,6 +33,7 @@ class ResponseEvidence:
     elapsed_ms: float
     body: bytes = field(repr=False, compare=False)
     method: str = "GET"
+    security_headers: dict[str, str] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         # Conteúdo, cookies e cabeçalhos de autenticação não são persistidos.
@@ -117,10 +118,35 @@ class SqliAssessment:
 
 
 @dataclass(frozen=True)
+class XssAssessment:
+    outcome: str
+    checks: dict[str, bool]
+    rationale: str
+    limitations: list[str]
+    parameter: str | None = None
+    context: str = "reflected_xss"
+    browser_evidence: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class XssProbeEvidence:
+    request_id: int
+    role: str
+    parameter: str
+    input_value: str
+    marker: str | None = None
+    response_received: bool = False
+    content_format: str = "unknown"
+    reflections: list[dict[str, Any]] = field(default_factory=list)
+    escaping: dict[str, str] = field(default_factory=dict)
+    active_script_marker: bool = False
+
+
+@dataclass(frozen=True)
 class ParameterResult:
     parameter: str
     context: str
-    assessment: SqliAssessment
+    assessment: SqliAssessment | XssAssessment
     evidence_request_ids: list[int]
 
 
@@ -136,8 +162,8 @@ class ScanReport:
     finished_at: str | None = None
     schema_version: str = "1.0"
     mode: str = "baseline"
-    probes: list[ProbeEvidence] = field(default_factory=list)
-    assessment: SqliAssessment | None = None
+    probes: list[ProbeEvidence | XssProbeEvidence] = field(default_factory=list)
+    assessment: SqliAssessment | XssAssessment | None = None
     parameter_results: list[ParameterResult] = field(default_factory=list)
     target_source: str = "manual"
 
@@ -253,7 +279,7 @@ class IntegratedScanReport:
 
     def to_dict(self) -> dict[str, Any]:
         results = [
-            {"url": analysis.target, **asdict(result)}
+            {"url": analysis.target, "module": analysis.mode, **asdict(result)}
             for analysis in self.analyses for result in analysis.parameter_results
         ]
         return {
@@ -267,6 +293,7 @@ class IntegratedScanReport:
                 "requests_remaining": self.settings["max_requests"] - len(self.requests),
                 "endpoints_discovered": len(self.discovery.endpoints),
                 "parameters_analyzed": len(results), "targets_ignored": len(self.ignored_targets),
+                "unique_parameters_analyzed": len({(result["url"], result["parameter"]) for result in results}),
                 "findings": sum(len(analysis.findings) for analysis in self.analyses),
             },
             "discovery": self.discovery.to_dict(), "targets": self.targets,
