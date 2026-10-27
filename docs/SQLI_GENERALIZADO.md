@@ -5,6 +5,10 @@ anteriores. Não há dependências novas. O detector aceita caminhos GET locais
 arbitrários, seleciona um parâmetro por vez e aplica controles independentes.
 A confirmação no Juice Shop foi reproduzida após a mudança.
 
+Este documento registra a etapa 5. A [etapa 6](SCAN_INTEGRADO.md) acrescentou
+o comando `scan`, integrando descoberta e análise com orçamento global e
+checkpoints. Os perfis e critérios descritos aqui foram preservados.
+
 ## Arquitetura e seleção
 
 | Componente | Responsabilidade |
@@ -86,7 +90,8 @@ O timeout não é um prazo total para respostas enviadas lentamente.
 Somente loopback, redirects desativados, sem proxies do ambiente ou reutilização
 de cookies. Uma falha HTTP de transporte interrompe o parâmetro atual, mantém
 as evidências parciais e permite avaliar os próximos dentro do orçamento.
-Não há integração automática do inventário `discover` com a execução SQLi.
+Os comandos `discover` e SQLi continuam independentes; para executar o fluxo
+integrado a partir de uma URL inicial, use `scan` conforme a etapa 6.
 
 O JSON SQLi usa esquema `1.2`: `settings.available_parameters`, `parameters`,
 `context` e `planned_requests`; `parameter_results` contém classificação,

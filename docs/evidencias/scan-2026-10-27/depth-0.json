@@ -1,0 +1,425 @@
+{
+  "schema_version": "1.0",
+  "mode": "scan",
+  "initial_url": "http://127.0.0.1:8003/scan-lab",
+  "started_at": "2026-10-27T18:34:19.524092+00:00",
+  "finished_at": "2026-10-27T18:34:19.557568+00:00",
+  "settings": {
+    "max_depth": 0,
+    "max_pages": 10,
+    "max_requests": 100,
+    "timeout_seconds": 5.0,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "scope": "same_origin_loopback",
+    "follow_redirects": false,
+    "submit_forms": false,
+    "samples": 2,
+    "sqli_context": "like",
+    "global_request_budget": true
+  },
+  "summary": {
+    "status": "limited",
+    "requests_used": 1,
+    "discovery_requests": 1,
+    "analysis_requests": 0,
+    "requests_remaining": 99,
+    "endpoints_discovered": 6,
+    "parameters_analyzed": 0,
+    "targets_ignored": 8,
+    "findings": 0
+  },
+  "discovery": {
+    "schema_version": "1.0",
+    "mode": "discover",
+    "target": "http://127.0.0.1:8003/scan-lab",
+    "target_source": "manual",
+    "started_at": "2026-10-27T18:34:19.524074+00:00",
+    "finished_at": "2026-10-27T18:34:19.554554+00:00",
+    "settings": {
+      "max_depth": 0,
+      "max_pages": 10,
+      "max_requests": 100,
+      "timeout_seconds": 5.0,
+      "interval_seconds": 0.2,
+      "max_body_bytes": 1048576,
+      "scope": "same_origin_loopback",
+      "follow_redirects": false,
+      "submit_forms": false
+    },
+    "summary": {
+      "status": "limited",
+      "reachable": true,
+      "endpoints": 6,
+      "pages_fetched": 1,
+      "requests_attempted": 1,
+      "errors": 0,
+      "queued_remaining": 0
+    },
+    "stop_reasons": [
+      "max_depth"
+    ],
+    "skipped": {
+      "invalid_or_non_loopback_url": 1
+    },
+    "endpoints": [
+      {
+        "endpoint": "http://127.0.0.1:8003/scan-lab",
+        "method": "GET",
+        "parameters": [],
+        "observed_urls": [
+          "http://127.0.0.1:8003/scan-lab"
+        ],
+        "sources": [
+          {
+            "kind": "manual",
+            "page_url": null,
+            "depth": 0
+          }
+        ],
+        "provided_manually": true,
+        "discovered_automatically": false
+      },
+      {
+        "endpoint": "http://127.0.0.1:8003/general/json/vulnerable",
+        "method": "GET",
+        "parameters": [
+          {
+            "name": "lang",
+            "location": "query",
+            "field_type": null
+          },
+          {
+            "name": "term",
+            "location": "query",
+            "field_type": null
+          }
+        ],
+        "observed_urls": [
+          "http://127.0.0.1:8003/general/json/vulnerable?lang=en&term=apple"
+        ],
+        "sources": [
+          {
+            "kind": "html_link",
+            "page_url": "http://127.0.0.1:8003/scan-lab",
+            "depth": 1
+          }
+        ],
+        "provided_manually": false,
+        "discovered_automatically": true
+      },
+      {
+        "endpoint": "http://127.0.0.1:8003/general/json/safe",
+        "method": "GET",
+        "parameters": [
+          {
+            "name": "lang",
+            "location": "query",
+            "field_type": null
+          },
+          {
+            "name": "term",
+            "location": "query",
+            "field_type": null
+          }
+        ],
+        "observed_urls": [
+          "http://127.0.0.1:8003/general/json/safe?lang=en&term=apple"
+        ],
+        "sources": [
+          {
+            "kind": "html_link",
+            "page_url": "http://127.0.0.1:8003/scan-lab",
+            "depth": 1
+          }
+        ],
+        "provided_manually": false,
+        "discovered_automatically": true
+      },
+      {
+        "endpoint": "http://127.0.0.1:8003/general/html/vulnerable",
+        "method": "GET",
+        "parameters": [
+          {
+            "name": "lang",
+            "location": "query",
+            "field_type": null
+          },
+          {
+            "name": "search",
+            "location": "query",
+            "field_type": null
+          }
+        ],
+        "observed_urls": [
+          "http://127.0.0.1:8003/general/html/vulnerable?lang=en&search=apple"
+        ],
+        "sources": [
+          {
+            "kind": "html_link",
+            "page_url": "http://127.0.0.1:8003/scan-lab",
+            "depth": 1
+          }
+        ],
+        "provided_manually": false,
+        "discovered_automatically": true
+      },
+      {
+        "endpoint": "http://127.0.0.1:8003/general/html/safe",
+        "method": "GET",
+        "parameters": [
+          {
+            "name": "lang",
+            "location": "query",
+            "field_type": null
+          },
+          {
+            "name": "search",
+            "location": "query",
+            "field_type": null
+          }
+        ],
+        "observed_urls": [
+          "http://127.0.0.1:8003/general/html/safe?lang=en&search=apple"
+        ],
+        "sources": [
+          {
+            "kind": "html_link",
+            "page_url": "http://127.0.0.1:8003/scan-lab",
+            "depth": 1
+          }
+        ],
+        "provided_manually": false,
+        "discovered_automatically": true
+      },
+      {
+        "endpoint": "http://127.0.0.1:8003/control/safe/search",
+        "method": "GET",
+        "parameters": [
+          {
+            "name": "q",
+            "location": "form",
+            "field_type": "text"
+          }
+        ],
+        "observed_urls": [
+          "http://127.0.0.1:8003/control/safe/search"
+        ],
+        "sources": [
+          {
+            "kind": "get_form",
+            "page_url": "http://127.0.0.1:8003/scan-lab",
+            "depth": 1
+          }
+        ],
+        "provided_manually": false,
+        "discovered_automatically": true
+      }
+    ],
+    "pages": [
+      {
+        "request_id": 1,
+        "url": "http://127.0.0.1:8003/scan-lab",
+        "collected_at": "2026-10-27T18:34:19.525842+00:00",
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "size_bytes": 933,
+        "body_sha256": "b87c4a2bce286df92e0b4d6120e382ca0ba470f69f30e3b0979ee20cf594a0cb",
+        "elapsed_ms": 27.388,
+        "method": "GET",
+        "depth": 0
+      }
+    ],
+    "errors": [],
+    "candidates": [
+      {
+        "url": "http://127.0.0.1:8003/scan-lab",
+        "method": "GET",
+        "source": {
+          "kind": "manual",
+          "page_url": null,
+          "depth": 0
+        },
+        "form_parameters": []
+      },
+      {
+        "url": "http://127.0.0.1:8003/general/json/vulnerable?lang=en&term=apple",
+        "method": "GET",
+        "source": {
+          "kind": "html_link",
+          "page_url": "http://127.0.0.1:8003/scan-lab",
+          "depth": 1
+        },
+        "form_parameters": []
+      },
+      {
+        "url": "http://127.0.0.1:8003/general/json/safe?lang=en&term=apple",
+        "method": "GET",
+        "source": {
+          "kind": "html_link",
+          "page_url": "http://127.0.0.1:8003/scan-lab",
+          "depth": 1
+        },
+        "form_parameters": []
+      },
+      {
+        "url": "http://127.0.0.1:8003/general/html/vulnerable?lang=en&search=apple",
+        "method": "GET",
+        "source": {
+          "kind": "html_link",
+          "page_url": "http://127.0.0.1:8003/scan-lab",
+          "depth": 1
+        },
+        "form_parameters": []
+      },
+      {
+        "url": "http://127.0.0.1:8003/general/html/safe?lang=en&search=apple",
+        "method": "GET",
+        "source": {
+          "kind": "html_link",
+          "page_url": "http://127.0.0.1:8003/scan-lab",
+          "depth": 1
+        },
+        "form_parameters": []
+      },
+      {
+        "url": "http://127.0.0.1:8003/general/json/vulnerable?lang=en&term=apple",
+        "method": "GET",
+        "source": {
+          "kind": "html_link",
+          "page_url": "http://127.0.0.1:8003/scan-lab",
+          "depth": 1
+        },
+        "form_parameters": []
+      },
+      {
+        "url": "http://127.0.0.1:8003/control/safe/search",
+        "method": "GET",
+        "source": {
+          "kind": "get_form",
+          "page_url": "http://127.0.0.1:8003/scan-lab",
+          "depth": 1
+        },
+        "form_parameters": [
+          "q"
+        ]
+      }
+    ],
+    "ignored_targets": [
+      {
+        "url": "http://example.invalid/blocked?term=apple",
+        "source_page": "http://127.0.0.1:8003/scan-lab",
+        "reason": "invalid_or_non_loopback_url"
+      }
+    ]
+  },
+  "targets": [],
+  "parameter_results": [],
+  "analyses": [],
+  "requests": [
+    {
+      "request_id": 1,
+      "phase": "discovery",
+      "url": "http://127.0.0.1:8003/scan-lab",
+      "method": "GET",
+      "status": "received",
+      "status_code": 200
+    }
+  ],
+  "ignored_targets": [
+    {
+      "url": "http://127.0.0.1:8003/scan-lab",
+      "parameter": null,
+      "source": {
+        "kind": "manual",
+        "page_url": null,
+        "depth": 0
+      },
+      "reason": "no_query_parameters",
+      "detail": null
+    },
+    {
+      "url": "http://127.0.0.1:8003/general/json/vulnerable?lang=en&term=apple",
+      "parameter": null,
+      "source": {
+        "kind": "html_link",
+        "page_url": "http://127.0.0.1:8003/scan-lab",
+        "depth": 1
+      },
+      "reason": "max_depth",
+      "detail": null
+    },
+    {
+      "url": "http://127.0.0.1:8003/general/json/safe?lang=en&term=apple",
+      "parameter": null,
+      "source": {
+        "kind": "html_link",
+        "page_url": "http://127.0.0.1:8003/scan-lab",
+        "depth": 1
+      },
+      "reason": "max_depth",
+      "detail": null
+    },
+    {
+      "url": "http://127.0.0.1:8003/general/html/vulnerable?lang=en&search=apple",
+      "parameter": null,
+      "source": {
+        "kind": "html_link",
+        "page_url": "http://127.0.0.1:8003/scan-lab",
+        "depth": 1
+      },
+      "reason": "max_depth",
+      "detail": null
+    },
+    {
+      "url": "http://127.0.0.1:8003/general/html/safe?lang=en&search=apple",
+      "parameter": null,
+      "source": {
+        "kind": "html_link",
+        "page_url": "http://127.0.0.1:8003/scan-lab",
+        "depth": 1
+      },
+      "reason": "max_depth",
+      "detail": null
+    },
+    {
+      "url": "http://127.0.0.1:8003/general/json/vulnerable?lang=en&term=apple",
+      "parameter": null,
+      "source": {
+        "kind": "html_link",
+        "page_url": "http://127.0.0.1:8003/scan-lab",
+        "depth": 1
+      },
+      "reason": "max_depth",
+      "detail": null
+    },
+    {
+      "url": "http://127.0.0.1:8003/control/safe/search",
+      "parameter": null,
+      "source": {
+        "kind": "get_form",
+        "page_url": "http://127.0.0.1:8003/scan-lab",
+        "depth": 1
+      },
+      "reason": "max_depth",
+      "detail": null
+    },
+    {
+      "url": "http://example.invalid/blocked?term=apple",
+      "source_page": "http://127.0.0.1:8003/scan-lab",
+      "reason": "invalid_or_non_loopback_url"
+    }
+  ],
+  "stop_reasons": [
+    "max_depth"
+  ],
+  "limitations": [
+    "Descoberta estática HTML; não executa JavaScript nem presume encontrar APIs internas.",
+    "Valores de formulários não são coletados; campos sem referência concreta são ignorados.",
+    "Deduplicação por URL canônica, parâmetro e contexto; valores distintos são alvos distintos.",
+    "max-pages limita respostas da descoberta; sondas SQLi usam o orçamento global restante.",
+    "Perfis textuais LIKE/igualdade entre aspas; sem SQLi numérica, temporal, UNION ou escrita.",
+    "not_detected não prova segurança; instabilidade ou erros podem tornar a análise inconclusiva.",
+    "Ctrl+C preserva o que foi coletado quando possível; encerramento forçado pode perder o último parâmetro."
+  ]
+}

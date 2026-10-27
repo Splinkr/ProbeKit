@@ -99,3 +99,24 @@ not_detected, duas inconclusive e uma suspected. São 160 requisições do
 detector; a base SQLite permaneceu igual. Os controles seguros não foram
 classificados como vulneráveis. Sem novas dependências, Docker ou XSS.
 Roteiro, contextos suportados e evidências: [SQLI_GENERALIZADO.md](SQLI_GENERALIZADO.md).
+
+## Etapa 6 — Integração da descoberta com SQLi
+
+- [x] Inspecionar a arquitetura e executar os 196 testes anteriores antes de editar.
+- [x] Adicionar `scan` preservando baseline, discover e SQLi direto.
+- [x] Compartilhar cliente HTTP, orçamento, intervalo e IDs entre as duas fases.
+- [x] Selecionar e deduplicar parâmetros com referência concreta e preservar os demais.
+- [x] Manter os critérios SQLi, os perfis e o bloqueio de redirecionamentos.
+- [x] Revalidar esquema, host e porta antes de cada GET da execução integrada.
+- [x] Consolidar inventário, classificações, evidências, consumo, ignorados e limitações.
+- [x] Persistir checkpoints atômicos e resultados de interrupções controladas.
+- [x] Criar `/scan-lab` com links HTML para endpoints SQLite reais.
+- [x] Demonstrar o fluxo completo e os limites de orçamento e profundidade.
+- [x] Executar os 238 testes e verificar dependências.
+
+Resultado real: seis endpoints inventariados, oito parâmetros analisados,
+dois confirmed e seis not_detected; 85/100 requisições (5 de descoberta, 80 SQLi).
+Com orçamento 25, uso exato de 25 e seis parâmetros ignorados por saldo.
+Com profundidade zero, uma requisição e nenhuma sonda. Base fictícia inalterada.
+Sem novas dependências, Docker, XSS ou acesso externo.
+Roteiro e evidências: [SCAN_INTEGRADO.md](SCAN_INTEGRADO.md).

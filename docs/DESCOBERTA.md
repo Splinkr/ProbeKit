@@ -5,8 +5,9 @@ Usa o cliente HTTP existente, [HTMLParser](https://docs.python.org/3.13/library/
 e [urllib.parse](https://docs.python.org/3.13/library/urllib.parse.html), sem novas
 dependências, Docker ou navegador automatizado. Não invoca detectores nem gera
 payloads de ataque. Na etapa de descoberta, a lógica de confirmação SQLi não
-foi alterada. A generalização posterior e o total atual de 196 testes estão
-documentados na [etapa 5](SQLI_GENERALIZADO.md); este roteiro continua válido.
+foi alterada. A generalização posterior está documentada na
+[etapa 5](SQLI_GENERALIZADO.md). O fluxo integrado e o total atual de 238 testes
+estão na [etapa 6](SCAN_INTEGRADO.md); este roteiro continua válido.
 
 ## Demonstração no Windows 11
 

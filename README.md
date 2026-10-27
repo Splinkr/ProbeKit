@@ -36,6 +36,17 @@ fica em `lab/` e escuta em `127.0.0.1:3000`. Consulte
 
 ## Executar
 
+Para descobrir endpoints e executar SQLi a partir de uma URL inicial:
+
+```powershell
+.\.venv\Scripts\python.exe main.py scan http://localhost:8003/scan-lab --max-depth 2 --max-pages 10 --max-requests 100 --output reports/scan-demo/full.json
+```
+
+O [roteiro integrado](docs/SCAN_INTEGRADO.md) mostra como iniciar o SQLite na
+porta 8003, reproduzir a demonstração e interromper preservando resultados.
+Descoberta e análise compartilham o orçamento; o JSON reúne inventário,
+resultados por parâmetro, evidências e alvos ignorados com seus motivos.
+
 Para partir de uma URL inicial e inventariar links e formulários GET:
 
 ```powershell
@@ -145,12 +156,13 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 | `scanner/core.py` | Orquestração das referências |
 | `scanner/reporter.py` | Serialização JSON sem corpos HTTP |
 | `scanner/discovery.py` | Crawler HTML, normalização e inventário com origem |
+| `scanner/pipeline.py` | Fluxo scan com origem, orçamento e IDs compartilhados; resultados parciais |
 | `scanner/modules/` | Módulos específicos de detecção |
 | `scanner/modules/sqli.py` | Execução do plano SQLi e associação das evidências ao parâmetro |
 | `scanner/sqli_plans.py` | Seleção, preservação da query, sondas e orçamento global |
 | `scanner/sqli_features.py` | Características de JSON, HTML e texto e assinaturas SQL |
 | `scanner/sqli_classification.py` | Critérios diferenciais, justificativa e limitações |
-| `experiments/sqlite_control.py` | Servidor dos controles SQLite locais |
+| `experiments/sqlite_control.py` | Controles SQLite e página `/scan-lab` para o fluxo completo |
 | `experiments/run_control.py` | Repetições e métricas do experimento |
 | `experiments/run_general_sqli.py` | Matriz por nome de parâmetro, formato e contexto |
 | `experiments/html_discovery.py` | Aplicação HTML local para demonstrar descoberta |
@@ -160,8 +172,9 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-A suíte atual passou em **196 testes**, incluindo descoberta HTML, HTTP,
-escopo local, evidências, SQLi por parâmetro/formato, SQLite real e CLI em subprocessos.
+A suíte atual passou em **238 testes**, incluindo fluxo integrado, orçamento,
+interrupção, descoberta HTML, HTTP, escopo local, SQLi por parâmetro/formato,
+SQLite real e CLI em subprocessos.
 Ela não depende de sites públicos ou do Juice Shop. Organização, comandos e
 resultado desta execução estão em [docs/TESTES.md](docs/TESTES.md). A validação
 histórica das etapas iniciais permanece em [docs/VALIDACAO.md](docs/VALIDACAO.md).

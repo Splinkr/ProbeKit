@@ -1,19 +1,26 @@
 # Suíte automatizada reconstruída
 
-Estado atual após a etapa 5: **196 testes aprovados** (164 anteriores e 32 novos),
-sem falhas, erros ou ignorados. Resultado real: 15,71 segundos; dependências
-consistentes. Roteiro e evidências em [SQLI_GENERALIZADO.md](SQLI_GENERALIZADO.md).
+Estado atual após a etapa 6: **238 testes aprovados** (196 anteriores e 42 novos),
+sem falhas, erros ou ignorados. Resultado real: 22,79 segundos; dependências
+consistentes. Roteiro e evidências em [SCAN_INTEGRADO.md](SCAN_INTEGRADO.md).
+A etapa 5 passou com 196 testes, conforme [SQLI_GENERALIZADO.md](SQLI_GENERALIZADO.md).
 A etapa de descoberta passou com 164 testes, conforme [DESCOBERTA.md](DESCOBERTA.md).
 O registro abaixo documenta a reconstrução anterior.
 
 Para reproduzir a suíte atual:
 
 ```powershell
-.\.venv\Scripts\python.exe -m pytest --cache-clear -q --junitxml=reports/general-sqli-tests.xml
+.\.venv\Scripts\python.exe -m pytest --cache-clear -q --junitxml=reports/scan-tests.xml
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-Os 32 casos de `tests/test_general_sqli.py` verificam múltiplos parâmetros,
+Os 42 casos de `tests/test_scan_pipeline.py` verificam o fluxo real HTML/SQLite,
+orçamento compartilhado, deduplicação, redirecionamentos, falhas HTTP,
+timeout, interrupção nas duas fases, persistência atômica e compatibilidade.
+Os dez módulos e suas quantidades constam no
+[resumo JUnit da etapa 6](evidencias/scan-2026-10-27/tests-summary.json).
+
+Na etapa anterior, os 32 casos de `tests/test_general_sqli.py` verificaram múltiplos parâmetros,
 JSON/HTML/texto, LIKE/igualdade, controles parametrizados reais, respostas
 instáveis, páginas de erro, limites, CLI e resultados empíricos sem forçar
 expectativas. Os nove módulos e suas quantidades constam no
@@ -74,4 +81,5 @@ cobertura percentual nem precisão geral do detector. Ela não substitui os
 experimentos manuais no Juice Shop nem a avaliação empírica repetida descrita
 em [CONTROLE_NEGATIVO.md](CONTROLE_NEGATIVO.md). Os números anteriores de 57,
 81 e 101 testes são registros históricos das suítes substituídas; o total
-da reconstrução é 123; com descoberta foram 164; a etapa 5 elevou o total a 196.
+da reconstrução é 123; com descoberta foram 164; a etapa 5 elevou o total a 196,
+e a etapa 6 a 238.
