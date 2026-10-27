@@ -3,7 +3,10 @@
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from enum import StrEnum
-from typing import Any
+from typing import Any, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from scanner.exposure_models import ExposureReport
 
 
 def utc_now() -> str:
@@ -268,7 +271,7 @@ class IntegratedScanReport:
     started_at: str
     settings: dict[str, Any]
     discovery: DiscoveryReport
-    analyses: list[ScanReport] = field(default_factory=list)
+    analyses: list["ScanReport | ExposureReport"] = field(default_factory=list)
     targets: list[dict[str, Any]] = field(default_factory=list)
     ignored_targets: list[dict[str, Any]] = field(default_factory=list)
     requests: list[dict[str, Any]] = field(default_factory=list)
@@ -282,6 +285,8 @@ class IntegratedScanReport:
             {"url": analysis.target, "module": analysis.mode, **asdict(result)}
             for analysis in self.analyses for result in analysis.parameter_results
         ]
+        files = [{"module": "exposure", **asdict(result)}
+                 for analysis in self.analyses for result in getattr(analysis, "exposure_results", [])]
         return {
             "schema_version": "1.0", "mode": "scan", "initial_url": self.target,
             "started_at": self.started_at, "finished_at": self.finished_at,
@@ -294,10 +299,11 @@ class IntegratedScanReport:
                 "endpoints_discovered": len(self.discovery.endpoints),
                 "parameters_analyzed": len(results), "targets_ignored": len(self.ignored_targets),
                 "unique_parameters_analyzed": len({(result["url"], result["parameter"]) for result in results}),
+                "files_analyzed": len(files),
                 "findings": sum(len(analysis.findings) for analysis in self.analyses),
             },
             "discovery": self.discovery.to_dict(), "targets": self.targets,
-            "parameter_results": results,
+            "parameter_results": results, "exposure_results": files,
             "analyses": [analysis.to_dict() for analysis in self.analyses],
             "requests": self.requests, "ignored_targets": self.ignored_targets,
             "stop_reasons": self.stop_reasons, "limitations": self.limitations,

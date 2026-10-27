@@ -7,7 +7,7 @@ from scanner.discovery import crawl, new_discovery_report, normalize_url, origin
 from scanner.http_client import HttpClient, HttpClientError
 from scanner.models import IntegratedScanReport, ScanReport, utc_now
 from scanner.modules.sqli import run_detection
-from scanner.modules import xss
+from scanner.modules import exposure, xss
 from scanner.sqli_plans import CONTEXTS, EXTRA_REQUESTS, available_parameters, build_probe_plan
 from scanner.targets import TargetError, validate_target
 
@@ -50,13 +50,13 @@ def collect_targets(report: IntegratedScanReport) -> None:
     responses = {normalize_url(page["url"]): page for page in discovery.pages}
     failures = {normalize_url(error.url) for error in discovery.errors}
     context = report.settings["sqli_context"]
-    modules = report.settings.get("modules", ["sqli"])
+    modules = [module for module in report.settings.get("modules", ["sqli"]) if module != "exposure"]
 
     def ignore(candidate, reason, parameter=None, detail=None):
         report.ignored_targets.append({"url": candidate["url"], "parameter": parameter,
                                        "source": candidate["source"], "reason": reason, "detail": detail})
 
-    for candidate in discovery.candidates:
+    for candidate in discovery.candidates if modules else []:
         url, source = candidate["url"], candidate["source"]
         try:
             url = normalize_url(url)
@@ -106,6 +106,12 @@ def collect_targets(report: IntegratedScanReport) -> None:
                           "parameter": name, "context": selected_context, "sources": [source], "status": "pending"}
                 known[key] = target
                 report.targets.append(target)
+    if "exposure" in report.settings.get("modules", []):
+        base = report.settings["exposure_base_url"]
+        for spec in exposure.select_profiles(report.settings["exposure_profiles"]):
+            report.targets.append({"url": exposure.file_url(base, spec), "endpoint": exposure.file_url(base, spec),
+                "parameter": None, "module": "exposure", "context": "file_exposure", "profile": spec.profile,
+                "file_path": spec.path, "status": "pending", "sources": [{"kind": "configured_profile", "profile": spec.profile}]})
 
 
 def run_scan(
@@ -113,6 +119,7 @@ def run_scan(
     timeout: float = 5.0, interval: float = 0.2, max_body_bytes: int = 1_048_576,
     samples: int = 2, context: str = "like",
     modules: tuple[str, ...] = ("sqli",), xss_browser: bool = False,
+    exposure_profiles: tuple[str, ...] | None = None, exposure_base_path: str | None = None,
     checkpoint: Callable[[IntegratedScanReport], None] | None = None,
 ) -> IntegratedScanReport:
     discovery = new_discovery_report(url, max_depth=max_depth, max_pages=max_pages, max_requests=max_requests,
@@ -120,12 +127,21 @@ def run_scan(
     if samples < 2 or context not in CONTEXTS:
         raise ValueError("scan requer samples >= 2 e contexto like ou quoted.")
     modules = tuple(dict.fromkeys(modules))
-    if not modules or any(module not in {"sqli", "xss"} for module in modules) or (xss_browser and "xss" not in modules):
-        raise ValueError("Selecione módulos sqli/xss; --xss-browser requer xss.")
+    if not modules or any(module not in {"sqli", "xss", "exposure"} for module in modules) or (xss_browser and "xss" not in modules):
+        raise ValueError("Selecione módulos sqli/xss/exposure; --xss-browser requer xss.")
+    if "exposure" not in modules and (exposure_profiles is not None or exposure_base_path is not None):
+        raise ValueError("Opções de exposição requerem --modules exposure.")
+    file_settings = {}
+    if "exposure" in modules:
+        selected = tuple(dict.fromkeys(exposure_profiles if exposure_profiles is not None else exposure.DEFAULT_PROFILES))
+        exposure.select_profiles(selected)
+        file_settings = {"exposure_profiles": list(selected),
+                         "exposure_base_url": exposure.base_url(discovery.target, exposure_base_path or "/")}
     report = IntegratedScanReport(discovery.target, utc_now(), {
         **discovery.settings, "samples": samples, "sqli_context": context,
         "submit_forms": False, "global_request_budget": True,
         "modules": list(modules), "xss_browser": xss_browser,
+        **file_settings,
     }, discovery, limitations=[
         "Descoberta estática HTML; não executa JavaScript nem presume encontrar APIs internas.",
         "Valores de formulários não são coletados; campos sem referência concreta são ignorados.",
@@ -133,6 +149,7 @@ def run_scan(
         "max-pages limita respostas da descoberta; sondas SQLi usam o orçamento global restante.",
         "Perfis textuais LIKE/igualdade entre aspas; sem SQLi numérica, temporal, UNION ou escrita.",
         "XSS distingue reflexão de execução; confirmação opcional por replay isolado, com CSP preservada e rede bloqueada.",
+        "Exposure usa catálogo fechado em um diretório-base; roda uma vez após os parâmetros e não registra valores/conteúdo dos arquivos.",
         "not_detected não prova segurança; instabilidade ou erros podem tornar a análise inconclusiva.",
         "Ctrl+C preserva o que foi coletado quando possível; encerramento forçado pode perder o último parâmetro.",
     ])
@@ -153,7 +170,7 @@ def run_scan(
             for target in report.targets:
                 module = target["module"]
                 client.module = module
-                required = samples + (EXTRA_REQUESTS if module == "sqli" else xss.EXTRA_REQUESTS)
+                required = exposure.request_cost(samples) if module == "exposure" else samples + (EXTRA_REQUESTS if module == "sqli" else xss.EXTRA_REQUESTS)
                 if client.max_requests - client.request_count < required:
                     target["status"] = "skipped"
                     report.ignored_targets.append({**target, "reason": "insufficient_global_budget",
@@ -162,13 +179,19 @@ def run_scan(
                     if "max_requests" not in report.stop_reasons:
                         report.stop_reasons.append("max_requests")
                     continue
-                analysis = ScanReport(target["url"], utc_now(), {
+                analysis_settings = {
                     "samples": samples, "parameter": target["parameter"], "context": target["context"],
                     "browser_requested": xss_browser if module == "xss" else False,
                     "scope": "same_origin_loopback", "planned_requests": required,
                     "max_requests": max_requests, "shared_global_budget": True,
-                }, mode=module, schema_version="1.2" if module == "sqli" else "1.3",
-                    target_source="automatic" if any(source["kind"] != "manual" for source in target["sources"]) else "manual")
+                }
+                if module == "exposure":
+                    analysis = exposure.new_report(target["url"], **analysis_settings)
+                    analysis.target_source = "configured_profile"
+                else:
+                    analysis = ScanReport(target["url"], utc_now(), analysis_settings,
+                        mode=module, schema_version="1.2" if module == "sqli" else "1.3",
+                        target_source="automatic" if any(source["kind"] != "manual" for source in target["sources"]) else "manual")
                 report.analyses.append(analysis)
                 target["status"] = "running"
                 try:
@@ -176,9 +199,12 @@ def run_scan(
                         plan = build_probe_plan(target["url"], samples, required, parameter=target["parameter"],
                                                 context=context, start_id=client.request_count + 1)
                         run_detection(client, analysis, plan)
-                    else:
+                    elif module == "xss":
                         plan, callback = xss.build_plan(target["url"], target["parameter"], samples, client.request_count + 1)
                         xss.run_detection(client, analysis, plan, callback, browser=xss_browser)
+                    else:
+                        spec = next(spec for spec in exposure.select_profiles((target["profile"],)) if spec.path == target["file_path"])
+                        exposure.run_file(client, analysis, file_settings["exposure_base_url"], spec, samples)
                 finally:
                     analysis.finished_at = utc_now()
                 target["status"] = "completed"

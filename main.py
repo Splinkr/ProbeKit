@@ -1,4 +1,4 @@
-"""Interface de linha de comando do WebVuln Scanner."""
+"""Interface de linha de comando do ProbeKit."""
 
 import argparse
 from datetime import datetime, timezone
@@ -11,6 +11,8 @@ from scanner.core import run_baseline, run_sqli
 from scanner.discovery import discover
 from scanner.pipeline import run_scan
 from scanner.modules.xss import prepare_parameters as prepare_xss_parameters, run_xss
+from scanner.modules import exposure
+from scanner.exposure_profiles import PROFILES
 from scanner.sqli_plans import CONTEXTS, prepare_parameters
 from scanner.reporter import write_json, write_json_atomic
 from scanner.targets import TargetError, validate_target
@@ -82,7 +84,7 @@ def discover_main(argv: list[str]) -> int:
 
 
 def scan_main(argv: list[str]) -> int:
-    parser = argparse.ArgumentParser(prog="main.py scan", description="Descobre parâmetros GET e executa SQLi/XSS na mesma origem loopback.")
+    parser = argparse.ArgumentParser(prog="main.py scan", description="Descobre parâmetros GET e executa SQLi, XSS e exposure na mesma origem loopback.")
     parser.add_argument("url", help="URL inicial local autorizada")
     parser.add_argument("--max-depth", type=nonnegative_int, default=2)
     parser.add_argument("--max-pages", type=positive_int, default=20)
@@ -92,7 +94,9 @@ def scan_main(argv: list[str]) -> int:
     parser.add_argument("--max-body-bytes", type=positive_int, default=1_048_576)
     parser.add_argument("--samples", type=positive_int, default=2)
     parser.add_argument("--sqli-context", choices=CONTEXTS, default="like")
-    parser.add_argument("--modules", "--module", nargs="+", choices=("sqli", "xss"), default=["sqli"])
+    parser.add_argument("--modules", "--module", nargs="+", choices=("sqli", "xss", "exposure"), default=["sqli"])
+    parser.add_argument("--exposure-profiles", nargs="+", choices=tuple(PROFILES))
+    parser.add_argument("--exposure-base-path", help="Diretório-base exposure na mesma origem (padrão: /)")
     parser.add_argument("--xss-browser", action="store_true", help="Confirmar XSS por replay em navegador local isolado")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args(argv)
@@ -105,6 +109,8 @@ def scan_main(argv: list[str]) -> int:
             timeout=args.timeout, interval=args.interval, max_body_bytes=args.max_body_bytes,
             samples=args.samples, context=args.sqli_context,
             modules=tuple(args.modules), xss_browser=args.xss_browser,
+            exposure_profiles=tuple(args.exposure_profiles) if args.exposure_profiles is not None else None,
+            exposure_base_path=args.exposure_base_path,
             checkpoint=lambda current: write_json_atomic(current, destination),
         )
     except ValueError as error:
@@ -114,10 +120,12 @@ def scan_main(argv: list[str]) -> int:
         return 1
     for analysis in report.analyses:
         result = analysis.assessment
-        label = f"{result.parameter}: {result.outcome}" if result else "interrompida antes da classificação"
+        label = f"{'arquivo' if analysis.mode == 'exposure' else result.parameter}: {result.outcome}" if result else "interrompida antes da classificação"
         print(f"{analysis.target} | {analysis.mode}: {label}")
     summary = report.to_dict()["summary"]
     print(f"Estado: {report.status}; endpoints: {summary['endpoints_discovered']}; parâmetros analisados: {summary['parameters_analyzed']}")
+    if "exposure" in args.modules:
+        print(f"Arquivos analisados: {summary['files_analyzed']}")
     analysis_label = "SQLi" if args.modules == ["sqli"] else "análise"
     print(f"Requisições: {summary['requests_used']}/{args.max_requests} (descoberta={summary['discovery_requests']}, {analysis_label}={summary['analysis_requests']})")
     print(f"Alvos ignorados: {summary['targets_ignored']}; limites: {', '.join(report.stop_reasons) or 'nenhum'}")
@@ -127,11 +135,12 @@ def scan_main(argv: list[str]) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Referências HTTP locais e detecção SQLi/XSS controlada por parâmetro GET.",
+        description="Referências HTTP locais, SQLi/XSS por parâmetro GET e exposição de arquivos com controles.",
         epilog="Descoberta HTML: main.py discover URL --help. Fluxo completo: main.py scan URL --help",
     )
     parser.add_argument("url", help="URL http(s) em localhost ou IP loopback")
-    parser.add_argument("--module", choices=("baseline", "sqli", "xss"), default="baseline", help="Modo de execução (padrão: baseline)")
+    parser.add_argument("--module", choices=("baseline", "sqli", "xss", "exposure"), default="baseline", help="Modo de execução (padrão: baseline)")
+    parser.add_argument("--exposure-profiles", nargs="+", choices=tuple(PROFILES))
     parser.add_argument("--xss-browser", action="store_true", help="Confirmar XSS por replay em navegador local isolado")
     selection = parser.add_mutually_exclusive_group()
     selection.add_argument("--parameter", help="Parâmetro GET único a testar")
@@ -163,17 +172,25 @@ def main(argv: list[str] | None = None) -> int:
             prepare_parameters(target, args.samples, args.max_requests, args.parameter, args.all_parameters, args.sqli_context)
         elif args.module == "xss":
             prepare_xss_parameters(target, args.samples, args.max_requests, args.parameter, args.all_parameters)
+        elif args.module == "exposure":
+            if args.parameter is not None or args.all_parameters or args.sqli_context != "like":
+                raise ValueError("Exposure analisa arquivos, não parâmetros/contextos SQL.")
+            exposure.prepare(target, args.exposure_profiles if args.exposure_profiles is not None else exposure.DEFAULT_PROFILES,
+                             args.samples, args.max_requests)
         elif args.parameter is not None or args.all_parameters or args.sqli_context != "like":
             raise ValueError("Seleção de parâmetros requer --module sqli ou xss.")
         if args.xss_browser and args.module != "xss":
             raise ValueError("--xss-browser requer --module xss.")
         if args.module == "xss" and args.sqli_context != "like":
             raise ValueError("--sqli-context não se aplica ao módulo XSS.")
+        if args.exposure_profiles is not None and args.module != "exposure":
+            raise ValueError("--exposure-profiles requer --module exposure.")
     except (TargetError, ValueError) as error:
         parser.error(str(error))
-    runner = run_sqli if args.module == "sqli" else run_xss if args.module == "xss" else run_baseline
+    runner = run_sqli if args.module == "sqli" else run_xss if args.module == "xss" else exposure.run_exposure if args.module == "exposure" else run_baseline
     extra = {"parameter": args.parameter, "all_parameters": args.all_parameters, "context": args.sqli_context} if args.module == "sqli" else {
-        "parameter": args.parameter, "all_parameters": args.all_parameters, "browser": args.xss_browser} if args.module == "xss" else {}
+        "parameter": args.parameter, "all_parameters": args.all_parameters, "browser": args.xss_browser} if args.module == "xss" else {
+        "profiles": args.exposure_profiles if args.exposure_profiles is not None else exposure.DEFAULT_PROFILES} if args.module == "exposure" else {}
     report = runner(
         target, samples=args.samples, timeout=args.timeout,
         max_requests=args.max_requests, interval=args.interval,
@@ -210,10 +227,12 @@ def main(argv: list[str] | None = None) -> int:
     for error in report.errors:
         print(f"  Erro [{error.kind}]: {error.message}", file=sys.stderr)
     if report.assessment:
-        print(f"{'XSS' if args.module == 'xss' else 'SQLi'}: {report.assessment.outcome}")
+        print(f"{'Exposure' if args.module == 'exposure' else 'XSS' if args.module == 'xss' else 'SQLi'}: {report.assessment.outcome}")
         print(report.assessment.rationale)
         for result in report.parameter_results:
             print(f"  Parâmetro {result.parameter}: {result.assessment.outcome} ({result.context})")
+        for result in getattr(report, "exposure_results", []):
+            print(f"  Arquivo {result.url}: {result.assessment.outcome}")
         for finding in report.findings:
             print(f"  Achado: {finding.status.value}, confiança {finding.confidence.value}; evidências {finding.evidence_request_ids}")
         for limitation in report.assessment.limitations:
@@ -223,6 +242,8 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Relatório JSON: {output}")
     return 1 if report.errors or (report.assessment and report.assessment.outcome == "inconclusive") or any(
         result.assessment.outcome == "inconclusive" for result in report.parameter_results
+    ) or any(
+        result.assessment.outcome == "inconclusive" for result in getattr(report, "exposure_results", [])
     ) else 0
 
 

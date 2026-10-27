@@ -11,7 +11,7 @@ import sqlite3
 import threading
 from urllib.parse import parse_qsl, urlsplit
 
-from experiments import xss_lab
+from experiments import exposure_lab, xss_lab
 
 VULNERABLE_PATH = "/control/vulnerable/search"
 SAFE_PATH = "/control/safe/search"
@@ -135,6 +135,15 @@ class ControlHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         parts = urlsplit(self.path)
+        if parts.path == "/probekit-lab":
+            self.send_body(200, "text/html", xss_lab.landing(True) + '<p><a href="/README.txt">Public documentation</a></p>')
+            return
+        file_response = exposure_lab.response(parts.path, self.server.request_number)
+        if file_response is not None:
+            self.server.request_number += 1
+            status, content_type, body, headers = file_response
+            self.send_body(status, content_type, body, headers)
+            return
         if parts.path in {"/xss-lab", "/combined-lab"}:
             self.send_body(200, "text/html", xss_lab.landing(parts.path == "/combined-lab"))
             return
@@ -237,6 +246,7 @@ def main(argv: list[str] | None = None) -> int:
         print("Perfis adicionais: /general/{json,html,text,quoted}/{vulnerable,safe}, /general/html/{unstable,error}", flush=True)
         print("Fluxo integrado HTML: /scan-lab", flush=True)
         print("XSS: /xss-lab; SQLi + XSS: /combined-lab", flush=True)
+        print("ProbeKit (SQLi + XSS + exposure): /probekit-lab", flush=True)
         try:
             server.serve_forever()
         except KeyboardInterrupt:
