@@ -219,10 +219,14 @@ def run_scan(
                 if target["status"] in {"pending", "running"}:
                     target["status"] = "interrupted" if target["status"] == "running" else "skipped"
                     report.ignored_targets.append({**target, "reason": "user_interrupt"})
+        except OSError:
+            report.status = "incomplete"
+            report.stop_reasons.append("checkpoint_error")
+            raise
         finally:
             report.stop_reasons = list(dict.fromkeys([*report.stop_reasons, *discovery.stop_reasons]))
             if report.status != "interrupted":
-                failed = discovery.errors or any(
+                failed = report.status == "incomplete" or discovery.errors or any(
                     analysis.errors or analysis.assessment.outcome == "inconclusive" for analysis in report.analyses
                 )
                 report.status = "incomplete" if failed else "limited" if report.stop_reasons else "completed"

@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 import tempfile
+import time
 from typing import Any, Protocol
 
 
@@ -31,7 +32,16 @@ def write_json_atomic(report: JsonReport, destination: str | Path) -> Path:
             temporary = Path(stream.name)
             json.dump(report.to_dict(), stream, ensure_ascii=False, indent=2)
             stream.write("\n")
-        temporary.replace(output)
+        # No Windows, outro processo pode manter um handle sem compartilhamento
+        # durante alguns instantes. Repete somente a substituição, nunca a rede.
+        for attempt in range(4):
+            try:
+                temporary.replace(output)
+                break
+            except PermissionError as error:
+                if getattr(error, "winerror", None) not in {5, 32, 33} or attempt == 3:
+                    raise
+                time.sleep(0.05 * (attempt + 1))
     finally:
         if temporary is not None:
             temporary.unlink(missing_ok=True)
