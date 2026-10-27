@@ -1,8 +1,9 @@
 # Suíte automatizada reconstruída
 
-Estado atual após a etapa 7: **286 testes aprovados** (238 anteriores e 48 novos),
-sem falhas, erros ou ignorados. Resultado real: 56,09 segundos; dependências
-consistentes. Roteiro e evidências em [XSS_REFLETIDO.md](XSS_REFLETIDO.md).
+Estado atual após a etapa 8: **344 testes aprovados** (286 anteriores e 58 novos),
+sem falhas, erros ou ignorados. Resultado real: 58,26 segundos; dependências
+consistentes. Roteiro e evidências em [EXPOSICAO_ARQUIVOS.md](EXPOSICAO_ARQUIVOS.md).
+A etapa 7 passou com 286 testes em 56,09 segundos, conforme [XSS_REFLETIDO.md](XSS_REFLETIDO.md).
 A etapa 6 passou com 238 testes, conforme [SCAN_INTEGRADO.md](SCAN_INTEGRADO.md).
 A etapa 5 passou com 196 testes, conforme [SQLI_GENERALIZADO.md](SQLI_GENERALIZADO.md).
 A etapa de descoberta passou com 164 testes, conforme [DESCOBERTA.md](DESCOBERTA.md).
@@ -11,11 +12,22 @@ O registro abaixo documenta a reconstrução anterior.
 Para reproduzir a suíte atual:
 
 ```powershell
-.\.venv\Scripts\python.exe -m pytest --cache-clear -q --junitxml=reports/xss-tests.xml
+.\.venv\Scripts\python.exe -m pytest -q --junitxml=reports/exposure-tests.xml
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-Os 48 casos novos de `tests/test_xss_contract.py` incluem reflexão, contexto,
+Os 54 casos de `tests/test_exposure_contract.py` incluem configuração, INI,
+backup SQL e referência Git fictícios; páginas 200 genéricas, erro personalizado,
+bloqueio, documento público, MIME enganoso, instabilidade, redirecionamentos,
+sigilo de valores/chaves/cabeçalhos, orçamento compartilhado, interrupção e CLI.
+O teste do fluxo com três módulos usa confirmação XSS real no navegador.
+Os quatro casos de `tests/test_checkpoint_contract.py` verificam bloqueio
+transitório e persistente no Windows, preservação do JSON anterior e estado
+incompleto quando a gravação falha antes do fim da análise. Os treze módulos
+e quantidades constam no [resumo JUnit da etapa 8](evidencias/exposure-2026-10-27/tests-summary.json).
+Os 286 testes anteriores foram preservados. Nenhum critério SQLi/XSS foi alterado.
+
+Os 48 casos da etapa 7 em `tests/test_xss_contract.py` incluem reflexão, contexto,
 escape, controles, seis casos com navegador real, bloqueio de rede, CSP,
 limites compartilhados SQLi/XSS e interrupção. O controle JavaScript escapado
 não executou, mas permaneceu suspeito; esse falso positivo de suspeita é
@@ -93,4 +105,4 @@ experimentos manuais no Juice Shop nem a avaliação empírica repetida descrita
 em [CONTROLE_NEGATIVO.md](CONTROLE_NEGATIVO.md). Os números anteriores de 57,
 81 e 101 testes são registros históricos das suítes substituídas; o total
 da reconstrução é 123; com descoberta foram 164; a etapa 5 elevou o total a 196,
-e a etapa 6 a 238; a etapa 7 chegou a 286.
+e a etapa 6 a 238; a etapa 7 chegou a 286; a etapa 8, a 344.

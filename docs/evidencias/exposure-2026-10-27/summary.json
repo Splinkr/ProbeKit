@@ -1,0 +1,754 @@
+{
+  "experiment": "bounded_file_exposure_and_three_module_scan",
+  "origin": "http://127.0.0.1:8005",
+  "runs": [
+    {
+      "report": "files.json",
+      "mode": "exposure",
+      "started_at": "2026-10-27T19:34:51.030267+00:00",
+      "finished_at": "2026-10-27T19:34:54.042904+00:00",
+      "requests_used": 16,
+      "summary": {
+        "reachable": true,
+        "status": "completed",
+        "requests_attempted": 16,
+        "responses_received": 16,
+        "errors": 0,
+        "files_analyzed": 4,
+        "findings": 2
+      },
+      "results": [
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/.env",
+          "profile": "config",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/config.ini",
+          "profile": "config",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/backup.sql",
+          "profile": "backup",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/config.ini.bak",
+          "profile": "backup",
+          "outcome": "not_detected"
+        }
+      ],
+      "outcomes_by_module": {
+        "exposure": {
+          "confirmed": 2,
+          "not_detected": 2
+        }
+      },
+      "skipped_for_budget": []
+    },
+    {
+      "report": "fallback.json",
+      "mode": "exposure",
+      "started_at": "2026-10-27T19:34:54.499473+00:00",
+      "finished_at": "2026-10-27T19:34:57.518463+00:00",
+      "requests_used": 16,
+      "summary": {
+        "reachable": true,
+        "status": "completed",
+        "requests_attempted": 16,
+        "responses_received": 16,
+        "errors": 0,
+        "files_analyzed": 4,
+        "findings": 0
+      },
+      "results": [
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/fallback/.env",
+          "profile": "config",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/fallback/config.ini",
+          "profile": "config",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/fallback/backup.sql",
+          "profile": "backup",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/fallback/config.ini.bak",
+          "profile": "backup",
+          "outcome": "not_detected"
+        }
+      ],
+      "outcomes_by_module": {
+        "exposure": {
+          "not_detected": 4
+        }
+      },
+      "skipped_for_budget": []
+    },
+    {
+      "report": "custom-error.json",
+      "mode": "exposure",
+      "started_at": "2026-10-27T19:34:57.955598+00:00",
+      "finished_at": "2026-10-27T19:35:00.965793+00:00",
+      "requests_used": 16,
+      "summary": {
+        "reachable": true,
+        "status": "completed",
+        "requests_attempted": 16,
+        "responses_received": 16,
+        "errors": 0,
+        "files_analyzed": 4,
+        "findings": 0
+      },
+      "results": [
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/error/.env",
+          "profile": "config",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/error/config.ini",
+          "profile": "config",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/error/backup.sql",
+          "profile": "backup",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/error/config.ini.bak",
+          "profile": "backup",
+          "outcome": "not_detected"
+        }
+      ],
+      "outcomes_by_module": {
+        "exposure": {
+          "not_detected": 4
+        }
+      },
+      "skipped_for_budget": []
+    },
+    {
+      "report": "blocked.json",
+      "mode": "exposure",
+      "started_at": "2026-10-27T19:35:01.660290+00:00",
+      "finished_at": "2026-10-27T19:35:04.669753+00:00",
+      "requests_used": 16,
+      "summary": {
+        "reachable": true,
+        "status": "completed",
+        "requests_attempted": 16,
+        "responses_received": 16,
+        "errors": 0,
+        "files_analyzed": 4,
+        "findings": 0
+      },
+      "results": [
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/blocked/.env",
+          "profile": "config",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/blocked/config.ini",
+          "profile": "config",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/blocked/backup.sql",
+          "profile": "backup",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/blocked/config.ini.bak",
+          "profile": "backup",
+          "outcome": "not_detected"
+        }
+      ],
+      "outcomes_by_module": {
+        "exposure": {
+          "not_detected": 4
+        }
+      },
+      "skipped_for_budget": []
+    },
+    {
+      "report": "all-formats.json",
+      "mode": "exposure",
+      "started_at": "2026-10-27T19:35:05.011279+00:00",
+      "finished_at": "2026-10-27T19:35:08.844643+00:00",
+      "requests_used": 20,
+      "summary": {
+        "reachable": true,
+        "status": "completed",
+        "requests_attempted": 20,
+        "responses_received": 20,
+        "errors": 0,
+        "files_analyzed": 5,
+        "findings": 5
+      },
+      "results": [
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/exposed/.env",
+          "profile": "config",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/exposed/config.ini",
+          "profile": "config",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/exposed/backup.sql",
+          "profile": "backup",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/exposed/config.ini.bak",
+          "profile": "backup",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/exposure-lab/exposed/.git/HEAD",
+          "profile": "repository",
+          "outcome": "confirmed"
+        }
+      ],
+      "outcomes_by_module": {
+        "exposure": {
+          "confirmed": 5
+        }
+      },
+      "skipped_for_budget": []
+    },
+    {
+      "report": "three-modules.json",
+      "mode": "scan",
+      "started_at": "2026-10-27T19:37:00.150460+00:00",
+      "finished_at": "2026-10-27T19:37:21.843706+00:00",
+      "requests_used": 92,
+      "summary": {
+        "status": "completed",
+        "requests_used": 92,
+        "discovery_requests": 6,
+        "analysis_requests": 86,
+        "requests_remaining": 8,
+        "endpoints_discovered": 6,
+        "parameters_analyzed": 8,
+        "targets_ignored": 2,
+        "unique_parameters_analyzed": 4,
+        "files_analyzed": 4,
+        "findings": 4
+      },
+      "results": [
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/xss/html/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/xss/html/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "reflected_safe"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/general/json/vulnerable?term=apple",
+          "parameter": "term",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/general/json/vulnerable?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/general/json/safe?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/general/json/safe?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/.env",
+          "profile": "config",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/config.ini",
+          "profile": "config",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/backup.sql",
+          "profile": "backup",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/config.ini.bak",
+          "profile": "backup",
+          "outcome": "not_detected"
+        }
+      ],
+      "outcomes_by_module": {
+        "exposure": {
+          "confirmed": 2,
+          "not_detected": 2
+        },
+        "sqli": {
+          "not_detected": 3,
+          "confirmed": 1
+        },
+        "xss": {
+          "confirmed": 1,
+          "reflected_safe": 1,
+          "not_detected": 2
+        }
+      },
+      "skipped_for_budget": []
+    },
+    {
+      "report": "budget-84.json",
+      "mode": "scan",
+      "started_at": "2026-10-27T19:37:22.274995+00:00",
+      "finished_at": "2026-10-27T19:37:42.971066+00:00",
+      "requests_used": 84,
+      "summary": {
+        "status": "limited",
+        "requests_used": 84,
+        "discovery_requests": 6,
+        "analysis_requests": 78,
+        "requests_remaining": 0,
+        "endpoints_discovered": 6,
+        "parameters_analyzed": 8,
+        "targets_ignored": 4,
+        "unique_parameters_analyzed": 4,
+        "files_analyzed": 2,
+        "findings": 3
+      },
+      "results": [
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/xss/html/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/xss/html/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "reflected_safe"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/general/json/vulnerable?term=apple",
+          "parameter": "term",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/general/json/vulnerable?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/general/json/safe?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/general/json/safe?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/.env",
+          "profile": "config",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "exposure",
+          "url": "http://127.0.0.1:8005/config.ini",
+          "profile": "config",
+          "outcome": "not_detected"
+        }
+      ],
+      "outcomes_by_module": {
+        "exposure": {
+          "confirmed": 1,
+          "not_detected": 1
+        },
+        "sqli": {
+          "not_detected": 3,
+          "confirmed": 1
+        },
+        "xss": {
+          "confirmed": 1,
+          "reflected_safe": 1,
+          "not_detected": 2
+        }
+      },
+      "skipped_for_budget": [
+        {
+          "url": "http://127.0.0.1:8005/backup.sql",
+          "module": "exposure",
+          "reason": "insufficient_global_budget"
+        },
+        {
+          "url": "http://127.0.0.1:8005/config.ini.bak",
+          "module": "exposure",
+          "reason": "insufficient_global_budget"
+        }
+      ]
+    },
+    {
+      "report": "juice-shop-regression.json",
+      "mode": "sqli",
+      "started_at": "2026-10-27T19:35:48.156367+00:00",
+      "finished_at": "2026-10-27T19:35:49.973831+00:00",
+      "requests_used": 10,
+      "summary": {
+        "reachable": true,
+        "status": "completed",
+        "requests_attempted": 10,
+        "responses_received": 10,
+        "errors": 0,
+        "findings": 1
+      },
+      "results": [
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:3000/rest/products/search?q=apple",
+          "parameter": "q",
+          "outcome": "confirmed"
+        }
+      ],
+      "outcomes_by_module": {
+        "sqli": {
+          "confirmed": 1
+        }
+      },
+      "skipped_for_budget": []
+    }
+  ],
+  "failed_attempts_before_checkpoint_fix": [
+    {
+      "report": "failed-attempts/budget-84-before-fix.json",
+      "mode": "scan",
+      "started_at": "2026-10-27T19:35:28.876852+00:00",
+      "finished_at": "2026-10-27T19:35:47.528512+00:00",
+      "requests_used": 76,
+      "summary": {
+        "status": "completed",
+        "requests_used": 76,
+        "discovery_requests": 6,
+        "analysis_requests": 70,
+        "requests_remaining": 8,
+        "endpoints_discovered": 6,
+        "parameters_analyzed": 8,
+        "targets_ignored": 2,
+        "unique_parameters_analyzed": 4,
+        "files_analyzed": 0,
+        "findings": 2
+      },
+      "results": [
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/xss/html/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/xss/html/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "reflected_safe"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/general/json/vulnerable?term=apple",
+          "parameter": "term",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/general/json/vulnerable?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/general/json/safe?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/general/json/safe?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        }
+      ],
+      "outcomes_by_module": {
+        "sqli": {
+          "not_detected": 3,
+          "confirmed": 1
+        },
+        "xss": {
+          "confirmed": 1,
+          "reflected_safe": 1,
+          "not_detected": 2
+        }
+      },
+      "skipped_for_budget": [],
+      "valid_completed_run": false,
+      "cli_exit_code": 1,
+      "observed_error": "WinError 5: Access is denied during atomic checkpoint replacement",
+      "warning": "Pre-fix summary says completed, but pending targets and CLI write failure show it is incomplete.",
+      "pending_targets": 4
+    },
+    {
+      "report": "failed-attempts/three-modules-before-fix.json",
+      "mode": "scan",
+      "started_at": "2026-10-27T19:35:09.210645+00:00",
+      "finished_at": "2026-10-27T19:35:28.160492+00:00",
+      "requests_used": 76,
+      "summary": {
+        "status": "completed",
+        "requests_used": 76,
+        "discovery_requests": 6,
+        "analysis_requests": 70,
+        "requests_remaining": 24,
+        "endpoints_discovered": 6,
+        "parameters_analyzed": 8,
+        "targets_ignored": 2,
+        "unique_parameters_analyzed": 4,
+        "files_analyzed": 0,
+        "findings": 2
+      },
+      "results": [
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/xss/html/raw?q=demo",
+          "parameter": "q",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/xss/html/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/xss/html/escaped?q=demo",
+          "parameter": "q",
+          "outcome": "reflected_safe"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/general/json/vulnerable?term=apple",
+          "parameter": "term",
+          "outcome": "confirmed"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/general/json/vulnerable?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "sqli",
+          "url": "http://127.0.0.1:8005/general/json/safe?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        },
+        {
+          "module": "xss",
+          "url": "http://127.0.0.1:8005/general/json/safe?term=apple",
+          "parameter": "term",
+          "outcome": "not_detected"
+        }
+      ],
+      "outcomes_by_module": {
+        "sqli": {
+          "not_detected": 3,
+          "confirmed": 1
+        },
+        "xss": {
+          "confirmed": 1,
+          "reflected_safe": 1,
+          "not_detected": 2
+        }
+      },
+      "skipped_for_budget": [],
+      "valid_completed_run": false,
+      "cli_exit_code": 1,
+      "observed_error": "WinError 5: Access is denied during atomic checkpoint replacement",
+      "warning": "Pre-fix summary says completed, but pending targets and CLI write failure show it is incomplete.",
+      "pending_targets": 4
+    }
+  ],
+  "request_totals": {
+    "completed_runs": 270,
+    "failed_attempts": 152,
+    "health_checks": 3,
+    "total_manual_target_gets": 425,
+    "note": "Includes local Juice Shop regression (10 GETs). Automated tests are separate. Browser replay sends no new target GETs."
+  },
+  "sqlite_integrity": {
+    "unchanged": true,
+    "checks": {
+      "health-before": {
+        "status": "ok",
+        "application": "webvuln-sqlite-control",
+        "sqlite_version": "3.50.4",
+        "records": 5,
+        "dataset_sha256": "5a7f6cbde94c6fb8d193dc14c708adb2d425546f2ddd294c9793ff3d5864ce0a"
+      },
+      "health-after-first-attempts": {
+        "status": "ok",
+        "application": "webvuln-sqlite-control",
+        "sqlite_version": "3.50.4",
+        "records": 5,
+        "dataset_sha256": "5a7f6cbde94c6fb8d193dc14c708adb2d425546f2ddd294c9793ff3d5864ce0a"
+      },
+      "health-after": {
+        "status": "ok",
+        "application": "webvuln-sqlite-control",
+        "sqlite_version": "3.50.4",
+        "records": 5,
+        "dataset_sha256": "5a7f6cbde94c6fb8d193dc14c708adb2d425546f2ddd294c9793ff3d5864ce0a"
+      }
+    }
+  },
+  "privacy_verification": {
+    "fake_values_absent_from_all_reports": true,
+    "real_key_names_absent": true,
+    "sql_table_name_absent": true,
+    "git_branch_absent": true,
+    "note": "Response bodies, arbitrary headers, actual key names and values are not part of exposure evidence objects."
+  },
+  "source_sha256": {
+    "experiments/exposure_lab.py": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+    "experiments/sqlite_control.py": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+    "main.py": "33e6c31babfaddc3a936c2b32466b5ecb03b6cca5b14d030441f0d68468c4a87",
+    "scanner/exposure_analysis.py": "d74400a317d03743a413fd9baa6448db190a272b27072aa794df50e9a5c2e547",
+    "scanner/exposure_models.py": "13d1c7fe6a3c2577260a6f8b0a452ac8986d933dc88003b0adad3fa14432dfc4",
+    "scanner/exposure_profiles.py": "0b4d4782f11e07d6e4fc5f8100d9393528357fdde5c0bc9dc3bb67fdcf87af73",
+    "scanner/models.py": "ead7eed0ea71ef95df782e02037a91fa89c519404f4df026e45cde7fdf75a5aa",
+    "scanner/modules/exposure.py": "d99c2b815d40d21a7207d6a6925259f905bca1c14a7a4bed599b7c0a7e0e634d",
+    "scanner/pipeline.py": "6a1fe6ff5b14807c6fc080ec402e29c4da9d56e7cab459727235e24616cb2e41",
+    "scanner/reporter.py": "bbf1c171ff91b85a2a44a8ba8235697b3b1e3b314511a7cbc56ba3c1457448b7"
+  },
+  "artifact_sha256": {
+    "all-formats.json": "08eb6e488e995aaf099d723d5f9b19a95cb7c8aba4a13fc4adb9f57e4993a138",
+    "blocked.json": "ac5940243fe3da1cfc05acff9a6aeff14b30b3fc82ca0382c75a6b97b6a34a9d",
+    "budget-84.json": "8660d0b62fedaa6d55599b04e232c54c1a02ffc92e5d88eee187333f4cffc5c4",
+    "custom-error.json": "a292626cf340383dba0970824c88d4ea6b40fc91cc406cc3e7da79e21e5b622d",
+    "failed-attempts/budget-84-before-fix.json": "fba32b7bf983d804d3858c9a0d633e1e3c687c2202ff121e2bbd23f4c4031eae",
+    "failed-attempts/README.md": "d15230ba1eeb3e2be59c3f82d267ca7a89b371b1115a4b039cc1b0c8fa228528",
+    "failed-attempts/three-modules-before-fix.json": "7cbbbe39b4373e520fcdbb56925a8eb087f7d153312626a187ff6d70bac44ab8",
+    "fallback.json": "778bcd1ff1f118b8df09b0a3e77f58e219fb4b7c7a31a3633e3da807eba30a61",
+    "files.json": "0b92c61554d88f1808c37a59d92d5f87ae03cc75bfa2fd4bc0110b2e9b08a83e",
+    "health-after-first-attempts.json": "0165a69d65bcaa5bfe2dc96d199fd5456ce935873b520e75d65572adabcdaa28",
+    "health-after.json": "0165a69d65bcaa5bfe2dc96d199fd5456ce935873b520e75d65572adabcdaa28",
+    "health-before.json": "0165a69d65bcaa5bfe2dc96d199fd5456ce935873b520e75d65572adabcdaa28",
+    "juice-shop-regression.json": "8af8f153519c4e0990c89d8e045128849133875acd8b5148a1b20b75051ceb32",
+    "tests-summary.json": "6002f6c2d213af95a49fb5ce30127c086c4b2afd6007c76ac92cc7b8a960d399",
+    "tests.xml": "0f26d7dc839a2be42ace9a2484b41542635d231b23fffd78ccabb7b2234a7c3e",
+    "three-modules.json": "772f49eb330f51af204c46d0c62873d1b547e3fa1ab828919ea65b04581cb392"
+  },
+  "limitations": [
+    "Confirms accessibility and structural type; does not validate secrets or infer intended confidentiality.",
+    "Five fixed paths at one selected base directory; supported text formats only.",
+    "Static HTML discovery does not enumerate JavaScript APIs.",
+    "Public examples with configuration/SQL structure may need human policy review; unknown formats may be missed.",
+    "First mixed scans hit a Windows checkpoint lock; preserved as incomplete pre-fix attempts and repeated after the persistence fix."
+  ]
+}

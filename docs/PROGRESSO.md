@@ -142,3 +142,28 @@ base fictícia inalterada. HTML/atributos escapados e JSON não foram confirmado
 O controle adicional de string JavaScript escapada permaneceu suspected sem
 execução: falso positivo de suspeita documentado, sem ajuste artificial.
 Roteiro, comandos e evidências: [XSS_REFLETIDO.md](XSS_REFLETIDO.md).
+
+## Etapa 8 — Exposição de arquivos
+
+- [x] Inspecionar arquitetura, executar os 286 testes anteriores e preservar SQLi/XSS.
+- [x] Criar módulo independente exposure com catálogo fechado de cinco caminhos.
+- [x] Selecionar perfis config, backup e repository em um diretório-base local.
+- [x] Comparar referências repetidas e dois controles inexistentes por arquivo.
+- [x] Analisar estrutura, MIME, HTML, documento público, erros e fallback.
+- [x] Documentar critérios confirmed, suspected, inconclusive e not_detected.
+- [x] Serializar somente metadados, contagens e indicadores fixos, sem valores/chaves/conteúdo.
+- [x] Integrar CLI e scan com origem, IDs, orçamento e checkpoints compartilhados.
+- [x] Ampliar o laboratório SQLite com artefatos fictícios e controles negativos.
+- [x] Executar oito demonstrações completas, incluindo três módulos e regressão Juice Shop.
+- [x] Corrigir bloqueio transitório de checkpoint no Windows, preservando evidências das tentativas anteriores.
+- [x] Executar 344 testes e verificar dependências, sem novas instalações.
+
+Fluxo completo: seis endpoints, oito avaliações de quatro parâmetros e quatro
+arquivos; 92/100 GETs (6 descoberta, 86 análise); SQLi, XSS e dois arquivos
+confirmed. Com limite 84, consumo 84 e dois arquivos ignorados por saldo.
+Fallback HTML 200, erro personalizado, acesso bloqueado e documento público
+não foram confirmados. Cinco formatos/caminhos fictícios confirmados no
+controle positivo adicional. Dados SQLite inalterados e nenhum valor de
+arquivo registrado nos JSONs. Limitações de cobertura e política de privacidade
+documentadas; sem mudança dos critérios SQLi/XSS, Docker ou acesso externo.
+Roteiro e evidências reais: [EXPOSICAO_ARQUIVOS.md](EXPOSICAO_ARQUIVOS.md).

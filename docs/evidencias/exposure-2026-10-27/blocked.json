@@ -1,0 +1,674 @@
+{
+  "schema_version": "1.0",
+  "mode": "exposure",
+  "target": "http://127.0.0.1:8005/exposure-lab/blocked/",
+  "target_source": "manual",
+  "started_at": "2026-10-27T19:35:01.660290+00:00",
+  "finished_at": "2026-10-27T19:35:04.669753+00:00",
+  "settings": {
+    "samples": 2,
+    "scope": "same_origin_loopback",
+    "follow_redirects": false,
+    "store_content": false,
+    "store_key_names": false,
+    "store_values": false,
+    "profiles": [
+      "config",
+      "backup"
+    ],
+    "max_requests": 16,
+    "timeout_seconds": 5.0,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "planned_requests": 16
+  },
+  "summary": {
+    "reachable": true,
+    "status": "completed",
+    "requests_attempted": 16,
+    "responses_received": 16,
+    "errors": 0,
+    "files_analyzed": 4,
+    "findings": 0
+  },
+  "responses": [
+    {
+      "request_id": 1,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/.probekit-missing-71cc8efad80fed16ed7f59f1-.env",
+      "role": "control_1",
+      "collected_at": "2026-10-27T19:35:01.660653+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 21.217,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 2,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/.env",
+      "role": "reference_1",
+      "collected_at": "2026-10-27T19:35:01.861146+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 24.407,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 3,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/.env",
+      "role": "reference_2",
+      "collected_at": "2026-10-27T19:35:02.061304+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 97.67,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 4,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/.probekit-missing-2d96fb40ee56d55f06c9c7f5-.env",
+      "role": "control_2",
+      "collected_at": "2026-10-27T19:35:02.261531+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 2.857,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 5,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/.probekit-missing-3e7fce8d6b9f25474fbfc464-config.ini",
+      "role": "control_1",
+      "collected_at": "2026-10-27T19:35:02.462085+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 3.166,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 6,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/config.ini",
+      "role": "reference_1",
+      "collected_at": "2026-10-27T19:35:02.662465+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 3.784,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 7,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/config.ini",
+      "role": "reference_2",
+      "collected_at": "2026-10-27T19:35:02.862602+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 3.342,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 8,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/.probekit-missing-badf750e658f87dc1359cc5f-config.ini",
+      "role": "control_2",
+      "collected_at": "2026-10-27T19:35:03.062981+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 18.278,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 9,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/.probekit-missing-b0c5929746dfbd13802e710d-backup.sql",
+      "role": "control_1",
+      "collected_at": "2026-10-27T19:35:03.263236+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 4.037,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 10,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/backup.sql",
+      "role": "reference_1",
+      "collected_at": "2026-10-27T19:35:03.463715+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 3.024,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 11,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/backup.sql",
+      "role": "reference_2",
+      "collected_at": "2026-10-27T19:35:03.663861+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 3.06,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 12,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/.probekit-missing-c0aa26737801101907e49030-backup.sql",
+      "role": "control_2",
+      "collected_at": "2026-10-27T19:35:03.864328+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 2.49,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 13,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/.probekit-missing-fb1755766b0d6578667465ce-config.ini.bak",
+      "role": "control_1",
+      "collected_at": "2026-10-27T19:35:04.064650+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 2.727,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 14,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/config.ini.bak",
+      "role": "reference_1",
+      "collected_at": "2026-10-27T19:35:04.265184+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 2.914,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 15,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/config.ini.bak",
+      "role": "reference_2",
+      "collected_at": "2026-10-27T19:35:04.465730+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 2.846,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 16,
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/.probekit-missing-04651d32e836de67f72d4dc2-config.ini.bak",
+      "role": "control_2",
+      "collected_at": "2026-10-27T19:35:04.666694+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 43,
+      "body_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369",
+      "elapsed_ms": 2.852,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "0d448b10c2076e3496e651a5d379debcd7301d97bcf53ba20c25482c69941369"
+      },
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "findings": [],
+  "exposure_results": [
+    {
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/.env",
+      "profile": "config",
+      "expected_kind": "dotenv",
+      "assessment": {
+        "outcome": "not_detected",
+        "checks": {
+          "all_requests_completed": true,
+          "references_http_200": false,
+          "references_stable": true,
+          "controls_stable": true,
+          "controls_negative": true,
+          "content_matches_expected": false,
+          "not_html_or_public_document": false,
+          "different_from_missing_paths": false
+        },
+        "rationale": "Os caminhos testados retornaram acesso bloqueado ou arquivo ausente.",
+        "limitations": [
+          "Confirma acesso e estrutura do artefato; não comprova que valores são segredos válidos ou que o arquivo deva ser privado.",
+          "Catálogo e formatos limitados; não descompacta arquivos, não executa conteúdo e não testa outros diretórios.",
+          "Critério não satisfeito: references_http_200",
+          "Critério não satisfeito: content_matches_expected",
+          "Critério não satisfeito: not_html_or_public_document",
+          "Critério não satisfeito: different_from_missing_paths"
+        ],
+        "parameter": null,
+        "context": "file_exposure"
+      },
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/config.ini",
+      "profile": "config",
+      "expected_kind": "ini",
+      "assessment": {
+        "outcome": "not_detected",
+        "checks": {
+          "all_requests_completed": true,
+          "references_http_200": false,
+          "references_stable": true,
+          "controls_stable": true,
+          "controls_negative": true,
+          "content_matches_expected": false,
+          "not_html_or_public_document": false,
+          "different_from_missing_paths": false
+        },
+        "rationale": "Os caminhos testados retornaram acesso bloqueado ou arquivo ausente.",
+        "limitations": [
+          "Confirma acesso e estrutura do artefato; não comprova que valores são segredos válidos ou que o arquivo deva ser privado.",
+          "Catálogo e formatos limitados; não descompacta arquivos, não executa conteúdo e não testa outros diretórios.",
+          "Critério não satisfeito: references_http_200",
+          "Critério não satisfeito: content_matches_expected",
+          "Critério não satisfeito: not_html_or_public_document",
+          "Critério não satisfeito: different_from_missing_paths"
+        ],
+        "parameter": null,
+        "context": "file_exposure"
+      },
+      "evidence_request_ids": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/backup.sql",
+      "profile": "backup",
+      "expected_kind": "sql_backup",
+      "assessment": {
+        "outcome": "not_detected",
+        "checks": {
+          "all_requests_completed": true,
+          "references_http_200": false,
+          "references_stable": true,
+          "controls_stable": true,
+          "controls_negative": true,
+          "content_matches_expected": false,
+          "not_html_or_public_document": false,
+          "different_from_missing_paths": false
+        },
+        "rationale": "Os caminhos testados retornaram acesso bloqueado ou arquivo ausente.",
+        "limitations": [
+          "Confirma acesso e estrutura do artefato; não comprova que valores são segredos válidos ou que o arquivo deva ser privado.",
+          "Catálogo e formatos limitados; não descompacta arquivos, não executa conteúdo e não testa outros diretórios.",
+          "Critério não satisfeito: references_http_200",
+          "Critério não satisfeito: content_matches_expected",
+          "Critério não satisfeito: not_html_or_public_document",
+          "Critério não satisfeito: different_from_missing_paths"
+        ],
+        "parameter": null,
+        "context": "file_exposure"
+      },
+      "evidence_request_ids": [
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8005/exposure-lab/blocked/config.ini.bak",
+      "profile": "backup",
+      "expected_kind": "config_backup",
+      "assessment": {
+        "outcome": "not_detected",
+        "checks": {
+          "all_requests_completed": true,
+          "references_http_200": false,
+          "references_stable": true,
+          "controls_stable": true,
+          "controls_negative": true,
+          "content_matches_expected": false,
+          "not_html_or_public_document": false,
+          "different_from_missing_paths": false
+        },
+        "rationale": "Os caminhos testados retornaram acesso bloqueado ou arquivo ausente.",
+        "limitations": [
+          "Confirma acesso e estrutura do artefato; não comprova que valores são segredos válidos ou que o arquivo deva ser privado.",
+          "Catálogo e formatos limitados; não descompacta arquivos, não executa conteúdo e não testa outros diretórios.",
+          "Critério não satisfeito: references_http_200",
+          "Critério não satisfeito: content_matches_expected",
+          "Critério não satisfeito: not_html_or_public_document",
+          "Critério não satisfeito: different_from_missing_paths"
+        ],
+        "parameter": null,
+        "context": "file_exposure"
+      },
+      "evidence_request_ids": [
+        13,
+        14,
+        15,
+        16
+      ]
+    }
+  ],
+  "assessment": {
+    "outcome": "not_detected",
+    "checks": {},
+    "rationale": "Resumo; consulte exposure_results para cada arquivo.",
+    "limitations": [
+      "http://127.0.0.1:8005/exposure-lab/blocked/.env: not_detected",
+      "http://127.0.0.1:8005/exposure-lab/blocked/config.ini: not_detected",
+      "http://127.0.0.1:8005/exposure-lab/blocked/backup.sql: not_detected",
+      "http://127.0.0.1:8005/exposure-lab/blocked/config.ini.bak: not_detected"
+    ],
+    "parameter": null,
+    "context": "file_exposure"
+  },
+  "parameter_results": []
+}

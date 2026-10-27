@@ -5,6 +5,8 @@ parâmetros GET e executar o detector SQLi existente. A CLI anterior, o comando
 `discover` e os critérios de confirmação continuam disponíveis. Este documento
 registra a etapa 6, que não incluía XSS. A [etapa 7](XSS_REFLETIDO.md) acrescentou
 `--modules sqli xss` e confirmação XSS opcional, preservando este fluxo padrão.
+A [etapa 8](EXPOSICAO_ARQUIVOS.md) acrescenta `exposure` com perfis limitados,
+evidências de arquivos e o mesmo orçamento global.
 
 ## Fluxo e orçamento
 

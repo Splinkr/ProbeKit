@@ -8,7 +8,8 @@ payloads de ataque. Na etapa de descoberta, a lógica de confirmação SQLi não
 foi alterada. A generalização posterior está documentada na
 [etapa 5](SQLI_GENERALIZADO.md). O fluxo integrado está na
 [etapa 6](SCAN_INTEGRADO.md); a [etapa 7](XSS_REFLETIDO.md) acrescentou XSS e
-elevou o total atual a 286 testes. Este roteiro continua válido.
+a [etapa 8](EXPOSICAO_ARQUIVOS.md), exposição de arquivos. A suíte atual tem
+344 testes. Este roteiro continua válido.
 
 ## Demonstração no Windows 11
 

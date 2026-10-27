@@ -1,8 +1,9 @@
-# WebVuln Scanner
+# ProbeKit (WebVuln Scanner)
 
 Ferramenta CLI em Python para o trabalho de SIN 451 — Segurança da Informação
 (UFV). Inclui referências HTTP, descoberta HTML, SQLi e XSS refletido por
-parâmetro GET, com validação em laboratórios locais e Juice Shop.
+parâmetro GET e exposição de arquivos, com validação em laboratórios locais
+e Juice Shop.
 
 ## Ambiente
 
@@ -35,6 +36,29 @@ fica em `lab/` e escuta em `127.0.0.1:3000`. Consulte
 [as instruções do laboratório](lab/README.md) para execução em segundo plano.
 
 ## Executar
+
+Para demonstrar os três módulos no Windows 11, inicie o laboratório em um
+PowerShell e mantenha-o aberto:
+
+```powershell
+Set-Location -LiteralPath 'C:\Pessoal\Portfolio\SIN451'
+.\.venv\Scripts\python.exe -m experiments.sqlite_control --port 8005
+```
+
+Em outro PowerShell, na mesma pasta:
+
+```powershell
+.\.venv\Scripts\python.exe main.py scan http://127.0.0.1:8005/probekit-lab --modules sqli xss exposure --exposure-profiles config backup --xss-browser --max-requests 100 --output reports/exposure-demo/three-modules.json
+.\.venv\Scripts\python.exe main.py http://127.0.0.1:8005/ --module exposure --exposure-profiles config backup --max-requests 16 --output reports/exposure-demo/files.json
+```
+
+Na execução real, o fluxo usou **92/100 GETs** e confirmou SQLi, XSS e dois
+arquivos fictícios. Arquivo bloqueado, documento público e páginas de fallback
+não foram confirmados. O [roteiro exposure](docs/EXPOSICAO_ARQUIVOS.md) traz
+perfis, controles negativos, critérios, evidências e limitações. São no máximo
+cinco caminhos de um catálogo fechado, sem conteúdo dos arquivos no JSON.
+`--xss-browser` requer Node.js e Edge/Chrome locais; sem confirmação no
+navegador, a reflexão executável permanece suspeita.
 
 Para descobrir endpoints e executar SQLi a partir de uma URL inicial:
 
@@ -155,12 +179,16 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
   entre aspas em LIKE ou igualdade, com confirmação booleana auxiliada por erro;
   não cobre SQLi numérica, temporal ou UNION e não tem garantia universal.
   A descoberta HTML é um comando separado e fica na mesma origem loopback.
-  Não há autenticação ou exposição de arquivos.
+  Não há autenticação.
   Não há opção para liberar destinos externos.
 - XSS refletido distingue reflexão inerte, suspeita e execução confirmada no
   replay isolado. Não cobre XSS armazenado, DOM XSS ou todos os eventos/contextos.
   JSON refletido não é prova de execução. Um navegador indisponível não produz
   confirmação; as limitações ficam no relatório.
+- Exposure usa catálogo pequeno e controles inexistentes, em um diretório-base
+  configurável, depois dos parâmetros no fluxo integrado. Confirma acesso e
+  estrutura do artefato, sem verificar validade de segredos ou sua política de
+  privacidade. Não cobre todos os nomes/formatos e não executa arquivos.
 
 ## Arquitetura e verificação
 
@@ -184,8 +212,13 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 | `scanner/query.py` | Manipulação GET genérica para XSS |
 | `scanner/xss_analysis.py` | Contexto de reflexão, escape e classificação XSS |
 | `scanner/xss_browser.py` e `scripts/confirm-xss.mjs` | Replay isolado e callbacks reais com rede bloqueada |
+| `scanner/modules/exposure.py` | Execução independente da verificação de arquivos |
+| `scanner/exposure_profiles.py` | Catálogo fechado, diretório-base e controles inexistentes |
+| `scanner/exposure_analysis.py` | Estrutura de conteúdo, fallback, estabilidade e classificação |
+| `scanner/exposure_models.py` | Evidências de exposição sem corpo, chaves ou valores |
 | `experiments/sqlite_control.py` | Controles SQLite e página `/scan-lab` para o fluxo completo |
 | `experiments/xss_lab.py` | Exemplos de reflexão, escape, atributo, script, JSON e CSP |
+| `experiments/exposure_lab.py` | Configuração e backup fictícios, bloqueio, fallback, erro e arquivo público |
 | `experiments/run_control.py` | Repetições e métricas do experimento |
 | `experiments/run_general_sqli.py` | Matriz por nome de parâmetro, formato e contexto |
 | `experiments/html_discovery.py` | Aplicação HTML local para demonstrar descoberta |
@@ -195,8 +228,8 @@ Ela não confirma vulnerabilidade e não é confundida com falha de conexão.
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-A suíte passou em **286 testes** e inclui fluxo integrado, orçamento, interrupção, descoberta HTML, HTTP,
-escopo local, SQLi, XSS e confirmações reais em navegador isolado.
+A suíte passou em **344 testes** e inclui fluxo integrado, orçamento, interrupção, descoberta HTML, HTTP,
+escopo local, SQLi, XSS, exposure, checkpoints Windows e confirmações reais em navegador isolado.
 O resultado atual e a contagem estão em [docs/TESTES.md](docs/TESTES.md).
 Ela não depende de sites públicos ou do Juice Shop. Organização, comandos e
 resultado desta execução estão em [docs/TESTES.md](docs/TESTES.md). A validação

@@ -1,0 +1,698 @@
+{
+  "schema_version": "1.0",
+  "mode": "exposure",
+  "target": "http://127.0.0.1:8005/",
+  "target_source": "manual",
+  "started_at": "2026-10-27T19:34:51.030267+00:00",
+  "finished_at": "2026-10-27T19:34:54.042904+00:00",
+  "settings": {
+    "samples": 2,
+    "scope": "same_origin_loopback",
+    "follow_redirects": false,
+    "store_content": false,
+    "store_key_names": false,
+    "store_values": false,
+    "profiles": [
+      "config",
+      "backup"
+    ],
+    "max_requests": 16,
+    "timeout_seconds": 5.0,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "planned_requests": 16
+  },
+  "summary": {
+    "reachable": true,
+    "status": "completed",
+    "requests_attempted": 16,
+    "responses_received": 16,
+    "errors": 0,
+    "files_analyzed": 4,
+    "findings": 2
+  },
+  "responses": [
+    {
+      "request_id": 1,
+      "url": "http://127.0.0.1:8005/.probekit-missing-0042423a3cb5cb0407210e28-.env",
+      "role": "control_1",
+      "collected_at": "2026-10-27T19:34:51.030587+00:00",
+      "status_code": 404,
+      "content_type": "application/json",
+      "size_bytes": 50,
+      "body_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a",
+      "elapsed_ms": 4.137,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 2,
+      "url": "http://127.0.0.1:8005/.env",
+      "role": "reference_1",
+      "collected_at": "2026-10-27T19:34:51.230966+00:00",
+      "status_code": 200,
+      "content_type": "text/plain",
+      "size_bytes": 111,
+      "body_sha256": "ee09761101375305ba768c0136241e2707f8873e2ad8b9040ade3ad074bf6326",
+      "elapsed_ms": 3.2,
+      "features": {
+        "kind": "dotenv",
+        "strong_signature": true,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 3,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": true,
+          "database_setting": true,
+          "application_setting": true,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "92732026bf04fa2b689f6efdcaa7fa93dc514115a3ff3265aed9cfc025635711"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 3,
+      "url": "http://127.0.0.1:8005/.env",
+      "role": "reference_2",
+      "collected_at": "2026-10-27T19:34:51.431324+00:00",
+      "status_code": 200,
+      "content_type": "text/plain",
+      "size_bytes": 111,
+      "body_sha256": "ee09761101375305ba768c0136241e2707f8873e2ad8b9040ade3ad074bf6326",
+      "elapsed_ms": 2.7,
+      "features": {
+        "kind": "dotenv",
+        "strong_signature": true,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 3,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": true,
+          "database_setting": true,
+          "application_setting": true,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "92732026bf04fa2b689f6efdcaa7fa93dc514115a3ff3265aed9cfc025635711"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 4,
+      "url": "http://127.0.0.1:8005/.probekit-missing-1e223da1adca96a5e0bbcfab-.env",
+      "role": "control_2",
+      "collected_at": "2026-10-27T19:34:51.631676+00:00",
+      "status_code": 404,
+      "content_type": "application/json",
+      "size_bytes": 50,
+      "body_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a",
+      "elapsed_ms": 2.325,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 5,
+      "url": "http://127.0.0.1:8005/.probekit-missing-28a3de95275129c9de21c42d-config.ini",
+      "role": "control_1",
+      "collected_at": "2026-10-27T19:34:51.832189+00:00",
+      "status_code": 404,
+      "content_type": "application/json",
+      "size_bytes": 50,
+      "body_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a",
+      "elapsed_ms": 4.293,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 6,
+      "url": "http://127.0.0.1:8005/config.ini",
+      "role": "reference_1",
+      "collected_at": "2026-10-27T19:34:52.032691+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 38,
+      "body_sha256": "51dd72382c1f836e5855a923b63faf9ef1b971b829ac4ef6c2120c31a5542f79",
+      "elapsed_ms": 11.66,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "51dd72382c1f836e5855a923b63faf9ef1b971b829ac4ef6c2120c31a5542f79"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 7,
+      "url": "http://127.0.0.1:8005/config.ini",
+      "role": "reference_2",
+      "collected_at": "2026-10-27T19:34:52.233007+00:00",
+      "status_code": 403,
+      "content_type": "text/plain",
+      "size_bytes": 38,
+      "body_sha256": "51dd72382c1f836e5855a923b63faf9ef1b971b829ac4ef6c2120c31a5542f79",
+      "elapsed_ms": 17.53,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "51dd72382c1f836e5855a923b63faf9ef1b971b829ac4ef6c2120c31a5542f79"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 8,
+      "url": "http://127.0.0.1:8005/.probekit-missing-1c1c08cecfa9c308a7d21e71-config.ini",
+      "role": "control_2",
+      "collected_at": "2026-10-27T19:34:52.433398+00:00",
+      "status_code": 404,
+      "content_type": "application/json",
+      "size_bytes": 50,
+      "body_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a",
+      "elapsed_ms": 115.647,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 9,
+      "url": "http://127.0.0.1:8005/.probekit-missing-b04a1e0fa801b919a268b91f-backup.sql",
+      "role": "control_1",
+      "collected_at": "2026-10-27T19:34:52.633536+00:00",
+      "status_code": 404,
+      "content_type": "application/json",
+      "size_bytes": 50,
+      "body_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a",
+      "elapsed_ms": 10.995,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 10,
+      "url": "http://127.0.0.1:8005/backup.sql",
+      "role": "reference_1",
+      "collected_at": "2026-10-27T19:34:52.833818+00:00",
+      "status_code": 200,
+      "content_type": "text/plain",
+      "size_bytes": 165,
+      "body_sha256": "81de57bd24ec199d48813a4b166c2c9ca61e26bc509b3b154397e18e95261757",
+      "elapsed_ms": 5.531,
+      "features": {
+        "kind": "sql_backup",
+        "strong_signature": true,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": true,
+          "sql_data_statement": true,
+          "git_reference": false
+        },
+        "normalized_sha256": "1dbb1572f1936b0934d59010bf813de8657e45476a63b0982ad2553a8c192164"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 11,
+      "url": "http://127.0.0.1:8005/backup.sql",
+      "role": "reference_2",
+      "collected_at": "2026-10-27T19:34:53.034005+00:00",
+      "status_code": 200,
+      "content_type": "text/plain",
+      "size_bytes": 165,
+      "body_sha256": "81de57bd24ec199d48813a4b166c2c9ca61e26bc509b3b154397e18e95261757",
+      "elapsed_ms": 3.166,
+      "features": {
+        "kind": "sql_backup",
+        "strong_signature": true,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": true,
+          "sql_data_statement": true,
+          "git_reference": false
+        },
+        "normalized_sha256": "1dbb1572f1936b0934d59010bf813de8657e45476a63b0982ad2553a8c192164"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 12,
+      "url": "http://127.0.0.1:8005/.probekit-missing-90188845dc8cfb3261688ae6-backup.sql",
+      "role": "control_2",
+      "collected_at": "2026-10-27T19:34:53.234351+00:00",
+      "status_code": 404,
+      "content_type": "application/json",
+      "size_bytes": 50,
+      "body_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a",
+      "elapsed_ms": 3.586,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 13,
+      "url": "http://127.0.0.1:8005/.probekit-missing-1151d0e7e616fab12234f897-config.ini.bak",
+      "role": "control_1",
+      "collected_at": "2026-10-27T19:34:53.434520+00:00",
+      "status_code": 404,
+      "content_type": "application/json",
+      "size_bytes": 50,
+      "body_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a",
+      "elapsed_ms": 4.584,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 14,
+      "url": "http://127.0.0.1:8005/config.ini.bak",
+      "role": "reference_1",
+      "collected_at": "2026-10-27T19:34:53.634700+00:00",
+      "status_code": 200,
+      "content_type": "text/plain",
+      "size_bytes": 84,
+      "body_sha256": "6fd3e144f724437cfd8b9d6e3b0cdbc0c858904b4d08b0e9e5dbcbd086fc3e25",
+      "elapsed_ms": 3.486,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": true,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "bd150b5c0e080878d2c932373f5b8518d306d9f075a639c45d21b3f52dde147a"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 15,
+      "url": "http://127.0.0.1:8005/config.ini.bak",
+      "role": "reference_2",
+      "collected_at": "2026-10-27T19:34:53.835162+00:00",
+      "status_code": 200,
+      "content_type": "text/plain",
+      "size_bytes": 84,
+      "body_sha256": "6fd3e144f724437cfd8b9d6e3b0cdbc0c858904b4d08b0e9e5dbcbd086fc3e25",
+      "elapsed_ms": 4.083,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": true,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "bd150b5c0e080878d2c932373f5b8518d306d9f075a639c45d21b3f52dde147a"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 16,
+      "url": "http://127.0.0.1:8005/.probekit-missing-96d49c994d7bfb82129783dd-config.ini.bak",
+      "role": "control_2",
+      "collected_at": "2026-10-27T19:34:54.035775+00:00",
+      "status_code": 404,
+      "content_type": "application/json",
+      "size_bytes": 50,
+      "body_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a",
+      "elapsed_ms": 6.763,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "303a4048e1e7f609b17c391a3fbc02652110ccd2404122a98dc25969d6c5a58a"
+      },
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "findings": [
+    {
+      "endpoint": "http://127.0.0.1:8005/.env",
+      "category": "exposure",
+      "title": "Arquivo potencialmente sensível acessível",
+      "confidence": "high",
+      "status": "confirmed",
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "rationale": "Arquivo em caminho de risco acessível em referências estáveis, com estrutura compatível, sem HTML e distinto dos controles inexistentes.",
+      "potential_impact": "Acesso público a configuração, backup ou metadados de repositório; validade de segredos não avaliada.",
+      "recommended_mitigation": "Remover artefatos privados da raiz pública, bloquear acesso e revisar o processo de publicação.",
+      "parameter": null
+    },
+    {
+      "endpoint": "http://127.0.0.1:8005/backup.sql",
+      "category": "exposure",
+      "title": "Arquivo potencialmente sensível acessível",
+      "confidence": "high",
+      "status": "confirmed",
+      "evidence_request_ids": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "rationale": "Arquivo em caminho de risco acessível em referências estáveis, com estrutura compatível, sem HTML e distinto dos controles inexistentes.",
+      "potential_impact": "Acesso público a configuração, backup ou metadados de repositório; validade de segredos não avaliada.",
+      "recommended_mitigation": "Remover artefatos privados da raiz pública, bloquear acesso e revisar o processo de publicação.",
+      "parameter": null
+    }
+  ],
+  "exposure_results": [
+    {
+      "url": "http://127.0.0.1:8005/.env",
+      "profile": "config",
+      "expected_kind": "dotenv",
+      "assessment": {
+        "outcome": "confirmed",
+        "checks": {
+          "all_requests_completed": true,
+          "references_http_200": true,
+          "references_stable": true,
+          "controls_stable": true,
+          "controls_negative": true,
+          "content_matches_expected": true,
+          "not_html_or_public_document": true,
+          "different_from_missing_paths": true
+        },
+        "rationale": "Arquivo em caminho de risco acessível em referências estáveis, com estrutura compatível, sem HTML e distinto dos controles inexistentes.",
+        "limitations": [
+          "Confirma acesso e estrutura do artefato; não comprova que valores são segredos válidos ou que o arquivo deva ser privado.",
+          "Catálogo e formatos limitados; não descompacta arquivos, não executa conteúdo e não testa outros diretórios."
+        ],
+        "parameter": null,
+        "context": "file_exposure"
+      },
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8005/config.ini",
+      "profile": "config",
+      "expected_kind": "ini",
+      "assessment": {
+        "outcome": "not_detected",
+        "checks": {
+          "all_requests_completed": true,
+          "references_http_200": false,
+          "references_stable": true,
+          "controls_stable": true,
+          "controls_negative": true,
+          "content_matches_expected": false,
+          "not_html_or_public_document": false,
+          "different_from_missing_paths": true
+        },
+        "rationale": "Os caminhos testados retornaram acesso bloqueado ou arquivo ausente.",
+        "limitations": [
+          "Confirma acesso e estrutura do artefato; não comprova que valores são segredos válidos ou que o arquivo deva ser privado.",
+          "Catálogo e formatos limitados; não descompacta arquivos, não executa conteúdo e não testa outros diretórios.",
+          "Critério não satisfeito: references_http_200",
+          "Critério não satisfeito: content_matches_expected",
+          "Critério não satisfeito: not_html_or_public_document"
+        ],
+        "parameter": null,
+        "context": "file_exposure"
+      },
+      "evidence_request_ids": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8005/backup.sql",
+      "profile": "backup",
+      "expected_kind": "sql_backup",
+      "assessment": {
+        "outcome": "confirmed",
+        "checks": {
+          "all_requests_completed": true,
+          "references_http_200": true,
+          "references_stable": true,
+          "controls_stable": true,
+          "controls_negative": true,
+          "content_matches_expected": true,
+          "not_html_or_public_document": true,
+          "different_from_missing_paths": true
+        },
+        "rationale": "Arquivo em caminho de risco acessível em referências estáveis, com estrutura compatível, sem HTML e distinto dos controles inexistentes.",
+        "limitations": [
+          "Confirma acesso e estrutura do artefato; não comprova que valores são segredos válidos ou que o arquivo deva ser privado.",
+          "Catálogo e formatos limitados; não descompacta arquivos, não executa conteúdo e não testa outros diretórios."
+        ],
+        "parameter": null,
+        "context": "file_exposure"
+      },
+      "evidence_request_ids": [
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8005/config.ini.bak",
+      "profile": "backup",
+      "expected_kind": "config_backup",
+      "assessment": {
+        "outcome": "not_detected",
+        "checks": {
+          "all_requests_completed": true,
+          "references_http_200": true,
+          "references_stable": true,
+          "controls_stable": true,
+          "controls_negative": true,
+          "content_matches_expected": false,
+          "not_html_or_public_document": false,
+          "different_from_missing_paths": true
+        },
+        "rationale": "Não há assinatura estrutural suficiente do tipo de arquivo sensível esperado.",
+        "limitations": [
+          "Confirma acesso e estrutura do artefato; não comprova que valores são segredos válidos ou que o arquivo deva ser privado.",
+          "Catálogo e formatos limitados; não descompacta arquivos, não executa conteúdo e não testa outros diretórios.",
+          "Critério não satisfeito: content_matches_expected",
+          "Critério não satisfeito: not_html_or_public_document"
+        ],
+        "parameter": null,
+        "context": "file_exposure"
+      },
+      "evidence_request_ids": [
+        13,
+        14,
+        15,
+        16
+      ]
+    }
+  ],
+  "assessment": {
+    "outcome": "confirmed",
+    "checks": {},
+    "rationale": "Resumo; consulte exposure_results para cada arquivo.",
+    "limitations": [
+      "http://127.0.0.1:8005/.env: confirmed",
+      "http://127.0.0.1:8005/config.ini: not_detected",
+      "http://127.0.0.1:8005/backup.sql: confirmed",
+      "http://127.0.0.1:8005/config.ini.bak: not_detected"
+    ],
+    "parameter": null,
+    "context": "file_exposure"
+  },
+  "parameter_results": []
+}
