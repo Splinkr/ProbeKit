@@ -5,7 +5,7 @@ from urllib.parse import urlsplit
 
 from scanner.discovery import crawl, new_discovery_report, normalize_url, origin
 from scanner.http_client import HttpClient, HttpClientError
-from scanner.models import IntegratedScanReport, ScanReport, utc_now
+from scanner.models import ExecutionFailure, IntegratedScanReport, ScanReport, utc_now
 from scanner.modules.sqli import run_detection
 from scanner.modules import exposure, xss
 from scanner.sqli_plans import CONTEXTS, EXTRA_REQUESTS, available_parameters, build_probe_plan
@@ -34,6 +34,9 @@ class ScopedHttpClient(HttpClient):
             raise
         except KeyboardInterrupt:
             entry.update(status="interrupted")
+            raise
+        except Exception:
+            entry.update(status="failed", error="execution_error")
             raise
         else:
             entry.update(status="received", status_code=response.status_code)
@@ -154,14 +157,41 @@ def run_scan(
         "Ctrl+C preserva o que foi coletado quando possível; encerramento forçado pode perder o último parâmetro.",
     ])
 
-    def save():
-        if checkpoint:
-            checkpoint(report)
+    checkpoint_failed = False
+    persistence_error = None
+    completed_normally = False
+    active_analysis = None
 
-    with ScopedHttpClient(report.target, report.requests, timeout=timeout, max_requests=max_requests,
-                          interval=interval, max_body_bytes=max_body_bytes) as client:
-        save()  # Também detecta destino de saída inválido antes do tráfego.
-        try:
+    def save():
+        nonlocal checkpoint_failed
+        if checkpoint:
+            try:
+                checkpoint(report)
+            except Exception as error:
+                checkpoint_failed = True
+                if report.status != "interrupted":
+                    report.status = "incomplete"
+                if "checkpoint_error" not in report.stop_reasons:
+                    report.stop_reasons.append("checkpoint_error")
+                if isinstance(error, OSError):
+                    raise
+                # Falha de serialização/callback também não é erro de argumentos.
+                raise OSError("Falha ao gravar o checkpoint.") from error
+
+    def stop_targets(reason):
+        for target in report.targets:
+            if target["status"] in {"pending", "running"}:
+                if target["status"] == "running":
+                    target["status"] = "interrupted" if reason == "user_interrupt" else "failed"
+                else:
+                    target["status"] = "skipped"
+                report.ignored_targets.append({**target, "reason": reason})
+
+    client = ScopedHttpClient(report.target, report.requests, timeout=timeout, max_requests=max_requests,
+                              interval=interval, max_body_bytes=max_body_bytes)
+    try:
+        with client:
+            save()  # Também detecta destino de saída inválido antes do tráfego.
             crawl(discovery, client)
             collect_targets(report)
             report.ignored_targets.extend(discovery.ignored_targets)
@@ -185,6 +215,7 @@ def run_scan(
                     "scope": "same_origin_loopback", "planned_requests": required,
                     "max_requests": max_requests, "shared_global_budget": True,
                 }
+                target["status"] = "running"
                 if module == "exposure":
                     analysis = exposure.new_report(target["url"], **analysis_settings)
                     analysis.target_source = "configured_profile"
@@ -193,7 +224,8 @@ def run_scan(
                         mode=module, schema_version="1.2" if module == "sqli" else "1.3",
                         target_source="automatic" if any(source["kind"] != "manual" for source in target["sources"]) else "manual")
                 report.analyses.append(analysis)
-                target["status"] = "running"
+                active_analysis = analysis
+                initial_count = client.request_count
                 try:
                     if module == "sqli":
                         plan = build_probe_plan(target["url"], samples, required, parameter=target["parameter"],
@@ -206,30 +238,65 @@ def run_scan(
                         spec = next(spec for spec in exposure.select_profiles((target["profile"],)) if spec.path == target["file_path"])
                         exposure.run_file(client, analysis, file_settings["exposure_base_url"], spec, samples)
                 finally:
+                    analysis.requests_attempted = client.request_count - initial_count
                     analysis.finished_at = utc_now()
                 target["status"] = "completed"
                 save()
-        except KeyboardInterrupt:
-            report.status = "interrupted"
-            report.stop_reasons.append("user_interrupt")
-            if not report.targets:
+                active_analysis = None
+        completed_normally = True
+    except KeyboardInterrupt:
+        report.status = "interrupted"
+        report.stop_reasons.append("user_interrupt")
+        if not report.targets:
+            try:
                 collect_targets(report)
                 report.ignored_targets.extend(discovery.ignored_targets)
-            for target in report.targets:
-                if target["status"] in {"pending", "running"}:
-                    target["status"] = "interrupted" if target["status"] == "running" else "skipped"
-                    report.ignored_targets.append({**target, "reason": "user_interrupt"})
-        except OSError:
+            except Exception:
+                report.execution_errors.append(ExecutionFailure("discovery"))
+        stop_targets("user_interrupt")
+    except Exception as error:
+        if checkpoint_failed:
+            # Preserva o primeiro erro mesmo se a gravação final também falhar.
+            persistence_error = error
+            stop_targets("checkpoint_error")
+        else:
+            failure = ExecutionFailure(client.phase, getattr(client, "module", None))
+            report.execution_errors.append(failure)
+            if client.phase == "discovery":
+                discovery.execution_errors.append(failure)
+            elif active_analysis is not None:
+                active_analysis.execution_errors.append(failure)
             report.status = "incomplete"
-            report.stop_reasons.append("checkpoint_error")
-            raise
-        finally:
-            report.stop_reasons = list(dict.fromkeys([*report.stop_reasons, *discovery.stop_reasons]))
-            if report.status != "interrupted":
-                failed = report.status == "incomplete" or discovery.errors or any(
-                    analysis.errors or analysis.assessment.outcome == "inconclusive" for analysis in report.analyses
-                )
-                report.status = "incomplete" if failed else "limited" if report.stop_reasons else "completed"
-            report.finished_at = utc_now()
+            report.stop_reasons.append("execution_error")
+            stop_targets("execution_error")
+    finally:
+        report.stop_reasons = list(dict.fromkeys([*report.stop_reasons, *discovery.stop_reasons]))
+        if report.status != "interrupted":
+            failed = not completed_normally or report.status == "incomplete" or discovery.errors or discovery.execution_errors or any(
+                analysis.errors or analysis.execution_errors or analysis.assessment is None
+                or analysis.assessment.outcome == "inconclusive" for analysis in report.analyses
+            )
+            report.status = "incomplete" if failed else "limited" if report.stop_reasons else "completed"
+        report.finished_at = utc_now()
+        try:
             save()
+        except KeyboardInterrupt:
+            report.status = "interrupted"
+            report.stop_reasons = list(dict.fromkeys([*report.stop_reasons, "user_interrupt"]))
+            stop_targets("user_interrupt")
+            try:
+                save()
+            except OSError as error:
+                if persistence_error is None:
+                    persistence_error = error
+        except OSError as error:
+            if persistence_error is None:
+                persistence_error = error
+                # Se a gravação de sucesso falhou, tenta persistir o estado de erro.
+                try:
+                    save()
+                except OSError:
+                    pass
+    if persistence_error is not None:
+        raise persistence_error
     return report

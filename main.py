@@ -82,7 +82,9 @@ def discover_main(argv: list[str]) -> int:
         print(f"Limites atingidos: {', '.join(report.stop_reasons)}")
     print(f"Inventário JSON: {output}")
     print(f"Achados JSON: {findings_path(output)}")
-    return 1 if report.errors else 0
+    for error in report.execution_errors:
+        print(f"Erro [{error.kind}]: {error.message}", file=sys.stderr)
+    return 1 if report.errors or report.execution_errors else 0
 
 
 def scan_main(argv: list[str]) -> int:
@@ -134,6 +136,8 @@ def scan_main(argv: list[str]) -> int:
     print(format_scan_results(report))
     print(f"Relatório consolidado JSON: {destination}")
     print(f"Achados JSON: {findings_path(destination)}")
+    for error in report.execution_errors:
+        print(f"Erro [{error.kind}]: {error.message}", file=sys.stderr)
     return 130 if report.status == "interrupted" else 1 if report.status == "incomplete" else 0
 
 
@@ -230,6 +234,8 @@ def main(argv: list[str] | None = None) -> int:
         )
     for error in report.errors:
         print(f"  Erro [{error.kind}]: {error.message}", file=sys.stderr)
+    for error in report.execution_errors:
+        print(f"  Erro [{error.kind}]: {error.message}", file=sys.stderr)
     if report.assessment:
         print(f"{'Exposure' if args.module == 'exposure' else 'XSS' if args.module == 'xss' else 'SQLi'}: {report.assessment.outcome}")
         print(report.assessment.rationale)
@@ -241,11 +247,13 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  Achado: {finding.status.value}, confiança {finding.confidence.value}; evidências {finding.evidence_request_ids}")
         for limitation in report.assessment.limitations:
             print(f"  {limitation}")
-    else:
+    elif report.mode == "baseline":
         print("Modo referência: diferenças não confirmam vulnerabilidades; nenhum detector foi executado.")
+    else:
+        print("Análise sem classificação; consulte as falhas e evidências parciais no JSON.")
     print(f"Relatório JSON: {output}")
     print(f"Achados JSON: {findings_path(output)}")
-    return 1 if report.errors or (report.assessment and report.assessment.outcome == "inconclusive") or any(
+    return 1 if report.errors or report.execution_errors or (report.assessment and report.assessment.outcome == "inconclusive") or any(
         result.assessment.outcome == "inconclusive" for result in report.parameter_results
     ) or any(
         result.assessment.outcome == "inconclusive" for result in getattr(report, "exposure_results", [])

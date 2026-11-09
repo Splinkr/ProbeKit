@@ -168,7 +168,25 @@ achados deduplicados por módulo/URL/parâmetro/status; repetições unem os IDs
 Sem achados, `findings` é `[]` e as contagens são zero.
 
 O campo `source_report` identifica o JSON técnico ao qual os IDs se referem;
-`scan_status` distingue execução completa, limitada, incompleta ou interrompida.
+`scan_status` mantém o estado legado do relatório técnico. Nos modos diretos,
+`completed` pode indicar coleta concluída com avaliação `inconclusive`; no
+`scan`, a regra legada continua marcando essa avaliação como `incomplete`.
+Os novos campos abaixo separam essas informações sem mudar as versões dos schemas:
+
+- `collection_status`: estado operacional `running`, `completed`, `limited`,
+  `incomplete` ou `interrupted`, independente dos outcomes dos detectores.
+- `analysis_summary`: `applicable`, `evaluations`, contagens em `outcomes` para
+  as cinco classificações e `has_inconclusive`. Conta avaliações individuais,
+  sem duplicar o `assessment` agregado ou inferir avaliações de achados.
+
+Esses campos estão no JSON técnico e no resumo, derivados do mesmo snapshot.
+Baseline e descoberta têm `applicable: false`; um detector sem avaliação tem
+zero avaliações, sem ser considerado negativo. Uma coleta `completed` com
+`has_inconclusive: true` não é uma conclusão de segurança. Uma confirmação
+continua no resumo quando outra avaliação é inconclusiva. Ao converter JSON
+legado sem os campos novos, o resumo calcula as contagens disponíveis e usa
+`collection_status: null`, sem adivinhar o estado operacional.
+
 Os checkpoints atualizam também o resumo: uma lista vazia em execução parcial
 não comprova segurança. O resumo não copia corpos, cookies, cabeçalhos, payloads
 ou conteúdo dos arquivos expostos. Credenciais na URL e fragmentos são removidos;
@@ -186,7 +204,7 @@ As funções de baixo nível `write_json`/`write_json_atomic` continuam gravando
 | Código de saída | Significado |
 | --- | --- |
 | 0 | Execução concluída ou limitada sem erro; consulte resultados e alvos ignorados |
-| 1 | Falha HTTP de transporte/tamanho, gravação ou análise inconclusiva |
+| 1 | Falha HTTP de transporte/tamanho, processamento, gravação ou análise inconclusiva |
 | 2 | Argumentos inválidos ou escopo bloqueado antes da execução |
 | 130 | `scan` interrompido por Ctrl+C, com checkpoint parcial quando possível |
 
@@ -195,6 +213,22 @@ HTTP 4xx/5xx não equivale a falha de transporte e não comprova vulnerabilidade
 O campo `summary.status` do scan distingue `completed`, `limited`,
 `incomplete` e `interrupted`. Código 0 também pode conter suspeitas ou alvos
 ignorados; examine as classificações individuais.
+
+A decodificação de HTML/texto respeita o charset válido informado pelo alvo,
+incluindo UTF-8, Latin-1 e Windows-1252. Charset ausente, desconhecido ou codec
+incompatível com a decodificação usa UTF-8 com substituição; fallback recuperado
+não é erro nem gera nova requisição. JSON e o replay XSS mantêm seus caminhos.
+
+Uma exceção inesperada durante processamento encerra novos alvos e preserva as
+evidências anteriores. O técnico registra `execution_errors` com fase, módulo,
+tipo fixo e mensagem sanitizada, separados de erros HTTP e sem duplicar tentativas.
+No `scan`, o alvo ativo fica `failed`, os seguintes `skipped`, com motivo
+`execution_error`, e o checkpoint final fica `incomplete` quando pode ser gravado.
+Falhas HTTP já tratadas mantêm sua política de continuidade. Ctrl+C mantém o
+tratamento próprio e o código 130; uma falha de finalização não o substitui por
+erro de argumento. Falhas de gravação continuam sendo erros: se o filesystem
+impedir a escrita, a persistência do último estado não é garantida.
+Detalhes e validação: [correções da Fase 1](docs/FASE1_ESTABILIZACAO.md).
 
 ## Arquitetura e limitações reais
 
@@ -237,9 +271,9 @@ arquivos já rastreados nem substitui essa revisão.
 ```
 
 Os testes usam servidores loopback efêmeros e SQLite, sem depender do Juice
-Shop ou de sites públicos. Sete casos usam navegador real e podem ser
+Shop ou de sites públicos. Oito casos usam navegador real e podem ser
 ignorados se Node/navegador não estiverem disponíveis. A contagem e o resultado
-atual estão em [docs/TESTES.md](docs/TESTES.md): 354 testes aprovados nesta etapa,
+atual estão em [docs/TESTES.md](docs/TESTES.md): 451 testes aprovados após a Fase 1,
 sem falhas ou ignorados. Os relatórios históricos em
 `docs/evidencias/` usam somente os laboratórios e foram preservados, inclusive
 tentativas parciais identificadas; novos relatórios locais ficam em `reports/`.

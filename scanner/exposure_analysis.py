@@ -7,6 +7,7 @@ import re
 from urllib.parse import unquote, urlsplit
 
 from scanner.exposure_models import ExposureAssessment, ExposureFeatures, ExposureResponse
+from scanner.decoding import decode_http_body
 
 SAFE_MEDIA = {"text/plain", "text/html", "application/xhtml+xml", "application/json", "application/octet-stream",
               "application/sql", "text/x-sql", "application/x-sql", "text/ini"}
@@ -20,10 +21,7 @@ def observe(response, role):
     header = Message()
     header["Content-Type"] = response.content_type
     mime = header.get_content_type()
-    try:
-        text = response.body.decode(header.get_content_charset() or "utf-8", errors="replace")
-    except LookupError:
-        text = response.body.decode("utf-8", errors="replace")
+    text = decode_http_body(response.body, response.content_type)
     is_html = mime in {"text/html", "application/xhtml+xml"} or bool(HTML.search(text[:4096]))
     public = bool(re.match(r"\s*(?:#\s*)?(?:readme\b|public documentation\b|license\b)", text, re.I))
     error = bool(re.match(r"\s*(?:error\b|not found\b|access denied\b|forbidden\b|404\b|service unavailable\b)", text, re.I)

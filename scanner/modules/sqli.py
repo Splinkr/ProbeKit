@@ -9,10 +9,17 @@ from scanner.sqli_plans import EXTRA_REQUESTS, PAIRS, build_probe_plan, probe_ur
 
 
 def run_detection(client: HttpClient, report: ScanReport, plan) -> None:
+    completed_normally = False
     try:
         _execute_plan(client, report, plan)
+        completed_normally = True
     finally:
-        _finish_detection(report, plan[0].parameter, plan[0].context)
+        try:
+            _finish_detection(report, plan[0].parameter, plan[0].context)
+        except Exception:
+            # Não substitui a falha original ou KeyboardInterrupt por erro ao finalizar.
+            if completed_normally:
+                raise
 
 
 def _execute_plan(client: HttpClient, report: ScanReport, plan) -> None:
@@ -31,12 +38,13 @@ def _execute_plan(client: HttpClient, report: ScanReport, plan) -> None:
             if client.request_count > before:
                 report.errors.append(RequestFailure(client.request_count, request_url, "interrupted", "Análise interrompida pelo usuário."))
             raise
+        # Preserva a resposta recebida mesmo se a extração/comparação falhar.
+        report.responses.append(response)
         report.probes[-1] = observe(planned, response)
         if first_response is not None:
             report.comparisons.append(compare_responses(first_response, response))
         else:
             first_response = response
-        report.responses.append(response)
 
 
 def _finish_detection(report: ScanReport, parameter: str, context: str) -> None:

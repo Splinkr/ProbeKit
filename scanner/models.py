@@ -5,6 +5,8 @@ from datetime import datetime, timezone
 from enum import StrEnum
 from typing import Any, TYPE_CHECKING
 
+from scanner.report_state import with_report_state
+
 if TYPE_CHECKING:
     from scanner.exposure_models import ExposureReport
 
@@ -54,6 +56,14 @@ class RequestFailure:
     kind: str
     message: str
     collected_at: str = field(default_factory=utc_now)
+
+
+@dataclass(frozen=True)
+class ExecutionFailure:
+    phase: str
+    module: str | None = None
+    kind: str = "execution_error"
+    message: str = "Falha inesperada durante o processamento da execução."
 
 
 @dataclass(frozen=True)
@@ -169,13 +179,15 @@ class ScanReport:
     assessment: SqliAssessment | XssAssessment | None = None
     parameter_results: list[ParameterResult] = field(default_factory=list)
     target_source: str = "manual"
+    execution_errors: list[ExecutionFailure] = field(default_factory=list)
+    requests_attempted: int | None = None
 
     @property
     def reachable(self) -> bool:
         return bool(self.responses)
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        return with_report_state({
             "schema_version": self.schema_version,
             "mode": self.mode,
             "target": self.target,
@@ -185,20 +197,21 @@ class ScanReport:
             "settings": self.settings,
             "summary": {
                 "reachable": self.reachable,
-                "status": "completed" if not self.errors else "incomplete",
-                "requests_attempted": len(self.responses) + len(self.errors),
+                "status": "incomplete" if self.errors or self.execution_errors else "completed",
+                "requests_attempted": self.requests_attempted if self.requests_attempted is not None else len(self.responses) + len(self.errors),
                 "responses_received": len(self.responses),
                 "errors": len(self.errors),
                 "findings": len(self.findings),
             },
             "responses": [response.to_dict() for response in self.responses],
             "errors": [asdict(error) for error in self.errors],
+            "execution_errors": [asdict(error) for error in self.execution_errors],
             "comparisons": [asdict(comparison) for comparison in self.comparisons],
             "findings": [asdict(finding) for finding in self.findings],
             "probes": [asdict(probe) for probe in self.probes],
             "assessment": asdict(self.assessment) if self.assessment else None,
             "parameter_results": [asdict(result) for result in self.parameter_results],
-        }
+        })
 
 
 @dataclass(frozen=True)
@@ -246,14 +259,15 @@ class DiscoveryReport:
     finished_at: str | None = None
     candidates: list[dict[str, Any]] = field(default_factory=list)
     ignored_targets: list[dict[str, Any]] = field(default_factory=list)
+    execution_errors: list[ExecutionFailure] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        return with_report_state({
             "schema_version": "1.0", "mode": "discover", "target": self.target,
             "target_source": "manual", "started_at": self.started_at, "finished_at": self.finished_at,
             "settings": self.settings,
             "summary": {
-                "status": "incomplete" if self.errors else "limited" if self.stop_reasons else "completed",
+                "status": "incomplete" if self.errors or self.execution_errors else "limited" if self.stop_reasons else "completed",
                 "reachable": bool(self.pages), "endpoints": len(self.endpoints),
                 "pages_fetched": len(self.pages), "requests_attempted": self.requests_attempted,
                 "errors": len(self.errors), "queued_remaining": self.queued_remaining,
@@ -261,8 +275,9 @@ class DiscoveryReport:
             "stop_reasons": self.stop_reasons, "skipped": self.skipped,
             "endpoints": [endpoint.to_dict() for endpoint in self.endpoints],
             "pages": self.pages, "errors": [asdict(error) for error in self.errors],
+            "execution_errors": [asdict(error) for error in self.execution_errors],
             "candidates": self.candidates, "ignored_targets": self.ignored_targets,
-        }
+        })
 
 
 @dataclass
@@ -279,6 +294,7 @@ class IntegratedScanReport:
     limitations: list[str] = field(default_factory=list)
     status: str = "running"
     finished_at: str | None = None
+    execution_errors: list[ExecutionFailure] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         results = [
@@ -287,7 +303,7 @@ class IntegratedScanReport:
         ]
         files = [{"module": "exposure", **asdict(result)}
                  for analysis in self.analyses for result in getattr(analysis, "exposure_results", [])]
-        return {
+        return with_report_state({
             "schema_version": "1.0", "mode": "scan", "initial_url": self.target,
             "started_at": self.started_at, "finished_at": self.finished_at,
             "settings": self.settings,
@@ -307,4 +323,5 @@ class IntegratedScanReport:
             "analyses": [analysis.to_dict() for analysis in self.analyses],
             "requests": self.requests, "ignored_targets": self.ignored_targets,
             "stop_reasons": self.stop_reasons, "limitations": self.limitations,
-        }
+            "execution_errors": [asdict(error) for error in self.execution_errors],
+        })

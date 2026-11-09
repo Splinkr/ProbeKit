@@ -1,6 +1,13 @@
 # Suíte automatizada reconstruída
 
-Estado atual após a etapa 9: **354 testes aprovados** (344 anteriores e dez novos),
+Estado atual após a Fase 1 de estabilização: **451 testes aprovados**, sem
+falhas, erros ou ignorados, em 69,29 segundos. São os 390 casos existentes e
+61 regressões novas para R01/R02; oito casos existentes executaram navegador
+real. Contratos anteriores preservados. Comandos, reprodução inicial e
+compatibilidade JSON: [Fase 1](FASE1_ESTABILIZACAO.md). O JUnit desta rodada fica
+localmente em `reports/phase1-all-tests.xml`.
+
+Registro histórico após a etapa 9: **354 testes aprovados** (344 anteriores e dez novos),
 sem falhas, erros ou ignorados. Resultado real: 72,75 segundos em uma instalação
 limpa extraída por `git archive`, com venv nova em caminho com espaços.
 Dependências consistentes. Procedimento e evidências em [PUBLICACAO.md](PUBLICACAO.md).

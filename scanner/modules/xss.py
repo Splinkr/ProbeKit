@@ -5,7 +5,7 @@ import secrets
 from urllib.parse import parse_qsl, urlsplit
 
 from scanner.http_client import HttpClient, HttpClientError
-from scanner.models import (Confidence, Finding, FindingStatus, ParameterResult, RequestFailure,
+from scanner.models import (Confidence, ExecutionFailure, Finding, FindingStatus, ParameterResult, RequestFailure,
                             ScanReport, XssProbeEvidence, utc_now)
 from scanner.query import replace_parameter, select_parameters
 from scanner.targets import validate_target
@@ -54,6 +54,7 @@ def run_detection(client, report, plan, callback, *, browser=False):
     proof = {"status": "not_requested", "confirmed": False}
     current_responses = {}
     no_reflection = False
+    completed_normally = False
     try:
         for planned in plan:
             if no_reflection and (planned.role.startswith("attack_") or planned.role == "escape"):
@@ -84,20 +85,29 @@ def run_detection(client, report, plan, callback, *, browser=False):
         elif browser:
             proof = {"status": "not_needed", "confirmed": False,
                      "reason": "Sem candidato HTML executável com controles completos."}
+        completed_normally = True
     finally:
-        assessment = assess_xss(report, parameter, callback, proof, len(plan))
-        report.parameter_results.append(ParameterResult(parameter, "reflected_xss", assessment,
-            [probe.request_id for probe in report.probes if probe.parameter == parameter]))
-        report.assessment = assessment
-        if assessment.outcome in {"suspected", "confirmed"}:
-            confirmed = assessment.outcome == "confirmed"
-            report.findings.append(Finding(
-                report.target, "xss", f"{'XSS refletido confirmado' if confirmed else 'Possível XSS refletido'} em {parameter}",
-                Confidence.HIGH if confirmed else Confidence.LOW,
-                FindingStatus.CONFIRMED if confirmed else FindingStatus.SUSPECTED,
-                [response.request_id for response in current_responses.values()], assessment.rationale,
-                "Execução de JavaScript no contexto da página. Nenhum dado privado foi acessado.",
-                "Aplicar escape conforme o contexto; evitar interpolar entrada em HTML/JavaScript e usar CSP como defesa adicional.", parameter))
+        try:
+            _finish_detection(report, parameter, callback, proof, len(plan), current_responses)
+        except Exception:
+            if completed_normally:
+                raise
+
+
+def _finish_detection(report, parameter, callback, proof, expected_count, current_responses):
+    assessment = assess_xss(report, parameter, callback, proof, expected_count)
+    report.parameter_results.append(ParameterResult(parameter, "reflected_xss", assessment,
+        [probe.request_id for probe in report.probes if probe.parameter == parameter]))
+    report.assessment = assessment
+    if assessment.outcome in {"suspected", "confirmed"}:
+        confirmed = assessment.outcome == "confirmed"
+        report.findings.append(Finding(
+            report.target, "xss", f"{'XSS refletido confirmado' if confirmed else 'Possível XSS refletido'} em {parameter}",
+            Confidence.HIGH if confirmed else Confidence.LOW,
+            FindingStatus.CONFIRMED if confirmed else FindingStatus.SUSPECTED,
+            [response.request_id for response in current_responses.values()], assessment.rationale,
+            "Execução de JavaScript no contexto da página. Nenhum dado privado foi acessado.",
+            "Aplicar escape conforme o contexto; evitar interpolar entrada em HTML/JavaScript e usar CSP como defesa adicional.", parameter))
 
 
 def run_xss(url, *, samples=2, timeout=5.0, max_requests=10, interval=0.2, max_body_bytes=1_048_576,
@@ -110,15 +120,21 @@ def run_xss(url, *, samples=2, timeout=5.0, max_requests=10, interval=0.2, max_b
         "planned_requests": len(selected) * (samples + EXTRA_REQUESTS), "scope": "loopback_only",
         "browser_requested": browser, "follow_redirects": False,
     }, mode="xss", schema_version="1.3")
-    with HttpClient(timeout, max_requests, interval, max_body_bytes) as client:
-        for name in selected:
-            plan, callback = build_plan(target, name, samples, client.request_count + 1)
-            run_detection(client, report, plan, callback, browser=browser)
-    if len(report.parameter_results) > 1:
-        from scanner.models import XssAssessment
-        outcomes = [result.assessment.outcome for result in report.parameter_results]
-        outcome = next(value for value in ("confirmed", "suspected", "inconclusive", "reflected_safe", "not_detected") if value in outcomes)
-        report.assessment = XssAssessment(outcome, {}, "Resumo; consulte parameter_results para cada parâmetro.",
-                                         [f"{result.parameter}: {result.assessment.outcome}" for result in report.parameter_results])
-    report.finished_at = utc_now()
+    client = HttpClient(timeout, max_requests, interval, max_body_bytes)
+    try:
+        with client:
+            for name in selected:
+                plan, callback = build_plan(target, name, samples, client.request_count + 1)
+                run_detection(client, report, plan, callback, browser=browser)
+        if len(report.parameter_results) > 1:
+            from scanner.models import XssAssessment
+            outcomes = [result.assessment.outcome for result in report.parameter_results]
+            outcome = next(value for value in ("confirmed", "suspected", "inconclusive", "reflected_safe", "not_detected") if value in outcomes)
+            report.assessment = XssAssessment(outcome, {}, "Resumo; consulte parameter_results para cada parâmetro.",
+                                             [f"{result.parameter}: {result.assessment.outcome}" for result in report.parameter_results])
+    except Exception:
+        report.execution_errors.append(ExecutionFailure("analysis", "xss"))
+    finally:
+        report.requests_attempted = client.request_count
+        report.finished_at = utc_now()
     return report

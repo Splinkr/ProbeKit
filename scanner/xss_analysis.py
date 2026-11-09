@@ -8,6 +8,7 @@ import json
 import re
 
 from scanner.models import XssAssessment
+from scanner.decoding import decode_http_body
 
 ATTR = re.compile(r'''([^\s=<>/]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?''')
 JS_TYPES = {"", "text/javascript", "application/javascript", "module"}
@@ -73,10 +74,7 @@ def inspect_response(probe, response, callback):
     media = Message()
     media["Content-Type"] = response.content_type
     content_format = media.get_content_type()
-    try:
-        text = response.body.decode(media.get_content_charset() or "utf-8", errors="replace")
-    except LookupError:
-        text = response.body.decode("utf-8", errors="replace")
+    text = decode_http_body(response.body, response.content_type)
     reflections, active, escaping = [], False, {}
     if probe.marker:
         if content_format == "text/html":

@@ -8,6 +8,7 @@ import json
 import re
 
 from scanner.models import ProbeEvidence, ResponseEvidence, ResponseFeatures
+from scanner.decoding import decode_http_body
 
 SIGNATURES = ("SQLITE_ERROR", "SQLITE_MISUSE", "SequelizeDatabaseError")
 ERROR_TEXT = re.compile(r"^(?:error(?:\b|:)|internal server error|not found|forbidden|service unavailable)", re.I)
@@ -73,10 +74,7 @@ def extract_features(response: ResponseEvidence) -> ResponseFeatures:
         return ResponseFeatures("json", "canonical_json", digest(payload), None, bool(payload), healthy and usable and not error, error)
     if media not in {"text/html", "application/xhtml+xml", "text/plain"}:
         return ResponseFeatures("unsupported", "unsupported_media_type", None, None, False, False)
-    try:
-        text = response.body.decode(header.get_content_charset() or "utf-8", errors="replace")
-    except LookupError:
-        text = response.body.decode("utf-8", errors="replace")
+    text = decode_http_body(response.body, response.content_type)
     kind, strategy = "text", "normalized_text"
     title = ""
     if media != "text/plain":

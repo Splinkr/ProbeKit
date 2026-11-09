@@ -2,7 +2,8 @@
 
 from dataclasses import asdict, dataclass, field
 
-from scanner.models import Finding, RequestFailure
+from scanner.models import ExecutionFailure, Finding, RequestFailure
+from scanner.report_state import with_report_state
 
 
 @dataclass(frozen=True)
@@ -69,24 +70,27 @@ class ExposureReport:
     parameter_results: list = field(default_factory=list)
     probes: list = field(default_factory=list)
     comparisons: list = field(default_factory=list)
+    execution_errors: list[ExecutionFailure] = field(default_factory=list)
+    requests_attempted: int | None = None
 
     @property
     def reachable(self):
         return bool(self.responses)
 
     def to_dict(self):
-        return {
+        return with_report_state({
             "schema_version": "1.0", "mode": self.mode, "target": self.target,
             "target_source": self.target_source, "started_at": self.started_at, "finished_at": self.finished_at,
             "settings": self.settings,
-            "summary": {"reachable": self.reachable, "status": "incomplete" if self.errors else "completed",
-                        "requests_attempted": len(self.responses) + len(self.errors),
+            "summary": {"reachable": self.reachable, "status": "incomplete" if self.errors or self.execution_errors else "completed",
+                        "requests_attempted": self.requests_attempted if self.requests_attempted is not None else len(self.responses) + len(self.errors),
                         "responses_received": len(self.responses), "errors": len(self.errors),
                         "files_analyzed": len(self.exposure_results), "findings": len(self.findings)},
             "responses": [asdict(response) for response in self.responses],
             "errors": [asdict(error) for error in self.errors],
+            "execution_errors": [asdict(error) for error in self.execution_errors],
             "findings": [asdict(finding) for finding in self.findings],
             "exposure_results": [asdict(result) for result in self.exposure_results],
             "assessment": asdict(self.assessment) if self.assessment else None,
             "parameter_results": [],
-        }
+        })

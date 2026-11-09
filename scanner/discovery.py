@@ -7,9 +7,10 @@ from html.parser import HTMLParser
 import re
 from urllib.parse import parse_qsl, quote, urlencode, urljoin, urlsplit, urlunsplit
 
+from scanner.decoding import decode_http_body
 from scanner.http_client import HttpClient, HttpClientError
 from scanner.models import (
-    DiscoveredEndpoint, DiscoveryReport, DiscoverySource, EndpointParameter, RequestFailure, utc_now,
+    DiscoveredEndpoint, DiscoveryReport, DiscoverySource, EndpointParameter, ExecutionFailure, RequestFailure, utc_now,
 )
 from scanner.targets import TargetError, validate_target
 
@@ -194,10 +195,7 @@ def crawl(report: DiscoveryReport, client: HttpClient) -> None:
             media["Content-Type"] = response.content_type
             if not 200 <= response.status_code < 300 or media.get_content_type() not in {"text/html", "application/xhtml+xml"}:
                 continue
-            try:
-                html = response.body.decode(media.get_content_charset() or "utf-8", errors="replace")
-            except LookupError:
-                html = response.body.decode("utf-8", errors="replace")
+            html = decode_http_body(response.body, response.content_type)
             parser = HtmlInventoryParser()
             parser.feed(html)
             parser.close()
@@ -237,6 +235,13 @@ def discover(
 ) -> DiscoveryReport:
     report = new_discovery_report(url, max_depth=max_depth, max_pages=max_pages, max_requests=max_requests,
                                   timeout=timeout, interval=interval, max_body_bytes=max_body_bytes)
-    with HttpClient(timeout, max_requests, interval, max_body_bytes) as client:
-        crawl(report, client)
+    client = HttpClient(timeout, max_requests, interval, max_body_bytes)
+    try:
+        with client:
+            crawl(report, client)
+    except Exception:
+        report.execution_errors.append(ExecutionFailure("discovery"))
+    finally:
+        report.requests_attempted = client.request_count
+        report.finished_at = utc_now()
     return report

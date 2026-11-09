@@ -4,6 +4,8 @@ import re
 from typing import Any
 from urllib.parse import unquote_plus, urlsplit, urlunsplit
 
+from scanner.report_state import analysis_summary
+
 
 VULNERABILITY_TYPES = {
     "sqli": "sql_injection",
@@ -74,6 +76,8 @@ def build_findings_report(data: dict[str, Any], source_report: str) -> dict[str,
         "report_type": "security_findings",
         "source_report": source_report,
         "scan_status": data.get("summary", {}).get("status"),
+        "collection_status": data.get("collection_status"),
+        "analysis_summary": analysis_summary(data),
         "started_at": data.get("started_at"),
         "finished_at": data.get("finished_at"),
         "summary": {**counts(findings), "by_module": {
