@@ -41,7 +41,7 @@ def test_discover_default_output_and_help(http_lab, tmp_path):
     assert invoke("--help", cwd=tmp_path).returncode == 0
     process = invoke(site.url, cwd=tmp_path)
     assert process.returncode == 0, process.stderr
-    assert len(list((tmp_path / "reports").glob("discover-*.json"))) == 1
+    assert len(list((tmp_path / "reports").glob("discover-*Z.json"))) == 1
 
 
 @pytest.mark.parametrize("arguments", [
@@ -55,13 +55,13 @@ def test_invalid_discovery_limits_exit_before_network(http_lab, tmp_path, argume
 
 
 @pytest.mark.parametrize("url", ["http://example.invalid", "http://192.168.0.1", "http://localhost/\n"])
-def test_unsafe_seeds_are_blocked_before_transport(url, monkeypatch):
+def test_unsafe_seeds_are_blocked_before_transport(url, monkeypatch, inline_transport):
     send = Mock()
     monkeypatch.setattr("requests.Session.get", send)
     with pytest.raises(TargetError):
         discover(url)
     with pytest.raises(SystemExit) as failure:
-        main(["discover", url])
+        main([*["discover", url], "--evidence-profile", "restricted"])
     assert failure.value.code == 2
     send.assert_not_called()
 

@@ -33,11 +33,12 @@ def collection_status(data: dict[str, Any]) -> str:
     errors = [error for part in parts for error in part.get("errors", [])]
     if status == "interrupted" or any(error.get("kind") == "interrupted" for error in errors):
         return "interrupted"
+    errors = [error for error in errors if error.get("kind") not in {"total_body_limit", "metadata_limit"}]
     if errors or any(part.get("execution_errors") for part in parts) or "checkpoint_error" in data.get("stop_reasons", []):
         return "incomplete"
     if data.get("finished_at") is None:
         return "running"
-    if data.get("stop_reasons"):
+    if data.get("stop_reasons") or data.get("resource_limits"):
         return "limited"
     return "completed"
 

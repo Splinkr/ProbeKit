@@ -88,7 +88,7 @@ def test_minimum_interval_is_observable_between_request_starts(http_lab):
     (requests.ConnectionError("secret details"), "connection_error"),
     (requests.RequestException("secret details"), "http_error"),
 ])
-def test_exception_details_do_not_leak_into_failures(monkeypatch, exception, kind):
+def test_exception_details_do_not_leak_into_failures(monkeypatch, exception, kind, inline_transport):
     monkeypatch.setattr("requests.Session.get", Mock(side_effect=exception))
     with HttpClient() as client, pytest.raises(HttpClientError) as failure:
         client.get("http://127.0.0.1:1")

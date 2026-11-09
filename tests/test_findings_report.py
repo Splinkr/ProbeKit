@@ -42,7 +42,7 @@ def test_only_security_findings_are_projected_without_reclassifying_or_mutating_
     # A cópia consolidada não é outra fonte de achados.
     data["findings"] = [finding()]
     before = deepcopy(data)
-    summary = build_findings_report(data, "full.json")
+    summary = build_findings_report(data, "full.json", evidence_profile="restricted")
     assert data == before
     assert summary["scan_status"] == "limited"
     assert summary["source_report"] == "full.json"
@@ -69,7 +69,7 @@ def test_duplicates_merge_evidence_without_collapsing_modules_parameters_or_urls
         finding(parameter="lang"), finding("xss"),
         finding(endpoint="http://127.0.0.1/search?term=orange&lang=en"),
     ]}
-    result = build_findings_report(data, "full.json")
+    result = build_findings_report(data, "full.json", evidence_profile="restricted")
     assert result["summary"]["total"] == 4
     assert result["findings"][0]["evidence_request_ids"] == [1, 2, 3]
 
@@ -77,13 +77,13 @@ def test_duplicates_merge_evidence_without_collapsing_modules_parameters_or_urls
 def test_absent_optional_confidence_and_parameter_remain_null():
     item = finding("exposure", endpoint="http://127.0.0.1/.env", parameter=None)
     del item["confidence"]
-    result = build_findings_report({"findings": [item]}, "full.json")["findings"][0]
+    result = build_findings_report({"findings": [item]}, "full.json", evidence_profile="restricted")["findings"][0]
     assert result["confidence"] is None and result["parameter"] is None
 
 
 @pytest.mark.parametrize("mode", ["baseline", "discover", "sqli", "xss", "exposure", "scan"])
 def test_no_findings_is_valid_json_with_zero_counts(mode):
-    summary = build_findings_report({"mode": mode}, "full.json")
+    summary = build_findings_report({"mode": mode}, "full.json", evidence_profile="restricted")
     assert json.loads(json.dumps(summary))["findings"] == []
     assert summary["summary"]["total"] == summary["summary"]["confirmed"] == summary["summary"]["suspected"] == 0
     assert all(counts == {"total": 0, "confirmed": 0, "suspected": 0}
@@ -101,7 +101,7 @@ def test_credentials_and_sensitive_query_values_are_redacted(secret_name):
     ), body="private-body", headers={"Set-Cookie": "private-cookie"})],
         "responses": [{"body": "private-body", "headers": {"Authorization": "private-auth"}}]}
     before = deepcopy(data)
-    result = build_findings_report(data, "full.json")
+    result = build_findings_report(data, "full.json", evidence_profile="restricted")
     raw = json.dumps(result)
     assert not any(value in raw for value in (
         "private-user", "private-pass", "private-query-value", "private-fragment",
@@ -121,7 +121,7 @@ def test_credentials_and_sensitive_query_values_are_redacted(secret_name):
 
 
 @pytest.mark.parametrize("atomic", [False, True])
-def test_writing_both_reports_preserves_the_full_snapshot_and_never_contacts_network(tmp_path, monkeypatch, atomic):
+def test_writing_both_reports_preserves_the_full_snapshot_and_never_contacts_network(tmp_path, monkeypatch, atomic, inline_transport):
     report = ScanReport("http://127.0.0.1/search?term=apple", "fixture", {}, mode="sqli")
     report.findings.append(Finding(
         report.target, "sqli", "Fixture", Confidence.HIGH, FindingStatus.CONFIRMED,
@@ -132,8 +132,9 @@ def test_writing_both_reports_preserves_the_full_snapshot_and_never_contacts_net
     send = Mock(side_effect=AssertionError("Relatórios não devem acessar a rede"))
     monkeypatch.setattr(requests.Session, "request", send)
     output = tmp_path / "nested" / "full.json"
-    assert write_reports(report, output, atomic=atomic) == output
-    assert load(output) == before
+    assert write_reports(report, output, atomic=atomic, evidence_profile="restricted") == output
+    from conftest import assert_restricted_snapshot
+    assert_restricted_snapshot(load(output), before)
     summary = load(output.with_name("findings.json"))
     assert summary["findings"][0]["evidence"] == before["findings"][0]["rationale"]
     assert summary["summary"]["total"] == 1
@@ -144,7 +145,7 @@ def test_writing_both_reports_preserves_the_full_snapshot_and_never_contacts_net
 
 @pytest.mark.parametrize("browser", [False, pytest.param(True, marks=pytest.mark.skipif(
     not (browser_path() and shutil.which("node")), reason="Requer navegador local e Node."))])
-def test_real_three_module_cli_keeps_evidence_ids_statuses_and_request_count(sqlite_app, tmp_path, monkeypatch, capsys, browser):
+def test_real_three_module_cli_keeps_evidence_ids_statuses_and_request_count(sqlite_app, tmp_path, monkeypatch, capsys, browser, inline_transport):
     sent = []
     original = requests.Session.get
 
@@ -158,7 +159,7 @@ def test_real_three_module_cli_keeps_evidence_ids_statuses_and_request_count(sql
                  "--exposure-profiles", "config", "backup", "--interval", "0", "--output", str(output)]
     if browser:
         arguments.append("--xss-browser")
-    assert main(arguments) == 0
+    assert main([*arguments, "--evidence-profile", "restricted"]) == 0
     full, summary = load(output), load(tmp_path / "findings.json")
     assert "Achados JSON:" in capsys.readouterr().out
     assert full["summary"]["requests_used"] == len(sent) == 92
@@ -183,23 +184,23 @@ def test_real_three_module_cli_keeps_evidence_ids_statuses_and_request_count(sql
 def test_baseline_and_discovery_cli_also_write_empty_summary(http_lab, tmp_path, prefix):
     site = http_lab.start(lambda _: http_lab.reply())
     output = tmp_path / "full.json"
-    assert main([*prefix, site.url, "--interval", "0", "--output", str(output)]) == 0
+    assert main([*[*prefix, site.url, "--interval", "0", "--output", str(output)], "--evidence-profile", "restricted"]) == 0
     assert load(tmp_path / "findings.json")["findings"] == []
 
 
 def test_direct_module_cli_writes_suspected_findings(sqlite_app, tmp_path):
     output = tmp_path / "full.json"
-    assert main([sqlite_app.url + "/xss/html/raw?q=demo", "--module", "xss", "--interval", "0",
-                 "--output", str(output)]) == 0
+    assert main([*[sqlite_app.url + "/xss/html/raw?q=demo", "--module", "xss", "--interval", "0",
+                 "--output", str(output)], "--evidence-profile", "restricted"]) == 0
     assert load(tmp_path / "findings.json")["findings"][0]["status"] == "suspected"
 
 
 @pytest.mark.parametrize("budget,expected", [(1, 0), (84, 3)])
 def test_limited_scan_does_not_report_skipped_targets_as_findings(sqlite_app, tmp_path, budget, expected):
     output = tmp_path / "full.json"
-    assert main(["scan", sqlite_app.url + "/probekit-lab", "--modules", "sqli", "xss", "exposure",
+    assert main([*["scan", sqlite_app.url + "/probekit-lab", "--modules", "sqli", "xss", "exposure",
                  "--exposure-profiles", "config", "backup", "--max-requests", str(budget),
-                 "--interval", "0", "--output", str(output)]) == 0
+                 "--interval", "0", "--output", str(output)], "--evidence-profile", "restricted"]) == 0
     summary = load(tmp_path / "findings.json")
     assert summary["scan_status"] == "limited"
     assert summary["summary"]["total"] == len(summary["findings"]) == expected
@@ -209,7 +210,7 @@ def test_limited_scan_does_not_report_skipped_targets_as_findings(sqlite_app, tm
 def test_output_named_findings_does_not_overwrite_the_technical_report(http_lab, tmp_path, name):
     site = http_lab.start(lambda _: http_lab.reply())
     output = tmp_path / name
-    assert main([site.url, "--interval", "0", "--output", str(output)]) == 0
+    assert main([*[site.url, "--interval", "0", "--output", str(output)], "--evidence-profile", "restricted"]) == 0
     assert load(output)["mode"] == "baseline"
     assert findings_path(output) == tmp_path / "findings-summary.json"
     assert load(findings_path(output))["report_type"] == "security_findings"
@@ -218,13 +219,13 @@ def test_output_named_findings_does_not_overwrite_the_technical_report(http_lab,
 def test_later_execution_replaces_prior_findings_with_empty_list(sqlite_app, tmp_path):
     output = tmp_path / "full.json"
     for route, expected in (("vulnerable", 1), ("safe", 0)):
-        assert main([sqlite_app.url + f"/general/json/{route}?term=apple", "--module", "sqli",
-                     "--interval", "0", "--output", str(output)]) == 0
+        assert main([*[sqlite_app.url + f"/general/json/{route}?term=apple", "--module", "sqli",
+                     "--interval", "0", "--output", str(output)], "--evidence-profile", "restricted"]) == 0
         summary = load(tmp_path / "findings.json")
         assert summary["summary"]["total"] == len(summary["findings"]) == expected
 
 
-def test_interrupted_scan_keeps_summary_of_completed_findings(sqlite_app, tmp_path, monkeypatch):
+def test_interrupted_scan_keeps_summary_of_completed_findings(sqlite_app, tmp_path, monkeypatch, inline_transport):
     original = requests.Session.get
     sent = 0
 
@@ -237,8 +238,8 @@ def test_interrupted_scan_keeps_summary_of_completed_findings(sqlite_app, tmp_pa
 
     monkeypatch.setattr(requests.Session, "get", get)
     output = tmp_path / "full.json"
-    assert main(["scan", sqlite_app.url + "/probekit-lab", "--modules", "sqli", "xss", "exposure",
-                 "--interval", "0", "--output", str(output)]) == 130
+    assert main([*["scan", sqlite_app.url + "/probekit-lab", "--modules", "sqli", "xss", "exposure",
+                 "--interval", "0", "--output", str(output)], "--evidence-profile", "restricted"]) == 130
     full, summary = load(output), load(tmp_path / "findings.json")
     assert full["summary"]["status"] == summary["scan_status"] == "interrupted"
     assert summary["summary"]["total"] == 1
@@ -250,7 +251,7 @@ def test_unwritable_summary_preserves_full_report_and_fails_before_scan_network(
     site = http_lab.start(lambda _: http_lab.reply())
     (tmp_path / "findings.json").mkdir()
     output = tmp_path / "full.json"
-    assert main(["scan", site.url, "--output", str(output)]) == 1
+    assert main([*["scan", site.url, "--output", str(output)], "--evidence-profile", "restricted"]) == 1
     assert load(output)["mode"] == "scan"
     assert site.calls == []
     assert "Erro ao gravar relatório consolidado" in capsys.readouterr().err

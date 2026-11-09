@@ -9,7 +9,9 @@ from urllib.parse import urlsplit
 from experiments.run_control import health
 from scanner.core import run_sqli
 from scanner.models import utc_now
-from scanner.reporter import write_json
+from scanner.reporter import write_json, _Snapshot
+from scanner.privacy import EvidencePolicy
+from scanner.terminal import safe_print as print, SafeArgumentParser
 from scanner.targets import validate_target
 
 
@@ -41,7 +43,8 @@ CASES = (
 )
 
 
-def run_experiment(base_url, output_dir, *, case_names=None, juice_shop_url=None, interval=0.2):
+def run_experiment(base_url, output_dir, *, case_names=None, juice_shop_url=None, interval=0.2, evidence_profile="shareable"):
+    policy = EvidencePolicy(evidence_profile)
     base = validate_target(base_url)
     parts = urlsplit(base)
     if parts.path != "/" or parts.query:
@@ -62,7 +65,7 @@ def run_experiment(base_url, output_dir, *, case_names=None, juice_shop_url=None
         for case, target in targets:
             report = run_sqli(target, parameter=case.parameter, all_parameters=case.all_parameters,
                               context=case.context, max_requests=20 if case.all_parameters else 10, interval=interval)
-            destination = write_json(report, output / (case.name + ".json"))
+            destination = write_json(report, output / (case.name + ".json"), evidence_profile=evidence_profile)
             outcomes = {result.parameter: result.assessment.outcome for result in report.parameter_results}
             summary["runs"].append({
                 "case": case.name, "target": report.target, "context": case.context,
@@ -79,25 +82,27 @@ def run_experiment(base_url, output_dir, *, case_names=None, juice_shop_url=None
         and all(not run["transport_errors"] for run in summary["runs"])
     ) else "incomplete"
     summary["finished_at"] = utc_now()
-    (output / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    summary = policy.project(summary)
+    write_json(_Snapshot(summary), output / "summary.json", evidence_profile=evidence_profile)
     return summary
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="Validação real da generalização SQLi em JSON, HTML e texto.")
+    parser = SafeArgumentParser(description="Validação real da generalização SQLi em JSON, HTML e texto.")
     parser.add_argument("--base-url", default="http://127.0.0.1:8001")
     parser.add_argument("--output-dir", type=Path, default=Path("reports/general-sqli"))
     parser.add_argument("--case", action="append", choices=[case.name for case in CASES])
     parser.add_argument("--juice-shop-url", help="URL GET local de regressão do Juice Shop, opcional")
+    parser.add_argument("--evidence-profile", choices=("shareable", "restricted"), default="shareable")
     args = parser.parse_args(argv)
     try:
-        summary = run_experiment(args.base_url, args.output_dir, case_names=args.case, juice_shop_url=args.juice_shop_url)
+        summary = run_experiment(args.base_url, args.output_dir, case_names=args.case, juice_shop_url=args.juice_shop_url, evidence_profile=args.evidence_profile)
     except (ValueError, OSError) as error:
-        parser.exit(1, f"Erro no experimento: {error}\n")
+        parser.exit(1, "Erro no experimento; confira configura??o e persist?ncia.\n")
     for run in summary["runs"]:
-        print(f"{run['case']}: {run['outcomes']}; {run['requests_attempted']} requisições; {run['report']}")
+        print(f"{run['case']}: {run['outcomes'] if args.evidence_profile == 'restricted' else 'avalia??es registradas'}; {run['requests_attempted']} requisições; {run['report']}")
     print(f"Base preservada: {summary['dataset_unchanged']}; expectativas correspondem ao observado: {summary['expectations_matched']}")
-    print(f"Resumo: {args.output_dir / 'summary.json'}")
+    print('Resumo do experimento gravado.')
     return 0 if summary["status"] == "completed" and summary["expectations_matched"] else 1
 
 

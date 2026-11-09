@@ -14,7 +14,7 @@ encontrados. Os laboratórios fornecidos usam dados fictícios e dispensam Docke
 | Componente | Uso |
 | --- | --- |
 | Python 3.13 com pip | CLI, SQLite do laboratório e testes; validado com 3.13.9 |
-| `requests==2.32.5` | Única dependência Python direta de execução |
+| `requests==2.34.2` | Dependência HTTP; transitivas e hashes nos locks |
 | `pytest==8.4.2` | Avaliação automatizada; instala também as dependências de execução |
 | Node.js 24 e Edge/Chrome | Opcionais: confirmação XSS em navegador; validados com Node 24.19.0 e Edge 156 |
 | Git | Opcional para obter o código e consultar o histórico; um ZIP do repositório também funciona |
@@ -160,18 +160,25 @@ não substitui as evidências nem altera o JSON.
 Cada gravação pela CLI também gera `findings.json` no mesmo diretório do
 relatório técnico, sem novas requisições ou alteração das classificações.
 Por exemplo, `--output reports/demo/full.json` produz `full.json` completo e
-`reports/demo/findings.json` resumido. O terminal informa os dois caminhos.
-O resumo contém somente `confirmed` e `suspected`, com módulo, tipo, URL,
-parâmetro, confiança disponível, explicação da evidência, IDs das requisições,
-impacto potencial e mitigação já fornecidos pelo detector. `summary` conta
+`reports/demo/findings.json` resumido. A versão 0.2.0 publica uma geração
+imutável e `full.json.manifest.json`; use o manifesto para ler/verificar a dupla.
+O perfil padrão `--evidence-profile shareable` anonimiza URLs, caminhos e
+parâmetros por IDs opacos. O terminal também aplica o perfil; forneça `--output`
+para escolher um caminho conhecido. `--evidence-profile restricted` preserva
+detalhes de reprodução com permissões restritas e exige revisão antes de compartilhar.
+O resumo contém somente `confirmed` e `suspected`, com módulo, tipo,
+confiança disponível e IDs das requisições. Os detalhes dependem do perfil.
+`summary` conta
 achados deduplicados por módulo/URL/parâmetro/status; repetições unem os IDs.
 Sem achados, `findings` é `[]` e as contagens são zero.
 
-O campo `source_report` identifica o JSON técnico ao qual os IDs se referem;
+O campo `source_report` identifica `technical.json` dentro da geração e
+`source_sha256` verifica seus bytes exatos. `run_id` identifica a execução;
+`snapshot_id`, o checkpoint. O manifesto também verifica hashes, perfil e versão;
 `scan_status` mantém o estado legado do relatório técnico. Nos modos diretos,
 `completed` pode indicar coleta concluída com avaliação `inconclusive`; no
 `scan`, a regra legada continua marcando essa avaliação como `incomplete`.
-Os novos campos abaixo separam essas informações sem mudar as versões dos schemas:
+Os campos abaixo, introduzidos na Fase 1, mantêm sua semântica no schema 2.0:
 
 - `collection_status`: estado operacional `running`, `completed`, `limited`,
   `incomplete` ou `interrupted`, independente dos outcomes dos detectores.
@@ -188,18 +195,27 @@ legado sem os campos novos, o resumo calcula as contagens disponíveis e usa
 `collection_status: null`, sem adivinhar o estado operacional.
 
 Os checkpoints atualizam também o resumo: uma lista vazia em execução parcial
-não comprova segurança. O resumo não copia corpos, cookies, cabeçalhos, payloads
-ou conteúdo dos arquivos expostos. Credenciais na URL e fragmentos são removidos;
-valores de parâmetros com nomes sensíveis (como `password`, `token` e `api_key`)
-são mascarados, com `url_redacted: true`. Outros valores da URL são preservados;
-não coloque segredos em caminhos ou parâmetros com nomes genéricos.
+não comprova segurança. Corpos, cookies, autenticação e valores/chaves encontrados
+por Exposure nunca são persistidos. No padrão compartilhável, textos livres,
+payloads e cabeçalhos técnicos são omitidos; no restrito, credenciais de URL e
+valores reconhecidamente sensíveis são mascarados. Outros detalhes restritos
+podem conter informações privadas.
 
 `findings.json` representa a última gravação naquele diretório. Para preservar
 resumos de várias execuções, use diretórios diferentes em `--output`. Se o próprio
 relatório técnico se chamar `findings.json`, o resumo se chamará
 `findings-summary.json`, preservando o destino solicitado e a compatibilidade da CLI.
-As funções de baixo nível `write_json`/`write_json_atomic` continuam gravando um
-único JSON; `write_reports` faz a gravação dos dois arquivos usada pela CLI.
+As funções de baixo nível `write_json`/`write_json_atomic` gravam um JSON atômico
+com perfil; `write_reports` publica a geração e o manifesto usados pela CLI.
+Os aliases tradicionais podem divergir após uma falha ou concorrência. Verifique:
+
+```powershell
+.\.venv\Scripts\python.exe main.py verify-report reports/demo/full.json.manifest.json
+```
+
+O verificador é offline: 0 válido, 1 falha de integridade/leitura, 2 argumentos.
+Schema novo: 2.0; protocolo de manifesto: 1.0. Detalhes e migração:
+[Fase 2](docs/FASE2_SEGURANCA.md), [plano versionado](docs/FASE2_PLANO.md).
 
 | Código de saída | Significado |
 | --- | --- |
@@ -256,29 +272,40 @@ Não há retries HTTP; no Windows apenas a substituição do checkpoint pode ser
 repetida em caso de bloqueio transitório. Encerramento forçado pode perder o
 último resultado ainda não persistido.
 
-Corpos HTTP não são serializados. Exposure também omite nomes reais de chaves,
-valores, trechos e cabeçalhos arbitrários. Os outros módulos conservam URLs,
-payloads e alguns cabeçalhos técnicos de resposta (por exemplo CSP); esses
-metadados podem conter dados específicos do alvo. Não forneça segredos nas
-URLs e revise relatórios antes de compartilhá-los. `.gitignore` não remove
+Há limites adicionais em todos os comandos: `--max-urls 1000`,
+`--max-candidates 2000`, `--max-url-length 8192`, `--max-metadata-bytes 8388608`,
+`--max-total-body-bytes 33554432` e `--request-deadline 15`. O último limita
+o GET completo em um worker isolado; `--timeout` continua limitando inatividade.
+Metadados usam reservas conservadoras, e os corpos são liberados depois do uso,
+incluindo replay XSS. Consulte `resource_usage`/`resource_limits`: limites podem
+reduzir cobertura e deixar avaliações inconclusivas; não são um teto de RSS.
+
+O perfil restrito pode conter URLs, payloads e CSP específicos do alvo. Revise
+antes de compartilhar. O compartilhável preserva metadados/correlação da coleta;
+não promete anonimato absoluto. `.gitignore` não remove
 arquivos já rastreados nem substitui essa revisão.
 
 ## Testes, evidências e avaliação
 
+A suíte completa da Fase 3 usa o ambiente isolado da avaliação, que inclui
+Matplotlib. Prepare-o pelos [comandos do avaliador](experiments/evaluation/README.md),
+preservando os ambientes existentes.
+
 ```powershell
-.\.venv\Scripts\python.exe -m pytest -q --junitxml=reports/publication-tests.xml
-.\.venv\Scripts\python.exe -m pip check
+.\.venv-evaluation\Scripts\python.exe -m pytest -q --junitxml=reports/evaluation-tests.xml
+.\.venv-evaluation\Scripts\python.exe -m pip check
 ```
 
 Os testes usam servidores loopback efêmeros e SQLite, sem depender do Juice
 Shop ou de sites públicos. Oito casos usam navegador real e podem ser
 ignorados se Node/navegador não estiverem disponíveis. A contagem e o resultado
-atual estão em [docs/TESTES.md](docs/TESTES.md): 451 testes aprovados após a Fase 1,
-sem falhas ou ignorados. Os relatórios históricos em
+atual estão em [docs/TESTES.md](docs/TESTES.md). A Fase 2 acrescenta regressões
+de apresentação, publicação, privacidade, limites e bootstrap. Os relatórios históricos em
 `docs/evidencias/` usam somente os laboratórios e foram preservados, inclusive
 tentativas parciais identificadas; novos relatórios locais ficam em `reports/`.
 
 - [Roteiro curto dos três módulos](docs/DEMONSTRACAO.md)
+- [Avaliação experimental Fase 3: protocolo](docs/AVALIACAO_EXPERIMENTAL.md), [resultados](docs/RESULTADOS_EXPERIMENTAIS.md), [pacote verificável](docs/evidencias/fase3/README.md) e [comandos do avaliador](experiments/evaluation/README.md)
 - [Preparação para publicação e instalação limpa](docs/PUBLICACAO.md)
 - [Descoberta](docs/DESCOBERTA.md), [SQLi](docs/SQLI_GENERALIZADO.md), [XSS](docs/XSS_REFLETIDO.md) e [exposure](docs/EXPOSICAO_ARQUIVOS.md)
 - [Controles SQLite](docs/CONTROLE_NEGATIVO.md), [fluxo integrado](docs/SCAN_INTEGRADO.md) e [progresso](docs/PROGRESSO.md)

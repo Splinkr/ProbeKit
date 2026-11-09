@@ -1,0 +1,347 @@
+{
+  "run_id": "c062ad7c-2d45-42c2-be0e-f7b275bb0a47",
+  "resource_usage": {
+    "urls": 8,
+    "metadata_bytes": 61483,
+    "candidate_records": 0,
+    "total_body_bytes": 1658,
+    "body_bytes_observed": 1658,
+    "body_bytes_reserved": 0,
+    "rejected": {},
+    "limited": false
+  },
+  "resource_limits": [],
+  "schema_version": "2.0",
+  "mode": "xss",
+  "target": null,
+  "target_id": "url_4da4cca614ac49be4fde2df1d3cf0523",
+  "target_source": "manual",
+  "started_at": "2026-11-09T19:31:56.481986+00:00",
+  "finished_at": "2026-11-09T19:31:58.582057+00:00",
+  "settings": {
+    "samples": 2,
+    "max_requests": 10,
+    "parameters": [
+      "parameter_cc08746911121904e4c5dba9edb51e37"
+    ],
+    "timeout_seconds": 5.0,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "planned_requests": 10,
+    "scope": "loopback_only",
+    "browser_requested": false,
+    "follow_redirects": false,
+    "max_urls": 1000,
+    "max_candidates": 2000,
+    "max_url_length": 8192,
+    "max_metadata_bytes": 8388608,
+    "max_total_body_bytes": 33554432,
+    "request_deadline": 15.0
+  },
+  "summary": {
+    "reachable": true,
+    "status": "completed",
+    "requests_attempted": 10,
+    "responses_received": 10,
+    "errors": 0,
+    "findings": 0
+  },
+  "responses": [
+    {
+      "request_id": 1,
+      "url": null,
+      "url_id": "url_4da4cca614ac49be4fde2df1d3cf0523",
+      "collected_at": "2026-11-09T19:31:56.769792+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 97,
+      "body_sha256": "bd873b853761fa7bc266619eaac498ef6e651f1b33b3df2e2f777f1714e3ad13",
+      "elapsed_ms": 6.206,
+      "method": "GET"
+    },
+    {
+      "request_id": 2,
+      "url": null,
+      "url_id": "url_4da4cca614ac49be4fde2df1d3cf0523",
+      "collected_at": "2026-11-09T19:31:56.970013+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 97,
+      "body_sha256": "bd873b853761fa7bc266619eaac498ef6e651f1b33b3df2e2f777f1714e3ad13",
+      "elapsed_ms": 23.117,
+      "method": "GET"
+    },
+    {
+      "request_id": 3,
+      "url": null,
+      "url_id": "url_69051579be9cbcaaf1658f595ead32c9",
+      "collected_at": "2026-11-09T19:31:57.170577+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 121,
+      "body_sha256": "0970c290ce2081d82fbdf03820fa1d270c2bfc6c51c9862e6ae10993030d8da4",
+      "elapsed_ms": 23.806,
+      "method": "GET"
+    },
+    {
+      "request_id": 4,
+      "url": null,
+      "url_id": "url_dcbc8015d8fc45ed78233b1414d73a4c",
+      "collected_at": "2026-11-09T19:31:57.370645+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 121,
+      "body_sha256": "5d9a243e5e56eff189f0c0f8dd559583416e68863c64f8062fdaaba0a13eab8f",
+      "elapsed_ms": 4.178,
+      "method": "GET"
+    },
+    {
+      "request_id": 5,
+      "url": null,
+      "url_id": "url_79cf097a87e591f98afbb373a99779a8",
+      "collected_at": "2026-11-09T19:31:57.571178+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 177,
+      "body_sha256": "2d339ea5ac205438933bc688f3eb2d8e739f414effc8107371b5f3ac794947dd",
+      "elapsed_ms": 24.947,
+      "method": "GET"
+    },
+    {
+      "request_id": 6,
+      "url": null,
+      "url_id": "url_40aed0d5b232eeb34458842c1542b7d5",
+      "collected_at": "2026-11-09T19:31:57.771789+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 248,
+      "body_sha256": "31c837ec1820b3522bd3e29c537bc790e24da5c852447bb910e3c043af921d81",
+      "elapsed_ms": 27.667,
+      "method": "GET"
+    },
+    {
+      "request_id": 7,
+      "url": null,
+      "url_id": "url_80156b7d73777935211503b268a89945",
+      "collected_at": "2026-11-09T19:31:57.971837+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 272,
+      "body_sha256": "463005ae968da1e2c27e32b3dad3497f164918a719e0deaf084ae15b097c1d0d",
+      "elapsed_ms": 4.017,
+      "method": "GET"
+    },
+    {
+      "request_id": 8,
+      "url": null,
+      "url_id": "url_ac558f311ea9ef5e75edc9eececac173",
+      "collected_at": "2026-11-09T19:31:58.172175+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 214,
+      "body_sha256": "26937f7d937605972d57a0d45bd8088a4e90eb8f6af0640ef5c6d9aa0e679fc1",
+      "elapsed_ms": 5.667,
+      "method": "GET"
+    },
+    {
+      "request_id": 9,
+      "url": null,
+      "url_id": "url_fe764600276adb8cb7b654bf82fdb9a8",
+      "collected_at": "2026-11-09T19:31:58.372773+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 214,
+      "body_sha256": "59b2ab7692c86f131a4338902e62f021af8bb7a3493a65ff640041ac6124d9a2",
+      "elapsed_ms": 5.112,
+      "method": "GET"
+    },
+    {
+      "request_id": 10,
+      "url": null,
+      "url_id": "url_4da4cca614ac49be4fde2df1d3cf0523",
+      "collected_at": "2026-11-09T19:31:58.572909+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 97,
+      "body_sha256": "bd873b853761fa7bc266619eaac498ef6e651f1b33b3df2e2f777f1714e3ad13",
+      "elapsed_ms": 5.47,
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "execution_errors": [],
+  "comparisons": [],
+  "findings": [],
+  "probes": [
+    {
+      "request_id": 1,
+      "role": "baseline_1",
+      "parameter": null,
+      "parameter_id": "parameter_cc08746911121904e4c5dba9edb51e37",
+      "response_received": true,
+      "content_format": "text/html",
+      "active_script_marker": false
+    },
+    {
+      "request_id": 2,
+      "role": "baseline_2",
+      "parameter": null,
+      "parameter_id": "parameter_cc08746911121904e4c5dba9edb51e37",
+      "response_received": true,
+      "content_format": "text/html",
+      "active_script_marker": false
+    },
+    {
+      "request_id": 3,
+      "role": "marker_1",
+      "parameter": null,
+      "parameter_id": "parameter_cc08746911121904e4c5dba9edb51e37",
+      "response_received": true,
+      "content_format": "text/html",
+      "active_script_marker": false
+    },
+    {
+      "request_id": 4,
+      "role": "marker_2",
+      "parameter": null,
+      "parameter_id": "parameter_cc08746911121904e4c5dba9edb51e37",
+      "response_received": true,
+      "content_format": "text/html",
+      "active_script_marker": false
+    },
+    {
+      "request_id": 5,
+      "role": "escape",
+      "parameter": null,
+      "parameter_id": "parameter_cc08746911121904e4c5dba9edb51e37",
+      "response_received": true,
+      "content_format": "text/html",
+      "active_script_marker": false
+    },
+    {
+      "request_id": 6,
+      "role": "attack_html",
+      "parameter": null,
+      "parameter_id": "parameter_cc08746911121904e4c5dba9edb51e37",
+      "response_received": true,
+      "content_format": "text/html",
+      "active_script_marker": false
+    },
+    {
+      "request_id": 7,
+      "role": "attack_attribute",
+      "parameter": null,
+      "parameter_id": "parameter_cc08746911121904e4c5dba9edb51e37",
+      "response_received": true,
+      "content_format": "text/html",
+      "active_script_marker": false
+    },
+    {
+      "request_id": 8,
+      "role": "attack_single",
+      "parameter": null,
+      "parameter_id": "parameter_cc08746911121904e4c5dba9edb51e37",
+      "response_received": true,
+      "content_format": "text/html",
+      "active_script_marker": false
+    },
+    {
+      "request_id": 9,
+      "role": "attack_double",
+      "parameter": null,
+      "parameter_id": "parameter_cc08746911121904e4c5dba9edb51e37",
+      "response_received": true,
+      "content_format": "text/html",
+      "active_script_marker": false
+    },
+    {
+      "request_id": 10,
+      "role": "recovery",
+      "parameter": null,
+      "parameter_id": "parameter_cc08746911121904e4c5dba9edb51e37",
+      "response_received": true,
+      "content_format": "text/html",
+      "active_script_marker": false
+    }
+  ],
+  "assessment": {
+    "outcome": "reflected_safe",
+    "checks": {
+      "all_requests_completed": true,
+      "exclusive_markers_and_recovery": true,
+      "two_marker_reflections": true,
+      "potentially_executable_context": false,
+      "browser_execution_observed": false
+    },
+    "rationale": "Detalhes omitidos no perfil compartilhável.",
+    "limitations": [
+      "Detalhes omitidos no perfil compartilhável.",
+      "Detalhes omitidos no perfil compartilhável."
+    ],
+    "parameter": null,
+    "parameter_id": "parameter_cc08746911121904e4c5dba9edb51e37",
+    "context": "reflected_xss",
+    "browser_evidence": {
+      "status": "not_requested",
+      "confirmed": false
+    }
+  },
+  "parameter_results": [
+    {
+      "parameter": null,
+      "parameter_id": "parameter_cc08746911121904e4c5dba9edb51e37",
+      "context": "reflected_xss",
+      "assessment": {
+        "outcome": "reflected_safe",
+        "checks": {
+          "all_requests_completed": true,
+          "exclusive_markers_and_recovery": true,
+          "two_marker_reflections": true,
+          "potentially_executable_context": false,
+          "browser_execution_observed": false
+        },
+        "rationale": "Detalhes omitidos no perfil compartilhável.",
+        "limitations": [
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável."
+        ],
+        "parameter": null,
+        "parameter_id": "parameter_cc08746911121904e4c5dba9edb51e37",
+        "context": "reflected_xss",
+        "browser_evidence": {
+          "status": "not_requested",
+          "confirmed": false
+        }
+      },
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  ],
+  "collection_status": "completed",
+  "analysis_summary": {
+    "applicable": true,
+    "evaluations": 1,
+    "outcomes": {
+      "confirmed": 0,
+      "suspected": 0,
+      "not_detected": 0,
+      "reflected_safe": 1,
+      "inconclusive": 0
+    },
+    "has_inconclusive": false
+  },
+  "evidence_profile": "shareable",
+  "anonymized": true,
+  "snapshot_id": "b2ee9301-f4eb-4c7d-bbcf-4720a99695d4",
+  "producer_version": "0.2.0"
+}

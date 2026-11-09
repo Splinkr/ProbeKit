@@ -12,7 +12,9 @@ from scanner import __version__
 from scanner.core import run_sqli
 from scanner.http_client import HttpClient, HttpClientError
 from scanner.models import utc_now
-from scanner.reporter import write_json
+from scanner.reporter import write_json, _Snapshot
+from scanner.privacy import EvidencePolicy
+from scanner.terminal import safe_print as print, SafeArgumentParser
 from scanner.targets import validate_target
 
 
@@ -33,8 +35,9 @@ def health(base_url: str) -> dict:
 
 
 def run_experiment(
-    base_url: str, output_dir: str | Path, *, repetitions: int = 3, interval: float = 0.2,
+    base_url: str, output_dir: str | Path, *, repetitions: int = 3, interval: float = 0.2, evidence_profile="shareable",
 ) -> dict:
+    policy = EvidencePolicy(evidence_profile)
     base = validate_target(base_url)
     parts = urlsplit(base)
     if parts.path != "/" or parts.query:
@@ -58,7 +61,7 @@ def run_experiment(
                 ("vulnerable", VULNERABLE_PATH, True), ("safe", SAFE_PATH, False),
             ):
                 report = run_sqli(base + path + "?q=apple", interval=interval)
-                destination = write_json(report, output / f"{label}-{repetition:02d}.json")
+                destination = write_json(report, output / f"{label}-{repetition:02d}.json", evidence_profile=evidence_profile)
                 outcome = report.assessment.outcome
                 if report.errors or outcome == "inconclusive":
                     cell = "inconclusive"
@@ -89,25 +92,27 @@ def run_experiment(
         and summary["dataset_unchanged"] and summary["same_baseline_products"]
     ) else "incomplete"
     summary["finished_at"] = utc_now()
-    (output / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    summary = policy.project(summary)
+    write_json(_Snapshot(summary), output / "summary.json", evidence_profile=evidence_profile)
     return summary
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Executa controles SQLite positivo e negativo, preservando JSON por execução.")
+    parser = SafeArgumentParser(description="Executa controles SQLite positivo e negativo, preservando JSON por execução.")
     parser.add_argument("--base-url", default="http://127.0.0.1:8001")
     parser.add_argument("--output-dir", type=Path, default=Path("reports/sqlite-control"))
     parser.add_argument("--repetitions", type=int, default=3)
+    parser.add_argument("--evidence-profile", choices=("shareable", "restricted"), default="shareable")
     args = parser.parse_args(argv)
     try:
-        summary = run_experiment(args.base_url, args.output_dir, repetitions=args.repetitions)
+        summary = run_experiment(args.base_url, args.output_dir, repetitions=args.repetitions, evidence_profile=args.evidence_profile)
     except (ValueError, OSError) as error:
-        parser.exit(1, f"Erro no experimento: {error}\n")
+        parser.exit(1, "Erro no experimento; confira configura??o e persist?ncia.\n")
     for run in summary["runs"]:
         print(f"{run['endpoint']} #{run['repetition']}: {run['outcome']}, achados={run['findings']}, {run['report']}")
     print(f"Métricas observadas: {summary['metrics']}")
     print(f"Dados preservados: {summary['dataset_unchanged']}; referências equivalentes: {summary['same_baseline_products']}")
-    print(f"Resumo: {args.output_dir / 'summary.json'}")
+    print('Resumo do experimento gravado.')
     return 0 if summary["status"] == "completed" else 1
 
 

@@ -34,7 +34,7 @@ def _safe_url(url: str) -> tuple[str, bool]:
     return safe, safe != url
 
 
-def build_findings_report(data: dict[str, Any], source_report: str) -> dict[str, Any]:
+def _build_findings_report(data: dict[str, Any], source_report: str, *, redact_urls=True) -> dict[str, Any]:
     """Usa somente Finding dos módulos, evitando cópias em resultados consolidados."""
     analyses = data.get("analyses", []) if data.get("mode") == "scan" else [data]
     unique = {}
@@ -45,13 +45,15 @@ def build_findings_report(data: dict[str, Any], source_report: str) -> dict[str,
             if module not in VULNERABILITY_TYPES or status not in STATUSES:
                 continue
             # Deduplicação antes de mascarar a URL: valores distintos não se confundem.
-            key = (module, finding["endpoint"], finding.get("parameter"), status)
+            key = (module, finding.get("endpoint") or finding.get("endpoint_id"),
+                   finding.get("parameter") or finding.get("parameter_id"), status)
             if key in unique:
                 unique[key]["evidence_request_ids"] = sorted(set(
                     unique[key]["evidence_request_ids"] + finding["evidence_request_ids"]
                 ))
                 continue
-            url, redacted = _safe_url(finding["endpoint"])
+            endpoint = finding.get("endpoint")
+            url, redacted = (_safe_url(endpoint) if redact_urls else (endpoint, False)) if endpoint is not None else (None, True)
             unique[key] = {
                 "module": module,
                 "vulnerability_type": VULNERABILITY_TYPES[module],
@@ -65,6 +67,10 @@ def build_findings_report(data: dict[str, Any], source_report: str) -> dict[str,
                 "potential_impact": finding["potential_impact"],
                 "recommended_mitigation": finding["recommended_mitigation"],
             }
+            if finding.get("endpoint_id") is not None:
+                unique[key]["url_id"] = finding["endpoint_id"]
+            if finding.get("parameter_id") is not None:
+                unique[key]["parameter_id"] = finding["parameter_id"]
     findings = list(unique.values())
 
     def counts(items):
@@ -73,6 +79,7 @@ def build_findings_report(data: dict[str, Any], source_report: str) -> dict[str,
 
     return {
         "schema_version": "1.0",
+        **{key: data[key] for key in ("run_id", "snapshot_id", "producer_version") if key in data},
         "report_type": "security_findings",
         "source_report": source_report,
         "scan_status": data.get("summary", {}).get("status"),
@@ -86,3 +93,10 @@ def build_findings_report(data: dict[str, Any], source_report: str) -> dict[str,
         }},
         "findings": findings,
     }
+
+
+def build_findings_report(data, source_report, *, evidence_profile='shareable', policy=None):
+    """Proje??o p?blica segura; entradas legadas continuam sem proveni?ncia verificada."""
+    from scanner.privacy import EvidencePolicy
+    policy = policy or EvidencePolicy(evidence_profile)
+    return policy.project(_build_findings_report(data, source_report, redact_urls=policy.profile == 'restricted'))

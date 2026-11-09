@@ -1,0 +1,75 @@
+{
+  "schema_version": "2.0",
+  "run_id": "a6745cdb-5304-4ea7-8af8-618fc778c679",
+  "snapshot_id": "55cf9aeb-e5f1-4dc3-9e11-4e033b5cdbe7",
+  "producer_version": "0.2.0",
+  "report_type": "security_findings",
+  "source_report": "technical.json",
+  "scan_status": "completed",
+  "collection_status": "completed",
+  "analysis_summary": {
+    "applicable": true,
+    "evaluations": 2,
+    "outcomes": {
+      "confirmed": 2,
+      "suspected": 0,
+      "not_detected": 0,
+      "reflected_safe": 0,
+      "inconclusive": 0
+    },
+    "has_inconclusive": false
+  },
+  "started_at": "2026-11-09T19:26:26.858230+00:00",
+  "finished_at": "2026-11-09T19:26:28.768126+00:00",
+  "summary": {
+    "total": 2,
+    "confirmed": 2,
+    "suspected": 0,
+    "by_module": {}
+  },
+  "findings": [
+    {
+      "module": "exposure",
+      "vulnerability_type": "sensitive_file_exposure",
+      "url": null,
+      "url_id": "url_7af3ca5ddecbd1c9143b3d2ac116fb52",
+      "url_redacted": false,
+      "parameter": null,
+      "parameter_id": null,
+      "status": "confirmed",
+      "confidence": "high",
+      "evidence": "Detalhes omitidos no perfil compartilhável.",
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "potential_impact": "Detalhes omitidos no perfil compartilhável.",
+      "recommended_mitigation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "module": "exposure",
+      "vulnerability_type": "sensitive_file_exposure",
+      "url": null,
+      "url_id": "url_8671649208cdb440a9aeee2d67bcd5a3",
+      "url_redacted": false,
+      "parameter": null,
+      "parameter_id": null,
+      "status": "confirmed",
+      "confidence": "high",
+      "evidence": "Detalhes omitidos no perfil compartilhável.",
+      "evidence_request_ids": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "potential_impact": "Detalhes omitidos no perfil compartilhável.",
+      "recommended_mitigation": "Detalhes omitidos no perfil compartilhável."
+    }
+  ],
+  "evidence_profile": "shareable",
+  "anonymized": true,
+  "source_sha256": "89b8776f9d0504d2d82ae5074204ea4b52079d0643fb9accfb365199ef9f21c3"
+}

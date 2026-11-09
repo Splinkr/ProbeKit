@@ -40,14 +40,14 @@ def test_same_detector_distinguishes_real_sql_implementations(sqlite_app, sample
 
 def test_sql_implementation_overrides_names_and_expectations(sqlite_app, tmp_path):
     sqlite_app.server.routes = {VULNERABLE_PATH: True, SAFE_PATH: False}
-    result = run_experiment(sqlite_app.url, tmp_path, repetitions=1, interval=0)
+    result = run_experiment(sqlite_app.url, tmp_path, repetitions=1, interval=0, evidence_profile="restricted")
     assert [run["outcome"] for run in result["runs"]] == ["not_detected", "confirmed"]
     assert result["metrics"]["false_positive"] == result["metrics"]["false_negative"] == 1
     assert result["metrics"]["true_positive"] == result["metrics"]["true_negative"] == 0
 
 
 def test_each_repetition_has_its_own_verifiable_report(sqlite_app, tmp_path):
-    result = run_experiment(sqlite_app.url, tmp_path, repetitions=2, interval=0)
+    result = run_experiment(sqlite_app.url, tmp_path, repetitions=2, interval=0, evidence_profile="restricted")
     assert result["status"] == "completed"
     assert result["dataset_unchanged"] and result["same_baseline_products"]
     assert result["metrics"] == {"true_positive": 2, "true_negative": 2,
@@ -66,7 +66,7 @@ def test_empty_reference_cannot_be_counted_as_a_safe_negative(sqlite_app, tmp_pa
 
     detector = experiment.run_sqli
     monkeypatch.setattr(experiment, "run_sqli", lambda url, **kw: detector(url.replace("apple", "no-such-product"), **kw))
-    result = run_experiment(sqlite_app.url, tmp_path, repetitions=1, interval=0)
+    result = run_experiment(sqlite_app.url, tmp_path, repetitions=1, interval=0, evidence_profile="restricted")
     assert result["status"] == "incomplete"
     assert result["metrics"]["inconclusive"] == 1
     assert result["metrics"]["true_negative"] == 0
@@ -74,7 +74,7 @@ def test_empty_reference_cannot_be_counted_as_a_safe_negative(sqlite_app, tmp_pa
 
 def test_unrecognized_service_is_not_scanned_as_the_control(http_lab, tmp_path):
     origin = http_lab.start(lambda _: http_lab.reply(body=b'{}', headers={"Content-Type": "application/json"}))
-    result = run_experiment(origin.url, tmp_path, repetitions=1, interval=0)
+    result = run_experiment(origin.url, tmp_path, repetitions=1, interval=0, evidence_profile="restricted")
     assert result["runs"] == [] and result["status"] == "incomplete"
     assert result["metrics"]["true_negative"] == 0
     assert all(call.path == "/health" for call in origin.calls)

@@ -190,7 +190,7 @@ def test_analysis_timeout_preserves_partial_result_and_continues_next_target(htt
 
 
 @pytest.mark.parametrize("interrupt_at", [1, 2, 8, 16])
-def test_interruptions_preserve_discovery_completed_and_partial_analyses(sqlite_app, monkeypatch, tmp_path, interrupt_at):
+def test_interruptions_preserve_discovery_completed_and_partial_analyses(sqlite_app, monkeypatch, tmp_path, interrupt_at, inline_transport):
     original = requests.Session.get
     attempts = 0
 
@@ -204,7 +204,7 @@ def test_interruptions_preserve_discovery_completed_and_partial_analyses(sqlite_
     monkeypatch.setattr(requests.Session, "get", interrupt)
     path = tmp_path / "partial.json"
     report = run_scan(sqlite_app.url + "/scan-lab", interval=0,
-                      checkpoint=lambda current: write_json_atomic(current, path))
+                      checkpoint=lambda current: write_json_atomic(current, path, evidence_profile="restricted"))
     data = json.loads(path.read_text(encoding="utf-8"))
     assert report.status == data["summary"]["status"] == "interrupted"
     assert len(report.requests) == data["summary"]["requests_used"] == interrupt_at
@@ -227,7 +227,7 @@ def test_atomic_checkpoint_does_not_replace_a_valid_report_on_serialization_fail
     bad_report = Mock()
     bad_report.to_dict.return_value = {"invalid": object()}
     with pytest.raises(TypeError):
-        write_json_atomic(bad_report, output)
+        write_json_atomic(bad_report, output, evidence_profile="restricted")
     assert json.loads(output.read_text(encoding="utf-8")) == {"previous": "valid"}
     assert not list(tmp_path.glob(".scan-*.tmp"))
 
@@ -246,17 +246,17 @@ def test_scan_cli_exports_the_real_pipeline_and_legacy_commands_still_work(sqlit
     assert invoke("scan", "--help", cwd=tmp_path).returncode == 0
 
 
-def test_cli_interruption_returns_130_and_keeps_json(http_lab, monkeypatch, tmp_path):
+def test_cli_interruption_returns_130_and_keeps_json(http_lab, monkeypatch, tmp_path, inline_transport):
     site = http_lab.start(lambda _: http_lab.reply())
     monkeypatch.setattr(requests.Session, "get", Mock(side_effect=KeyboardInterrupt))
     output = tmp_path / "interrupted.json"
-    assert main(["scan", site.url, "--output", str(output)]) == 130
+    assert main([*["scan", site.url, "--output", str(output)], "--evidence-profile", "restricted"]) == 130
     assert json.loads(output.read_text(encoding="utf-8"))["summary"]["status"] == "interrupted"
 
 
 def test_invalid_output_stops_before_any_request(http_lab, tmp_path):
     site = http_lab.start(lambda _: http_lab.reply())
-    assert main(["scan", site.url, "--output", str(tmp_path)]) == 1
+    assert main([*["scan", site.url, "--output", str(tmp_path)], "--evidence-profile", "restricted"]) == 1
     assert site.calls == []
 
 
@@ -268,12 +268,12 @@ def test_invalid_output_stops_before_any_request(http_lab, tmp_path):
 def test_invalid_scan_options_fail_before_network(http_lab, options):
     site = http_lab.start(lambda _: http_lab.reply())
     with pytest.raises(SystemExit) as failure:
-        main(["scan", site.url, *options])
+        main([*["scan", site.url, *options], "--evidence-profile", "restricted"])
     assert failure.value.code == 2 and site.calls == []
 
 
 @pytest.mark.parametrize("destination", ["http://example.invalid/", "http://127.0.0.2/", "http://127.0.0.1:9999/"])
-def test_shared_transport_blocks_destinations_outside_authorized_origin_before_counting(monkeypatch, destination):
+def test_shared_transport_blocks_destinations_outside_authorized_origin_before_counting(monkeypatch, destination, inline_transport):
     send = Mock()
     monkeypatch.setattr(requests.Session, "get", send)
     ledger = []

@@ -1,5 +1,7 @@
 """Verificação limitada de arquivos por estrutura, repetição e controles inexistentes."""
 
+from scanner.resources import ResourceLimit, bind_resources, release_bodies, reserve_plan
+
 from scanner.exposure_analysis import assess, observe
 from scanner.exposure_models import ExposureAssessment, ExposureReport, ExposureResult
 from scanner.exposure_profiles import DEFAULT_PROFILES, base_url, build_plan, file_url, request_cost, select_profiles
@@ -22,6 +24,7 @@ def new_report(target, samples=2, **settings):
 
 
 def run_file(client, report, base, spec, samples=2):
+    reserve_plan(client, request_cost(samples), base)
     observations, failures = [], []
     url = file_url(base, spec)
     completed_normally = False
@@ -70,12 +73,14 @@ def _finish_file(report, observations, failures, spec, url, samples):
 
 
 def run_exposure(url, *, profiles=DEFAULT_PROFILES, samples=2, timeout=5.0, max_requests=10,
-                 interval=0.2, max_body_bytes=1_048_576):
+                 interval=0.2, max_body_bytes=1_048_576, **resource_options):
     base, specs = prepare(url, profiles, samples, max_requests)
     report = new_report(base, samples, profiles=list(dict.fromkeys(profiles)), max_requests=max_requests,
         timeout_seconds=timeout, interval_seconds=interval, max_body_bytes=max_body_bytes,
         planned_requests=len(specs) * request_cost(samples))
-    client = HttpClient(timeout, max_requests, interval, max_body_bytes)
+    client = HttpClient(timeout, max_requests, interval, max_body_bytes, **resource_options)
+    client.resources.url(report.target, initial=True)
+    bind_resources(report, client)
     try:
         with client:
             for spec in specs:
@@ -85,9 +90,13 @@ def run_exposure(url, *, profiles=DEFAULT_PROFILES, samples=2, timeout=5.0, max_
             outcome = next(value for value in ("confirmed", "suspected", "inconclusive", "not_detected") if value in outcomes)
             report.assessment = ExposureAssessment(outcome, {}, "Resumo; consulte exposure_results para cada arquivo.",
                 [f"{result.url}: {result.assessment.outcome}" for result in report.exposure_results])
+    except ResourceLimit as error:
+        client.resources.reject(error.reason)
     except Exception:
         report.execution_errors.append(ExecutionFailure("analysis", "exposure"))
     finally:
         report.requests_attempted = client.request_count
         report.finished_at = utc_now()
+        if hasattr(report, "responses"):
+            release_bodies(report)
     return report

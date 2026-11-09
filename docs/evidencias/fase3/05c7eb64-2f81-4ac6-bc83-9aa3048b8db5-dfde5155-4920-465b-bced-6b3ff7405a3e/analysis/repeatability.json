@@ -1,0 +1,2186 @@
+[
+  {
+    "all_three_consistent": true,
+    "case_id": "E01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E01a",
+    "wall_seconds": {
+      "maximum": 2.439274000003934,
+      "median": 2.4292259000067133,
+      "minimum": 2.127767900004983,
+      "n": 3,
+      "sample_stdev": 0.17701880333981182
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E01b",
+    "wall_seconds": {
+      "maximum": 2.439274000003934,
+      "median": 2.4292259000067133,
+      "minimum": 2.127767900004983,
+      "n": 3,
+      "sample_stdev": 0.17701880333981182
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E02",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E02a",
+    "wall_seconds": {
+      "maximum": 2.461584999997285,
+      "median": 2.3647707999989507,
+      "minimum": 2.2354386000006343,
+      "n": 3,
+      "sample_stdev": 0.11346218276674629
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E02",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E02b",
+    "wall_seconds": {
+      "maximum": 2.461584999997285,
+      "median": 2.3647707999989507,
+      "minimum": 2.2354386000006343,
+      "n": 3,
+      "sample_stdev": 0.11346218276674629
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E03",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E03a",
+    "wall_seconds": {
+      "maximum": 1.4410193000003346,
+      "median": 1.358809099998325,
+      "minimum": 1.345145400002366,
+      "n": 3,
+      "sample_stdev": 0.05186041904762321
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E04",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E04a",
+    "wall_seconds": {
+      "maximum": 2.221277299999201,
+      "median": 2.176818899999489,
+      "minimum": 2.1368072999975993,
+      "n": 3,
+      "sample_stdev": 0.042254503439507776
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E04",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E04b",
+    "wall_seconds": {
+      "maximum": 2.221277299999201,
+      "median": 2.176818899999489,
+      "minimum": 2.1368072999975993,
+      "n": 3,
+      "sample_stdev": 0.042254503439507776
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E05",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E05a",
+    "wall_seconds": {
+      "maximum": 2.46573549999448,
+      "median": 2.16859249999834,
+      "minimum": 2.1391600999995717,
+      "n": 3,
+      "sample_stdev": 0.1806523920398085
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E05",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E05b",
+    "wall_seconds": {
+      "maximum": 2.46573549999448,
+      "median": 2.16859249999834,
+      "minimum": 2.1391600999995717,
+      "n": 3,
+      "sample_stdev": 0.1806523920398085
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E06",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E06a",
+    "wall_seconds": {
+      "maximum": 1.5933665999982622,
+      "median": 1.364896700004465,
+      "minimum": 1.359586799997487,
+      "n": 3,
+      "sample_stdev": 0.13346640346897684
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E07",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E07a",
+    "wall_seconds": {
+      "maximum": 2.564589200002956,
+      "median": 2.3409659000026295,
+      "minimum": 2.1693207999996957,
+      "n": 3,
+      "sample_stdev": 0.19820298042629209
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E07",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E07b",
+    "wall_seconds": {
+      "maximum": 2.564589200002956,
+      "median": 2.3409659000026295,
+      "minimum": 2.1693207999996957,
+      "n": 3,
+      "sample_stdev": 0.19820298042629209
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E08",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E08a",
+    "wall_seconds": {
+      "maximum": 2.2558895999973174,
+      "median": 2.1750674999930197,
+      "minimum": 2.1461727999994764,
+      "n": 3,
+      "sample_stdev": 0.056869575548776245
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E08",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E08b",
+    "wall_seconds": {
+      "maximum": 2.2558895999973174,
+      "median": 2.1750674999930197,
+      "minimum": 2.1461727999994764,
+      "n": 3,
+      "sample_stdev": 0.056869575548776245
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E09",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E09a",
+    "wall_seconds": {
+      "maximum": 1.635543600001256,
+      "median": 1.393621900002472,
+      "minimum": 1.391559600000619,
+      "n": 3,
+      "sample_stdev": 0.14027268341098473
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E10",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E10a",
+    "wall_seconds": {
+      "maximum": 2.3548270000028424,
+      "median": 2.2468986000021687,
+      "minimum": 2.1772259999997914,
+      "n": 3,
+      "sample_stdev": 0.08948456656493008
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E10",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E10b",
+    "wall_seconds": {
+      "maximum": 2.3548270000028424,
+      "median": 2.2468986000021687,
+      "minimum": 2.1772259999997914,
+      "n": 3,
+      "sample_stdev": 0.08948456656493008
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E11",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E11a",
+    "wall_seconds": {
+      "maximum": 2.460419800001546,
+      "median": 2.4533564999946975,
+      "minimum": 2.115830199996708,
+      "n": 3,
+      "sample_stdev": 0.19694156740380878
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E11",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E11b",
+    "wall_seconds": {
+      "maximum": 2.460419800001546,
+      "median": 2.4533564999946975,
+      "minimum": 2.115830199996708,
+      "n": 3,
+      "sample_stdev": 0.19694156740380878
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E12",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E12a",
+    "wall_seconds": {
+      "maximum": 1.4308964999945601,
+      "median": 1.3872363999980735,
+      "minimum": 1.3451799000031315,
+      "n": 3,
+      "sample_stdev": 0.04286079995679494
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E13",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E13a",
+    "wall_seconds": {
+      "maximum": 2.1976072000034037,
+      "median": 2.191793600002711,
+      "minimum": 2.1771417999989353,
+      "n": 3,
+      "sample_stdev": 0.01054597700280059
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E13",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E13b",
+    "wall_seconds": {
+      "maximum": 2.1976072000034037,
+      "median": 2.191793600002711,
+      "minimum": 2.1771417999989353,
+      "n": 3,
+      "sample_stdev": 0.01054597700280059
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E14",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E14a",
+    "wall_seconds": {
+      "maximum": 2.515138900002057,
+      "median": 2.1675949999989825,
+      "minimum": 2.136506399998325,
+      "n": 3,
+      "sample_stdev": 0.21020459618287146
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E14",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E14b",
+    "wall_seconds": {
+      "maximum": 2.515138900002057,
+      "median": 2.1675949999989825,
+      "minimum": 2.136506399998325,
+      "n": 3,
+      "sample_stdev": 0.21020459618287146
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E15",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E15a",
+    "wall_seconds": {
+      "maximum": 1.6918904000049224,
+      "median": 1.4493728000015835,
+      "minimum": 1.3625716000024113,
+      "n": 3,
+      "sample_stdev": 0.1706849469381965
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E16",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E16a",
+    "wall_seconds": {
+      "maximum": 2.4507038000010652,
+      "median": 2.2263716999950702,
+      "minimum": 2.2225567999994382,
+      "n": 3,
+      "sample_stdev": 0.13063339170162352
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E16",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E16b",
+    "wall_seconds": {
+      "maximum": 2.4507038000010652,
+      "median": 2.2263716999950702,
+      "minimum": 2.2225567999994382,
+      "n": 3,
+      "sample_stdev": 0.13063339170162352
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E17",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E17a",
+    "wall_seconds": {
+      "maximum": 2.1688623999943957,
+      "median": 2.1503347999969264,
+      "minimum": 2.1367632999972557,
+      "n": 3,
+      "sample_stdev": 0.016113192289413453
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E17",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E17b",
+    "wall_seconds": {
+      "maximum": 2.1688623999943957,
+      "median": 2.1503347999969264,
+      "minimum": 2.1367632999972557,
+      "n": 3,
+      "sample_stdev": 0.016113192289413453
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "E18",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "E18a",
+    "wall_seconds": {
+      "maximum": 1.7068411000000197,
+      "median": 1.3712540000051376,
+      "minimum": 1.367061900004046,
+      "n": 3,
+      "sample_stdev": 0.194972724645995
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "I01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "I01-observed-001",
+    "wall_seconds": {
+      "maximum": 20.05618000000686,
+      "median": 20.029947200004244,
+      "minimum": 19.932107100001303,
+      "n": 3,
+      "sample_stdev": 0.06538976663101545
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "I01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "suspected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "I01-observed-002",
+    "wall_seconds": {
+      "maximum": 20.05618000000686,
+      "median": 20.029947200004244,
+      "minimum": 19.932107100001303,
+      "n": 3,
+      "sample_stdev": 0.06538976663101545
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "I01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "I01-observed-003",
+    "wall_seconds": {
+      "maximum": 20.05618000000686,
+      "median": 20.029947200004244,
+      "minimum": 19.932107100001303,
+      "n": 3,
+      "sample_stdev": 0.06538976663101545
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "I01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "reflected_safe": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "I01-observed-004",
+    "wall_seconds": {
+      "maximum": 20.05618000000686,
+      "median": 20.029947200004244,
+      "minimum": 19.932107100001303,
+      "n": 3,
+      "sample_stdev": 0.06538976663101545
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "I01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "I01-observed-005",
+    "wall_seconds": {
+      "maximum": 20.05618000000686,
+      "median": 20.029947200004244,
+      "minimum": 19.932107100001303,
+      "n": 3,
+      "sample_stdev": 0.06538976663101545
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "I01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 5,
+      "median": 5,
+      "minimum": 5,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "I01-observed-006",
+    "wall_seconds": {
+      "maximum": 20.05618000000686,
+      "median": 20.029947200004244,
+      "minimum": 19.932107100001303,
+      "n": 3,
+      "sample_stdev": 0.06538976663101545
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "I01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "I01-observed-007",
+    "wall_seconds": {
+      "maximum": 20.05618000000686,
+      "median": 20.029947200004244,
+      "minimum": 19.932107100001303,
+      "n": 3,
+      "sample_stdev": 0.06538976663101545
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "I01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 5,
+      "median": 5,
+      "minimum": 5,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "I01-observed-008",
+    "wall_seconds": {
+      "maximum": 20.05618000000686,
+      "median": 20.029947200004244,
+      "minimum": 19.932107100001303,
+      "n": 3,
+      "sample_stdev": 0.06538976663101545
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "I01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "I01-observed-009",
+    "wall_seconds": {
+      "maximum": 20.05618000000686,
+      "median": 20.029947200004244,
+      "minimum": 19.932107100001303,
+      "n": 3,
+      "sample_stdev": 0.06538976663101545
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "I01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "I01-observed-010",
+    "wall_seconds": {
+      "maximum": 20.05618000000686,
+      "median": 20.029947200004244,
+      "minimum": 19.932107100001303,
+      "n": 3,
+      "sample_stdev": 0.06538976663101545
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "I01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "I01-observed-011",
+    "wall_seconds": {
+      "maximum": 20.05618000000686,
+      "median": 20.029947200004244,
+      "minimum": 19.932107100001303,
+      "n": 3,
+      "sample_stdev": 0.06538976663101545
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "I01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "I01-observed-012",
+    "wall_seconds": {
+      "maximum": 20.05618000000686,
+      "median": 20.029947200004244,
+      "minimum": 19.932107100001303,
+      "n": 3,
+      "sample_stdev": 0.06538976663101545
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "I01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "I01-observed-013",
+    "wall_seconds": {
+      "maximum": 20.05618000000686,
+      "median": 20.029947200004244,
+      "minimum": 19.932107100001303,
+      "n": 3,
+      "sample_stdev": 0.06538976663101545
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "J01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "J01-observed-001",
+    "wall_seconds": {
+      "maximum": 4.996074399998179,
+      "median": 4.8293397999950685,
+      "minimum": 4.78483419999975,
+      "n": 3,
+      "sample_stdev": 0.11135797933131132
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "J01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "J01-observed-002",
+    "wall_seconds": {
+      "maximum": 4.996074399998179,
+      "median": 4.8293397999950685,
+      "minimum": 4.78483419999975,
+      "n": 3,
+      "sample_stdev": 0.11135797933131132
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "J01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "J01-observed-003",
+    "wall_seconds": {
+      "maximum": 4.996074399998179,
+      "median": 4.8293397999950685,
+      "minimum": 4.78483419999975,
+      "n": 3,
+      "sample_stdev": 0.11135797933131132
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "J01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "J01-observed-004",
+    "wall_seconds": {
+      "maximum": 4.996074399998179,
+      "median": 4.8293397999950685,
+      "minimum": 4.78483419999975,
+      "n": 3,
+      "sample_stdev": 0.11135797933131132
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "J01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 4,
+      "median": 4,
+      "minimum": 4,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "J01-observed-005",
+    "wall_seconds": {
+      "maximum": 4.996074399998179,
+      "median": 4.8293397999950685,
+      "minimum": 4.78483419999975,
+      "n": 3,
+      "sample_stdev": 0.11135797933131132
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "J02",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "J02a",
+    "wall_seconds": {
+      "maximum": 2.685409099998651,
+      "median": 2.566114399996877,
+      "minimum": 2.5268321000039577,
+      "n": 3,
+      "sample_stdev": 0.08258428973737873
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S01",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S01a",
+    "wall_seconds": {
+      "maximum": 2.9236332000000402,
+      "median": 2.84359989999939,
+      "minimum": 2.584206500003347,
+      "n": 3,
+      "sample_stdev": 0.17743578638535978
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S02",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S02a",
+    "wall_seconds": {
+      "maximum": 2.6275881999972626,
+      "median": 2.594302700003027,
+      "minimum": 2.5849237000002177,
+      "n": 3,
+      "sample_stdev": 0.02242078541189254
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S03",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S03a",
+    "wall_seconds": {
+      "maximum": 2.568122600001516,
+      "median": 2.5662415999977384,
+      "minimum": 2.5457802000019,
+      "n": 3,
+      "sample_stdev": 0.0123921338527493
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S04",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S04a",
+    "wall_seconds": {
+      "maximum": 2.8156298999965657,
+      "median": 2.608466199999384,
+      "minimum": 2.5505073000022094,
+      "n": 3,
+      "sample_stdev": 0.1393831803059299
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S05",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S05a",
+    "wall_seconds": {
+      "maximum": 3.04930699999386,
+      "median": 2.8479029000009177,
+      "minimum": 2.5119756999993115,
+      "n": 3,
+      "sample_stdev": 0.2714576766117564
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S06",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S06a",
+    "wall_seconds": {
+      "maximum": 2.5875631000017165,
+      "median": 2.5747377000006963,
+      "minimum": 2.5745756000032998,
+      "n": 3,
+      "sample_stdev": 0.00745198315667491
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S07",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S07a",
+    "wall_seconds": {
+      "maximum": 2.6394507000004523,
+      "median": 2.598250499999267,
+      "minimum": 2.527847600002133,
+      "n": 3,
+      "sample_stdev": 0.05643473625551769
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S08",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S08a",
+    "wall_seconds": {
+      "maximum": 2.781600399997842,
+      "median": 2.5954595000002882,
+      "minimum": 2.584037900000112,
+      "n": 3,
+      "sample_stdev": 0.11091275024677158
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S09",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S09a",
+    "wall_seconds": {
+      "maximum": 2.8753025000041816,
+      "median": 2.869082100005471,
+      "minimum": 2.5868332000027294,
+      "n": 3,
+      "sample_stdev": 0.1647815078481348
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S10",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S10a",
+    "wall_seconds": {
+      "maximum": 2.706839399994351,
+      "median": 2.6303598000013153,
+      "minimum": 2.5170132999992347,
+      "n": 3,
+      "sample_stdev": 0.09550785876667625
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S11",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S11a",
+    "wall_seconds": {
+      "maximum": 4.596863400001894,
+      "median": 4.560912900000403,
+      "minimum": 4.553195499996946,
+      "n": 3,
+      "sample_stdev": 0.023305515098407784
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S11",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S11b",
+    "wall_seconds": {
+      "maximum": 4.596863400001894,
+      "median": 4.560912900000403,
+      "minimum": 4.553195499996946,
+      "n": 3,
+      "sample_stdev": 0.023305515098407784
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S12",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "inconclusive": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S12a",
+    "wall_seconds": {
+      "maximum": 2.8654859000016586,
+      "median": 2.8584497999981977,
+      "minimum": 2.8128829000052065,
+      "n": 3,
+      "sample_stdev": 0.028556740847117894
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S13",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "inconclusive": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S13a",
+    "wall_seconds": {
+      "maximum": 2.5521962999991956,
+      "median": 2.550052799997502,
+      "minimum": 2.4871627999964403,
+      "n": 3,
+      "sample_stdev": 0.03694388270291212
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "S14",
+    "condition": "default",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "suspected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "S14a",
+    "wall_seconds": {
+      "maximum": 2.6272860000026412,
+      "median": 2.6210997000016505,
+      "minimum": 2.554421299995738,
+      "n": 3,
+      "sample_stdev": 0.04040120427690803
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X01",
+    "condition": "browser",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X01a",
+    "wall_seconds": {
+      "maximum": 8.014120899999398,
+      "median": 6.926360999997996,
+      "minimum": 6.763009800000873,
+      "n": 3,
+      "sample_stdev": 0.6800960960446544
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X01",
+    "condition": "static",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "suspected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X01a",
+    "wall_seconds": {
+      "maximum": 2.66601410000294,
+      "median": 2.593633199998294,
+      "minimum": 2.592944500000158,
+      "n": 3,
+      "sample_stdev": 0.041989354678173135
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X02",
+    "condition": "browser",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X02a",
+    "wall_seconds": {
+      "maximum": 6.84269590000622,
+      "median": 6.786263000001782,
+      "minimum": 6.607889099999738,
+      "n": 3,
+      "sample_stdev": 0.12256709301040904
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X02",
+    "condition": "static",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "suspected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X02a",
+    "wall_seconds": {
+      "maximum": 2.7038975000032224,
+      "median": 2.5886465000003227,
+      "minimum": 2.552552100001776,
+      "n": 3,
+      "sample_stdev": 0.07904748447876254
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X03",
+    "condition": "browser",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "confirmed": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X03a",
+    "wall_seconds": {
+      "maximum": 7.211916699998255,
+      "median": 6.64971279999736,
+      "minimum": 6.5069309000027715,
+      "n": 3,
+      "sample_stdev": 0.3727074085520602
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X03",
+    "condition": "static",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "suspected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X03a",
+    "wall_seconds": {
+      "maximum": 2.7141119000007166,
+      "median": 2.6180426999999327,
+      "minimum": 2.5081642999939504,
+      "n": 3,
+      "sample_stdev": 0.10305093233058124
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X04",
+    "condition": "browser",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "reflected_safe": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X04a",
+    "wall_seconds": {
+      "maximum": 2.9093991000045207,
+      "median": 2.6454397999987123,
+      "minimum": 2.572232400001667,
+      "n": 3,
+      "sample_stdev": 0.17734862985313146
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X04",
+    "condition": "static",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "reflected_safe": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X04a",
+    "wall_seconds": {
+      "maximum": 2.613518500002101,
+      "median": 2.5824701999954414,
+      "minimum": 2.569978400002583,
+      "n": 3,
+      "sample_stdev": 0.022419419812345583
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X05",
+    "condition": "browser",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "reflected_safe": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X05a",
+    "wall_seconds": {
+      "maximum": 2.579286799998954,
+      "median": 2.5739009999961127,
+      "minimum": 2.514177099998051,
+      "n": 3,
+      "sample_stdev": 0.036136832795308944
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X05",
+    "condition": "static",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "reflected_safe": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X05a",
+    "wall_seconds": {
+      "maximum": 2.9106994999965536,
+      "median": 2.8732155000034254,
+      "minimum": 2.5893608999977005,
+      "n": 3,
+      "sample_stdev": 0.17570665897508356
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X06",
+    "condition": "browser",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "suspected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X06a",
+    "wall_seconds": {
+      "maximum": 6.9361805000007735,
+      "median": 6.580706599997939,
+      "minimum": 6.379220999995596,
+      "n": 3,
+      "sample_stdev": 0.2820053265565348
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X06",
+    "condition": "static",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "suspected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X06a",
+    "wall_seconds": {
+      "maximum": 2.6828917000020738,
+      "median": 2.627580100001069,
+      "minimum": 2.574176800000714,
+      "n": 3,
+      "sample_stdev": 0.054360241334859005
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X07",
+    "condition": "browser",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "reflected_safe": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X07a",
+    "wall_seconds": {
+      "maximum": 2.6295819000006304,
+      "median": 2.5831166000061785,
+      "minimum": 2.479171700004372,
+      "n": 3,
+      "sample_stdev": 0.07701384572797555
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X07",
+    "condition": "static",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "reflected_safe": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X07a",
+    "wall_seconds": {
+      "maximum": 3.101920799999789,
+      "median": 2.808099599998968,
+      "minimum": 2.4745228000028874,
+      "n": 3,
+      "sample_stdev": 0.31390885871158514
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X08",
+    "condition": "browser",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "reflected_safe": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X08a",
+    "wall_seconds": {
+      "maximum": 2.565660399995977,
+      "median": 2.53188890000456,
+      "minimum": 2.520927900004608,
+      "n": 3,
+      "sample_stdev": 0.023315425109238473
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X08",
+    "condition": "static",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "reflected_safe": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X08a",
+    "wall_seconds": {
+      "maximum": 2.7766450999988592,
+      "median": 2.723180200002389,
+      "minimum": 2.561856899999839,
+      "n": 3,
+      "sample_stdev": 0.1118165711587245
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X09",
+    "condition": "browser",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 5,
+      "median": 5,
+      "minimum": 5,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X09a",
+    "wall_seconds": {
+      "maximum": 1.6210614999945392,
+      "median": 1.618952899996657,
+      "minimum": 1.5583929999993416,
+      "n": 3,
+      "sample_stdev": 0.03558859502069915
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X09",
+    "condition": "static",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "not_detected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 5,
+      "median": 5,
+      "minimum": 5,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X09a",
+    "wall_seconds": {
+      "maximum": 1.885165200001211,
+      "median": 1.7623556000035023,
+      "minimum": 1.577961499999219,
+      "n": 3,
+      "sample_stdev": 0.15462723739308273
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X10",
+    "condition": "browser",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "suspected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X10a",
+    "wall_seconds": {
+      "maximum": 6.502146300001186,
+      "median": 6.41268499999569,
+      "minimum": 6.139805399994657,
+      "n": 3,
+      "sample_stdev": 0.1887491845955628
+    }
+  },
+  {
+    "all_three_consistent": true,
+    "case_id": "X10",
+    "condition": "static",
+    "evaluated": 3,
+    "modal_frequency": 1.0,
+    "outcomes": {
+      "suspected": 3
+    },
+    "planned": 3,
+    "requests": {
+      "maximum": 10,
+      "median": 10,
+      "minimum": 10,
+      "n": 3,
+      "sample_stdev": 0.0
+    },
+    "unit_id": "X10a",
+    "wall_seconds": {
+      "maximum": 4.030036399999517,
+      "median": 2.563609599994379,
+      "minimum": 2.5271536000000197,
+      "n": 3,
+      "sample_stdev": 0.857359639653748
+    }
+  }
+]

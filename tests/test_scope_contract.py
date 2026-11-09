@@ -31,7 +31,7 @@ def test_canonical_local_origins(source, canonical):
     "file:///C:/secret.txt", "localhost:3000", "http://localhost/#section",
     "http://localhost/\r\nHost:example.org", "http://localhost\\@example.org",
 ])
-def test_rejected_destinations_never_reach_transport(destination, monkeypatch):
+def test_rejected_destinations_never_reach_transport(destination, monkeypatch, inline_transport):
     send = Mock()
     monkeypatch.setattr("requests.Session.get", send)
     with HttpClient() as client, pytest.raises(TargetError):

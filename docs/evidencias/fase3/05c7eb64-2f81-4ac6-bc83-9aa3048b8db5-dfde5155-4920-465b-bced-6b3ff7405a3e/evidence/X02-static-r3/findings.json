@@ -1,0 +1,61 @@
+{
+  "schema_version": "2.0",
+  "run_id": "2cd70e9d-e4aa-42b1-b79b-761c1139ec39",
+  "snapshot_id": "dd1774d0-c65c-4177-859d-7323b33c6bd1",
+  "producer_version": "0.2.0",
+  "report_type": "security_findings",
+  "source_report": "technical.json",
+  "scan_status": "completed",
+  "collection_status": "completed",
+  "analysis_summary": {
+    "applicable": true,
+    "evaluations": 1,
+    "outcomes": {
+      "confirmed": 0,
+      "suspected": 1,
+      "not_detected": 0,
+      "reflected_safe": 0,
+      "inconclusive": 0
+    },
+    "has_inconclusive": false
+  },
+  "started_at": "2026-11-09T19:31:35.957462+00:00",
+  "finished_at": "2026-11-09T19:31:38.079882+00:00",
+  "summary": {
+    "total": 1,
+    "confirmed": 0,
+    "suspected": 1,
+    "by_module": {}
+  },
+  "findings": [
+    {
+      "module": "xss",
+      "vulnerability_type": "reflected_xss",
+      "url": null,
+      "url_id": "url_76581ac542111e20e278d4c066fa76ff",
+      "url_redacted": false,
+      "parameter": null,
+      "parameter_id": "parameter_bba6aa2397114851e8feb6b7221a3681",
+      "status": "suspected",
+      "confidence": "low",
+      "evidence": "Detalhes omitidos no perfil compartilhável.",
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "potential_impact": "Detalhes omitidos no perfil compartilhável.",
+      "recommended_mitigation": "Detalhes omitidos no perfil compartilhável."
+    }
+  ],
+  "evidence_profile": "shareable",
+  "anonymized": true,
+  "source_sha256": "ef2ea64ef65ed9e9d2dff51bfe0de794ca9b72e6a8946a1e35339c2ed500c1f3"
+}

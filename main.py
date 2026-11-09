@@ -14,9 +14,10 @@ from scanner.modules.xss import prepare_parameters as prepare_xss_parameters, ru
 from scanner.modules import exposure
 from scanner.exposure_profiles import PROFILES
 from scanner.sqli_plans import CONTEXTS, prepare_parameters
-from scanner.reporter import findings_path, write_reports
+from scanner.reporter import findings_path, write_reports, read_verified_reports
+from scanner.privacy import EvidencePolicy
 from scanner.targets import TargetError, validate_target
-from scanner.terminal import format_scan_results
+from scanner.terminal import format_scan_results, safe_print as print, SafeArgumentParser
 
 
 def positive_int(value: str) -> int:
@@ -47,8 +48,20 @@ def nonnegative_int(value: str) -> int:
     return result
 
 
+def add_resource_arguments(parser):
+    from scanner.resources import DEFAULTS
+    for name, default in DEFAULTS.items():
+        parser.add_argument('--' + name.replace('_', '-'), type=positive_int, default=default)
+    parser.add_argument('--request-deadline', type=positive_float, default=15.0)
+
+
+def resource_arguments(args):
+    from scanner.resources import DEFAULTS
+    return {**{name: getattr(args, name) for name in DEFAULTS}, 'request_deadline': args.request_deadline}
+
+
 def discover_main(argv: list[str]) -> int:
-    parser = argparse.ArgumentParser(prog="main.py discover", description="Inventaria links HTML e formulários GET na mesma origem local.")
+    parser = SafeArgumentParser(prog="main.py discover", description="Inventaria links HTML e formulários GET na mesma origem local.")
     parser.add_argument("url", help="URL inicial local")
     parser.add_argument("--max-depth", type=nonnegative_int, default=2)
     parser.add_argument("--max-pages", type=positive_int, default=20)
@@ -57,11 +70,15 @@ def discover_main(argv: list[str]) -> int:
     parser.add_argument("--interval", type=interval_float, default=0.2)
     parser.add_argument("--max-body-bytes", type=positive_int, default=1_048_576)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--evidence-profile", choices=("shareable", "restricted"), default="shareable")
+    add_resource_arguments(parser)
     args = parser.parse_args(argv)
+    policy = EvidencePolicy(args.evidence_profile)
     try:
         report = discover(
             args.url, max_depth=args.max_depth, max_pages=args.max_pages, max_requests=args.max_requests,
             timeout=args.timeout, interval=args.interval, max_body_bytes=args.max_body_bytes,
+            **resource_arguments(args),
         )
     except ValueError as error:
         parser.error(str(error))
@@ -69,26 +86,26 @@ def discover_main(argv: list[str]) -> int:
         "discover-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ") + ".json"
     )
     try:
-        output = write_reports(report, destination)
+        output = write_reports(report, destination, evidence_profile=args.evidence_profile, policy=policy)
     except OSError as error:
-        print(f"Erro ao gravar inventário: {error}", file=sys.stderr)
+        print("Erro ao gravar inventário; confira o destino e as permiss\u00f5es.", file=sys.stderr)
         return 1
     for endpoint in report.endpoints:
         sources = ", ".join(dict.fromkeys(source.kind for source in endpoint.sources))
-        parameters = ", ".join(dict.fromkeys(parameter.name for parameter in endpoint.parameters)) or "nenhum"
-        print(f"{endpoint.method} {endpoint.endpoint} | parâmetros: {parameters} | origem: {sources}")
+        parameters = ", ".join(dict.fromkeys(policy.label('parameter', parameter.name) for parameter in endpoint.parameters)) or "nenhum"
+        print(f"{endpoint.method} {policy.label('url', endpoint.endpoint)} | parâmetros: {parameters} | origem: {sources}")
     print(f"Páginas: {len(report.pages)}; requisições: {report.requests_attempted}; erros: {len(report.errors)}")
     if report.stop_reasons:
         print(f"Limites atingidos: {', '.join(report.stop_reasons)}")
-    print(f"Inventário JSON: {output}")
-    print(f"Achados JSON: {findings_path(output)}")
+    print(f"Inventário JSON: {policy.label('path', output)}")
+    print(f"Achados JSON: {policy.label('path', findings_path(output))}")
     for error in report.execution_errors:
         print(f"Erro [{error.kind}]: {error.message}", file=sys.stderr)
     return 1 if report.errors or report.execution_errors else 0
 
 
 def scan_main(argv: list[str]) -> int:
-    parser = argparse.ArgumentParser(prog="main.py scan", description="Descobre parâmetros GET e executa SQLi, XSS e exposure na mesma origem loopback.")
+    parser = SafeArgumentParser(prog="main.py scan", description="Descobre parâmetros GET e executa SQLi, XSS e exposure na mesma origem loopback.")
     parser.add_argument("url", help="URL inicial local autorizada")
     parser.add_argument("--max-depth", type=nonnegative_int, default=2)
     parser.add_argument("--max-pages", type=positive_int, default=20)
@@ -103,7 +120,10 @@ def scan_main(argv: list[str]) -> int:
     parser.add_argument("--exposure-base-path", help="Diretório-base exposure na mesma origem (padrão: /)")
     parser.add_argument("--xss-browser", action="store_true", help="Confirmar XSS por replay em navegador local isolado")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--evidence-profile", choices=("shareable", "restricted"), default="shareable")
+    add_resource_arguments(parser)
     args = parser.parse_args(argv)
+    policy = EvidencePolicy(args.evidence_profile)
     destination = args.output or Path("reports") / (
         "scan-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ") + ".json"
     )
@@ -111,21 +131,22 @@ def scan_main(argv: list[str]) -> int:
         report = run_scan(
             args.url, max_depth=args.max_depth, max_pages=args.max_pages, max_requests=args.max_requests,
             timeout=args.timeout, interval=args.interval, max_body_bytes=args.max_body_bytes,
+            **resource_arguments(args),
             samples=args.samples, context=args.sqli_context,
             modules=tuple(args.modules), xss_browser=args.xss_browser,
             exposure_profiles=tuple(args.exposure_profiles) if args.exposure_profiles is not None else None,
             exposure_base_path=args.exposure_base_path,
-            checkpoint=lambda current: write_reports(current, destination, atomic=True),
+            checkpoint=lambda current: write_reports(current, destination, atomic=True, evidence_profile=args.evidence_profile, policy=policy),
         )
     except ValueError as error:
         parser.error(str(error))
     except OSError as error:
-        print(f"Erro ao gravar relatório consolidado: {error}", file=sys.stderr)
+        print("Erro ao gravar relatório consolidado; confira o destino e as permiss\u00f5es.", file=sys.stderr)
         return 1
     for analysis in report.analyses:
         result = analysis.assessment
-        label = f"{'arquivo' if analysis.mode == 'exposure' else result.parameter}: {result.outcome}" if result else "interrompida antes da classificação"
-        print(f"{analysis.target} | {analysis.mode}: {label}")
+        label = f"{'arquivo' if analysis.mode == 'exposure' else policy.label('parameter', result.parameter)}: {result.outcome}" if result else "interrompida antes da classificação"
+        print(f"{policy.label('url', analysis.target)} | {analysis.mode}: {label}")
     summary = report.to_dict()["summary"]
     print(f"Estado: {report.status}; endpoints: {summary['endpoints_discovered']}; parâmetros analisados: {summary['parameters_analyzed']}")
     if "exposure" in args.modules:
@@ -133,16 +154,16 @@ def scan_main(argv: list[str]) -> int:
     analysis_label = "SQLi" if args.modules == ["sqli"] else "análise"
     print(f"Requisições: {summary['requests_used']}/{args.max_requests} (descoberta={summary['discovery_requests']}, {analysis_label}={summary['analysis_requests']})")
     print(f"Alvos ignorados: {summary['targets_ignored']}; limites: {', '.join(report.stop_reasons) or 'nenhum'}")
-    print(format_scan_results(report))
-    print(f"Relatório consolidado JSON: {destination}")
-    print(f"Achados JSON: {findings_path(destination)}")
+    print(format_scan_results(report), trusted_layout=True)
+    print(f"Relatório consolidado JSON: {policy.label('path', destination)}")
+    print(f"Achados JSON: {policy.label('path', findings_path(destination))}")
     for error in report.execution_errors:
         print(f"Erro [{error.kind}]: {error.message}", file=sys.stderr)
     return 130 if report.status == "interrupted" else 1 if report.status == "incomplete" else 0
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
+    parser = SafeArgumentParser(
         description="Referências HTTP locais, SQLi/XSS por parâmetro GET e exposição de arquivos com controles.",
         epilog="Descoberta HTML: main.py discover URL --help. Fluxo completo: main.py scan URL --help",
     )
@@ -154,6 +175,7 @@ def build_parser() -> argparse.ArgumentParser:
     selection.add_argument("--parameter", help="Parâmetro GET único a testar")
     selection.add_argument("--all-parameters", action="store_true", help="Testar cada parâmetro GET individualmente")
     parser.add_argument("--sqli-context", choices=CONTEXTS, default="like", help="Contexto de aspas simples: LIKE ou igualdade (padrão: like)")
+    parser.add_argument("--evidence-profile", choices=("shareable", "restricted"), default="shareable")
     parser.add_argument("--version", action="version", version=__version__)
     parser.add_argument("--samples", type=positive_int, default=2, help="Número de referências (padrão: 2)")
     parser.add_argument("--timeout", type=positive_float, default=5.0, help="Timeout de conexão/leitura, em segundos (padrão: 5)")
@@ -166,14 +188,30 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     arguments = list(sys.argv[1:] if argv is None else argv)
+    if arguments and arguments[0] == "verify-report":
+        parser = SafeArgumentParser(prog="main.py verify-report")
+        parser.add_argument("manifest", type=Path)
+        parser.add_argument("--expected-run-id")
+        args = parser.parse_args(arguments[1:])
+        try:
+            read_verified_reports(args.manifest, args.expected_run_id)
+        except (OSError, ValueError, KeyError, TypeError):
+            print("Evid\u00eancia n\u00e3o verificada: falha de leitura, integridade ou contrato.", file=sys.stderr)
+            return 1
+        print("Evid\u00eancia verificada.")
+        return 0
     if arguments and arguments[0] == "discover":
         return discover_main(arguments[1:])
     if arguments and arguments[0] == "scan":
         return scan_main(arguments[1:])
     parser = build_parser()
+    add_resource_arguments(parser)
     args = parser.parse_args(arguments)
+    policy = EvidencePolicy(args.evidence_profile)
     try:
         target = validate_target(args.url)
+        if len(target.encode("utf-8")) > args.max_url_length:
+            raise ValueError("URL inicial excede --max-url-length.")
         if args.samples > args.max_requests:
             raise ValueError("--samples não pode exceder --max-requests.")
         if args.module == "sqli":
@@ -203,23 +241,24 @@ def main(argv: list[str] | None = None) -> int:
         target, samples=args.samples, timeout=args.timeout,
         max_requests=args.max_requests, interval=args.interval,
         max_body_bytes=args.max_body_bytes,
+        **resource_arguments(args),
         **extra,
     )
     destination = args.output or Path("reports") / (
         args.module + "-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ") + ".json"
     )
     try:
-        output = write_reports(report, destination)
+        output = write_reports(report, destination, evidence_profile=args.evidence_profile, policy=policy)
     except OSError as error:
-        print(f"Erro ao gravar relatório: {error}", file=sys.stderr)
+        print("Erro ao gravar relatório; confira o destino e as permiss\u00f5es.", file=sys.stderr)
         return 1
-    print(f"Alvo: {report.target}")
+    print(f"Alvo: {policy.label('url', report.target)}")
     print(f"Conectividade HTTP: {'OK' if report.reachable else 'FALHOU'}")
     probes = {probe.request_id: probe for probe in report.probes}
     for response in report.responses:
         probe = probes.get(response.request_id)
         features = getattr(probe, "features", None)
-        label = (f"{probe.parameter}/{probe.role} (formato={features.format if features else getattr(probe, 'content_format', 'indefinido')})"
+        label = (f"{policy.label('parameter', probe.parameter)}/{probe.role} (formato={features.format if features else getattr(probe, 'content_format', 'indefinido')})"
                  if probe else "Referência")
         print(f"  {label} #{response.request_id}: HTTP {response.status_code}, {response.size_bytes} bytes, {response.elapsed_ms:.1f} ms")
         if probe and getattr(probe, "sql_error_signatures", []):
@@ -238,21 +277,21 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  Erro [{error.kind}]: {error.message}", file=sys.stderr)
     if report.assessment:
         print(f"{'Exposure' if args.module == 'exposure' else 'XSS' if args.module == 'xss' else 'SQLi'}: {report.assessment.outcome}")
-        print(report.assessment.rationale)
+        print(report.assessment.rationale if args.evidence_profile == "restricted" else "Crit\u00e9rios dispon\u00edveis no relat\u00f3rio.")
         for result in report.parameter_results:
-            print(f"  Parâmetro {result.parameter}: {result.assessment.outcome} ({result.context})")
+            print(f"  Parâmetro {policy.label('parameter', result.parameter)}: {result.assessment.outcome} ({result.context})")
         for result in getattr(report, "exposure_results", []):
-            print(f"  Arquivo {result.url}: {result.assessment.outcome}")
+            print(f"  Arquivo {policy.label('url', result.url)}: {result.assessment.outcome}")
         for finding in report.findings:
             print(f"  Achado: {finding.status.value}, confiança {finding.confidence.value}; evidências {finding.evidence_request_ids}")
         for limitation in report.assessment.limitations:
-            print(f"  {limitation}")
+            print(f"  {limitation}" if args.evidence_profile == "restricted" else "  Limita\u00e7\u00e3o registrada no relat\u00f3rio.")
     elif report.mode == "baseline":
         print("Modo referência: diferenças não confirmam vulnerabilidades; nenhum detector foi executado.")
     else:
         print("Análise sem classificação; consulte as falhas e evidências parciais no JSON.")
-    print(f"Relatório JSON: {output}")
-    print(f"Achados JSON: {findings_path(output)}")
+    print(f"Relatório JSON: {policy.label('path', output)}")
+    print(f"Achados JSON: {policy.label('path', findings_path(output))}")
     return 1 if report.errors or report.execution_errors or (report.assessment and report.assessment.outcome == "inconclusive") or any(
         result.assessment.outcome == "inconclusive" for result in report.parameter_results
     ) or any(

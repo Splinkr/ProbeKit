@@ -1,5 +1,7 @@
 """Descoberta e detectores HTTP na mesma origem, sequência de IDs e orçamento."""
 
+from scanner.resources import ResourceLimit, bind_resources, release_bodies, reserve_plan
+
 from collections.abc import Callable
 from urllib.parse import urlsplit
 
@@ -32,6 +34,9 @@ class ScopedHttpClient(HttpClient):
         except HttpClientError as error:
             entry.update(status="failed", error=error.failure.kind)
             raise
+        except ResourceLimit as error:
+            entry.update(status="limited", error=error.reason)
+            raise
         except KeyboardInterrupt:
             entry.update(status="interrupted")
             raise
@@ -56,8 +61,9 @@ def collect_targets(report: IntegratedScanReport) -> None:
     modules = [module for module in report.settings.get("modules", ["sqli"]) if module != "exposure"]
 
     def ignore(candidate, reason, parameter=None, detail=None):
-        report.ignored_targets.append({"url": candidate["url"], "parameter": parameter,
-                                       "source": candidate["source"], "reason": reason, "detail": detail})
+        item = {"url": candidate["url"], "parameter": parameter, "source": candidate["source"], "reason": reason, "detail": detail}
+        if report._resources.reserve(item):
+            report.ignored_targets.append(item)
 
     for candidate in discovery.candidates if modules else []:
         url, source = candidate["url"], candidate["source"]
@@ -93,12 +99,13 @@ def collect_targets(report: IntegratedScanReport) -> None:
                 key = (url, name, module, selected_context)
                 if key in known:
                     if source not in known[key]["sources"]:
-                        known[key]["sources"].append(source)
+                        if report._resources.reserve(source):
+                            known[key]["sources"].append(source)
                     ignore(candidate, "duplicate_target", name, module)
                     continue
                 try:
                     if module == "sqli":
-                        build_probe_plan(url, report.settings["samples"], report.settings["samples"] + EXTRA_REQUESTS,
+                        build_probe_plan(url, min(report.settings["samples"], 2), report.settings["samples"] + EXTRA_REQUESTS,
                                          parameter=name, context=context)
                     else:
                         xss.select_parameters(url, name)
@@ -107,14 +114,18 @@ def collect_targets(report: IntegratedScanReport) -> None:
                     continue
                 target = {"url": url, "endpoint": urlsplit(url)._replace(query="").geturl(), "module": module,
                           "parameter": name, "context": selected_context, "sources": [source], "status": "pending"}
+                if not report._resources.reserve(target, candidate=True):
+                    continue
                 known[key] = target
                 report.targets.append(target)
     if "exposure" in report.settings.get("modules", []):
         base = report.settings["exposure_base_url"]
         for spec in exposure.select_profiles(report.settings["exposure_profiles"]):
-            report.targets.append({"url": exposure.file_url(base, spec), "endpoint": exposure.file_url(base, spec),
+            target = {"url": exposure.file_url(base, spec), "endpoint": exposure.file_url(base, spec),
                 "parameter": None, "module": "exposure", "context": "file_exposure", "profile": spec.profile,
-                "file_path": spec.path, "status": "pending", "sources": [{"kind": "configured_profile", "profile": spec.profile}]})
+                "file_path": spec.path, "status": "pending", "sources": [{"kind": "configured_profile", "profile": spec.profile}]}
+            if report._resources.reserve(target, candidate=True):
+                report.targets.append(target)
 
 
 def run_scan(
@@ -124,6 +135,7 @@ def run_scan(
     modules: tuple[str, ...] = ("sqli",), xss_browser: bool = False,
     exposure_profiles: tuple[str, ...] | None = None, exposure_base_path: str | None = None,
     checkpoint: Callable[[IntegratedScanReport], None] | None = None,
+    **resource_options,
 ) -> IntegratedScanReport:
     discovery = new_discovery_report(url, max_depth=max_depth, max_pages=max_pages, max_requests=max_requests,
                                       timeout=timeout, interval=interval, max_body_bytes=max_body_bytes)
@@ -157,6 +169,7 @@ def run_scan(
         "Ctrl+C preserva o que foi coletado quando possível; encerramento forçado pode perder o último parâmetro.",
     ])
 
+    discovery.run_id = report.run_id
     checkpoint_failed = False
     persistence_error = None
     completed_normally = False
@@ -188,7 +201,11 @@ def run_scan(
                 report.ignored_targets.append({**target, "reason": reason})
 
     client = ScopedHttpClient(report.target, report.requests, timeout=timeout, max_requests=max_requests,
-                              interval=interval, max_body_bytes=max_body_bytes)
+                              interval=interval, max_body_bytes=max_body_bytes, **resource_options)
+    client.resources.url(report.target, initial=True)
+    bind_resources(report, client)
+    bind_resources(discovery, client)
+    client.requests = report.requests
     try:
         with client:
             save()  # Também detecta destino de saída inválido antes do tráfego.
@@ -223,15 +240,19 @@ def run_scan(
                     analysis = ScanReport(target["url"], utc_now(), analysis_settings,
                         mode=module, schema_version="1.2" if module == "sqli" else "1.3",
                         target_source="automatic" if any(source["kind"] != "manual" for source in target["sources"]) else "manual")
+                bind_resources(analysis, client)
+                analysis.run_id = report.run_id
                 report.analyses.append(analysis)
                 active_analysis = analysis
                 initial_count = client.request_count
                 try:
                     if module == "sqli":
+                        reserve_plan(client, required, target["url"])
                         plan = build_probe_plan(target["url"], samples, required, parameter=target["parameter"],
                                                 context=context, start_id=client.request_count + 1)
                         run_detection(client, analysis, plan)
                     elif module == "xss":
+                        reserve_plan(client, required, target["url"])
                         plan, callback = xss.build_plan(target["url"], target["parameter"], samples, client.request_count + 1)
                         xss.run_detection(client, analysis, plan, callback, browser=xss_browser)
                     else:
@@ -240,9 +261,14 @@ def run_scan(
                 finally:
                     analysis.requests_attempted = client.request_count - initial_count
                     analysis.finished_at = utc_now()
+                    release_bodies(analysis)
                 target["status"] = "completed"
                 save()
                 active_analysis = None
+        completed_normally = True
+    except ResourceLimit as error:
+        client.resources.reject(error.reason)
+        stop_targets(error.reason)
         completed_normally = True
     except KeyboardInterrupt:
         report.status = "interrupted"
@@ -270,7 +296,7 @@ def run_scan(
             report.stop_reasons.append("execution_error")
             stop_targets("execution_error")
     finally:
-        report.stop_reasons = list(dict.fromkeys([*report.stop_reasons, *discovery.stop_reasons]))
+        report.stop_reasons = list(dict.fromkeys([*report.stop_reasons, *discovery.stop_reasons, *client.resources.stop_reasons]))
         if report.status != "interrupted":
             failed = not completed_normally or report.status == "incomplete" or discovery.errors or discovery.execution_errors or any(
                 analysis.errors or analysis.execution_errors or analysis.assessment is None

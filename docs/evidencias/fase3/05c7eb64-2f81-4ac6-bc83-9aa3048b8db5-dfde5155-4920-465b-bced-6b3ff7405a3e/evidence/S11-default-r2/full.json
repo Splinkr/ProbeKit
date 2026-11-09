@@ -1,0 +1,1026 @@
+{
+  "run_id": "98c5984a-56cb-4fca-b386-12c0ecb13047",
+  "resource_usage": {
+    "urls": 15,
+    "metadata_bytes": 127263,
+    "candidate_records": 0,
+    "total_body_bytes": 2600,
+    "body_bytes_observed": 2600,
+    "body_bytes_reserved": 0,
+    "rejected": {},
+    "limited": false
+  },
+  "resource_limits": [],
+  "schema_version": "2.0",
+  "mode": "sqli",
+  "target": null,
+  "target_id": "url_9b813f25efabd355e1e58c27e3f10d2e",
+  "target_source": "manual",
+  "started_at": "2026-11-09T19:27:59.846940+00:00",
+  "finished_at": "2026-11-09T19:28:03.963953+00:00",
+  "settings": {
+    "samples": 2,
+    "timeout_seconds": 5.0,
+    "max_requests": 20,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "follow_redirects": false,
+    "scope": "loopback_only",
+    "parameter": null,
+    "parameter_id": null,
+    "parameters": [
+      "parameter_fa17009debd2a73f93d1885be426474f",
+      "parameter_dee56e167f44baf68650118f7f7983e3"
+    ],
+    "context": "like",
+    "available_parameters": [
+      "parameter_fa17009debd2a73f93d1885be426474f",
+      "parameter_dee56e167f44baf68650118f7f7983e3"
+    ],
+    "planned_requests": 20,
+    "confirmation_scope": "controlled_boolean_read_condition",
+    "max_urls": 1000,
+    "max_candidates": 2000,
+    "max_url_length": 8192,
+    "max_metadata_bytes": 8388608,
+    "max_total_body_bytes": 33554432,
+    "request_deadline": 15.0
+  },
+  "summary": {
+    "reachable": true,
+    "status": "completed",
+    "requests_attempted": 20,
+    "responses_received": 20,
+    "errors": 0,
+    "findings": 1
+  },
+  "responses": [
+    {
+      "request_id": 1,
+      "url": null,
+      "url_id": "url_9b813f25efabd355e1e58c27e3f10d2e",
+      "collected_at": "2026-11-09T19:28:00.149582+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 135,
+      "body_sha256": "f8bf2c78c84cb9bfd72bd45e78ee72310a8822542841fba5c83fa068af1f45f9",
+      "elapsed_ms": 7.165,
+      "method": "GET"
+    },
+    {
+      "request_id": 2,
+      "url": null,
+      "url_id": "url_9b813f25efabd355e1e58c27e3f10d2e",
+      "collected_at": "2026-11-09T19:28:00.350068+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 135,
+      "body_sha256": "f8bf2c78c84cb9bfd72bd45e78ee72310a8822542841fba5c83fa068af1f45f9",
+      "elapsed_ms": 6.212,
+      "method": "GET"
+    },
+    {
+      "request_id": 3,
+      "url": null,
+      "url_id": "url_367ab6b44eec9b968d622ebb345bf7ea",
+      "collected_at": "2026-11-09T19:28:00.550499+00:00",
+      "status_code": 500,
+      "content_type": "application/json",
+      "size_bytes": 95,
+      "body_sha256": "e75bd6808ebe64a8b3e02aa768fb5fc834694a4c4e793e7fa59d4b443e2088d2",
+      "elapsed_ms": 6.433,
+      "method": "GET"
+    },
+    {
+      "request_id": 4,
+      "url": null,
+      "url_id": "url_6fef523fe8d1d65a0743c79a66ea4e0b",
+      "collected_at": "2026-11-09T19:28:00.750549+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 63,
+      "body_sha256": "2f5c02161eb6736cf0489c2db60d873fa3b2ba184b1b3e7286bf11bf44800ac7",
+      "elapsed_ms": 4.911,
+      "method": "GET"
+    },
+    {
+      "request_id": 5,
+      "url": null,
+      "url_id": "url_d262f75fd6fb9edef4670ab46913bac4",
+      "collected_at": "2026-11-09T19:28:00.950777+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 63,
+      "body_sha256": "2f5c02161eb6736cf0489c2db60d873fa3b2ba184b1b3e7286bf11bf44800ac7",
+      "elapsed_ms": 5.693,
+      "method": "GET"
+    },
+    {
+      "request_id": 6,
+      "url": null,
+      "url_id": "url_049d7c5c7bcc690beda1202cdb05a6ec",
+      "collected_at": "2026-11-09T19:28:01.150877+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 135,
+      "body_sha256": "f8bf2c78c84cb9bfd72bd45e78ee72310a8822542841fba5c83fa068af1f45f9",
+      "elapsed_ms": 4.546,
+      "method": "GET"
+    },
+    {
+      "request_id": 7,
+      "url": null,
+      "url_id": "url_de8c0e4cabb1ef8d6fde3f3509f3df37",
+      "collected_at": "2026-11-09T19:28:01.351216+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 63,
+      "body_sha256": "2f5c02161eb6736cf0489c2db60d873fa3b2ba184b1b3e7286bf11bf44800ac7",
+      "elapsed_ms": 5.723,
+      "method": "GET"
+    },
+    {
+      "request_id": 8,
+      "url": null,
+      "url_id": "url_003d1f7a82b0221ca057dacdc66dca93",
+      "collected_at": "2026-11-09T19:28:01.551723+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 135,
+      "body_sha256": "f8bf2c78c84cb9bfd72bd45e78ee72310a8822542841fba5c83fa068af1f45f9",
+      "elapsed_ms": 5.875,
+      "method": "GET"
+    },
+    {
+      "request_id": 9,
+      "url": null,
+      "url_id": "url_8358db0c0285a9fb1b74378fdb94ea6a",
+      "collected_at": "2026-11-09T19:28:01.751744+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 63,
+      "body_sha256": "2f5c02161eb6736cf0489c2db60d873fa3b2ba184b1b3e7286bf11bf44800ac7",
+      "elapsed_ms": 6.377,
+      "method": "GET"
+    },
+    {
+      "request_id": 10,
+      "url": null,
+      "url_id": "url_9b813f25efabd355e1e58c27e3f10d2e",
+      "collected_at": "2026-11-09T19:28:01.951790+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 135,
+      "body_sha256": "f8bf2c78c84cb9bfd72bd45e78ee72310a8822542841fba5c83fa068af1f45f9",
+      "elapsed_ms": 4.234,
+      "method": "GET"
+    },
+    {
+      "request_id": 11,
+      "url": null,
+      "url_id": "url_9b813f25efabd355e1e58c27e3f10d2e",
+      "collected_at": "2026-11-09T19:28:02.152172+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 135,
+      "body_sha256": "f8bf2c78c84cb9bfd72bd45e78ee72310a8822542841fba5c83fa068af1f45f9",
+      "elapsed_ms": 6.124,
+      "method": "GET"
+    },
+    {
+      "request_id": 12,
+      "url": null,
+      "url_id": "url_9b813f25efabd355e1e58c27e3f10d2e",
+      "collected_at": "2026-11-09T19:28:02.352325+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 135,
+      "body_sha256": "f8bf2c78c84cb9bfd72bd45e78ee72310a8822542841fba5c83fa068af1f45f9",
+      "elapsed_ms": 5.289,
+      "method": "GET"
+    },
+    {
+      "request_id": 13,
+      "url": null,
+      "url_id": "url_01358bde9094b6fce37a5e6a478d117f",
+      "collected_at": "2026-11-09T19:28:02.552461+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 141,
+      "body_sha256": "3b62b450b91d09c0e62ce1d1af033c2c13b212eaaf87c27c05a34ec0c918063f",
+      "elapsed_ms": 5.986,
+      "method": "GET"
+    },
+    {
+      "request_id": 14,
+      "url": null,
+      "url_id": "url_f82c46ba7e4673208ac388b27c3dd21f",
+      "collected_at": "2026-11-09T19:28:02.752961+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 147,
+      "body_sha256": "a32b60440b382eb5fad516fecf2d757b45f5101585351a44570b2199a7c405f7",
+      "elapsed_ms": 5.577,
+      "method": "GET"
+    },
+    {
+      "request_id": 15,
+      "url": null,
+      "url_id": "url_7b81d95458a7a015a1ca3e029af9af8e",
+      "collected_at": "2026-11-09T19:28:02.953509+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 145,
+      "body_sha256": "329096ae8b8318475147cfb630b295abea0f1b4f2cbb4ddfad589bc58c074591",
+      "elapsed_ms": 5.026,
+      "method": "GET"
+    },
+    {
+      "request_id": 16,
+      "url": null,
+      "url_id": "url_03b377d9ff8388688127417bdb7b4fc1",
+      "collected_at": "2026-11-09T19:28:03.154473+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 185,
+      "body_sha256": "834dd3764b59deba0dcb40a1ea7fcf7496f5c15a683cb5801086450308e9d415",
+      "elapsed_ms": 5.232,
+      "method": "GET"
+    },
+    {
+      "request_id": 17,
+      "url": null,
+      "url_id": "url_38af2a4ffb7e93ec606454676961041b",
+      "collected_at": "2026-11-09T19:28:03.354910+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 185,
+      "body_sha256": "f03c5ff58c089ae54cd9f008b9988b86da46cfb3694c72e327b9a8f65592ffcf",
+      "elapsed_ms": 21.572,
+      "method": "GET"
+    },
+    {
+      "request_id": 18,
+      "url": null,
+      "url_id": "url_05146a3c8910bac9aca314fcdff60a25",
+      "collected_at": "2026-11-09T19:28:03.555307+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 185,
+      "body_sha256": "adbe2fa710c39fd3c7cf22a352910290f76bfb0203b324fab6c1cbdcaaab08e2",
+      "elapsed_ms": 6.448,
+      "method": "GET"
+    },
+    {
+      "request_id": 19,
+      "url": null,
+      "url_id": "url_b26137bd3670e16979f6d0331db6e9a4",
+      "collected_at": "2026-11-09T19:28:03.755519+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 185,
+      "body_sha256": "9af159dbd7222caa6999bce5fc7b0076c15ae61d8701f1c686c37c42634d9720",
+      "elapsed_ms": 6.068,
+      "method": "GET"
+    },
+    {
+      "request_id": 20,
+      "url": null,
+      "url_id": "url_9b813f25efabd355e1e58c27e3f10d2e",
+      "collected_at": "2026-11-09T19:28:03.955955+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 135,
+      "body_sha256": "f8bf2c78c84cb9bfd72bd45e78ee72310a8822542841fba5c83fa068af1f45f9",
+      "elapsed_ms": 5.338,
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "execution_errors": [],
+  "comparisons": [
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 2,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 135,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 3,
+      "status_changed": true,
+      "content_type_changed": true,
+      "size_delta_bytes": -40,
+      "body_changed": true,
+      "sample_similarity": 0.121739,
+      "compared_sample_bytes": 135,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 4,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -72,
+      "body_changed": true,
+      "sample_similarity": 0.636364,
+      "compared_sample_bytes": 135,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 5,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -72,
+      "body_changed": true,
+      "sample_similarity": 0.636364,
+      "compared_sample_bytes": 135,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 6,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 135,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 7,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -72,
+      "body_changed": true,
+      "sample_similarity": 0.636364,
+      "compared_sample_bytes": 135,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 8,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 135,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 9,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -72,
+      "body_changed": true,
+      "sample_similarity": 0.636364,
+      "compared_sample_bytes": 135,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 10,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 135,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 11,
+      "compared_request_id": 12,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 135,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 11,
+      "compared_request_id": 13,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 6,
+      "body_changed": true,
+      "sample_similarity": 0.978261,
+      "compared_sample_bytes": 141,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 11,
+      "compared_request_id": 14,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 12,
+      "body_changed": true,
+      "sample_similarity": 0.957447,
+      "compared_sample_bytes": 147,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 11,
+      "compared_request_id": 15,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 10,
+      "body_changed": true,
+      "sample_similarity": 0.964286,
+      "compared_sample_bytes": 145,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 11,
+      "compared_request_id": 16,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 50,
+      "body_changed": true,
+      "sample_similarity": 0.84375,
+      "compared_sample_bytes": 185,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 11,
+      "compared_request_id": 17,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 50,
+      "body_changed": true,
+      "sample_similarity": 0.84375,
+      "compared_sample_bytes": 185,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 11,
+      "compared_request_id": 18,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 50,
+      "body_changed": true,
+      "sample_similarity": 0.84375,
+      "compared_sample_bytes": 185,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 11,
+      "compared_request_id": 19,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 50,
+      "body_changed": true,
+      "sample_similarity": 0.84375,
+      "compared_sample_bytes": 185,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 11,
+      "compared_request_id": 20,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 135,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    }
+  ],
+  "findings": [
+    {
+      "endpoint": null,
+      "endpoint_id": "url_9b813f25efabd355e1e58c27e3f10d2e",
+      "category": "sqli",
+      "title": "Detalhes omitidos no perfil compartilhável.",
+      "confidence": "high",
+      "status": "confirmed",
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "rationale": "Detalhes omitidos no perfil compartilhável.",
+      "potential_impact": "Detalhes omitidos no perfil compartilhável.",
+      "recommended_mitigation": "Detalhes omitidos no perfil compartilhável.",
+      "parameter": null,
+      "parameter_id": "parameter_fa17009debd2a73f93d1885be426474f"
+    }
+  ],
+  "probes": [
+    {
+      "request_id": 1,
+      "role": "baseline_1",
+      "parameter": null,
+      "parameter_id": "parameter_fa17009debd2a73f93d1885be426474f",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "4a3def8fc6ece409304b1cdbc60fc8d2752f4a77e54bdaaae295f094dffb2bf2",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 2,
+      "role": "baseline_2",
+      "parameter": null,
+      "parameter_id": "parameter_fa17009debd2a73f93d1885be426474f",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "4a3def8fc6ece409304b1cdbc60fc8d2752f4a77e54bdaaae295f094dffb2bf2",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 3,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_fa17009debd2a73f93d1885be426474f",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "json",
+        "strategy": "canonical_json",
+        "fingerprint": "42397559bf5aaf3d016ea1512c75b3571e447a9a53a516f200e1aa5c8a5944fa",
+        "result_count": null,
+        "nonempty": true,
+        "valid": false,
+        "error_like": true
+      }
+    },
+    {
+      "request_id": 4,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_fa17009debd2a73f93d1885be426474f",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "18fdaa607bfba6b0582076c7bb0c5486e57c7b97070295a26a599bcec4c4218b",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 5,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_fa17009debd2a73f93d1885be426474f",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "18fdaa607bfba6b0582076c7bb0c5486e57c7b97070295a26a599bcec4c4218b",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 6,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_fa17009debd2a73f93d1885be426474f",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "4a3def8fc6ece409304b1cdbc60fc8d2752f4a77e54bdaaae295f094dffb2bf2",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 7,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_fa17009debd2a73f93d1885be426474f",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "18fdaa607bfba6b0582076c7bb0c5486e57c7b97070295a26a599bcec4c4218b",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 8,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_fa17009debd2a73f93d1885be426474f",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "4a3def8fc6ece409304b1cdbc60fc8d2752f4a77e54bdaaae295f094dffb2bf2",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 9,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_fa17009debd2a73f93d1885be426474f",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "18fdaa607bfba6b0582076c7bb0c5486e57c7b97070295a26a599bcec4c4218b",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 10,
+      "role": "recovery",
+      "parameter": null,
+      "parameter_id": "parameter_fa17009debd2a73f93d1885be426474f",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "4a3def8fc6ece409304b1cdbc60fc8d2752f4a77e54bdaaae295f094dffb2bf2",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 11,
+      "role": "baseline_1",
+      "parameter": null,
+      "parameter_id": "parameter_dee56e167f44baf68650118f7f7983e3",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "4a3def8fc6ece409304b1cdbc60fc8d2752f4a77e54bdaaae295f094dffb2bf2",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 12,
+      "role": "baseline_2",
+      "parameter": null,
+      "parameter_id": "parameter_dee56e167f44baf68650118f7f7983e3",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "4a3def8fc6ece409304b1cdbc60fc8d2752f4a77e54bdaaae295f094dffb2bf2",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 13,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_dee56e167f44baf68650118f7f7983e3",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "51c432cb73c9c1bdc2c631bf5e6fefb7ad33b5ccf3101e9a7e5d978c8a77ed4a",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 14,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_dee56e167f44baf68650118f7f7983e3",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "15c094fe95c1f4f706a14347bbe3a9f9a9f0f123cebd19073a9b97ae6e7330c2",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 15,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_dee56e167f44baf68650118f7f7983e3",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "03e3ff1f9fada9534091b92cfea57b9980df910ab53ee7e55d048de85b55d643",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 16,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_dee56e167f44baf68650118f7f7983e3",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "38566dec884924601f0c43fd9f5e787e85b7e630c1ed769a383bfb1c2cd12499",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 17,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_dee56e167f44baf68650118f7f7983e3",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "b4e7fecf4b24028e7e4b350d3804467e0908f379d702f69715ae529085f468c8",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 18,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_dee56e167f44baf68650118f7f7983e3",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "91bc508e102e3e22396f7478bb8d840d6c25e6126613599ad0395181ea6ca370",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 19,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_dee56e167f44baf68650118f7f7983e3",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "a8fd2dd68c744ebda85d9c3165c677c79d53f124b151b78ed129b960b3aefb69",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 20,
+      "role": "recovery",
+      "parameter": null,
+      "parameter_id": "parameter_dee56e167f44baf68650118f7f7983e3",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "4a3def8fc6ece409304b1cdbc60fc8d2752f4a77e54bdaaae295f094dffb2bf2",
+        "result_count": null,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    }
+  ],
+  "assessment": {
+    "outcome": "confirmed",
+    "checks": {
+      "all_requests_completed": true,
+      "all_parameters_conclusive": true
+    },
+    "rationale": "Detalhes omitidos no perfil compartilhável.",
+    "limitations": [
+      "Detalhes omitidos no perfil compartilhável.",
+      "Detalhes omitidos no perfil compartilhável."
+    ],
+    "parameter": null,
+    "parameter_id": null,
+    "context": "like"
+  },
+  "parameter_results": [
+    {
+      "parameter": null,
+      "parameter_id": "parameter_fa17009debd2a73f93d1885be426474f",
+      "context": "like",
+      "assessment": {
+        "outcome": "confirmed",
+        "checks": {
+          "all_requests_completed": true,
+          "baseline_nonempty": true,
+          "baseline_stable": true,
+          "recovery_matches": true,
+          "escaped_quote_control_empty": true,
+          "literal_control_empty": true,
+          "new_sql_error": true,
+          "false_responses_stable": true
+        },
+        "rationale": "Detalhes omitidos no perfil compartilhável.",
+        "limitations": [
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável."
+        ],
+        "parameter": null,
+        "parameter_id": "parameter_fa17009debd2a73f93d1885be426474f",
+        "context": "like"
+      },
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "parameter": null,
+      "parameter_id": "parameter_dee56e167f44baf68650118f7f7983e3",
+      "context": "like",
+      "assessment": {
+        "outcome": "not_detected",
+        "checks": {
+          "all_requests_completed": true,
+          "baseline_nonempty": true,
+          "baseline_stable": true,
+          "recovery_matches": true,
+          "escaped_quote_control_empty": false,
+          "literal_control_empty": false,
+          "new_sql_error": false,
+          "false_responses_stable": false
+        },
+        "rationale": "Detalhes omitidos no perfil compartilhável.",
+        "limitations": [
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável."
+        ],
+        "parameter": null,
+        "parameter_id": "parameter_dee56e167f44baf68650118f7f7983e3",
+        "context": "like"
+      },
+      "evidence_request_ids": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ]
+    }
+  ],
+  "collection_status": "completed",
+  "analysis_summary": {
+    "applicable": true,
+    "evaluations": 2,
+    "outcomes": {
+      "confirmed": 1,
+      "suspected": 0,
+      "not_detected": 1,
+      "reflected_safe": 0,
+      "inconclusive": 0
+    },
+    "has_inconclusive": false
+  },
+  "evidence_profile": "shareable",
+  "anonymized": true,
+  "snapshot_id": "ce4c0c00-01e4-4dfb-a7b9-d37e25925690",
+  "producer_version": "0.2.0"
+}

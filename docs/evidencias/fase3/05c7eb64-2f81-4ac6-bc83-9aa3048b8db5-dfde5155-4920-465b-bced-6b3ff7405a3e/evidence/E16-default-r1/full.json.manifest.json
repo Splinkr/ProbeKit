@@ -1,0 +1,18 @@
+{
+  "manifest_version": "1.0",
+  "run_id": "4ff75a1c-9a8a-43eb-b30f-a88d1e03aeb2",
+  "snapshot_id": "f1fcba22-46c9-4fe1-9d5f-9e4472a9d987",
+  "producer_version": "0.2.0",
+  "schema_version": "2.0",
+  "evidence_profile": "shareable",
+  "files": {
+    "technical": {
+      "path": ".probekit-evidence/4ff75a1c-9a8a-43eb-b30f-a88d1e03aeb2/f1fcba22-46c9-4fe1-9d5f-9e4472a9d987/technical.json",
+      "sha256": "3a941591ba7fab265614fd0f2fa61ea81770d6334dcfa4599473859a70dee586"
+    },
+    "findings": {
+      "path": ".probekit-evidence/4ff75a1c-9a8a-43eb-b30f-a88d1e03aeb2/f1fcba22-46c9-4fe1-9d5f-9e4472a9d987/findings.json",
+      "sha256": "416abe2c2165df422122f1139b5a20ad8e8da4c836d54da3a247f6b3b5970f98"
+    }
+  }
+}

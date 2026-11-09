@@ -1,5 +1,7 @@
 """Dados coletados, comparações e contratos para os futuros detectores."""
 
+from uuid import uuid4
+
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from enum import StrEnum
@@ -182,12 +184,17 @@ class ScanReport:
     execution_errors: list[ExecutionFailure] = field(default_factory=list)
     requests_attempted: int | None = None
 
+    run_id: str = field(default_factory=lambda: str(uuid4()))
+
     @property
     def reachable(self) -> bool:
         return bool(self.responses)
 
     def to_dict(self) -> dict[str, Any]:
         return with_report_state({
+            "run_id": self.run_id,
+            "resource_usage": self._resources.snapshot() if hasattr(self, "_resources") else {},
+            "resource_limits": self._resources.stop_reasons[:] if hasattr(self, "_resources") else [],
             "schema_version": self.schema_version,
             "mode": self.mode,
             "target": self.target,
@@ -261,8 +268,13 @@ class DiscoveryReport:
     ignored_targets: list[dict[str, Any]] = field(default_factory=list)
     execution_errors: list[ExecutionFailure] = field(default_factory=list)
 
+    run_id: str = field(default_factory=lambda: str(uuid4()))
+
     def to_dict(self) -> dict[str, Any]:
         return with_report_state({
+            "run_id": self.run_id,
+            "resource_usage": self._resources.snapshot() if hasattr(self, "_resources") else {},
+            "resource_limits": self._resources.stop_reasons[:] if hasattr(self, "_resources") else [],
             "schema_version": "1.0", "mode": "discover", "target": self.target,
             "target_source": "manual", "started_at": self.started_at, "finished_at": self.finished_at,
             "settings": self.settings,
@@ -296,6 +308,8 @@ class IntegratedScanReport:
     finished_at: str | None = None
     execution_errors: list[ExecutionFailure] = field(default_factory=list)
 
+    run_id: str = field(default_factory=lambda: str(uuid4()))
+
     def to_dict(self) -> dict[str, Any]:
         results = [
             {"url": analysis.target, "module": analysis.mode, **asdict(result)}
@@ -304,6 +318,9 @@ class IntegratedScanReport:
         files = [{"module": "exposure", **asdict(result)}
                  for analysis in self.analyses for result in getattr(analysis, "exposure_results", [])]
         return with_report_state({
+            "run_id": self.run_id,
+            "resource_usage": self._resources.snapshot() if hasattr(self, "_resources") else {},
+            "resource_limits": self._resources.stop_reasons[:] if hasattr(self, "_resources") else [],
             "schema_version": "1.0", "mode": "scan", "initial_url": self.target,
             "started_at": self.started_at, "finished_at": self.finished_at,
             "settings": self.settings,

@@ -12,6 +12,17 @@ import pytest
 from experiments.sqlite_control import ControlServer
 
 
+@pytest.fixture
+def inline_transport(monkeypatch):
+    """Fronteira explícita só para falhas injetadas no Requests do processo pai.
+
+    Os demais testes HTTP e a CLI em subprocesso usam ProcessTransport real.
+    """
+    from scanner.http_client import HttpClient
+    from scanner.transport import InlineTransport
+    monkeypatch.setattr(HttpClient, 'transport_factory', InlineTransport)
+
+
 @dataclass
 class Reply:
     body: bytes = b"ready"
@@ -77,3 +88,21 @@ def sqlite_app():
     server.server_close()
     thread.join(timeout=5)
     assert not thread.is_alive()
+
+
+def assert_restricted_snapshot(actual, before):
+    from copy import deepcopy
+    expected = deepcopy(before)
+    def stamp(part):
+        part['schema_version'] = '2.0'
+        part['run_id'] = actual['run_id']
+        part['snapshot_id'] = actual['snapshot_id']
+        part['producer_version'] = actual['producer_version']
+        part['evidence_profile'] = 'restricted'
+        for child in part.get('analyses', []):
+            stamp(child)
+        if part.get('discovery') is not None:
+            stamp(part['discovery'])
+    stamp(expected)
+    expected['anonymized'] = False
+    assert actual == expected

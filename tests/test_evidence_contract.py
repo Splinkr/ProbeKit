@@ -42,7 +42,7 @@ def test_change_outside_similarity_sample_is_still_visible():
 def test_baseline_retains_observations_without_inventing_findings(http_lab, tmp_path):
     origin = http_lab.start(lambda request: http_lab.reply(body=f"dynamic {request.number}".encode()))
     report = run_baseline(origin.url, samples=3, interval=0)
-    data = json.loads(write_json(report, tmp_path / "result.json").read_text(encoding="utf-8"))
+    data = json.loads(write_json(report, tmp_path / "result.json", evidence_profile="restricted").read_text(encoding="utf-8"))
     assert data["mode"] == "baseline"
     assert data["summary"]["requests_attempted"] == 3
     assert len(data["comparisons"]) == 2
@@ -66,7 +66,7 @@ def test_json_does_not_persist_body_cookies_or_server_secrets(http_lab, tmp_path
         body=b"private-body-value", headers={"Set-Cookie": "token=private-cookie-value"}
     ))
     report = run_baseline(origin.url, interval=0)
-    output = write_json(report, tmp_path / "nested" / "evidence.json")
+    output = write_json(report, tmp_path / "nested" / "evidence.json", evidence_profile="restricted")
     raw = output.read_text(encoding="utf-8")
     data = json.loads(raw)
     assert "private-body-value" not in raw and "private-cookie-value" not in raw
@@ -81,7 +81,7 @@ def test_finding_metadata_round_trips_without_enum_or_encoding_loss(tmp_path):
         confidence=Confidence.LOW, status=FindingStatus.SUSPECTED, evidence_request_ids=[],
         rationale="Somente teste unitário.", potential_impact="Não avaliado.", recommended_mitigation="Não aplicável.",
     ))
-    output = write_json(report, tmp_path / "finding.json")
+    output = write_json(report, tmp_path / "finding.json", evidence_profile="restricted")
     finding = json.loads(output.read_text(encoding="utf-8"))["findings"][0]
     assert finding["status"] == "suspected" and finding["confidence"] == "low"
     assert finding["title"] == report.findings[0].title

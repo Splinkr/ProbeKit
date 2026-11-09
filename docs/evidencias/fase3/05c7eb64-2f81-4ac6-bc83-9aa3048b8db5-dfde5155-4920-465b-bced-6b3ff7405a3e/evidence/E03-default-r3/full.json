@@ -1,0 +1,275 @@
+{
+  "run_id": "0afea676-0754-4786-b5b3-a36579aa7bb2",
+  "resource_usage": {
+    "urls": 4,
+    "metadata_bytes": 25664,
+    "candidate_records": 0,
+    "total_body_bytes": 234,
+    "body_bytes_observed": 234,
+    "body_bytes_reserved": 0,
+    "rejected": {},
+    "limited": false
+  },
+  "resource_limits": [],
+  "schema_version": "2.0",
+  "mode": "exposure",
+  "target": null,
+  "target_id": "url_1ad45f8e3cdf19b7c6d11dbf31f7ffb0",
+  "target_source": "manual",
+  "started_at": "2026-11-09T19:32:50.698209+00:00",
+  "finished_at": "2026-11-09T19:32:51.591252+00:00",
+  "settings": {
+    "samples": 2,
+    "scope": "same_origin_loopback",
+    "follow_redirects": false,
+    "store_content": false,
+    "store_key_names": false,
+    "store_values": false,
+    "profiles": [
+      "repository"
+    ],
+    "max_requests": 4,
+    "timeout_seconds": 5.0,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "planned_requests": 4,
+    "max_urls": 1000,
+    "max_candidates": 2000,
+    "max_url_length": 8192,
+    "max_metadata_bytes": 8388608,
+    "max_total_body_bytes": 33554432,
+    "request_deadline": 15.0
+  },
+  "summary": {
+    "reachable": true,
+    "status": "completed",
+    "requests_attempted": 4,
+    "responses_received": 4,
+    "errors": 0,
+    "files_analyzed": 1,
+    "findings": 1
+  },
+  "responses": [
+    {
+      "request_id": 1,
+      "url": null,
+      "url_id": "url_398698906d1884c27dba760ed6c9a6dc",
+      "role": "control_1",
+      "collected_at": "2026-11-09T19:32:50.974106+00:00",
+      "status_code": 404,
+      "content_type": "text/plain",
+      "size_bytes": 85,
+      "body_sha256": "3764085e09aaad78fb65aa47926efe62fc5d841e557d4c398c91e0c00325e223",
+      "elapsed_ms": 6.035,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "fed391ea606bbeda1530dffaecb2757ac7790eab562e1c9e37b4a020af43712f"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 2,
+      "url": null,
+      "url_id": "url_c29e00299d1922892e24f081b87565d3",
+      "role": "reference_1",
+      "collected_at": "2026-11-09T19:32:51.174218+00:00",
+      "status_code": 200,
+      "content_type": "text/plain",
+      "size_bytes": 32,
+      "body_sha256": "756a1dc2a3b83824d8c5d415d9f0ae169a08d6eca2ad1b53c786c344c057b98c",
+      "elapsed_ms": 25.929,
+      "features": {
+        "kind": "git_head",
+        "strong_signature": true,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": true
+        },
+        "normalized_sha256": "18532708acd196b241372cfa3b80c18c2faac0ae764dad1f6fb9b03c2e5061b2"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 3,
+      "url": null,
+      "url_id": "url_c29e00299d1922892e24f081b87565d3",
+      "role": "reference_2",
+      "collected_at": "2026-11-09T19:32:51.374546+00:00",
+      "status_code": 200,
+      "content_type": "text/plain",
+      "size_bytes": 32,
+      "body_sha256": "756a1dc2a3b83824d8c5d415d9f0ae169a08d6eca2ad1b53c786c344c057b98c",
+      "elapsed_ms": 13.064,
+      "features": {
+        "kind": "git_head",
+        "strong_signature": true,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": true
+        },
+        "normalized_sha256": "18532708acd196b241372cfa3b80c18c2faac0ae764dad1f6fb9b03c2e5061b2"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 4,
+      "url": null,
+      "url_id": "url_28dc7297e00271819c79df8428a8bf40",
+      "role": "control_2",
+      "collected_at": "2026-11-09T19:32:51.574953+00:00",
+      "status_code": 404,
+      "content_type": "text/plain",
+      "size_bytes": 85,
+      "body_sha256": "e328469354dead4556f1f24fa3436ceb7f3ab7ca64b4e3d881411f3ca4e42db3",
+      "elapsed_ms": 14.048,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "fed391ea606bbeda1530dffaecb2757ac7790eab562e1c9e37b4a020af43712f"
+      },
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "execution_errors": [],
+  "findings": [
+    {
+      "endpoint": null,
+      "endpoint_id": "url_c29e00299d1922892e24f081b87565d3",
+      "category": "exposure",
+      "title": "Detalhes omitidos no perfil compartilhável.",
+      "confidence": "high",
+      "status": "confirmed",
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "rationale": "Detalhes omitidos no perfil compartilhável.",
+      "potential_impact": "Detalhes omitidos no perfil compartilhável.",
+      "recommended_mitigation": "Detalhes omitidos no perfil compartilhável.",
+      "parameter": null,
+      "parameter_id": null
+    }
+  ],
+  "exposure_results": [
+    {
+      "url": null,
+      "url_id": "url_c29e00299d1922892e24f081b87565d3",
+      "profile": "repository",
+      "expected_kind": "git_head",
+      "assessment": {
+        "outcome": "confirmed",
+        "checks": {
+          "all_requests_completed": true,
+          "references_http_200": true,
+          "references_stable": true,
+          "controls_stable": true,
+          "controls_negative": true,
+          "content_matches_expected": true,
+          "not_html_or_public_document": true,
+          "different_from_missing_paths": true
+        },
+        "rationale": "Detalhes omitidos no perfil compartilhável.",
+        "limitations": [
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável."
+        ],
+        "parameter": null,
+        "parameter_id": null,
+        "context": "file_exposure"
+      },
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "assessment": {
+    "outcome": "confirmed",
+    "checks": {
+      "all_requests_completed": true,
+      "references_http_200": true,
+      "references_stable": true,
+      "controls_stable": true,
+      "controls_negative": true,
+      "content_matches_expected": true,
+      "not_html_or_public_document": true,
+      "different_from_missing_paths": true
+    },
+    "rationale": "Detalhes omitidos no perfil compartilhável.",
+    "limitations": [
+      "Detalhes omitidos no perfil compartilhável.",
+      "Detalhes omitidos no perfil compartilhável."
+    ],
+    "parameter": null,
+    "parameter_id": null,
+    "context": "file_exposure"
+  },
+  "parameter_results": [],
+  "collection_status": "completed",
+  "analysis_summary": {
+    "applicable": true,
+    "evaluations": 1,
+    "outcomes": {
+      "confirmed": 1,
+      "suspected": 0,
+      "not_detected": 0,
+      "reflected_safe": 0,
+      "inconclusive": 0
+    },
+    "has_inconclusive": false
+  },
+  "evidence_profile": "shareable",
+  "anonymized": true,
+  "snapshot_id": "2b291204-4df1-47c7-a917-f50a7b1dcde0",
+  "producer_version": "0.2.0"
+}

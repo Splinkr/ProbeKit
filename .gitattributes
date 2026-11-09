@@ -1,4 +1,24 @@
 * text=auto
+.gitattributes text eol=lf
+.gitignore text eol=lf
 *.py text eol=lf
 *.md text eol=lf
 *.ps1 text eol=crlf
+*.mjs text eol=lf
+*.cjs text eol=lf
+*.in text eol=lf
+*.lock text eol=lf
+pytest.ini text eol=lf
+requirements.txt text eol=crlf
+requirements-dev.txt text eol=crlf
+experiments/evaluation/cases.json text eol=lf
+
+# Preservar as terminacoes inventariadas antes da coleta experimental.
+scripts/demo-sqli.ps1 text eol=lf
+scripts/setup-juice-shop.ps1 text eol=lf
+scripts/start-juice-shop.ps1 text eol=lf
+
+# Os manifestos conferem os bytes exatos das evidencias publicadas.
+docs/evidencias/fase3/** -text
+# SVGs gerados usam CRLF e espacos nos atributos; manter os bytes selados.
+docs/evidencias/fase3/**/analysis/figures/*.svg whitespace=cr-at-eol,-blank-at-eol

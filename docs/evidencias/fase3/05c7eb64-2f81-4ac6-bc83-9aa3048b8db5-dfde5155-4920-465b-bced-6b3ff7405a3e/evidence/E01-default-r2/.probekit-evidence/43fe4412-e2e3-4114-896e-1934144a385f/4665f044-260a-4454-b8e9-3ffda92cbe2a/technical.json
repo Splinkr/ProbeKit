@@ -1,0 +1,442 @@
+{
+  "run_id": "43fe4412-e2e3-4114-896e-1934144a385f",
+  "resource_usage": {
+    "urls": 7,
+    "metadata_bytes": 51196,
+    "candidate_records": 0,
+    "total_body_bytes": 682,
+    "body_bytes_observed": 682,
+    "body_bytes_reserved": 0,
+    "rejected": {},
+    "limited": false
+  },
+  "resource_limits": [],
+  "schema_version": "2.0",
+  "mode": "exposure",
+  "target": null,
+  "target_id": "url_27b6ec4f9ede6008f2bf6bcfabf7a8b6",
+  "target_source": "manual",
+  "started_at": "2026-11-09T19:29:35.259307+00:00",
+  "finished_at": "2026-11-09T19:29:36.955602+00:00",
+  "settings": {
+    "samples": 2,
+    "scope": "same_origin_loopback",
+    "follow_redirects": false,
+    "store_content": false,
+    "store_key_names": false,
+    "store_values": false,
+    "profiles": [
+      "config"
+    ],
+    "max_requests": 8,
+    "timeout_seconds": 5.0,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "planned_requests": 8,
+    "max_urls": 1000,
+    "max_candidates": 2000,
+    "max_url_length": 8192,
+    "max_metadata_bytes": 8388608,
+    "max_total_body_bytes": 33554432,
+    "request_deadline": 15.0
+  },
+  "summary": {
+    "reachable": true,
+    "status": "completed",
+    "requests_attempted": 8,
+    "responses_received": 8,
+    "errors": 0,
+    "files_analyzed": 2,
+    "findings": 2
+  },
+  "responses": [
+    {
+      "request_id": 1,
+      "url": null,
+      "url_id": "url_18e4fff7603368905df946029faea59f",
+      "role": "control_1",
+      "collected_at": "2026-11-09T19:29:35.546308+00:00",
+      "status_code": 404,
+      "content_type": "text/plain",
+      "size_bytes": 80,
+      "body_sha256": "9ffecce43c0add2a19056f6be30c51ec89543405064ebc9cff231aa7939c12cc",
+      "elapsed_ms": 25.425,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "fed391ea606bbeda1530dffaecb2757ac7790eab562e1c9e37b4a020af43712f"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 2,
+      "url": null,
+      "url_id": "url_9ed58529142498daea68cb7aec3039c1",
+      "role": "reference_1",
+      "collected_at": "2026-11-09T19:29:35.746616+00:00",
+      "status_code": 200,
+      "content_type": "text/plain",
+      "size_bytes": 111,
+      "body_sha256": "ee09761101375305ba768c0136241e2707f8873e2ad8b9040ade3ad074bf6326",
+      "elapsed_ms": 5.032,
+      "features": {
+        "kind": "dotenv",
+        "strong_signature": true,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 3,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": true,
+          "database_setting": true,
+          "application_setting": true,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "92732026bf04fa2b689f6efdcaa7fa93dc514115a3ff3265aed9cfc025635711"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 3,
+      "url": null,
+      "url_id": "url_9ed58529142498daea68cb7aec3039c1",
+      "role": "reference_2",
+      "collected_at": "2026-11-09T19:29:35.946984+00:00",
+      "status_code": 200,
+      "content_type": "text/plain",
+      "size_bytes": 111,
+      "body_sha256": "ee09761101375305ba768c0136241e2707f8873e2ad8b9040ade3ad074bf6326",
+      "elapsed_ms": 4.831,
+      "features": {
+        "kind": "dotenv",
+        "strong_signature": true,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 3,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": true,
+          "database_setting": true,
+          "application_setting": true,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "92732026bf04fa2b689f6efdcaa7fa93dc514115a3ff3265aed9cfc025635711"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 4,
+      "url": null,
+      "url_id": "url_5d147b9513575912e0af67eb88c34f31",
+      "role": "control_2",
+      "collected_at": "2026-11-09T19:29:36.147315+00:00",
+      "status_code": 404,
+      "content_type": "text/plain",
+      "size_bytes": 80,
+      "body_sha256": "a1c1d09bc4af44a2a05b978fee2520d4389fed26854402604dfa00c800436a18",
+      "elapsed_ms": 5.903,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "fed391ea606bbeda1530dffaecb2757ac7790eab562e1c9e37b4a020af43712f"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 5,
+      "url": null,
+      "url_id": "url_46f42fb8a5e43fe2f759c79d4be32164",
+      "role": "control_1",
+      "collected_at": "2026-11-09T19:29:36.347518+00:00",
+      "status_code": 404,
+      "content_type": "text/plain",
+      "size_bytes": 86,
+      "body_sha256": "d010c30f20cb0376f96bebd43b9be92f7f0ffe77167835d48a3a95fea43309f9",
+      "elapsed_ms": 5.484,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "fed391ea606bbeda1530dffaecb2757ac7790eab562e1c9e37b4a020af43712f"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 6,
+      "url": null,
+      "url_id": "url_cf5563f058616fcd0ea6e7b188f1952b",
+      "role": "reference_1",
+      "collected_at": "2026-11-09T19:29:36.547782+00:00",
+      "status_code": 200,
+      "content_type": "text/plain",
+      "size_bytes": 64,
+      "body_sha256": "28129786ad08a9a62e2469ede041b83a9d9a28b39995c99dabefa7537e4f9908",
+      "elapsed_ms": 5.353,
+      "features": {
+        "kind": "ini",
+        "strong_signature": true,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 2,
+        "section_count": 1,
+        "indicators": {
+          "credential_setting": true,
+          "database_setting": true,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "505bf7a45059fb0916d7176471961ed94bceeed8d43f7dbecf452e019a5f81d6"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 7,
+      "url": null,
+      "url_id": "url_cf5563f058616fcd0ea6e7b188f1952b",
+      "role": "reference_2",
+      "collected_at": "2026-11-09T19:29:36.748111+00:00",
+      "status_code": 200,
+      "content_type": "text/plain",
+      "size_bytes": 64,
+      "body_sha256": "28129786ad08a9a62e2469ede041b83a9d9a28b39995c99dabefa7537e4f9908",
+      "elapsed_ms": 5.206,
+      "features": {
+        "kind": "ini",
+        "strong_signature": true,
+        "is_html": false,
+        "public_document": false,
+        "error_like": false,
+        "assignment_count": 2,
+        "section_count": 1,
+        "indicators": {
+          "credential_setting": true,
+          "database_setting": true,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "505bf7a45059fb0916d7176471961ed94bceeed8d43f7dbecf452e019a5f81d6"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 8,
+      "url": null,
+      "url_id": "url_6248cdb560fbfd2caceea3a99df9cf58",
+      "role": "control_2",
+      "collected_at": "2026-11-09T19:29:36.948585+00:00",
+      "status_code": 404,
+      "content_type": "text/plain",
+      "size_bytes": 86,
+      "body_sha256": "3355d10c314ab0eff7bf9c5d1c0737d24597afcb823300e209a7346a04480510",
+      "elapsed_ms": 4.646,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": false,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "fed391ea606bbeda1530dffaecb2757ac7790eab562e1c9e37b4a020af43712f"
+      },
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "execution_errors": [],
+  "findings": [
+    {
+      "endpoint": null,
+      "endpoint_id": "url_9ed58529142498daea68cb7aec3039c1",
+      "category": "exposure",
+      "title": "Detalhes omitidos no perfil compartilhável.",
+      "confidence": "high",
+      "status": "confirmed",
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "rationale": "Detalhes omitidos no perfil compartilhável.",
+      "potential_impact": "Detalhes omitidos no perfil compartilhável.",
+      "recommended_mitigation": "Detalhes omitidos no perfil compartilhável.",
+      "parameter": null,
+      "parameter_id": null
+    },
+    {
+      "endpoint": null,
+      "endpoint_id": "url_cf5563f058616fcd0ea6e7b188f1952b",
+      "category": "exposure",
+      "title": "Detalhes omitidos no perfil compartilhável.",
+      "confidence": "high",
+      "status": "confirmed",
+      "evidence_request_ids": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "rationale": "Detalhes omitidos no perfil compartilhável.",
+      "potential_impact": "Detalhes omitidos no perfil compartilhável.",
+      "recommended_mitigation": "Detalhes omitidos no perfil compartilhável.",
+      "parameter": null,
+      "parameter_id": null
+    }
+  ],
+  "exposure_results": [
+    {
+      "url": null,
+      "url_id": "url_9ed58529142498daea68cb7aec3039c1",
+      "profile": "config",
+      "expected_kind": "dotenv",
+      "assessment": {
+        "outcome": "confirmed",
+        "checks": {
+          "all_requests_completed": true,
+          "references_http_200": true,
+          "references_stable": true,
+          "controls_stable": true,
+          "controls_negative": true,
+          "content_matches_expected": true,
+          "not_html_or_public_document": true,
+          "different_from_missing_paths": true
+        },
+        "rationale": "Detalhes omitidos no perfil compartilhável.",
+        "limitations": [
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável."
+        ],
+        "parameter": null,
+        "parameter_id": null,
+        "context": "file_exposure"
+      },
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "url": null,
+      "url_id": "url_cf5563f058616fcd0ea6e7b188f1952b",
+      "profile": "config",
+      "expected_kind": "ini",
+      "assessment": {
+        "outcome": "confirmed",
+        "checks": {
+          "all_requests_completed": true,
+          "references_http_200": true,
+          "references_stable": true,
+          "controls_stable": true,
+          "controls_negative": true,
+          "content_matches_expected": true,
+          "not_html_or_public_document": true,
+          "different_from_missing_paths": true
+        },
+        "rationale": "Detalhes omitidos no perfil compartilhável.",
+        "limitations": [
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável."
+        ],
+        "parameter": null,
+        "parameter_id": null,
+        "context": "file_exposure"
+      },
+      "evidence_request_ids": [
+        5,
+        6,
+        7,
+        8
+      ]
+    }
+  ],
+  "assessment": {
+    "outcome": "confirmed",
+    "checks": {},
+    "rationale": "Detalhes omitidos no perfil compartilhável.",
+    "limitations": [
+      "Detalhes omitidos no perfil compartilhável.",
+      "Detalhes omitidos no perfil compartilhável."
+    ],
+    "parameter": null,
+    "parameter_id": null,
+    "context": "file_exposure"
+  },
+  "parameter_results": [],
+  "collection_status": "completed",
+  "analysis_summary": {
+    "applicable": true,
+    "evaluations": 2,
+    "outcomes": {
+      "confirmed": 2,
+      "suspected": 0,
+      "not_detected": 0,
+      "reflected_safe": 0,
+      "inconclusive": 0
+    },
+    "has_inconclusive": false
+  },
+  "evidence_profile": "shareable",
+  "anonymized": true,
+  "snapshot_id": "4665f044-260a-4454-b8e9-3ffda92cbe2a",
+  "producer_version": "0.2.0"
+}

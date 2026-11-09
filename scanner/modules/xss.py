@@ -1,5 +1,7 @@
 """XSS refletido independente: controles exclusivos, contextos e confirmação opcional."""
 
+from scanner.resources import ResourceLimit, bind_resources, release_bodies, reserve_plan
+
 from dataclasses import replace
 import secrets
 from urllib.parse import parse_qsl, urlsplit
@@ -92,6 +94,8 @@ def run_detection(client, report, plan, callback, *, browser=False):
         except Exception:
             if completed_normally:
                 raise
+        finally:
+            release_bodies(report)
 
 
 def _finish_detection(report, parameter, callback, proof, expected_count, current_responses):
@@ -111,7 +115,7 @@ def _finish_detection(report, parameter, callback, proof, expected_count, curren
 
 
 def run_xss(url, *, samples=2, timeout=5.0, max_requests=10, interval=0.2, max_body_bytes=1_048_576,
-            parameter=None, all_parameters=False, browser=False):
+            parameter=None, all_parameters=False, browser=False, **resource_options):
     target = validate_target(url)
     selected = prepare_parameters(target, samples, max_requests, parameter, all_parameters)
     report = ScanReport(target, utc_now(), {
@@ -120,10 +124,13 @@ def run_xss(url, *, samples=2, timeout=5.0, max_requests=10, interval=0.2, max_b
         "planned_requests": len(selected) * (samples + EXTRA_REQUESTS), "scope": "loopback_only",
         "browser_requested": browser, "follow_redirects": False,
     }, mode="xss", schema_version="1.3")
-    client = HttpClient(timeout, max_requests, interval, max_body_bytes)
+    client = HttpClient(timeout, max_requests, interval, max_body_bytes, **resource_options)
+    client.resources.url(report.target, initial=True)
+    bind_resources(report, client)
     try:
         with client:
             for name in selected:
+                reserve_plan(client, samples + EXTRA_REQUESTS, target)
                 plan, callback = build_plan(target, name, samples, client.request_count + 1)
                 run_detection(client, report, plan, callback, browser=browser)
         if len(report.parameter_results) > 1:
@@ -132,9 +139,13 @@ def run_xss(url, *, samples=2, timeout=5.0, max_requests=10, interval=0.2, max_b
             outcome = next(value for value in ("confirmed", "suspected", "inconclusive", "reflected_safe", "not_detected") if value in outcomes)
             report.assessment = XssAssessment(outcome, {}, "Resumo; consulte parameter_results para cada parâmetro.",
                                              [f"{result.parameter}: {result.assessment.outcome}" for result in report.parameter_results])
+    except ResourceLimit as error:
+        client.resources.reject(error.reason)
     except Exception:
         report.execution_errors.append(ExecutionFailure("analysis", "xss"))
     finally:
         report.requests_attempted = client.request_count
         report.finished_at = utc_now()
+        if hasattr(report, "responses"):
+            release_bodies(report)
     return report

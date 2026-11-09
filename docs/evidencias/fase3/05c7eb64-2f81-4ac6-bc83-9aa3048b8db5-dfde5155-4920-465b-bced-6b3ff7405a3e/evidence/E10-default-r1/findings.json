@@ -1,0 +1,34 @@
+{
+  "schema_version": "2.0",
+  "run_id": "c5928fd3-60d6-4fbb-882e-9066286f4c2c",
+  "snapshot_id": "d53bb000-76c5-4ac5-a6ca-4271affaf27c",
+  "producer_version": "0.2.0",
+  "report_type": "security_findings",
+  "source_report": "technical.json",
+  "scan_status": "completed",
+  "collection_status": "completed",
+  "analysis_summary": {
+    "applicable": true,
+    "evaluations": 2,
+    "outcomes": {
+      "confirmed": 0,
+      "suspected": 0,
+      "not_detected": 2,
+      "reflected_safe": 0,
+      "inconclusive": 0
+    },
+    "has_inconclusive": false
+  },
+  "started_at": "2026-11-09T19:26:46.601327+00:00",
+  "finished_at": "2026-11-09T19:26:48.292480+00:00",
+  "summary": {
+    "total": 0,
+    "confirmed": 0,
+    "suspected": 0,
+    "by_module": {}
+  },
+  "findings": [],
+  "evidence_profile": "shareable",
+  "anonymized": true,
+  "source_sha256": "7cedafa737cf9911335ba09a2ac0d83b9ee51d27665afd0fd65f267be9da1a8f"
+}

@@ -1,0 +1,1312 @@
+{
+  "analysis_id": "dfde5155-4920-465b-bced-6b3ff7405a3e",
+  "analysis_version": "1.0.3",
+  "evaluation_id": "05c7eb64-2f81-4ac6-bc83-9aa3048b8db5",
+  "groups": [
+    {
+      "A": {
+        "confirmation_yield": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 0,
+          "TN": 15,
+          "TP": 0,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 15,
+          "numerator": 15,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 15,
+        "expected": {
+          "safe": 15
+        },
+        "false_positive_rate": {
+          "denominator": 15,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "inconclusive_rate": {
+          "denominator": 15,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "not_detected": 15
+        },
+        "planned": 15,
+        "precision": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "recall": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "specificity": {
+          "denominator": 15,
+          "numerator": 15,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "suspected_rate": {
+          "denominator": 15,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        }
+      },
+      "B": {
+        "confirmation_yield": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 15,
+          "TN": 0,
+          "TP": 0,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 15,
+          "numerator": 15,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 15,
+        "expected": {
+          "safe": 15
+        },
+        "false_positive_rate": {
+          "denominator": 15,
+          "numerator": 15,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "inconclusive_rate": {
+          "denominator": 15,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "positive": 15
+        },
+        "planned": 15,
+        "precision": {
+          "denominator": 15,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "recall": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "specificity": {
+          "denominator": 15,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "suspected_rate": {
+          "denominator": 15,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        }
+      },
+      "condition": "default",
+      "domain": "controlled",
+      "module": "exposure",
+      "stratum": "diagnostic"
+    },
+    {
+      "A": {
+        "confirmation_yield": {
+          "denominator": 21,
+          "numerator": 21,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 0,
+          "TN": 54,
+          "TP": 21,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 75,
+          "numerator": 75,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 75,
+        "expected": {
+          "safe": 54,
+          "vulnerable": 21
+        },
+        "false_positive_rate": {
+          "denominator": 54,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "inconclusive_rate": {
+          "denominator": 75,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "confirmed": 21,
+          "not_detected": 54
+        },
+        "planned": 75,
+        "precision": {
+          "denominator": 21,
+          "numerator": 21,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "recall": {
+          "denominator": 21,
+          "numerator": 21,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "specificity": {
+          "denominator": 54,
+          "numerator": 54,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "suspected_rate": {
+          "denominator": 75,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        }
+      },
+      "B": {
+        "confirmation_yield": {
+          "denominator": 21,
+          "numerator": 21,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 39,
+          "TN": 15,
+          "TP": 21,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 75,
+          "numerator": 75,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 75,
+        "expected": {
+          "safe": 54,
+          "vulnerable": 21
+        },
+        "false_positive_rate": {
+          "denominator": 54,
+          "numerator": 39,
+          "undefined_reason": null,
+          "value": 0.7222222222222222
+        },
+        "inconclusive_rate": {
+          "denominator": 75,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "negative": 15,
+          "positive": 60
+        },
+        "planned": 75,
+        "precision": {
+          "denominator": 60,
+          "numerator": 21,
+          "undefined_reason": null,
+          "value": 0.35
+        },
+        "recall": {
+          "denominator": 21,
+          "numerator": 21,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "specificity": {
+          "denominator": 54,
+          "numerator": 15,
+          "undefined_reason": null,
+          "value": 0.2777777777777778
+        },
+        "suspected_rate": {
+          "denominator": 75,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        }
+      },
+      "condition": "default",
+      "domain": "controlled",
+      "module": "exposure",
+      "stratum": "principal"
+    },
+    {
+      "A": {
+        "confirmation_yield": {
+          "denominator": 3,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 0,
+          "TN": 0,
+          "TP": 0,
+          "inconclusive": 6,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 3
+        },
+        "coverage": {
+          "denominator": 9,
+          "numerator": 9,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 9,
+        "expected": {
+          "safe": 6,
+          "vulnerable": 3
+        },
+        "false_positive_rate": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "inconclusive_rate": {
+          "denominator": 9,
+          "numerator": 6,
+          "undefined_reason": null,
+          "value": 0.6666666666666666
+        },
+        "observed": {
+          "inconclusive": 6,
+          "suspected": 3
+        },
+        "planned": 9,
+        "precision": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "recall": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "specificity": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "suspected_rate": {
+          "denominator": 9,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 0.3333333333333333
+        }
+      },
+      "B": {
+        "confirmation_yield": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 3,
+          "TN": 3,
+          "TP": 3,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 9,
+          "numerator": 9,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 9,
+        "expected": {
+          "safe": 6,
+          "vulnerable": 3
+        },
+        "false_positive_rate": {
+          "denominator": 6,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 0.5
+        },
+        "inconclusive_rate": {
+          "denominator": 9,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "negative": 3,
+          "positive": 6
+        },
+        "planned": 9,
+        "precision": {
+          "denominator": 6,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 0.5
+        },
+        "recall": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "specificity": {
+          "denominator": 6,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 0.5
+        },
+        "suspected_rate": {
+          "denominator": 9,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        }
+      },
+      "condition": "default",
+      "domain": "controlled",
+      "module": "sqli",
+      "stratum": "diagnostic"
+    },
+    {
+      "A": {
+        "confirmation_yield": {
+          "denominator": 18,
+          "numerator": 18,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 0,
+          "TN": 18,
+          "TP": 18,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 36,
+          "numerator": 36,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 36,
+        "expected": {
+          "safe": 18,
+          "vulnerable": 18
+        },
+        "false_positive_rate": {
+          "denominator": 18,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "inconclusive_rate": {
+          "denominator": 36,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "confirmed": 18,
+          "not_detected": 18
+        },
+        "planned": 36,
+        "precision": {
+          "denominator": 18,
+          "numerator": 18,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "recall": {
+          "denominator": 18,
+          "numerator": 18,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "specificity": {
+          "denominator": 18,
+          "numerator": 18,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "suspected_rate": {
+          "denominator": 36,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        }
+      },
+      "B": {
+        "confirmation_yield": {
+          "denominator": 18,
+          "numerator": 18,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 18,
+          "TN": 0,
+          "TP": 18,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 36,
+          "numerator": 36,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 36,
+        "expected": {
+          "safe": 18,
+          "vulnerable": 18
+        },
+        "false_positive_rate": {
+          "denominator": 18,
+          "numerator": 18,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "inconclusive_rate": {
+          "denominator": 36,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "positive": 36
+        },
+        "planned": 36,
+        "precision": {
+          "denominator": 36,
+          "numerator": 18,
+          "undefined_reason": null,
+          "value": 0.5
+        },
+        "recall": {
+          "denominator": 18,
+          "numerator": 18,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "specificity": {
+          "denominator": 18,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "suspected_rate": {
+          "denominator": 36,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        }
+      },
+      "condition": "default",
+      "domain": "controlled",
+      "module": "sqli",
+      "stratum": "principal"
+    },
+    {
+      "A": {
+        "confirmation_yield": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 0,
+          "TN": 0,
+          "TP": 0,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 3,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 3,
+        "expected": {
+          "mitigated": 3
+        },
+        "false_positive_rate": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "inconclusive_rate": {
+          "denominator": 3,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "suspected": 3
+        },
+        "planned": 3,
+        "precision": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "recall": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "specificity": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "suspected_rate": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        }
+      },
+      "B": {
+        "confirmation_yield": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 0,
+          "TN": 0,
+          "TP": 0,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 3,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 3,
+        "expected": {
+          "mitigated": 3
+        },
+        "false_positive_rate": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "inconclusive_rate": {
+          "denominator": 3,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "positive": 3
+        },
+        "planned": 3,
+        "precision": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "recall": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "specificity": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "suspected_rate": {
+          "denominator": 3,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        }
+      },
+      "condition": "browser",
+      "domain": "controlled",
+      "module": "xss",
+      "stratum": "mitigated"
+    },
+    {
+      "A": {
+        "confirmation_yield": {
+          "denominator": 9,
+          "numerator": 9,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 0,
+          "TN": 15,
+          "TP": 9,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 3
+        },
+        "coverage": {
+          "denominator": 27,
+          "numerator": 27,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 27,
+        "expected": {
+          "safe": 18,
+          "vulnerable": 9
+        },
+        "false_positive_rate": {
+          "denominator": 15,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "inconclusive_rate": {
+          "denominator": 27,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "confirmed": 9,
+          "not_detected": 3,
+          "reflected_safe": 12,
+          "suspected": 3
+        },
+        "planned": 27,
+        "precision": {
+          "denominator": 9,
+          "numerator": 9,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "recall": {
+          "denominator": 9,
+          "numerator": 9,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "specificity": {
+          "denominator": 15,
+          "numerator": 15,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "suspected_rate": {
+          "denominator": 27,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 0.1111111111111111
+        }
+      },
+      "B": {
+        "confirmation_yield": {
+          "denominator": 9,
+          "numerator": 9,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 15,
+          "TN": 3,
+          "TP": 9,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 27,
+          "numerator": 27,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 27,
+        "expected": {
+          "safe": 18,
+          "vulnerable": 9
+        },
+        "false_positive_rate": {
+          "denominator": 18,
+          "numerator": 15,
+          "undefined_reason": null,
+          "value": 0.8333333333333334
+        },
+        "inconclusive_rate": {
+          "denominator": 27,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "negative": 3,
+          "positive": 24
+        },
+        "planned": 27,
+        "precision": {
+          "denominator": 24,
+          "numerator": 9,
+          "undefined_reason": null,
+          "value": 0.375
+        },
+        "recall": {
+          "denominator": 9,
+          "numerator": 9,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "specificity": {
+          "denominator": 18,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 0.16666666666666666
+        },
+        "suspected_rate": {
+          "denominator": 27,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        }
+      },
+      "condition": "browser",
+      "domain": "controlled",
+      "module": "xss",
+      "stratum": "principal"
+    },
+    {
+      "A": {
+        "confirmation_yield": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 0,
+          "TN": 0,
+          "TP": 0,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 3,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 3,
+        "expected": {
+          "mitigated": 3
+        },
+        "false_positive_rate": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "inconclusive_rate": {
+          "denominator": 3,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "suspected": 3
+        },
+        "planned": 3,
+        "precision": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "recall": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "specificity": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "suspected_rate": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        }
+      },
+      "B": {
+        "confirmation_yield": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 0,
+          "TN": 0,
+          "TP": 0,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 3,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 3,
+        "expected": {
+          "mitigated": 3
+        },
+        "false_positive_rate": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "inconclusive_rate": {
+          "denominator": 3,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "positive": 3
+        },
+        "planned": 3,
+        "precision": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "recall": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "specificity": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "suspected_rate": {
+          "denominator": 3,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        }
+      },
+      "condition": "static",
+      "domain": "controlled",
+      "module": "xss",
+      "stratum": "mitigated"
+    },
+    {
+      "A": {
+        "confirmation_yield": {
+          "denominator": 9,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 0,
+          "TN": 15,
+          "TP": 0,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 12
+        },
+        "coverage": {
+          "denominator": 27,
+          "numerator": 27,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 27,
+        "expected": {
+          "safe": 18,
+          "vulnerable": 9
+        },
+        "false_positive_rate": {
+          "denominator": 15,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "inconclusive_rate": {
+          "denominator": 27,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "not_detected": 3,
+          "reflected_safe": 12,
+          "suspected": 12
+        },
+        "planned": 27,
+        "precision": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "recall": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "specificity": {
+          "denominator": 15,
+          "numerator": 15,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "suspected_rate": {
+          "denominator": 27,
+          "numerator": 12,
+          "undefined_reason": null,
+          "value": 0.4444444444444444
+        }
+      },
+      "B": {
+        "confirmation_yield": {
+          "denominator": 9,
+          "numerator": 9,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 15,
+          "TN": 3,
+          "TP": 9,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 27,
+          "numerator": 27,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 27,
+        "expected": {
+          "safe": 18,
+          "vulnerable": 9
+        },
+        "false_positive_rate": {
+          "denominator": 18,
+          "numerator": 15,
+          "undefined_reason": null,
+          "value": 0.8333333333333334
+        },
+        "inconclusive_rate": {
+          "denominator": 27,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "negative": 3,
+          "positive": 24
+        },
+        "planned": 27,
+        "precision": {
+          "denominator": 24,
+          "numerator": 9,
+          "undefined_reason": null,
+          "value": 0.375
+        },
+        "recall": {
+          "denominator": 9,
+          "numerator": 9,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "specificity": {
+          "denominator": 18,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 0.16666666666666666
+        },
+        "suspected_rate": {
+          "denominator": 27,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        }
+      },
+      "condition": "static",
+      "domain": "controlled",
+      "module": "xss",
+      "stratum": "principal"
+    },
+    {
+      "A": {
+        "confirmation_yield": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 0,
+          "TN": 0,
+          "TP": 3,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 3,
+        "expected": {
+          "vulnerable": 3
+        },
+        "false_positive_rate": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "inconclusive_rate": {
+          "denominator": 3,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "confirmed": 3
+        },
+        "planned": 3,
+        "precision": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "recall": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "specificity": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "suspected_rate": {
+          "denominator": 3,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        }
+      },
+      "B": {
+        "confirmation_yield": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "counts": {
+          "FN": 0,
+          "FP": 0,
+          "TN": 0,
+          "TP": 3,
+          "inconclusive": 0,
+          "not_evaluated": 0,
+          "outside_binary": 0,
+          "suspected": 0
+        },
+        "coverage": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "evaluated": 3,
+        "expected": {
+          "vulnerable": 3
+        },
+        "false_positive_rate": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "inconclusive_rate": {
+          "denominator": 3,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        },
+        "observed": {
+          "positive": 3
+        },
+        "planned": 3,
+        "precision": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "recall": {
+          "denominator": 3,
+          "numerator": 3,
+          "undefined_reason": null,
+          "value": 1.0
+        },
+        "specificity": {
+          "denominator": 0,
+          "numerator": 0,
+          "undefined_reason": "denominator_zero",
+          "value": null
+        },
+        "suspected_rate": {
+          "denominator": 3,
+          "numerator": 0,
+          "undefined_reason": null,
+          "value": 0.0
+        }
+      },
+      "condition": "default",
+      "domain": "juice",
+      "module": "sqli",
+      "stratum": "application"
+    }
+  ],
+  "not_evaluated_runs": [],
+  "planned_runs": 165,
+  "scanner_requests": 1761,
+  "unknown_request_runs": 0,
+  "verified_runs": 165
+}

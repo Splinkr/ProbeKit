@@ -33,7 +33,7 @@ def test_transient_windows_lock_retries_replace_without_losing_valid_json(tmp_pa
     sleep = Mock()
     monkeypatch.setattr(Path, "replace", replace)
     monkeypatch.setattr("scanner.reporter.time.sleep", sleep)
-    write_json_atomic(report, output)
+    write_json_atomic(report, output, evidence_profile="restricted")
     assert len(attempts) == 3 and len(set(attempts)) == 1
     assert sleep.call_count == 2
     assert json.loads(output.read_text(encoding="utf-8")) == {"current": True}
@@ -50,7 +50,7 @@ def test_permanent_denial_keeps_previous_report_and_cleans_temporary(tmp_path, m
     monkeypatch.setattr(Path, "replace", replace)
     monkeypatch.setattr("scanner.reporter.time.sleep", Mock())
     with pytest.raises(PermissionError):
-        write_json_atomic(report, output)
+        write_json_atomic(report, output, evidence_profile="restricted")
     assert replace.call_count == (4 if windows else 1)
     assert json.loads(output.read_text(encoding="utf-8")) == {"previous": True}
     assert not list(tmp_path.glob(".scan-*.tmp"))
@@ -65,7 +65,7 @@ def test_failed_checkpoint_cannot_mark_unfinished_scan_as_completed(sqlite_app, 
         attempts += 1
         if attempts == 3:
             raise OSError("Simulated output failure")
-        write_json_atomic(report, output)
+        write_json_atomic(report, output, evidence_profile="restricted")
 
     with pytest.raises(OSError):
         run_scan(sqlite_app.url + "/probekit-lab", modules=("exposure",), interval=0, checkpoint=checkpoint)

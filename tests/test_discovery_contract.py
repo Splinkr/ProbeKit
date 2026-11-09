@@ -68,7 +68,7 @@ def test_crawl_merges_duplicate_endpoints_and_keeps_provenance(http_lab, tmp_pat
     assert {parameter.name for parameter in catalog.parameters} == {"a", "b", "extra", "fixed", "q"}
     assert len([parameter for parameter in catalog.parameters if parameter.name == "q"]) == 1
     assert {source.kind for source in catalog.sources} == {"html_link", "get_form"}
-    data = json.loads(write_json(report, tmp_path / "inventory.json").read_text(encoding="utf-8"))
+    data = json.loads(write_json(report, tmp_path / "inventory.json", evidence_profile="restricted").read_text(encoding="utf-8"))
     assert data["mode"] == "discover"
     assert data["endpoints"][0]["provided_manually"]
     assert data["endpoints"][1]["discovered_automatically"]

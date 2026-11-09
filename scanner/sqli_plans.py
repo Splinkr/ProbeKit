@@ -82,7 +82,9 @@ def probe_url(target: str, value: str, parameter: str = "q") -> str:
 def prepare_parameters(url, samples, max_requests, parameter=None, all_parameters=False, context="like"):
     selected = select_parameters(url, parameter, all_parameters)
     for name in selected:
-        build_probe_plan(url, samples, max_requests, parameter=name, context=context)
+        # Validação não precisa materializar todas as referências solicitadas.
+        # O plano real conserva samples e só é criado após reservar metadados.
+        build_probe_plan(url, min(samples, 2), max_requests, parameter=name, context=context)
     required = len(selected) * (samples + EXTRA_REQUESTS)
     if required > max_requests:
         raise ValueError(f"O orçamento global requer --max-requests de pelo menos {required} para {len(selected)} parâmetro(s).")

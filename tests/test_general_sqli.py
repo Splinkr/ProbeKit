@@ -92,7 +92,7 @@ def test_wrong_sql_context_keeps_error_as_suspicion(sqlite_app):
     ("http://localhost:8001/custom?term=apple", {"parameter": "term", "all_parameters": True}),
     ("http://example.invalid/custom?term=apple", {"parameter": "term"}),
 ])
-def test_selection_and_budget_are_validated_before_any_network(url, options, monkeypatch):
+def test_selection_and_budget_are_validated_before_any_network(url, options, monkeypatch, inline_transport):
     send = Mock()
     monkeypatch.setattr("requests.Session.get", send)
     with pytest.raises(ValueError):
@@ -108,8 +108,8 @@ def test_unknown_paths_are_supported_without_a_route_allowlist():
 
 def test_generic_cli_serializes_each_parameter_and_specific_findings(sqlite_app, tmp_path):
     output = tmp_path / "generic.json"
-    assert main([sqlite_app.url + "/general/json/vulnerable?term=apple&lang=en", "--module", "sqli",
-                 "--all-parameters", "--max-requests", "20", "--interval", "0", "--output", str(output)]) == 0
+    assert main([*[sqlite_app.url + "/general/json/vulnerable?term=apple&lang=en", "--module", "sqli",
+                 "--all-parameters", "--max-requests", "20", "--interval", "0", "--output", str(output)], "--evidence-profile", "restricted"]) == 0
     data = json.loads(output.read_text(encoding="utf-8"))
     assert [(result["parameter"], result["assessment"]["outcome"]) for result in data["parameter_results"]] == [
         ("term", "confirmed"), ("lang", "not_detected")]
@@ -150,7 +150,7 @@ def test_error_pages_and_unsupported_formats_are_not_valid_controls(body, media)
 def test_general_experiment_records_inconclusive_cases_honestly(sqlite_app, tmp_path):
     from experiments.run_general_sqli import run_experiment
 
-    summary = run_experiment(sqlite_app.url, tmp_path, case_names=["json-vulnerable", "html-safe", "error-page"], interval=0)
+    summary = run_experiment(sqlite_app.url, tmp_path, case_names=["json-vulnerable", "html-safe", "error-page"], interval=0, evidence_profile="restricted")
     assert summary["status"] == "completed" and summary["expectations_matched"]
     assert [run["outcomes"] for run in summary["runs"]] == [
         {"term": "confirmed"}, {"search": "not_detected"}, {"search": "inconclusive"}]
@@ -165,7 +165,7 @@ def test_experiment_expectations_do_not_override_observed_classification(sqlite_
 
     route = sqlite_app.server.general_routes["/general/json/vulnerable"]
     sqlite_app.server.general_routes["/general/json/vulnerable"] = replace(route, parameterized=True)
-    summary = run_experiment(sqlite_app.url, tmp_path, case_names=["json-vulnerable"], interval=0)
+    summary = run_experiment(sqlite_app.url, tmp_path, case_names=["json-vulnerable"], interval=0, evidence_profile="restricted")
     assert not summary["expectations_matched"]
     assert summary["runs"][0]["outcomes"] == {"term": "not_detected"}
     assert summary["runs"][0]["expected_outcomes"] == {"term": "confirmed"}

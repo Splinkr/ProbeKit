@@ -1,0 +1,263 @@
+{
+  "run_id": "0a19bdfc-7cf9-4e4e-beb1-34333a3dbe94",
+  "resource_usage": {
+    "urls": 4,
+    "metadata_bytes": 25048,
+    "candidate_records": 0,
+    "total_body_bytes": 522,
+    "body_bytes_observed": 522,
+    "body_bytes_reserved": 0,
+    "rejected": {},
+    "limited": false
+  },
+  "resource_limits": [],
+  "schema_version": "2.0",
+  "mode": "exposure",
+  "target": null,
+  "target_id": "url_569da4806a63a5a822c470cc782ff8d9",
+  "target_source": "manual",
+  "started_at": "2026-11-09T19:27:06.336423+00:00",
+  "finished_at": "2026-11-09T19:27:07.541747+00:00",
+  "settings": {
+    "samples": 2,
+    "scope": "same_origin_loopback",
+    "follow_redirects": false,
+    "store_content": false,
+    "store_key_names": false,
+    "store_values": false,
+    "profiles": [
+      "repository"
+    ],
+    "max_requests": 4,
+    "timeout_seconds": 5.0,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "planned_requests": 4,
+    "max_urls": 1000,
+    "max_candidates": 2000,
+    "max_url_length": 8192,
+    "max_metadata_bytes": 8388608,
+    "max_total_body_bytes": 33554432,
+    "request_deadline": 15.0
+  },
+  "summary": {
+    "reachable": true,
+    "status": "completed",
+    "requests_attempted": 4,
+    "responses_received": 4,
+    "errors": 0,
+    "files_analyzed": 1,
+    "findings": 0
+  },
+  "responses": [
+    {
+      "request_id": 1,
+      "url": null,
+      "url_id": "url_90a59d997ee1a0ec66e14dde22c33d74",
+      "role": "control_1",
+      "collected_at": "2026-11-09T19:27:06.934622+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 152,
+      "body_sha256": "3ef369c34682cd2474af8c250f030316e63e93d65989115924bd9aeea27822e5",
+      "elapsed_ms": 5.044,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": true,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "c95de6e53456015c77d04dc5bad192d823e09106be4e5fe06fa6f315b79eac43"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 2,
+      "url": null,
+      "url_id": "url_0420810149e577e8a2b796e3a06a1e97",
+      "role": "reference_1",
+      "collected_at": "2026-11-09T19:27:07.134806+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 109,
+      "body_sha256": "f2917e10efc563752e7d1759d810f7d3ed8c034ef7495e6f1f56eae86c477362",
+      "elapsed_ms": 4.541,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": true,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "c379dbde77071cfcd9be618507ff09184a1eb82a64c8a2cb43c0f198ef0afe28"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 3,
+      "url": null,
+      "url_id": "url_0420810149e577e8a2b796e3a06a1e97",
+      "role": "reference_2",
+      "collected_at": "2026-11-09T19:27:07.335029+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 109,
+      "body_sha256": "9af539fd58f9f823ca9daf101234fa7c6d97e6b25d719ce326403d635c951848",
+      "elapsed_ms": 5.614,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": true,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "c683ef2f9deb4e6e5531bd885f141467580c2a1a227fd5a4d7ebe4bff44415ce"
+      },
+      "method": "GET"
+    },
+    {
+      "request_id": 4,
+      "url": null,
+      "url_id": "url_b4329ee0731d9cb1a82fd4df90847b18",
+      "role": "control_2",
+      "collected_at": "2026-11-09T19:27:07.535226+00:00",
+      "status_code": 200,
+      "content_type": "text/html",
+      "size_bytes": 152,
+      "body_sha256": "aa40dc161cf54bf9666412e40d142d982745531dcaaddc165dd3593247a5a9d5",
+      "elapsed_ms": 3.953,
+      "features": {
+        "kind": "unknown",
+        "strong_signature": false,
+        "is_html": true,
+        "public_document": false,
+        "error_like": true,
+        "assignment_count": 0,
+        "section_count": 0,
+        "indicators": {
+          "credential_setting": false,
+          "database_setting": false,
+          "application_setting": false,
+          "sql_schema": false,
+          "sql_data_statement": false,
+          "git_reference": false
+        },
+        "normalized_sha256": "369b2f0e64c8a611315b0cc38f28d0dcb83955babc2758ebdd19c8efa3eff93d"
+      },
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "execution_errors": [],
+  "findings": [],
+  "exposure_results": [
+    {
+      "url": null,
+      "url_id": "url_0420810149e577e8a2b796e3a06a1e97",
+      "profile": "repository",
+      "expected_kind": "git_head",
+      "assessment": {
+        "outcome": "not_detected",
+        "checks": {
+          "all_requests_completed": true,
+          "references_http_200": true,
+          "references_stable": false,
+          "controls_stable": false,
+          "controls_negative": true,
+          "content_matches_expected": false,
+          "not_html_or_public_document": false,
+          "different_from_missing_paths": true
+        },
+        "rationale": "Detalhes omitidos no perfil compartilhável.",
+        "limitations": [
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável."
+        ],
+        "parameter": null,
+        "parameter_id": null,
+        "context": "file_exposure"
+      },
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "assessment": {
+    "outcome": "not_detected",
+    "checks": {
+      "all_requests_completed": true,
+      "references_http_200": true,
+      "references_stable": false,
+      "controls_stable": false,
+      "controls_negative": true,
+      "content_matches_expected": false,
+      "not_html_or_public_document": false,
+      "different_from_missing_paths": true
+    },
+    "rationale": "Detalhes omitidos no perfil compartilhável.",
+    "limitations": [
+      "Detalhes omitidos no perfil compartilhável.",
+      "Detalhes omitidos no perfil compartilhável.",
+      "Detalhes omitidos no perfil compartilhável.",
+      "Detalhes omitidos no perfil compartilhável.",
+      "Detalhes omitidos no perfil compartilhável.",
+      "Detalhes omitidos no perfil compartilhável."
+    ],
+    "parameter": null,
+    "parameter_id": null,
+    "context": "file_exposure"
+  },
+  "parameter_results": [],
+  "collection_status": "completed",
+  "analysis_summary": {
+    "applicable": true,
+    "evaluations": 1,
+    "outcomes": {
+      "confirmed": 0,
+      "suspected": 0,
+      "not_detected": 1,
+      "reflected_safe": 0,
+      "inconclusive": 0
+    },
+    "has_inconclusive": false
+  },
+  "evidence_profile": "shareable",
+  "anonymized": true,
+  "snapshot_id": "20d4a7bf-449f-4949-be51-6812f349d4c2",
+  "producer_version": "0.2.0"
+}

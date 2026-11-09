@@ -1,5 +1,7 @@
 """Evidência de exposição por lista permitida de metadados; nunca contém corpos ou valores."""
 
+from uuid import uuid4
+
 from dataclasses import asdict, dataclass, field
 
 from scanner.models import ExecutionFailure, Finding, RequestFailure
@@ -73,12 +75,17 @@ class ExposureReport:
     execution_errors: list[ExecutionFailure] = field(default_factory=list)
     requests_attempted: int | None = None
 
+    run_id: str = field(default_factory=lambda: str(uuid4()))
+
     @property
     def reachable(self):
         return bool(self.responses)
 
     def to_dict(self):
         return with_report_state({
+            "run_id": self.run_id,
+            "resource_usage": self._resources.snapshot() if hasattr(self, "_resources") else {},
+            "resource_limits": self._resources.stop_reasons[:] if hasattr(self, "_resources") else [],
             "schema_version": "1.0", "mode": self.mode, "target": self.target,
             "target_source": self.target_source, "started_at": self.started_at, "finished_at": self.finished_at,
             "settings": self.settings,

@@ -32,7 +32,7 @@ def test_default_baseline_creates_a_report_in_the_callers_directory(http_lab, tm
     origin = http_lab.start(lambda _: http_lab.reply(body=b"terminal check"))
     process = invoke(origin.url, "--interval", "0", cwd=tmp_path)
     assert process.returncode == 0, process.stderr
-    reports = list((tmp_path / "reports").glob("baseline-*.json"))
+    reports = list((tmp_path / "reports").glob("baseline-*Z.json"))
     assert len(reports) == 1
     report = json.loads(reports[0].read_text(encoding="utf-8"))
     assert report["summary"]["responses_received"] == len(origin.calls) == 2

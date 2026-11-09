@@ -29,7 +29,7 @@ def snapshots():
 def test_charset_idna_is_recovered_by_the_real_cli(http_lab, tmp_path):
     site = http_lab.start(lambda _: http_lab.reply(body=b"<p>ready</p>", headers={"Content-Type": "text/html; charset=idna"}))
     output = tmp_path / "scan.json"
-    assert main(["scan", site.url, "--interval", "0", "--output", str(output)]) == 0
+    assert main([*["scan", site.url, "--interval", "0", "--output", str(output)], "--evidence-profile", "restricted"]) == 0
     assert json.loads(output.read_text(encoding="utf-8"))["summary"]["status"] == "completed"
 
 
@@ -38,7 +38,7 @@ def test_unexpected_discovery_error_preserves_pages_and_returns_one(http_lab, mo
     site = http_lab.start(lambda _: http_lab.reply(body=b'<a href="/next?q=apple">next</a>', headers={"Content-Type": "text/html"}))
     monkeypatch.setattr("scanner.discovery.HtmlInventoryParser.feed", crash)
     output = tmp_path / "failed.json"
-    assert main([mode, site.url, "--interval", "0", "--output", str(output)]) == 1
+    assert main([*[mode, site.url, "--interval", "0", "--output", str(output)], "--evidence-profile", "restricted"]) == 1
     data = json.loads(output.read_text(encoding="utf-8"))
     assert data["summary"]["status"] == data["collection_status"] == "incomplete"
     assert data["execution_errors"][0]["kind"] == "execution_error"
@@ -132,7 +132,7 @@ def test_direct_runners_capture_processing_errors_without_double_counting(sqlite
 def test_direct_cli_processing_failure_exits_one(sqlite_app, monkeypatch, tmp_path, capsys, module, hook):
     monkeypatch.setattr(hook, crash)
     path = "/" if module == "exposure" else "/control/vulnerable/search?q=apple"
-    assert main([sqlite_app.url + path, "--module", module, "--interval", "0", "--output", str(tmp_path / "report.json")]) == 1
+    assert main([*[sqlite_app.url + path, "--module", module, "--interval", "0", "--output", str(tmp_path / "report.json")], "--evidence-profile", "restricted"]) == 1
     captured = capsys.readouterr()
     assert SECRET not in captured.out + captured.err
 
@@ -169,7 +169,7 @@ def test_scan_keyboard_interrupt_still_saves_interrupted(sqlite_app, monkeypatch
     (run_baseline, "/health"), (run_sqli, "/control/vulnerable/search?q=apple"),
     (run_xss, "/xss/html/raw?q=demo"), (run_exposure, "/"),
 ])
-def test_unexpected_transport_exception_still_counts_the_attempt(monkeypatch, runner, path):
+def test_unexpected_transport_exception_still_counts_the_attempt(monkeypatch, runner, path, inline_transport):
     send = Mock(side_effect=RuntimeError(SECRET))
     monkeypatch.setattr("requests.Session.get", send)
     report = runner("http://127.0.0.1:1" + path, interval=0)
@@ -192,7 +192,7 @@ def test_runtime_oserror_is_not_mislabeled_as_checkpoint_error(sqlite_app, monke
     ("xss", "scanner.modules.xss.assess_xss"),
     ("exposure", "scanner.modules.exposure.assess"),
 ])
-def test_keyboard_interrupt_is_not_masked_by_a_broken_assessor(sqlite_app, monkeypatch, module, assessor):
+def test_keyboard_interrupt_is_not_masked_by_a_broken_assessor(sqlite_app, monkeypatch, module, assessor, inline_transport):
     monkeypatch.setattr("requests.Session.get", Mock(side_effect=KeyboardInterrupt))
     monkeypatch.setattr(assessor, crash)
     # Evita interromper a descoberta; o teste é da finalização do detector.
@@ -222,5 +222,5 @@ def test_keyboard_interrupt_during_final_checkpoint_returns_130(http_lab, monkey
 
     monkeypatch.setattr("main.write_reports", save)
     output = tmp_path / "interrupted.json"
-    assert main(["scan", site.url, "--interval", "0", "--output", str(output)]) == 130
+    assert main([*["scan", site.url, "--interval", "0", "--output", str(output)], "--evidence-profile", "restricted"]) == 130
     assert json.loads(output.read_text(encoding="utf-8"))["collection_status"] == "interrupted"

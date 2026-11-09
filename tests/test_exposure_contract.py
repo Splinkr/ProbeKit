@@ -171,7 +171,7 @@ def test_unsupported_http_statuses_are_inconclusive(http_lab, status):
     ("http://localhost/", {"profiles": ("unknown",)}), ("http://localhost/", {"profiles": ()}),
     ("http://localhost/", {"samples": 1}), ("http://localhost/", {"max_requests": 7}),
 ])
-def test_invalid_scope_profiles_or_budget_fail_before_network(monkeypatch, url, options):
+def test_invalid_scope_profiles_or_budget_fail_before_network(monkeypatch, url, options, inline_transport):
     send = Mock()
     monkeypatch.setattr(requests.Session, "get", send)
     with pytest.raises(ValueError):
@@ -248,7 +248,7 @@ def test_size_limit_discards_content_and_preserves_partial_evidence(http_lab):
     assert_private(report)
 
 
-def test_interrupt_keeps_only_safe_partial_evidence(sqlite_app, monkeypatch, tmp_path):
+def test_interrupt_keeps_only_safe_partial_evidence(sqlite_app, monkeypatch, tmp_path, inline_transport):
     original, calls = requests.Session.get, 0
     def interrupt(session, *args, **kwargs):
         nonlocal calls
@@ -259,7 +259,7 @@ def test_interrupt_keeps_only_safe_partial_evidence(sqlite_app, monkeypatch, tmp
     monkeypatch.setattr(requests.Session, "get", interrupt)
     output = tmp_path / "partial.json"
     report = run_scan(sqlite_app.url + "/probekit-lab", modules=("exposure",), interval=0,
-                      checkpoint=lambda current: write_json_atomic(current, output))
+                      checkpoint=lambda current: write_json_atomic(current, output, evidence_profile="restricted"))
     assert report.status == "interrupted" and len(report.requests) == 9
     assert report.analyses[0].assessment.outcome == "inconclusive"
     serialized = assert_private(report)
@@ -291,10 +291,10 @@ def test_cli_direct_and_three_modules_preserve_safe_json_and_stdout(sqlite_app, 
     ["--modules", "sqli", "--exposure-profiles", "config"],
     ["--modules", "exposure", "--exposure-profiles", "unknown"],
 ])
-def test_invalid_scan_profile_or_origin_is_rejected_before_network(monkeypatch, arguments):
+def test_invalid_scan_profile_or_origin_is_rejected_before_network(monkeypatch, arguments, inline_transport):
     send = Mock()
     monkeypatch.setattr(requests.Session, "get", send)
     with pytest.raises(SystemExit) as failure:
-        main(["scan", "http://localhost/", *arguments])
+        main([*["scan", "http://localhost/", *arguments], "--evidence-profile", "restricted"])
     assert failure.value.code == 2
     send.assert_not_called()

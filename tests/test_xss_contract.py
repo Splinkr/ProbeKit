@@ -177,7 +177,7 @@ def test_redirects_are_not_followed_and_cannot_confirm_xss(http_lab):
     ("http://localhost/echo?q=demo&q=other", {}),
     ("http://example.invalid/echo?q=demo", {}),
 ])
-def test_invalid_xss_configuration_is_rejected_before_network(url, options, monkeypatch):
+def test_invalid_xss_configuration_is_rejected_before_network(url, options, monkeypatch, inline_transport):
     send = Mock()
     monkeypatch.setattr(requests.Session, "get", send)
     with pytest.raises(ValueError):
@@ -204,7 +204,7 @@ def test_cli_xss_and_combined_scan_export_separate_module_results(sqlite_app, tm
     assert {result["module"] for result in data["parameter_results"]} == {"xss", "sqli"}
 
 
-def test_xss_scan_interruption_preserves_partial_report(sqlite_app, monkeypatch, tmp_path):
+def test_xss_scan_interruption_preserves_partial_report(sqlite_app, monkeypatch, tmp_path, inline_transport):
     original, calls = requests.Session.get, 0
     def interrupt(session, *args, **kwargs):
         nonlocal calls
@@ -215,18 +215,18 @@ def test_xss_scan_interruption_preserves_partial_report(sqlite_app, monkeypatch,
     monkeypatch.setattr(requests.Session, "get", interrupt)
     output = tmp_path / "partial.json"
     report = run_scan(sqlite_app.url + "/xss/html/raw?q=demo", modules=("xss",), interval=0,
-                      checkpoint=lambda current: write_json_atomic(current, output))
+                      checkpoint=lambda current: write_json_atomic(current, output, evidence_profile="restricted"))
     assert report.status == "interrupted" and len(report.requests) == 4
     assert report.analyses[0].assessment.outcome == "inconclusive"
     assert json.loads(output.read_text(encoding="utf-8"))["summary"]["status"] == "interrupted"
 
 
-def test_browser_option_requires_xss_before_network(monkeypatch):
+def test_browser_option_requires_xss_before_network(monkeypatch, inline_transport):
     send = Mock()
     monkeypatch.setattr(requests.Session, "get", send)
     for arguments in (["http://localhost/?q=demo", "--module", "sqli", "--xss-browser"],
                       ["scan", "http://localhost/", "--xss-browser"]):
         with pytest.raises(SystemExit) as failure:
-            main(arguments)
+            main([*arguments, "--evidence-profile", "restricted"])
         assert failure.value.code == 2
     send.assert_not_called()

@@ -1,5 +1,7 @@
 """Crawler HTML GET restrito à origem local, sem payloads e sem submeter formulários."""
 
+from scanner.resources import ResourceLimit, bind_resources, release_bodies
+
 from collections import deque
 from dataclasses import asdict, dataclass, field
 from email.message import Message
@@ -72,7 +74,8 @@ class HtmlForm:
 class HtmlInventoryParser(HTMLParser):
     """Extrai atributos estáticos; não executa scripts nem monta um DOM."""
 
-    def __init__(self):
+    def __init__(self, resources=None):
+        self.resources = resources
         super().__init__(convert_charrefs=True)
         self.links: list[str] = []
         self.forms: list[HtmlForm] = []
@@ -81,6 +84,14 @@ class HtmlInventoryParser(HTMLParser):
         self._associated_fields: list[tuple[str, EndpointParameter]] = []
 
     def handle_starttag(self, tag, attributes):
+        if tag not in {'a', 'area', 'base', 'form', 'input', 'select', 'textarea', 'button'}:
+            return
+        if self.resources is not None:
+            if any(value and len(value.encode('utf-8')) > self.resources.limits['max_url_length'] for _, value in attributes):
+                self.resources.reject('max_url_length')
+                return
+            if not self.resources.reserve(attributes, candidate=True):
+                return
         attrs = {}
         for name, value in attributes:
             attrs.setdefault(name, value)
@@ -137,7 +148,9 @@ def crawl(report: DiscoveryReport, client: HttpClient) -> None:
 
     def skip(reason: str, reference=None, page_url=None) -> None:
         report.skipped[reason] = report.skipped.get(reason, 0) + 1
-        report.ignored_targets.append({"url": reference, "source_page": page_url, "reason": reason})
+        item = {"url": reference, "source_page": page_url, "reason": reason}
+        if client.resources.reserve(item):
+            report.ignored_targets.append(item)
 
     def stop(reason: str) -> None:
         if reason not in report.stop_reasons:
@@ -151,6 +164,11 @@ def crawl(report: DiscoveryReport, client: HttpClient) -> None:
             return None
         if origin(candidate) != scope:
             skip("different_origin", candidate, source.page_url)
+            return None
+        if not client.resources.url(candidate):
+            return None
+        reservation = {'candidate': candidate, 'source': asdict(source), 'fields': [asdict(item) for item in fields]}
+        if not client.resources.reserve([reservation] * 6, candidate=True):
             return None
         parts = urlsplit(candidate)
         key = urlunsplit(parts._replace(query=""))
@@ -196,7 +214,7 @@ def crawl(report: DiscoveryReport, client: HttpClient) -> None:
             if not 200 <= response.status_code < 300 or media.get_content_type() not in {"text/html", "application/xhtml+xml"}:
                 continue
             html = decode_http_body(response.body, response.content_type)
-            parser = HtmlInventoryParser()
+            parser = HtmlInventoryParser(client.resources)
             parser.feed(html)
             parser.close()
             base = current
@@ -224,6 +242,7 @@ def crawl(report: DiscoveryReport, client: HttpClient) -> None:
                     continue
                 record(form.action or current, base, DiscoverySource("get_form", current, depth + 1), form.fields)
     finally:
+        report.stop_reasons = list(dict.fromkeys([*report.stop_reasons, *client.resources.stop_reasons]))
         report.requests_attempted = client.request_count - initial_count
         report.queued_remaining = len(pending)
         report.finished_at = utc_now()
@@ -232,16 +251,23 @@ def crawl(report: DiscoveryReport, client: HttpClient) -> None:
 def discover(
     url: str, *, max_depth: int = 2, max_pages: int = 20, max_requests: int = 20,
     timeout: float = 5.0, interval: float = 0.2, max_body_bytes: int = 1_048_576,
+    **resource_options,
 ) -> DiscoveryReport:
     report = new_discovery_report(url, max_depth=max_depth, max_pages=max_pages, max_requests=max_requests,
                                   timeout=timeout, interval=interval, max_body_bytes=max_body_bytes)
-    client = HttpClient(timeout, max_requests, interval, max_body_bytes)
+    client = HttpClient(timeout, max_requests, interval, max_body_bytes, **resource_options)
+    client.resources.url(report.target, initial=True)
+    bind_resources(report, client)
     try:
         with client:
             crawl(report, client)
+    except ResourceLimit as error:
+        client.resources.reject(error.reason)
     except Exception:
         report.execution_errors.append(ExecutionFailure("discovery"))
     finally:
         report.requests_attempted = client.request_count
         report.finished_at = utc_now()
+        if hasattr(report, "responses"):
+            release_bodies(report)
     return report

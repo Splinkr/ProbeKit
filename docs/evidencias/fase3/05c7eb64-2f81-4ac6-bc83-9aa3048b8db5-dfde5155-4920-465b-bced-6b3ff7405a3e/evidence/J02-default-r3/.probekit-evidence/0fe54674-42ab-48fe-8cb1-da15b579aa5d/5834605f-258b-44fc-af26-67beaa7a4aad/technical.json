@@ -1,0 +1,577 @@
+{
+  "run_id": "0fe54674-42ab-48fe-8cb1-da15b579aa5d",
+  "resource_usage": {
+    "urls": 8,
+    "metadata_bytes": 63805,
+    "candidate_records": 0,
+    "total_body_bytes": 9199,
+    "body_bytes_observed": 9199,
+    "body_bytes_reserved": 0,
+    "rejected": {},
+    "limited": false
+  },
+  "resource_limits": [],
+  "schema_version": "2.0",
+  "mode": "sqli",
+  "target": null,
+  "target_id": "url_8b4e73bdcade1c295b7736f841fb049e",
+  "target_source": "manual",
+  "started_at": "2026-11-09T19:35:05.516006+00:00",
+  "finished_at": "2026-11-09T19:35:07.638096+00:00",
+  "settings": {
+    "samples": 2,
+    "timeout_seconds": 5.0,
+    "max_requests": 10,
+    "interval_seconds": 0.2,
+    "max_body_bytes": 1048576,
+    "follow_redirects": false,
+    "scope": "loopback_only",
+    "parameter": null,
+    "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+    "parameters": [
+      "parameter_c3ffd205b7474ec127e1cfce270f33b7"
+    ],
+    "context": "like",
+    "available_parameters": [
+      "parameter_c3ffd205b7474ec127e1cfce270f33b7"
+    ],
+    "planned_requests": 10,
+    "confirmation_scope": "controlled_boolean_read_condition",
+    "max_urls": 1000,
+    "max_candidates": 2000,
+    "max_url_length": 8192,
+    "max_metadata_bytes": 8388608,
+    "max_total_body_bytes": 33554432,
+    "request_deadline": 15.0
+  },
+  "summary": {
+    "reachable": true,
+    "status": "completed",
+    "requests_attempted": 10,
+    "responses_received": 10,
+    "errors": 0,
+    "findings": 1
+  },
+  "responses": [
+    {
+      "request_id": 1,
+      "url": null,
+      "url_id": "url_8b4e73bdcade1c295b7736f841fb049e",
+      "collected_at": "2026-11-09T19:35:05.818184+00:00",
+      "status_code": 200,
+      "content_type": "application/json",
+      "size_bytes": 1617,
+      "body_sha256": "5d3b543d1d1569403ec78ac23a69be67fbdf3f8d09ab5f092b287b2b7f74dd33",
+      "elapsed_ms": 16.801,
+      "method": "GET"
+    },
+    {
+      "request_id": 2,
+      "url": null,
+      "url_id": "url_8b4e73bdcade1c295b7736f841fb049e",
+      "collected_at": "2026-11-09T19:35:06.018495+00:00",
+      "status_code": 200,
+      "content_type": "application/json",
+      "size_bytes": 1617,
+      "body_sha256": "5d3b543d1d1569403ec78ac23a69be67fbdf3f8d09ab5f092b287b2b7f74dd33",
+      "elapsed_ms": 14.132,
+      "method": "GET"
+    },
+    {
+      "request_id": 3,
+      "url": null,
+      "url_id": "url_c01d3afef33c4bb79880979f0ce32fc8",
+      "collected_at": "2026-11-09T19:35:06.218550+00:00",
+      "status_code": 500,
+      "content_type": "text/html",
+      "size_bytes": 994,
+      "body_sha256": "120b508fc8db846f41ba5d085cbbb7fdc41ee5db8750fde8f0753f7c73f9796b",
+      "elapsed_ms": 12.722,
+      "method": "GET"
+    },
+    {
+      "request_id": 4,
+      "url": null,
+      "url_id": "url_d7141e459649f4f0e2a4d5ac77c830b8",
+      "collected_at": "2026-11-09T19:35:06.418597+00:00",
+      "status_code": 200,
+      "content_type": "application/json",
+      "size_bytes": 30,
+      "body_sha256": "20bc1392a17b383b46fffc33c8e796755452883bfcfc2d33c90342ea70227639",
+      "elapsed_ms": 11.673,
+      "method": "GET"
+    },
+    {
+      "request_id": 5,
+      "url": null,
+      "url_id": "url_5f0646fe74cf68ccd745a2890c50f8fc",
+      "collected_at": "2026-11-09T19:35:06.618658+00:00",
+      "status_code": 200,
+      "content_type": "application/json",
+      "size_bytes": 30,
+      "body_sha256": "20bc1392a17b383b46fffc33c8e796755452883bfcfc2d33c90342ea70227639",
+      "elapsed_ms": 9.945,
+      "method": "GET"
+    },
+    {
+      "request_id": 6,
+      "url": null,
+      "url_id": "url_57fd8c996e7b7357f18dc9463afab641",
+      "collected_at": "2026-11-09T19:35:06.819139+00:00",
+      "status_code": 200,
+      "content_type": "application/json",
+      "size_bytes": 1617,
+      "body_sha256": "5d3b543d1d1569403ec78ac23a69be67fbdf3f8d09ab5f092b287b2b7f74dd33",
+      "elapsed_ms": 12.338,
+      "method": "GET"
+    },
+    {
+      "request_id": 7,
+      "url": null,
+      "url_id": "url_709ff6b78bdd49164a6ba8887020ba6a",
+      "collected_at": "2026-11-09T19:35:07.019366+00:00",
+      "status_code": 200,
+      "content_type": "application/json",
+      "size_bytes": 30,
+      "body_sha256": "20bc1392a17b383b46fffc33c8e796755452883bfcfc2d33c90342ea70227639",
+      "elapsed_ms": 10.004,
+      "method": "GET"
+    },
+    {
+      "request_id": 8,
+      "url": null,
+      "url_id": "url_bed9971cd595c25e637e50fe837a9ac0",
+      "collected_at": "2026-11-09T19:35:07.219792+00:00",
+      "status_code": 200,
+      "content_type": "application/json",
+      "size_bytes": 1617,
+      "body_sha256": "5d3b543d1d1569403ec78ac23a69be67fbdf3f8d09ab5f092b287b2b7f74dd33",
+      "elapsed_ms": 11.659,
+      "method": "GET"
+    },
+    {
+      "request_id": 9,
+      "url": null,
+      "url_id": "url_b4bf9c45fc46848fb66541ff79456a91",
+      "collected_at": "2026-11-09T19:35:07.419897+00:00",
+      "status_code": 200,
+      "content_type": "application/json",
+      "size_bytes": 30,
+      "body_sha256": "20bc1392a17b383b46fffc33c8e796755452883bfcfc2d33c90342ea70227639",
+      "elapsed_ms": 10.056,
+      "method": "GET"
+    },
+    {
+      "request_id": 10,
+      "url": null,
+      "url_id": "url_8b4e73bdcade1c295b7736f841fb049e",
+      "collected_at": "2026-11-09T19:35:07.620171+00:00",
+      "status_code": 200,
+      "content_type": "application/json",
+      "size_bytes": 1617,
+      "body_sha256": "5d3b543d1d1569403ec78ac23a69be67fbdf3f8d09ab5f092b287b2b7f74dd33",
+      "elapsed_ms": 12.456,
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "execution_errors": [],
+  "comparisons": [
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 2,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 1617,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 3,
+      "status_changed": true,
+      "content_type_changed": true,
+      "size_delta_bytes": -623,
+      "body_changed": true,
+      "sample_similarity": 0.025278,
+      "compared_sample_bytes": 1617,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 4,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -1587,
+      "body_changed": true,
+      "sample_similarity": 0.03643,
+      "compared_sample_bytes": 1617,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 5,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -1587,
+      "body_changed": true,
+      "sample_similarity": 0.03643,
+      "compared_sample_bytes": 1617,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 6,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 1617,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 7,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -1587,
+      "body_changed": true,
+      "sample_similarity": 0.03643,
+      "compared_sample_bytes": 1617,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 8,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 1617,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 9,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": -1587,
+      "body_changed": true,
+      "sample_similarity": 0.03643,
+      "compared_sample_bytes": 1617,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    },
+    {
+      "baseline_request_id": 1,
+      "compared_request_id": 10,
+      "status_changed": false,
+      "content_type_changed": false,
+      "size_delta_bytes": 0,
+      "body_changed": false,
+      "sample_similarity": 1.0,
+      "compared_sample_bytes": 1617,
+      "interpretation": "Detalhes omitidos no perfil compartilhável."
+    }
+  ],
+  "findings": [
+    {
+      "endpoint": null,
+      "endpoint_id": "url_8b4e73bdcade1c295b7736f841fb049e",
+      "category": "sqli",
+      "title": "Detalhes omitidos no perfil compartilhável.",
+      "confidence": "high",
+      "status": "confirmed",
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "rationale": "Detalhes omitidos no perfil compartilhável.",
+      "potential_impact": "Detalhes omitidos no perfil compartilhável.",
+      "recommended_mitigation": "Detalhes omitidos no perfil compartilhável.",
+      "parameter": null,
+      "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7"
+    }
+  ],
+  "probes": [
+    {
+      "request_id": 1,
+      "role": "baseline_1",
+      "parameter": null,
+      "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+      "response_received": true,
+      "product_count": 3,
+      "product_ids_sha256": "42cbe52fba87c8fe5f6e8b294bd483914229ed02dc6ab552c599a81432778fbe",
+      "context": "like",
+      "features": {
+        "format": "json",
+        "strategy": "collection_ids:id",
+        "fingerprint": "42cbe52fba87c8fe5f6e8b294bd483914229ed02dc6ab552c599a81432778fbe",
+        "result_count": 3,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 2,
+      "role": "baseline_2",
+      "parameter": null,
+      "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+      "response_received": true,
+      "product_count": 3,
+      "product_ids_sha256": "42cbe52fba87c8fe5f6e8b294bd483914229ed02dc6ab552c599a81432778fbe",
+      "context": "like",
+      "features": {
+        "format": "json",
+        "strategy": "collection_ids:id",
+        "fingerprint": "42cbe52fba87c8fe5f6e8b294bd483914229ed02dc6ab552c599a81432778fbe",
+        "result_count": 3,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 3,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+      "response_received": true,
+      "product_count": null,
+      "product_ids_sha256": null,
+      "context": "like",
+      "features": {
+        "format": "html",
+        "strategy": "omitted",
+        "fingerprint": "9cfa4befe21b44d9271f91a983391d7c9ae12bb1ee546f2e56632541bc53661b",
+        "result_count": null,
+        "nonempty": true,
+        "valid": false,
+        "error_like": true
+      }
+    },
+    {
+      "request_id": 4,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+      "response_received": true,
+      "product_count": 0,
+      "product_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "context": "like",
+      "features": {
+        "format": "json",
+        "strategy": "collection_values",
+        "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "result_count": 0,
+        "nonempty": false,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 5,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+      "response_received": true,
+      "product_count": 0,
+      "product_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "context": "like",
+      "features": {
+        "format": "json",
+        "strategy": "collection_values",
+        "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "result_count": 0,
+        "nonempty": false,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 6,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+      "response_received": true,
+      "product_count": 3,
+      "product_ids_sha256": "42cbe52fba87c8fe5f6e8b294bd483914229ed02dc6ab552c599a81432778fbe",
+      "context": "like",
+      "features": {
+        "format": "json",
+        "strategy": "collection_ids:id",
+        "fingerprint": "42cbe52fba87c8fe5f6e8b294bd483914229ed02dc6ab552c599a81432778fbe",
+        "result_count": 3,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 7,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+      "response_received": true,
+      "product_count": 0,
+      "product_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "context": "like",
+      "features": {
+        "format": "json",
+        "strategy": "collection_values",
+        "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "result_count": 0,
+        "nonempty": false,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 8,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+      "response_received": true,
+      "product_count": 3,
+      "product_ids_sha256": "42cbe52fba87c8fe5f6e8b294bd483914229ed02dc6ab552c599a81432778fbe",
+      "context": "like",
+      "features": {
+        "format": "json",
+        "strategy": "collection_ids:id",
+        "fingerprint": "42cbe52fba87c8fe5f6e8b294bd483914229ed02dc6ab552c599a81432778fbe",
+        "result_count": 3,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 9,
+      "role": "omitted",
+      "parameter": null,
+      "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+      "response_received": true,
+      "product_count": 0,
+      "product_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "context": "like",
+      "features": {
+        "format": "json",
+        "strategy": "collection_values",
+        "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "result_count": 0,
+        "nonempty": false,
+        "valid": true,
+        "error_like": false
+      }
+    },
+    {
+      "request_id": 10,
+      "role": "recovery",
+      "parameter": null,
+      "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+      "response_received": true,
+      "product_count": 3,
+      "product_ids_sha256": "42cbe52fba87c8fe5f6e8b294bd483914229ed02dc6ab552c599a81432778fbe",
+      "context": "like",
+      "features": {
+        "format": "json",
+        "strategy": "collection_ids:id",
+        "fingerprint": "42cbe52fba87c8fe5f6e8b294bd483914229ed02dc6ab552c599a81432778fbe",
+        "result_count": 3,
+        "nonempty": true,
+        "valid": true,
+        "error_like": false
+      }
+    }
+  ],
+  "assessment": {
+    "outcome": "confirmed",
+    "checks": {
+      "all_requests_completed": true,
+      "baseline_nonempty": true,
+      "baseline_stable": true,
+      "recovery_matches": true,
+      "escaped_quote_control_empty": true,
+      "literal_control_empty": true,
+      "new_sql_error": true,
+      "false_responses_stable": true
+    },
+    "rationale": "Detalhes omitidos no perfil compartilhável.",
+    "limitations": [
+      "Detalhes omitidos no perfil compartilhável.",
+      "Detalhes omitidos no perfil compartilhável."
+    ],
+    "parameter": null,
+    "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+    "context": "like"
+  },
+  "parameter_results": [
+    {
+      "parameter": null,
+      "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+      "context": "like",
+      "assessment": {
+        "outcome": "confirmed",
+        "checks": {
+          "all_requests_completed": true,
+          "baseline_nonempty": true,
+          "baseline_stable": true,
+          "recovery_matches": true,
+          "escaped_quote_control_empty": true,
+          "literal_control_empty": true,
+          "new_sql_error": true,
+          "false_responses_stable": true
+        },
+        "rationale": "Detalhes omitidos no perfil compartilhável.",
+        "limitations": [
+          "Detalhes omitidos no perfil compartilhável.",
+          "Detalhes omitidos no perfil compartilhável."
+        ],
+        "parameter": null,
+        "parameter_id": "parameter_c3ffd205b7474ec127e1cfce270f33b7",
+        "context": "like"
+      },
+      "evidence_request_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  ],
+  "collection_status": "completed",
+  "analysis_summary": {
+    "applicable": true,
+    "evaluations": 1,
+    "outcomes": {
+      "confirmed": 1,
+      "suspected": 0,
+      "not_detected": 0,
+      "reflected_safe": 0,
+      "inconclusive": 0
+    },
+    "has_inconclusive": false
+  },
+  "evidence_profile": "shareable",
+  "anonymized": true,
+  "snapshot_id": "5834605f-258b-44fc-af26-67beaa7a4aad",
+  "producer_version": "0.2.0"
+}

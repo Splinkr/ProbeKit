@@ -1,6 +1,39 @@
 # Suíte automatizada reconstruída
 
-Estado atual após a Fase 1 de estabilização: **451 testes aprovados**, sem
+Fase 3, produto 0.2.0: **578 aprovados**, zero falhos, erros, ignorados ou
+não executados, em 210,64 s. Os oito casos existentes de navegador rodaram.
+São os 543 casos preservados e 35 testes novos de avaliação. Ambiente isolado
+`.venv-evaluation`, com Requests 2.34.2, Matplotlib 3.11.2 e lock com hashes;
+`pip check` sem conflitos. JUnit: `reports/phase3-release-all.xml`.
+Antes dos experimentos, a suíte de referência passou com 543 casos em 192,94 s.
+
+Os novos testes verificam métricas/denominadores, abstenções e mitigação,
+unidades/repetições, identidade e hashes, heurística independente, confinamento,
+exportação offline e sentinelas de privacidade. Uma falha inicial nas taxas
+mitigadas foi registrada e corrigida na análise 1.0.2, sem reexecutar sondas.
+A análise 1.0.3 acrescenta vínculos de campanha/análise/snapshot original e
+tratamento de assessment ausente; as regressões iniciais e finais foram registradas.
+Experimentos reais ficam separados dos fixtures: 165 execuções e três repetições.
+O pacote público reproduziu três tabelas e oito figuras byte a byte sem rede.
+Comandos, resultados intermediários e limitações:
+[acompanhamento](FASE3_ACOMPANHAMENTO.md) e [relatório](RESULTADOS_EXPERIMENTAIS.md).
+
+Estado final da Fase 2, ProbeKit 0.2.0: **543 aprovados**, sem falhos, erros,
+ignorados ou não executados em cada ambiente. `.venv`: 196,81 s;
+`.venv-phase2` com locks/Requests 2.34.2: 196,30 s. Os oito casos existentes
+de navegador real executaram normalmente. JUnit local:
+`reports/phase2-release-original.xml` e `reports/phase2-release-locked.xml`.
+
+A Fase 2 acrescenta **92 regressões** de apresentação, publicação, privacidade,
+limites e bootstrap aos 451 casos da Fase 1. O registro completo, incluindo
+falhas iniciais, cenários reais/simulados e resultados finais, está em
+[FASE2_PLANO.md](FASE2_PLANO.md) e [FASE2_SEGURANCA.md](FASE2_SEGURANCA.md).
+Os testes que precisam de referências legíveis selecionam o perfil restrito;
+aqueles que injetam falhas no Requests usam a fronteira `InlineTransport`.
+Transporte real, CLI em subprocesso e deadline usam o worker de produção.
+Os contratos de classificação e contagem foram preservados; o schema novo é 2.0.
+
+Registro histórico após a Fase 1 de estabilização: **451 testes aprovados**, sem
 falhas, erros ou ignorados, em 69,29 segundos. São os 390 casos existentes e
 61 regressões novas para R01/R02; oito casos existentes executaram navegador
 real. Contratos anteriores preservados. Comandos, reprodução inicial e

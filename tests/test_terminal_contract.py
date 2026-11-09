@@ -65,11 +65,13 @@ def test_cli_table_and_json_preserve_each_outcome(monkeypatch, capsys, tmp_path,
         return report
 
     monkeypatch.setattr("main.run_scan", run)
-    assert main(["scan", report.target, "--modules", module, "--output", str(output)]) == exit_code
+    assert main([*["scan", report.target, "--modules", module, "--output", str(output)], "--evidence-profile", "restricted"]) == exit_code
     terminal = capsys.readouterr().out
     assert table_row(terminal, module)[1:] == expected
     assert f": {outcome}" in terminal
-    assert json.loads(output.read_text(encoding="utf-8")) == before == report.to_dict()
+    from conftest import assert_restricted_snapshot
+    assert_restricted_snapshot(json.loads(output.read_text(encoding="utf-8")), before)
+    assert before == report.to_dict()
     assert terminal.index("Resumo do scan") < terminal.index("Relatório consolidado JSON:")
 
 
@@ -86,8 +88,8 @@ def test_skipped_targets_and_unclassified_analysis_are_not_negative_results():
 
 def test_real_three_module_cli_summary_matches_saved_json(sqlite_app, tmp_path, capsys):
     output = tmp_path / "scan.json"
-    assert main(["scan", sqlite_app.url + "/probekit-lab", "--modules", "sqli", "xss", "exposure",
-                 "--exposure-profiles", "config", "backup", "--interval", "0", "--output", str(output)]) == 0
+    assert main([*["scan", sqlite_app.url + "/probekit-lab", "--modules", "sqli", "xss", "exposure",
+                 "--exposure-profiles", "config", "backup", "--interval", "0", "--output", str(output)], "--evidence-profile", "restricted"]) == 0
     terminal = capsys.readouterr().out
     data = json.loads(output.read_text(encoding="utf-8"))
     assert data["summary"]["requests_used"] == 92
@@ -100,19 +102,19 @@ def test_real_three_module_cli_summary_matches_saved_json(sqlite_app, tmp_path, 
 
 def test_real_inconclusive_scan_stays_inconclusive_in_terminal(sqlite_app, tmp_path, capsys):
     output = tmp_path / "scan.json"
-    assert main(["scan", sqlite_app.url + "/general/html/error?search=apple", "--interval", "0", "--output", str(output)]) == 1
+    assert main([*["scan", sqlite_app.url + "/general/html/error?search=apple", "--interval", "0", "--output", str(output)], "--evidence-profile", "restricted"]) == 1
     terminal = capsys.readouterr().out
     assert table_row(terminal, "sqli")[1:] == ["0", "0", "1", "0", "0"]
     assert json.loads(output.read_text(encoding="utf-8"))["summary"]["status"] == "incomplete"
 
 
-def test_interrupt_before_classification_keeps_zero_counts_and_checkpoint(sqlite_app, monkeypatch, tmp_path, capsys):
+def test_interrupt_before_classification_keeps_zero_counts_and_checkpoint(sqlite_app, monkeypatch, tmp_path, capsys, inline_transport):
     def interrupt(*args, **kwargs):
         raise KeyboardInterrupt
 
     monkeypatch.setattr(requests.Session, "get", interrupt)
     output = tmp_path / "interrupted.json"
-    assert main(["scan", sqlite_app.url + "/probekit-lab", "--output", str(output)]) == 130
+    assert main([*["scan", sqlite_app.url + "/probekit-lab", "--output", str(output)], "--evidence-profile", "restricted"]) == 130
     terminal = capsys.readouterr().out
     assert table_row(terminal, "TOTAL")[1:] == ["0", "0", "0", "0", "0"]
     assert "Nenhuma avaliação classificada" in terminal

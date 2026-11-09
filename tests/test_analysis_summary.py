@@ -27,7 +27,7 @@ def direct(outcomes):
 def test_direct_summary_separates_collection_from_analysis_without_double_counting(outcomes):
     report = direct(outcomes)
     data = report.to_dict()
-    summary = build_findings_report(data, "full.json")
+    summary = build_findings_report(data, "full.json", evidence_profile="restricted")
     assert data["summary"]["status"] == summary["scan_status"] == "completed"
     assert data["collection_status"] == summary["collection_status"] == "completed"
     expected = {"applicable": True, "evaluations": len(outcomes),
@@ -37,7 +37,7 @@ def test_direct_summary_separates_collection_from_analysis_without_double_counti
 
 
 def test_inconclusive_with_no_findings_is_visible_in_the_findings_report():
-    summary = build_findings_report(direct(["inconclusive"]).to_dict(), "full.json")
+    summary = build_findings_report(direct(["inconclusive"]).to_dict(), "full.json", evidence_profile="restricted")
     assert summary["findings"] == []
     assert summary["summary"]["confirmed"] == 0
     assert summary["analysis_summary"]["has_inconclusive"]
@@ -47,7 +47,7 @@ def test_confirmed_finding_survives_another_inconclusive_evaluation():
     report = direct(["confirmed", "inconclusive"])
     report.findings.append(Finding(report.target, "sqli", "fixture", Confidence.HIGH,
         FindingStatus.CONFIRMED, [1], "fixture", "fixture", "fixture", "q0"))
-    summary = build_findings_report(report.to_dict(), "full.json")
+    summary = build_findings_report(report.to_dict(), "full.json", evidence_profile="restricted")
     assert summary["summary"]["confirmed"] == 1
     assert summary["findings"][0]["status"] == "confirmed"
     assert summary["analysis_summary"]["outcomes"]["inconclusive"] == 1
@@ -63,7 +63,7 @@ def test_integrated_legacy_status_is_preserved_but_collection_is_independent():
     assert data["summary"]["status"] == "incomplete"
     assert data["collection_status"] == "completed"
     assert data["analysis_summary"]["evaluations"] == 2
-    assert build_findings_report(data, "full.json")["analysis_summary"] == data["analysis_summary"]
+    assert build_findings_report(data, "full.json", evidence_profile="restricted")["analysis_summary"] == data["analysis_summary"]
 
 
 def test_exposure_individual_results_take_precedence_over_aggregate():
@@ -79,18 +79,19 @@ def test_exposure_individual_results_take_precedence_over_aggregate():
 @pytest.mark.parametrize("mode", ["baseline", "discover", "sqli", "xss", "exposure", "scan"])
 def test_empty_reports_and_legacy_inputs_are_supported(mode):
     data = {"mode": mode}
-    result = build_findings_report(data, "legacy.json")
+    result = build_findings_report(data, "legacy.json", evidence_profile="restricted")
     assert result["collection_status"] is None
     assert result["analysis_summary"] == {
         "applicable": mode not in {"baseline", "discover"}, "evaluations": 0,
         "outcomes": dict.fromkeys(OUTCOMES, 0), "has_inconclusive": False,
     }
-    assert result["schema_version"] == "1.0"
+    # PK-F2: a nova proje??o usa schema 2.0, inclusive para entradas legadas.
+    assert result["schema_version"] == "2.0"
 
 
 def test_legacy_aggregate_is_used_only_when_individual_results_are_absent():
     assessment = SqliAssessment("inconclusive", {}, "fixture", [])
-    result = build_findings_report({"mode": "sqli", "assessment": asdict(assessment)}, "legacy.json")
+    result = build_findings_report({"mode": "sqli", "assessment": asdict(assessment)}, "legacy.json", evidence_profile="restricted")
     assert result["analysis_summary"]["evaluations"] == 1
     assert result["analysis_summary"]["has_inconclusive"]
 
@@ -112,8 +113,8 @@ def test_real_inconclusive_sqli_collection_is_completed_in_both_cli_modes(sqlite
     from main import main
 
     output = tmp_path / "report.json"
-    assert main([*prefix, sqlite_app.url + "/general/html/error?search=apple", "--interval", "0", "--output", str(output),
-                 *([] if prefix else ["--module", "sqli"])]) == 1
+    assert main([*[*prefix, sqlite_app.url + "/general/html/error?search=apple", "--interval", "0", "--output", str(output),
+                 *([] if prefix else ["--module", "sqli"])], "--evidence-profile", "restricted"]) == 1
     data = json.loads(output.read_text(encoding="utf-8"))
     findings = json.loads((tmp_path / "findings.json").read_text(encoding="utf-8"))
     assert data["summary"]["status"] == findings["scan_status"] == legacy_status
@@ -130,7 +131,7 @@ def test_http_responses_without_transport_errors_can_be_analytically_inconclusiv
     site = http_lab.start(lambda _: http_lab.reply(status=302))
     output = tmp_path / "report.json"
     url = site.url + ("/" if module == "exposure" else "/?q=apple")
-    assert main([url, "--module", module, "--interval", "0", "--output", str(output)]) == 1
+    assert main([*[url, "--module", module, "--interval", "0", "--output", str(output)], "--evidence-profile", "restricted"]) == 1
     data = json.loads(output.read_text(encoding="utf-8"))
     summary = json.loads((tmp_path / "findings.json").read_text(encoding="utf-8"))
     assert data["errors"] == data["execution_errors"] == []

@@ -33,3 +33,8 @@ dist/
 *.egg-info/
 .DS_Store
 Thumbs.db
+
+# Analises substituidas, preservadas localmente para auditoria.
+/docs/evidencias/fase3/05c7eb64-2f81-4ac6-bc83-9aa3048b8db5-51cb802e-7557-4fe2-ad26-c2901dbb2601/
+/docs/evidencias/fase3/05c7eb64-2f81-4ac6-bc83-9aa3048b8db5-77dc33b9-751e-425d-9094-1c985d93357d/
+/docs/evidencias/fase3/05c7eb64-2f81-4ac6-bc83-9aa3048b8db5-c4f326b9-ddea-454a-b065-55ee043e746e/

@@ -1,0 +1,1344 @@
+{
+  "cases": [
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "S01",
+      "conditions": [
+        "default"
+      ],
+      "context": "like",
+      "module": "sqli",
+      "path": "/control/vulnerable/search?q=apple",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "ProductDatabase.search interpolates input into SQL",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "q",
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "S01a"
+        }
+      ]
+    },
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "S02",
+      "conditions": [
+        "default"
+      ],
+      "context": "like",
+      "module": "sqli",
+      "path": "/control/safe/search?q=apple",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "ProductDatabase.search uses bound SQL parameters",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "q",
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "S02a"
+        }
+      ]
+    },
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "S03",
+      "conditions": [
+        "default"
+      ],
+      "context": "like",
+      "module": "sqli",
+      "path": "/general/json/vulnerable?term=apple&lang=en",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "ProductDatabase.search interpolates input into SQL",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "term",
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "S03a"
+        }
+      ]
+    },
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "S04",
+      "conditions": [
+        "default"
+      ],
+      "context": "like",
+      "module": "sqli",
+      "path": "/general/json/safe?term=apple&lang=en",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "ProductDatabase.search uses bound SQL parameters",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "term",
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "S04a"
+        }
+      ]
+    },
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "S05",
+      "conditions": [
+        "default"
+      ],
+      "context": "like",
+      "module": "sqli",
+      "path": "/general/html/vulnerable?search=apple&lang=en",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "ProductDatabase.search interpolates input into SQL",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "search",
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "S05a"
+        }
+      ]
+    },
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "S06",
+      "conditions": [
+        "default"
+      ],
+      "context": "like",
+      "module": "sqli",
+      "path": "/general/html/safe?search=apple&lang=en",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "ProductDatabase.search uses bound SQL parameters",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "search",
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "S06a"
+        }
+      ]
+    },
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "S07",
+      "conditions": [
+        "default"
+      ],
+      "context": "like",
+      "module": "sqli",
+      "path": "/general/text/vulnerable?keyword=apple&lang=en",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "ProductDatabase.search interpolates input into SQL",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "keyword",
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "S07a"
+        }
+      ]
+    },
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "S08",
+      "conditions": [
+        "default"
+      ],
+      "context": "like",
+      "module": "sqli",
+      "path": "/general/text/safe?keyword=apple&lang=en",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "ProductDatabase.search uses bound SQL parameters",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "keyword",
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "S08a"
+        }
+      ]
+    },
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "S09",
+      "conditions": [
+        "default"
+      ],
+      "context": "quoted",
+      "module": "sqli",
+      "path": "/general/quoted/vulnerable?item=Apple+Demo",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "ProductDatabase.search interpolates input into SQL",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "item",
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "S09a"
+        }
+      ]
+    },
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "S10",
+      "conditions": [
+        "default"
+      ],
+      "context": "quoted",
+      "module": "sqli",
+      "path": "/general/quoted/safe?item=Apple+Demo",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "ProductDatabase.search uses bound SQL parameters",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "item",
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "S10a"
+        }
+      ]
+    },
+    {
+      "all_parameters": true,
+      "budget": 20,
+      "case_id": "S11",
+      "conditions": [
+        "default"
+      ],
+      "context": "like",
+      "module": "sqli",
+      "path": "/general/html/vulnerable?search=apple&lang=en",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "ProductDatabase.search interpolates input into SQL",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "search",
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "S11a"
+        },
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "lang changes escaped presentation, not the SQL query",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "lang",
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "S11b"
+        }
+      ]
+    },
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "S12",
+      "conditions": [
+        "default"
+      ],
+      "context": "like",
+      "module": "sqli",
+      "path": "/general/html/unstable?search=apple",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "ProductDatabase.search uses bound SQL parameters",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "search",
+          "stratum": "diagnostic",
+          "truth": "safe",
+          "unit_id": "S12a"
+        }
+      ]
+    },
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "S13",
+      "conditions": [
+        "default"
+      ],
+      "context": "like",
+      "module": "sqli",
+      "path": "/general/html/error?search=apple",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "general_search error branch returns fixed HTML before executing a query",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "search",
+          "stratum": "diagnostic",
+          "truth": "safe",
+          "unit_id": "S13a"
+        }
+      ]
+    },
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "S14",
+      "conditions": [
+        "default"
+      ],
+      "context": "quoted",
+      "module": "sqli",
+      "path": "/general/json/vulnerable?term=apple",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "ProductDatabase.search interpolates input into SQL",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "term",
+          "stratum": "diagnostic",
+          "truth": "vulnerable",
+          "unit_id": "S14a"
+        }
+      ]
+    },
+    {
+      "budget": 10,
+      "case_id": "X01",
+      "conditions": [
+        "static",
+        "browser"
+      ],
+      "module": "xss",
+      "path": "/xss/html/raw?q=demo",
+      "units": [
+        {
+          "file_path": null,
+          "module": "xss",
+          "oracle": {
+            "reason": "response interpolates input into executable HTML/attribute/JavaScript",
+            "sha256": "52fa854f04073fa70637df3a43ccc6367e15a561ef2aba081ba2bff288290dca",
+            "source": "experiments/xss_lab.py",
+            "symbol": "response"
+          },
+          "parameter": "q",
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "X01a"
+        }
+      ]
+    },
+    {
+      "budget": 10,
+      "case_id": "X02",
+      "conditions": [
+        "static",
+        "browser"
+      ],
+      "module": "xss",
+      "path": "/xss/attribute/raw?q=demo",
+      "units": [
+        {
+          "file_path": null,
+          "module": "xss",
+          "oracle": {
+            "reason": "response interpolates input into executable HTML/attribute/JavaScript",
+            "sha256": "52fa854f04073fa70637df3a43ccc6367e15a561ef2aba081ba2bff288290dca",
+            "source": "experiments/xss_lab.py",
+            "symbol": "response"
+          },
+          "parameter": "q",
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "X02a"
+        }
+      ]
+    },
+    {
+      "budget": 10,
+      "case_id": "X03",
+      "conditions": [
+        "static",
+        "browser"
+      ],
+      "module": "xss",
+      "path": "/xss/script/raw?q=demo",
+      "units": [
+        {
+          "file_path": null,
+          "module": "xss",
+          "oracle": {
+            "reason": "response interpolates input into executable HTML/attribute/JavaScript",
+            "sha256": "52fa854f04073fa70637df3a43ccc6367e15a561ef2aba081ba2bff288290dca",
+            "source": "experiments/xss_lab.py",
+            "symbol": "response"
+          },
+          "parameter": "q",
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "X03a"
+        }
+      ]
+    },
+    {
+      "budget": 10,
+      "case_id": "X04",
+      "conditions": [
+        "static",
+        "browser"
+      ],
+      "module": "xss",
+      "path": "/xss/html/escaped?q=demo",
+      "units": [
+        {
+          "file_path": null,
+          "module": "xss",
+          "oracle": {
+            "reason": "contextual encoding or non-HTML nosniff response; health ignores q",
+            "sha256": "52fa854f04073fa70637df3a43ccc6367e15a561ef2aba081ba2bff288290dca",
+            "source": "experiments/xss_lab.py",
+            "symbol": "response"
+          },
+          "parameter": "q",
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "X04a"
+        }
+      ]
+    },
+    {
+      "budget": 10,
+      "case_id": "X05",
+      "conditions": [
+        "static",
+        "browser"
+      ],
+      "module": "xss",
+      "path": "/xss/attribute/escaped?q=demo",
+      "units": [
+        {
+          "file_path": null,
+          "module": "xss",
+          "oracle": {
+            "reason": "contextual encoding or non-HTML nosniff response; health ignores q",
+            "sha256": "52fa854f04073fa70637df3a43ccc6367e15a561ef2aba081ba2bff288290dca",
+            "source": "experiments/xss_lab.py",
+            "symbol": "response"
+          },
+          "parameter": "q",
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "X05a"
+        }
+      ]
+    },
+    {
+      "budget": 10,
+      "case_id": "X06",
+      "conditions": [
+        "static",
+        "browser"
+      ],
+      "module": "xss",
+      "path": "/xss/script/escaped?q=demo",
+      "units": [
+        {
+          "file_path": null,
+          "module": "xss",
+          "oracle": {
+            "reason": "contextual encoding or non-HTML nosniff response; health ignores q",
+            "sha256": "52fa854f04073fa70637df3a43ccc6367e15a561ef2aba081ba2bff288290dca",
+            "source": "experiments/xss_lab.py",
+            "symbol": "response"
+          },
+          "parameter": "q",
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "X06a"
+        }
+      ]
+    },
+    {
+      "budget": 10,
+      "case_id": "X07",
+      "conditions": [
+        "static",
+        "browser"
+      ],
+      "module": "xss",
+      "path": "/xss/json?q=demo",
+      "units": [
+        {
+          "file_path": null,
+          "module": "xss",
+          "oracle": {
+            "reason": "contextual encoding or non-HTML nosniff response; health ignores q",
+            "sha256": "52fa854f04073fa70637df3a43ccc6367e15a561ef2aba081ba2bff288290dca",
+            "source": "experiments/xss_lab.py",
+            "symbol": "response"
+          },
+          "parameter": "q",
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "X07a"
+        }
+      ]
+    },
+    {
+      "budget": 10,
+      "case_id": "X08",
+      "conditions": [
+        "static",
+        "browser"
+      ],
+      "module": "xss",
+      "path": "/xss/text?q=demo",
+      "units": [
+        {
+          "file_path": null,
+          "module": "xss",
+          "oracle": {
+            "reason": "contextual encoding or non-HTML nosniff response; health ignores q",
+            "sha256": "52fa854f04073fa70637df3a43ccc6367e15a561ef2aba081ba2bff288290dca",
+            "source": "experiments/xss_lab.py",
+            "symbol": "response"
+          },
+          "parameter": "q",
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "X08a"
+        }
+      ]
+    },
+    {
+      "budget": 10,
+      "case_id": "X09",
+      "conditions": [
+        "static",
+        "browser"
+      ],
+      "module": "xss",
+      "path": "/health?q=demo",
+      "units": [
+        {
+          "file_path": null,
+          "module": "xss",
+          "oracle": {
+            "reason": "contextual encoding or non-HTML nosniff response; health ignores q",
+            "sha256": "a11e6ddf7d3594f397dd526bae2d81c9187db1b6b7a5a0b55183a1ec9c5fa593",
+            "source": "experiments/sqlite_control.py",
+            "symbol": "ProductDatabase.search / ControlHandler.do_GET / general_search"
+          },
+          "parameter": "q",
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "X09a"
+        }
+      ]
+    },
+    {
+      "budget": 10,
+      "case_id": "X10",
+      "conditions": [
+        "static",
+        "browser"
+      ],
+      "module": "xss",
+      "path": "/xss/csp?q=demo",
+      "units": [
+        {
+          "file_path": null,
+          "module": "xss",
+          "oracle": {
+            "reason": "unescaped interpolation with script-src none; separate mitigated stratum",
+            "sha256": "52fa854f04073fa70637df3a43ccc6367e15a561ef2aba081ba2bff288290dca",
+            "source": "experiments/xss_lab.py",
+            "symbol": "response"
+          },
+          "parameter": "q",
+          "stratum": "mitigated",
+          "truth": "mitigated",
+          "unit_id": "X10a"
+        }
+      ]
+    },
+    {
+      "budget": 8,
+      "case_id": "E01",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/exposed/",
+      "profile": "config",
+      "units": [
+        {
+          "file_path": ".env",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture maps this file to a designated private fictional artifact",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "E01a"
+        },
+        {
+          "file_path": "config.ini",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture maps this file to a designated private fictional artifact",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "E01b"
+        }
+      ]
+    },
+    {
+      "budget": 8,
+      "case_id": "E02",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/exposed/",
+      "profile": "backup",
+      "units": [
+        {
+          "file_path": "backup.sql",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture maps this file to a designated private fictional artifact",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "E02a"
+        },
+        {
+          "file_path": "config.ini.bak",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture maps this file to a designated private fictional artifact",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "E02b"
+        }
+      ]
+    },
+    {
+      "budget": 4,
+      "case_id": "E03",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/exposed/",
+      "profile": "repository",
+      "units": [
+        {
+          "file_path": ".git/HEAD",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture maps this file to a designated private fictional artifact",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "E03a"
+        }
+      ]
+    },
+    {
+      "budget": 8,
+      "case_id": "E04",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/",
+      "profile": "config",
+      "units": [
+        {
+          "file_path": ".env",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture maps this file to a designated private fictional artifact",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "E04a"
+        },
+        {
+          "file_path": "config.ini",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E04b"
+        }
+      ]
+    },
+    {
+      "budget": 8,
+      "case_id": "E05",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/",
+      "profile": "backup",
+      "units": [
+        {
+          "file_path": "backup.sql",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture maps this file to a designated private fictional artifact",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "vulnerable",
+          "unit_id": "E05a"
+        },
+        {
+          "file_path": "config.ini.bak",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E05b"
+        }
+      ]
+    },
+    {
+      "budget": 4,
+      "case_id": "E06",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/",
+      "profile": "repository",
+      "units": [
+        {
+          "file_path": ".git/HEAD",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E06a"
+        }
+      ]
+    },
+    {
+      "budget": 8,
+      "case_id": "E07",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/blocked/",
+      "profile": "config",
+      "units": [
+        {
+          "file_path": ".env",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E07a"
+        },
+        {
+          "file_path": "config.ini",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E07b"
+        }
+      ]
+    },
+    {
+      "budget": 8,
+      "case_id": "E08",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/blocked/",
+      "profile": "backup",
+      "units": [
+        {
+          "file_path": "backup.sql",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E08a"
+        },
+        {
+          "file_path": "config.ini.bak",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E08b"
+        }
+      ]
+    },
+    {
+      "budget": 4,
+      "case_id": "E09",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/blocked/",
+      "profile": "repository",
+      "units": [
+        {
+          "file_path": ".git/HEAD",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E09a"
+        }
+      ]
+    },
+    {
+      "budget": 8,
+      "case_id": "E10",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/missing/",
+      "profile": "config",
+      "units": [
+        {
+          "file_path": ".env",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E10a"
+        },
+        {
+          "file_path": "config.ini",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E10b"
+        }
+      ]
+    },
+    {
+      "budget": 8,
+      "case_id": "E11",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/missing/",
+      "profile": "backup",
+      "units": [
+        {
+          "file_path": "backup.sql",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E11a"
+        },
+        {
+          "file_path": "config.ini.bak",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E11b"
+        }
+      ]
+    },
+    {
+      "budget": 4,
+      "case_id": "E12",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/missing/",
+      "profile": "repository",
+      "units": [
+        {
+          "file_path": ".git/HEAD",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E12a"
+        }
+      ]
+    },
+    {
+      "budget": 8,
+      "case_id": "E13",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/fallback/",
+      "profile": "config",
+      "units": [
+        {
+          "file_path": ".env",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E13a"
+        },
+        {
+          "file_path": "config.ini",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E13b"
+        }
+      ]
+    },
+    {
+      "budget": 8,
+      "case_id": "E14",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/fallback/",
+      "profile": "backup",
+      "units": [
+        {
+          "file_path": "backup.sql",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E14a"
+        },
+        {
+          "file_path": "config.ini.bak",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E14b"
+        }
+      ]
+    },
+    {
+      "budget": 4,
+      "case_id": "E15",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/fallback/",
+      "profile": "repository",
+      "units": [
+        {
+          "file_path": ".git/HEAD",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "principal",
+          "truth": "safe",
+          "unit_id": "E15a"
+        }
+      ]
+    },
+    {
+      "budget": 8,
+      "case_id": "E16",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/error/",
+      "profile": "config",
+      "units": [
+        {
+          "file_path": ".env",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "diagnostic",
+          "truth": "safe",
+          "unit_id": "E16a"
+        },
+        {
+          "file_path": "config.ini",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "diagnostic",
+          "truth": "safe",
+          "unit_id": "E16b"
+        }
+      ]
+    },
+    {
+      "budget": 8,
+      "case_id": "E17",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/error/",
+      "profile": "backup",
+      "units": [
+        {
+          "file_path": "backup.sql",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "diagnostic",
+          "truth": "safe",
+          "unit_id": "E17a"
+        },
+        {
+          "file_path": "config.ini.bak",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "diagnostic",
+          "truth": "safe",
+          "unit_id": "E17b"
+        }
+      ]
+    },
+    {
+      "budget": 4,
+      "case_id": "E18",
+      "conditions": [
+        "default"
+      ],
+      "module": "exposure",
+      "path": "/exposure-lab/error/",
+      "profile": "repository",
+      "units": [
+        {
+          "file_path": ".git/HEAD",
+          "module": "exposure",
+          "oracle": {
+            "reason": "response fixture is blocked/missing/public documentation/HTML fallback or HTML error",
+            "sha256": "186821b14cf975680cd2a7bfaf8d84bcad6f33b7faece1f3962cb6926bbbfba6",
+            "source": "experiments/exposure_lab.py",
+            "symbol": "response"
+          },
+          "parameter": null,
+          "stratum": "diagnostic",
+          "truth": "safe",
+          "unit_id": "E18a"
+        }
+      ]
+    },
+    {
+      "budget": 100,
+      "case_id": "I01",
+      "conditions": [
+        "default"
+      ],
+      "domain": "integration",
+      "module": "scan",
+      "path": "/probekit-lab",
+      "units": []
+    },
+    {
+      "budget": 100,
+      "case_id": "J01",
+      "conditions": [
+        "default"
+      ],
+      "domain": "juice",
+      "module": "scan",
+      "path": "/",
+      "units": []
+    },
+    {
+      "all_parameters": false,
+      "budget": 10,
+      "case_id": "J02",
+      "conditions": [
+        "default"
+      ],
+      "context": "like",
+      "domain": "juice",
+      "module": "sqli",
+      "path": "/rest/products/search?q=apple",
+      "units": [
+        {
+          "file_path": null,
+          "module": "sqli",
+          "oracle": {
+            "reason": "searchProducts interpolates req.query.q into a LIKE query; source independent of scanner",
+            "sha256": "3a6c532695096249c413f7510b9b42e1eb6e72c3affaef3e92bffed2b0d73f4e",
+            "source": "lab/juice-shop_20.3.0/build/routes/search.js",
+            "symbol": "searchProducts"
+          },
+          "parameter": "q",
+          "stratum": "application",
+          "truth": "vulnerable",
+          "unit_id": "J02a"
+        }
+      ]
+    }
+  ],
+  "catalog_version": "1.0.0",
+  "repetitions": 3
+}

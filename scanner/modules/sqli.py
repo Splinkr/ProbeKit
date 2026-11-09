@@ -1,5 +1,7 @@
 """Execução SQLi e fachada compatível; planos, características e decisões são separados."""
 
+from scanner.resources import release_bodies
+
 from scanner.analyzer import compare_responses
 from scanner.http_client import HttpClient, HttpClientError
 from scanner.models import Confidence, Finding, FindingStatus, ParameterResult, RequestFailure, ScanReport
@@ -20,6 +22,8 @@ def run_detection(client: HttpClient, report: ScanReport, plan) -> None:
             # Não substitui a falha original ou KeyboardInterrupt por erro ao finalizar.
             if completed_normally:
                 raise
+        finally:
+            release_bodies(report)
 
 
 def _execute_plan(client: HttpClient, report: ScanReport, plan) -> None:
@@ -45,6 +49,8 @@ def _execute_plan(client: HttpClient, report: ScanReport, plan) -> None:
             report.comparisons.append(compare_responses(first_response, response))
         else:
             first_response = response
+        if response is not first_response:
+            object.__setattr__(response, "body", b"")
 
 
 def _finish_detection(report: ScanReport, parameter: str, context: str) -> None:
