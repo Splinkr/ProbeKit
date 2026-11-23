@@ -9,6 +9,45 @@ O escopo é exclusivamente loopback autorizado. Não há opção para liberar
 alvos externos, autenticação, operações de escrita ou execução de arquivos
 encontrados. Os laboratórios fornecidos usam dados fictícios e dispensam Docker.
 
+## Propósito, utilidade e diferencial
+
+O ProbeKit existe para **classificar com evidência**, e não apenas listar suspeitas.
+Em vez de responder só "vulnerável" ou "não vulnerável", cada alvo recebe uma de
+cinco classes (`confirmed`, `suspected`, `inconclusive`, `not_detected` e
+`reflected_safe`), obtida por comparação diferencial entre respostas de referência,
+sondas e controles negativos; o relatório mostra quais critérios foram satisfeitos e
+o que **não** foi possível concluir.
+
+- **Para quem:** ensino e estudo de varredura de vulnerabilidades em laboratório
+  controlado (gabarito conhecido, evidência reprodutível) e triagem rápida da própria
+  aplicação em desenvolvimento, em loopback.
+- **Diferencial:** `confirmed` só com todos os critérios e controles; abstenção
+  explícita (`suspected`/`inconclusive`); evidência com manifesto e hashes, sem gravar
+  corpos, cookies ou valores; escopo seguro por construção. Na campanha formal, uma
+  heurística simples sobre a mesma evidência gerou 39 falsos positivos em exposição,
+  18 em SQLi e 15 em cada condição de XSS; o ProbeKit não gerou nenhum confirmado, ao
+  custo de abstenções declaradas.
+- **O que não é:** não substitui sqlmap, OWASP ZAP ou Burp Suite (somente GET, sem
+  autenticação, sem extração de dados, descoberta HTML estática).
+
+Detalhes: [propósito e diferencial](docs/PROPOSITO_E_DIFERENCIAL.md),
+[modelo de detecção e evolução](docs/MODELO_DE_DETECCAO.md),
+[impacto e mitigação](docs/IMPACTO_E_MITIGACAO.md),
+[detectabilidade e regras de IDS](docs/DETECTABILIDADE_IDS.md) e
+[comparação com sqlmap e ZAP](docs/COMPARACAO_FERRAMENTAS.md).
+
+## Como o ProbeKit decide
+
+| Módulo | Evidência exigida para `confirmed` |
+| --- | --- |
+| SQLi | referências estáveis; aspa escapada e controle literal sem efeito; dois pares booleanos (verdadeiro igual à referência, falso vazio); erro SQL diferencial; recuperação igual à referência |
+| XSS | marcador ausente nos controles; duas reflexões independentes; contexto potencialmente executável; execução do callback observada no navegador |
+| exposure | HTTP 200 estável, estrutura compatível com o tipo do arquivo, não-HTML e diferente dos caminhos inexistentes de controle |
+
+Sem todos os critérios, o resultado é `suspected` (há indício específico) ou
+`inconclusive` (não há como concluir); `not_detected` nunca prova ausência de
+vulnerabilidade. [Fluxo completo e evolução planejada](docs/MODELO_DE_DETECCAO.md).
+
 ## Requisitos e instalação no Windows 11
 
 | Componente | Uso |
@@ -309,6 +348,8 @@ tentativas parciais identificadas; novos relatórios locais ficam em `reports/`.
 - [Preparação para publicação e instalação limpa](docs/PUBLICACAO.md)
 - [Descoberta](docs/DESCOBERTA.md), [SQLi](docs/SQLI_GENERALIZADO.md), [XSS](docs/XSS_REFLETIDO.md) e [exposure](docs/EXPOSICAO_ARQUIVOS.md)
 - [Controles SQLite](docs/CONTROLE_NEGATIVO.md), [fluxo integrado](docs/SCAN_INTEGRADO.md) e [progresso](docs/PROGRESSO.md)
+- [Propósito e diferencial](docs/PROPOSITO_E_DIFERENCIAL.md), [modelo de detecção](docs/MODELO_DE_DETECCAO.md), [impacto e mitigação](docs/IMPACTO_E_MITIGACAO.md), [detectabilidade e regras de IDS](docs/DETECTABILIDADE_IDS.md), [comparação com sqlmap e ZAP](docs/COMPARACAO_FERRAMENTAS.md) e [roteiro da apresentação](docs/ROTEIRO_APRESENTACAO.md)
+- [Índice de todos os documentos](docs/README.md)
 
 O repositório ainda não contém arquivo de licença; a escolha pelo responsável
 permanece pendente antes da publicação com termos de reutilização definidos.

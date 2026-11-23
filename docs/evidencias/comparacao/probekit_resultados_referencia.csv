@@ -1,0 +1,16 @@
+caso,modulo,descricao,gabarito,probekit_resultado,requisicoes,tempo_s,codigo_saida
+S01,sqli,"JSON, LIKE",vulnerável,confirmed,10,2.14,0
+S02,sqli,"JSON, parametrizado",seguro,not_detected,10,2.12,0
+S03,sqli,"HTML, LIKE",vulnerável,confirmed,10,2.07,0
+S04,sqli,"HTML, parametrizado",seguro,not_detected,10,2.14,0
+S05,sqli,"texto, LIKE",vulnerável,confirmed,10,2.07,0
+S06,sqli,"texto, parametrizado",seguro,not_detected,10,2.1,0
+S07,sqli,igualdade entre aspas,vulnerável,confirmed,10,2.13,0
+S08,sqli,"igualdade, parametrizado",seguro,not_detected,10,2.21,0
+X01,xss,texto HTML sem escape,vulnerável,suspected,10,2.09,0
+X02,xss,texto HTML escapado,seguro,reflected_safe,10,2.12,0
+X03,xss,atributo sem escape,vulnerável,suspected,10,2.1,0
+X04,xss,atributo escapado,seguro,reflected_safe,10,2.12,0
+X05,xss,script sem escape,vulnerável,suspected,10,2.22,0
+X06,xss,script escapado,seguro,suspected,10,2.22,0
+E01,exposure,raiz: .env e backup.sql expostos; config.ini e .bak não,"2 vulneráveis, 2 seguros","confirmed (2 confirmed, 2 not_detected)",16,3.41,0

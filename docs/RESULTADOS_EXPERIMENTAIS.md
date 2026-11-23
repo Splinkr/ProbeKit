@@ -242,7 +242,13 @@ promessa de anonimato absoluto.
 
 ## 14. Conclusões fundamentadas
 
-Os resultados demonstram somente o comportamento nas unidades/configurações registradas. O grau de confirmação, suspeita e abstenção deve ser apresentado junto às taxas conclusivas. A aplicação complexa mostra cobertura observada e o efeito de fornecer uma URL manual; não certifica segurança da aplicação. Na apresentação acadêmica, mostrar a matriz principal, abstenções, contraste A/B e descoberta automática versus manual, sem omitir diagnósticos desfavoráveis.
+**O que os dados sustentam.** Nas unidades e configurações registradas (165 execuções, três repetições, 84 de 84 combinações idênticas), o ProbeKit confirmou 18 de 18 slots de SQLi vulneráveis e 21 de 21 de exposição, e não produziu falso positivo confirmado em nenhum caso seguro (18 de SQLi, 54 de exposição, 15 de XSS e os diagnósticos). Em XSS a confirmação depende de prova de execução: com navegador, 9 de 9 vulneráveis foram confirmados; sem navegador, os 9 permaneceram `suspected` (0 de 9). Sobre a mesma evidência, a heurística B produziu 39 FP em exposição, 18 em SQLi e 15 em cada condição de XSS.
+
+**O que isso custa.** O conservadorismo tem preço declarado: abstenções (S12 e S13 `inconclusive`; S14 `suspected`), seis suspeitas em caso seguro (X06, nas duas condições), o caso com CSP (X10) `suspected` sem execução observada e cobertura automática estreita no Juice Shop (J01 descobriu 0 parâmetros; com a URL informada, J02 confirmou 3 de 3).
+
+**O que não se pode concluir.** Os resultados descrevem o comportamento nas unidades registradas; não medem a segurança de aplicações reais, não se generalizam para outros bancos, contextos ou frameworks, e `not_detected` nunca equivale a ausência de vulnerabilidade. O conjunto é sintético e pequeno, o gabarito vem das implementações e a heurística B não representa scanners como sqlmap ou ZAP (ver [comparação com ferramentas](COMPARACAO_FERRAMENTAS.md)).
+
+**Como apresentar.** O grau de confirmação, suspeita e abstenção deve acompanhar sempre as taxas conclusivas. A aplicação complexa mostra a cobertura observada e o efeito de fornecer a URL manual; não certifica a segurança da aplicação. Impacto, mitigação e evolução estão em [impacto e mitigação](IMPACTO_E_MITIGACAO.md) e [modelo de detecção](MODELO_DE_DETECCAO.md); o roteiro de apresentação está em [ROTEIRO_APRESENTACAO.md](ROTEIRO_APRESENTACAO.md).
 
 ## 15. Reprodução, artefatos e testes
 

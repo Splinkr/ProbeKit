@@ -1,0 +1,23 @@
+# Regras de detecção do tráfego do ProbeKit (sintaxe estilo Snort/Suricata, como na Aula 07).
+# Escritas a partir das requisições REAIS do scanner capturadas no laboratório (ver docs/DETECTABILIDADE_IDS.md).
+# O conteúdo está na forma como o ProbeKit envia na URL (codificada): ' = %27, espaço = +, = = %3D, ( = %28.
+# Ajuste a porta de destino (8005/8006) ao seu laboratório. Se usar um buffer decodificado (ex.: http.uri
+# do Suricata), troque o conteúdo pelas formas decodificadas e confira na documentação da sua versão.
+
+# 1) Identificação do scanner: o ProbeKit se anuncia no User-Agent (não tenta se disfarçar).
+alert tcp any any -> any any (msg:"ProbeKit - User-Agent WebVulnScanner"; content:"User-Agent: WebVulnScanner/"; nocase; sid:1000201; rev:1;)
+
+# 2) SQLi: sonda booleana (aspas + AND + condição entre parênteses), contextos LIKE e igualdade entre aspas.
+alert tcp any any -> any any (msg:"ProbeKit - SQLi sonda booleana (aspas AND comparacao)"; content:"%27+AND+%28"; nocase; content:"%3D"; distance:0; sid:1000202; rev:1;)
+alert tcp any any -> any any (msg:"ProbeKit - SQLi contexto LIKE"; content:"%27%25%27+LIKE+%27%25"; nocase; sid:1000203; rev:1;)
+
+# 3) XSS: callback inofensivo e marcador exclusivo (WVX + 24 hex + letra da sonda).
+alert tcp any any -> any any (msg:"ProbeKit - XSS callback globalThis.wvxss_"; content:"globalThis.wvxss_"; sid:1000204; rev:1;)
+alert tcp any any -> any any (msg:"ProbeKit - XSS marcador WVX"; pcre:"/=WVX[0-9a-f]{20,}[A-Z]/"; sid:1000205; rev:1;)
+
+# 4) Exposure: caminhos de controle inexistentes e arquivos sensíveis do catálogo fechado.
+alert tcp any any -> any any (msg:"ProbeKit - exposure controle .probekit-missing"; content:"/.probekit-missing-"; sid:1000206; rev:1;)
+alert tcp any any -> any any (msg:"ProbeKit - exposure arquivo sensivel do catalogo"; pcre:"/^GET\s\/(\.env|config\.ini(\.bak)?|backup\.sql|\.git\/HEAD)\sHTTP\//"; sid:1000207; rev:1;)
+
+# 5) Referência: regra de exemplo da Aula 07 (NÃO casa o ProbeKit: ele não envia "or 1=1").
+alert tcp any any -> any any (msg:"Aula07 - Possivel SQL Injection - or 1=1"; content:"or 1=1"; nocase; sid:1000001; rev:1;)
