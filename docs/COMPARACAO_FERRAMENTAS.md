@@ -38,7 +38,13 @@ A heurística nunca perde uma vulnerabilidade (FN igual a zero), mas marca como 
 
 **Protocolo.** Mesmos alvos e mesmos casos para todas as ferramentas (15 casos dos laboratórios: 8 de SQLi, 6 de XSS e 1 de exposição), com todo o tráfego passando por um proxy de registro em loopback que conta as requisições de forma idêntica para cada ferramenta (`experiments/comparison/logproxy.py`). O sqlmap roda apenas para detecção (sem `--dump`), com a configuração padrão e com `--level 5 --risk 3`; o ZAP roda a varredura rápida com a política padrão. Registram-se a versão de cada ferramenta, o resultado por caso (detectou ou não, e o que foi alegado) e o número de requisições. Os comandos exatos estão em `docs/COMPARACAO_FERRAMENTAS.md`.
 
-**Resultados do ProbeKit** (execução de referência com `experiments/comparison/run_probekit_cases.py`, ambiente Linux, Python 3.12, **sem navegador**: por isso os XSS vulneráveis aparecem como `suspected`; com `--xss-browser` a campanha formal confirmou 9 de 9). As células amarelas `[…]` (colunas do sqlmap e do ZAP) devem ser preenchidas após executar o protocolo: resultado por caso (`detectou` ou `não detectou`) e número de requisições medido pelo proxy.
+**Resultados do ProbeKit.** Execução local em **23/11/2026**, no **Windows**, com Python **3.13.9**, Requests **2.34.2**, Node.js **24.19.0** e Microsoft Edge **158.0.4370.33**, usando confirmação em navegador. Comando executado: `.\.venv-evaluation\Scripts\python.exe -m experiments.comparison.run_probekit_cases --xss-browser`.
+
+Os **15 casos terminaram com código de saída zero**, somando **156 requisições**. X01, X03 e X05 foram `confirmed`, com execução observada no navegador; X06 permaneceu `suspected`, conforme a limitação declarada do detector. Os resultados completos, incluindo tempo e código de saída por caso, estão em [probekit_resultados_com_navegador.csv](evidencias/comparacao/probekit_resultados_com_navegador.csv). O [CSV da execução de referência anterior](evidencias/comparacao/probekit_resultados_referencia.csv) foi preservado como histórico.
+
+Antes da campanha, a suíte completa passou com **578 testes aprovados em 193,87 s**, sem falhas, erros ou ignorados, incluindo os **oito testes de navegador**.
+
+As células amarelas `[…]` (colunas do sqlmap e do ZAP) devem ser preenchidas após executar o protocolo: resultado por caso (`detectou` ou `não detectou`) e número de requisições medido pelo proxy.
 
 | Caso | Gabarito | ProbeKit | Req. | sqlmap | Req. | ZAP | Req. |
 | --- | --- | --- | ---: | --- | ---: | --- | ---: |
@@ -50,11 +56,11 @@ A heurística nunca perde uma vulnerabilidade (FN igual a zero), mas marca como 
 | S06 texto, parametrizado | seguro | `not_detected` | 10 | **[…]** | **[…]** | **[…]** | **[…]** |
 | S07 igualdade entre aspas | vulnerável | `confirmed` | 10 | **[…]** | **[…]** | **[…]** | **[…]** |
 | S08 igualdade, parametrizado | seguro | `not_detected` | 10 | **[…]** | **[…]** | **[…]** | **[…]** |
-| X01 texto HTML sem escape | vulnerável | `suspected` | 10 | n/a (só SQLi) | n/a | **[…]** | **[…]** |
+| X01 texto HTML sem escape | vulnerável | `confirmed` | 10 | n/a (só SQLi) | n/a | **[…]** | **[…]** |
 | X02 texto HTML escapado | seguro | `reflected_safe` | 10 | n/a (só SQLi) | n/a | **[…]** | **[…]** |
-| X03 atributo sem escape | vulnerável | `suspected` | 10 | n/a (só SQLi) | n/a | **[…]** | **[…]** |
+| X03 atributo sem escape | vulnerável | `confirmed` | 10 | n/a (só SQLi) | n/a | **[…]** | **[…]** |
 | X04 atributo escapado | seguro | `reflected_safe` | 10 | n/a (só SQLi) | n/a | **[…]** | **[…]** |
-| X05 script sem escape | vulnerável | `suspected` | 10 | n/a (só SQLi) | n/a | **[…]** | **[…]** |
+| X05 script sem escape | vulnerável | `confirmed` | 10 | n/a (só SQLi) | n/a | **[…]** | **[…]** |
 | X06 script escapado | seguro | `suspected` | 10 | n/a (só SQLi) | n/a | **[…]** | **[…]** |
 | E01 raiz: .env e backup.sql expostos; config.ini e .bak não | 2 vulneráveis, 2 seguros | `confirmed (2 confirmed, 2 not_detected)` | 16 | n/a (só SQLi) | n/a | **[…]** | **[…]** |
 
